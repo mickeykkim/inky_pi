@@ -86,7 +86,7 @@ def get_weather_data(latitude: str, longitude: str, exclude: str,
     return response.json()
 
 
-def gen_next_train(data_t: dict, num: int) -> str:
+def _gen_next_train(data_t: dict, num: int) -> str:
     """Generate next train string
 
     String is returned in format:
@@ -111,29 +111,31 @@ def gen_next_train(data_t: dict, num: int) -> str:
         return f'{train_arrival_t} to {dest_stn} - {status}'
     except (KeyError, TypeError):
         try:
+            # Try to get the error message & line wrap over each line
             line_length = 41
             return str(data_t['nrccMessages'][0]['value'])[(num - 1) *
                                                            line_length:num *
                                                            line_length]
         except (KeyError, TypeError):
+            # If getting the error didn't work just return a generic message
             if num == 1:
                 return "Error retrieving train data"
             return ""
 
 
-def convert_farenheit(c_temp: str) -> float:
+def _convert_farenheit(c_temp_str: str) -> float:
     """Helper function to convert Celsius string to Farenheit float value
 
     Args:
-        c_temp (str): Temperature in Celsius
+        c_temp_str (str): Temperature in Celsius
 
     Returns:
         float: Temperature in Farenheit to one decimal point
     """
-    return "{:.1f}".format(float(c_temp) * 9 / 5 + 32)
+    return "{:.1f}".format(float(c_temp_str) * 9 / 5 + 32)
 
 
-def gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
+def _gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
     """Generate current weather string
 
     String is returned in format:
@@ -149,14 +151,14 @@ def gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
     try:
         ctemp = "{:.1f}".format(data_w['current']['temp'] + K_CONV_C)
         str_temp = ctemp + DEG_C if in_celsius else \
-            convert_farenheit(ctemp) + DEG_F
+            _convert_farenheit(ctemp) + DEG_F
         str_status = data_w['current']['weather'][0]['main']
         return f'{str_temp} - {str_status}'
     except (KeyError, TypeError):
         return "Error retrieving weather"
 
 
-def gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
+def _gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
     """Generate today's temperature range string
 
     String is returned in format:
@@ -175,15 +177,15 @@ def gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
         ctemp_max = "{:.1f}".format(data_w['daily'][0]['temp']['max'] +
                                     K_CONV_C)
         str_temp_min = ctemp_min + DEG_C if in_celsius else \
-            convert_farenheit(ctemp_min) + DEG_F
+            _convert_farenheit(ctemp_min) + DEG_F
         str_temp_max = ctemp_max + DEG_C if in_celsius else \
-            convert_farenheit(ctemp_max) + DEG_F
+            _convert_farenheit(ctemp_max) + DEG_F
         return f'Today: {str_temp_min}–{str_temp_max}'
     except (KeyError, TypeError):
         return "Error retrieving range"
 
 
-def gen_today_weather_cond(data_w: dict) -> str:
+def _gen_today_weather_cond(data_w: dict) -> str:
     """Generate today's weather condition string
 
     String is returned in format:
@@ -201,11 +203,11 @@ def gen_today_weather_cond(data_w: dict) -> str:
         return "Error retrieving condition"
 
 
-def gen_large_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_large_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Generate large sun
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -225,11 +227,11 @@ def gen_large_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     imgd.ellipse((x_off + 17, y_off + 17, x_off + 40, y_off + 40), I_BLACK)
 
 
-def gen_small_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_small_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Generate small sun
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -238,11 +240,11 @@ def gen_small_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
                   x_off + 3, y_off), I_BLACK)
 
 
-def gen_large_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_large_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Generate large cloud
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -258,11 +260,11 @@ def gen_large_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     imgd.ellipse((x_off + 40, y_off + 15, x_off + 60, y_off + 35), I_WHITE)
 
 
-def gen_small_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_small_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Generate small cloud
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -278,11 +280,11 @@ def gen_small_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     imgd.ellipse((x_off + 23, y_off + 8, x_off + 33, y_off + 18), I_WHITE)
 
 
-def gen_raindrop(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_raindrop(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Generate rain drop
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -297,59 +299,70 @@ def draw_sun_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Draw large sun icon
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    gen_large_sun(imgd, x_off + 7, y_off)
+    _gen_large_sun(imgd, x_off + 7, y_off)
 
 
 def draw_part_cloud_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Draw large sun + small cloud icons
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    gen_large_sun(imgd, x_off + 7, y_off)
-    gen_small_cloud(imgd, x_off + 26, y_off + 31)
+    _gen_large_sun(imgd, x_off + 7, y_off)
+    _gen_small_cloud(imgd, x_off + 26, y_off + 31)
 
 
 def draw_clouds_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Draw large cloud + small cloud icons
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    gen_large_cloud(imgd, x_off, y_off)
-    gen_small_cloud(imgd, x_off + 30, y_off + 30)
+    _gen_large_cloud(imgd, x_off, y_off)
+    _gen_small_cloud(imgd, x_off + 30, y_off + 30)
 
 
 def draw_cloud_rain_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     """Draw large cloud + rain drops icons
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    gen_large_cloud(imgd, x_off, y_off)
-    gen_raindrop(imgd, x_off + 25, y_off + 45)
-    gen_raindrop(imgd, x_off + 42, y_off + 45)
+    _gen_large_cloud(imgd, x_off, y_off)
+    _gen_raindrop(imgd, x_off + 25, y_off + 45)
+    _gen_raindrop(imgd, x_off + 42, y_off + 45)
 
 
-def draw_date_time_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
-    """Draw date and time text
+def draw_date_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+    """Draw date text
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    imgd.text((x_off, y_off), strftime('%a %d %b %Y- %H:%M'), I_BLACK, FONT_L)
+    imgd.text((x_off, y_off), strftime('%a %d %b %Y'), I_BLACK, FONT_L)
+
+
+def draw_time_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+    """Draw time text
+
+    Args:
+        imgd (ImageDraw): ImageDraw object
+        x_off (int): X position offset
+        y_off (int): Y position offset
+    """
+    imgd.text((x_off, y_off), strftime('%H:%M'), I_BLACK, FONT_L)
 
 
 def draw_train_text(imgd: 'ImageDraw', data_t: dict, x_off: int,
@@ -357,14 +370,14 @@ def draw_train_text(imgd: 'ImageDraw', data_t: dict, x_off: int,
     """Draw all train text
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         data_t (dict): Dictionary data from OpenLDBWS train arrivals JSON req.
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    imgd.text((x_off, y_off), gen_next_train(data_t, 1), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 30), gen_next_train(data_t, 2), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 60), gen_next_train(data_t, 3), I_BLACK, FONT_S)
+    imgd.text((x_off, y_off), _gen_next_train(data_t, 1), I_BLACK, FONT_S)
+    imgd.text((x_off, y_off + 30), _gen_next_train(data_t, 2), I_BLACK, FONT_S)
+    imgd.text((x_off, y_off + 60), _gen_next_train(data_t, 3), I_BLACK, FONT_S)
 
 
 def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
@@ -372,15 +385,15 @@ def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
     """Draw all weather text
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
+        imgd (ImageDraw): ImageDraw object
         data_w (dict): Dictionary data from OpenWeatherMap JSON req.
         x_off (int): X position offset
         y_off (int): Y position offset
     """
-    imgd.text((x_off, y_off), gen_curr_weather(data_w), I_BLACK, FONT_L)
-    imgd.text((x_off, y_off + 50), gen_today_temp_range(data_w), I_BLACK,
+    imgd.text((x_off, y_off), _gen_curr_weather(data_w), I_BLACK, FONT_L)
+    imgd.text((x_off, y_off + 50), _gen_today_temp_range(data_w), I_BLACK,
               FONT_M)
-    imgd.text((x_off + 10, y_off + 80), gen_today_weather_cond(data_w),
+    imgd.text((x_off + 10, y_off + 85), _gen_today_weather_cond(data_w),
               I_BLACK, FONT_M)
 
 
@@ -417,8 +430,8 @@ def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
     """Draws specified icon
 
     Args:
-        imgd ('ImageDraw'): ImageDraw object
-        icon (IconType): icon to draw
+        imgd (ImageDraw): ImageDraw object
+        icon (IconType): Weather IconType to draw
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -443,7 +456,8 @@ img = Image.new('P', (I_DISPLAY.WIDTH, I_DISPLAY.HEIGHT))
 draw = ImageDraw.Draw(img)
 
 # Draw text and weather icon
-draw_date_time_text(draw, 10, 10)
+draw_date_text(draw, 10, 10)
+draw_time_text(draw, 300, 10)
 draw_train_text(draw, data_train, 10, 60)
 draw_weather_text(draw, data_weather, 10, 160)
 draw_weather_icon(draw, get_weather_type(data_weather), 300, 200)
