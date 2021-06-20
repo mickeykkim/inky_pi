@@ -20,6 +20,7 @@ FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
 
 # Train constants - i.e. Maze Hill to London Bridge, next 3 departing trains
+# CRS station codes: https://huxley2.azurewebsites.net/crs/london%20terminals
 T_STATION_FROM = 'MZH'
 T_STATION_TO = 'LBG'
 T_NUM_DEPARTURES = 3
@@ -85,34 +86,35 @@ def get_weather_data(latitude: str, longitude: str, exclude: str,
     return response.json()
 
 
-def gen_next_train(data: dict, num: int) -> str:
+def gen_next_train(data_t: dict, num: int) -> str:
     """Generate next train string
 
     String is returned in format:
         [hh:mm] to [Final Destination Station] - [Status]
 
     Args:
-        data (dict): Dictionary data from OpenLDBWS train arrivals JSON request
+        data_t (dict): Dictionary data from OpenLDBWS train arrivals JSON req.
         num (int): Next train departing number
 
     Returns:
         str: Formatted string or error message
     """
     try:
-        dest_stn = data['trainServices'][num - 1]['origin'][0]['locationName']
+        dest_stn = data_t['trainServices'][num -
+                                           1]['origin'][0]['locationName']
         # Check if on time ('sta') or cancelled/delayed ('std')
-        if 'sta' in data['trainServices'][num - 1]:
-            train_arrival_t = data['trainServices'][num - 1]['sta']
-        elif 'std' in data['trainServices'][num - 1]:
-            train_arrival_t = data['trainServices'][num - 1]['std']
-        status = data['trainServices'][num - 1]['eta']
+        if 'sta' in data_t['trainServices'][num - 1]:
+            train_arrival_t = data_t['trainServices'][num - 1]['sta']
+        elif 'std' in data_t['trainServices'][num - 1]:
+            train_arrival_t = data_t['trainServices'][num - 1]['std']
+        status = data_t['trainServices'][num - 1]['eta']
         return f'{train_arrival_t} to {dest_stn} - {status}'
     except (KeyError, TypeError):
         try:
             line_length = 41
-            return str(
-                data['nrccMessages'][0]['value'])[(num - 1) * line_length:num *
-                                                  line_length]
+            return str(data_t['nrccMessages'][0]['value'])[(num - 1) *
+                                                           line_length:num *
+                                                           line_length]
         except (KeyError, TypeError):
             if num == 1:
                 return "Error retrieving train data"
@@ -131,45 +133,47 @@ def convert_farenheit(c_temp: str) -> float:
     return "{:.1f}".format(float(c_temp) * 9 / 5 + 32)
 
 
-def gen_curr_weather(data: dict, in_celsius: bool = True) -> str:
+def gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
     """Generate current weather string
 
     String is returned in format:
         [XX.X]°[C/F] - [Current Weather]
 
     Args:
-        data (dict): Dictionary data from OpenWeatherMap JSON request
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
         in_celsius (bool): If True, formats for °C; otherwise formats for °F
 
     Returns:
         str: Formatted string or error message
     """
     try:
-        ctemp = "{:.1f}".format(data['current']['temp'] + K_CONV_C)
+        ctemp = "{:.1f}".format(data_w['current']['temp'] + K_CONV_C)
         str_temp = ctemp + DEG_C if in_celsius else \
             convert_farenheit(ctemp) + DEG_F
-        str_status = data['current']['weather'][0]['main']
+        str_status = data_w['current']['weather'][0]['main']
         return f'{str_temp} - {str_status}'
     except (KeyError, TypeError):
         return "Error retrieving weather"
 
 
-def gen_today_temp_range(data: dict, in_celsius: bool = True) -> str:
+def gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
     """Generate today's temperature range string
 
     String is returned in format:
         Today: [XX.X min]°[C/F]–[XX.X max]°[C/F]
 
     Args:
-        data (dict): Dictionary data from OpenWeatherMap JSON request
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
         in_celsius (bool): If True, formats for °C; otherwise formats for °F
 
     Returns:
         str: Formatted string or error message
     """
     try:
-        ctemp_min = "{:.1f}".format(data['daily'][0]['temp']['min'] + K_CONV_C)
-        ctemp_max = "{:.1f}".format(data['daily'][0]['temp']['max'] + K_CONV_C)
+        ctemp_min = "{:.1f}".format(data_w['daily'][0]['temp']['min'] +
+                                    K_CONV_C)
+        ctemp_max = "{:.1f}".format(data_w['daily'][0]['temp']['max'] +
+                                    K_CONV_C)
         str_temp_min = ctemp_min + DEG_C if in_celsius else \
             convert_farenheit(ctemp_min) + DEG_F
         str_temp_max = ctemp_max + DEG_C if in_celsius else \
@@ -179,20 +183,20 @@ def gen_today_temp_range(data: dict, in_celsius: bool = True) -> str:
         return "Error retrieving range"
 
 
-def gen_today_weather_cond(data: dict) -> str:
+def gen_today_weather_cond(data_w: dict) -> str:
     """Generate today's weather condition string
 
     String is returned in format:
         [weather condition]
 
     Args:
-        data (dict): Dictionary data from OpenWeatherMap JSON request
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
 
     Returns:
         str: Formatted string or error message
     """
     try:
-        return data['daily'][0]['weather'][0]['description']
+        return data_w['daily'][0]['weather'][0]['description']
     except (KeyError, TypeError):
         return "Error retrieving condition"
 
@@ -354,7 +358,7 @@ def draw_train_text(imgd: 'ImageDraw', data_t: dict, x_off: int,
 
     Args:
         imgd ('ImageDraw'): ImageDraw object
-        data_t (dict): Dictionary data from OpenLDBWS train arrivals json
+        data_t (dict): Dictionary data from OpenLDBWS train arrivals JSON req.
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -369,7 +373,7 @@ def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
 
     Args:
         imgd ('ImageDraw'): ImageDraw object
-        data_w (dict): Dictionary data from openweathermap json
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
         x_off (int): X position offset
         y_off (int): Y position offset
     """
@@ -378,6 +382,34 @@ def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
               FONT_M)
     imgd.text((x_off + 10, y_off + 80), gen_today_weather_cond(data_w),
               I_BLACK, FONT_M)
+
+
+def get_weather_type(data_w: dict) -> 'IconType':
+    """Retrieves weather type from current OpenWeatherMap weather icon
+
+    Full list of icons/codes: https://openweathermap.org/weather-conditions
+
+    Args:
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
+
+    Returns:
+        IconType: Weather IconType
+    """
+    # Get first two code characters
+    # Third character is 'd/n' for day/night; !TODO: implement day/night icons
+    weather_code = str(data_w['current']['weather'][0]['icon'])[0:2]
+    dispatcher = {
+        '01': IconType.sun,  # "clear sky"
+        '02': IconType.part_cloud,  # "few clouds"
+        '03': IconType.clouds,  # "scattered clouds"
+        '04': IconType.clouds,  # "broken clouds"
+        '09': IconType.rain,  # "shower rain"
+        '10': IconType.rain,  # "rain"
+        '11': IconType.rain,  # !TODO: implement "thunderstorm"
+        '13': IconType.rain,  # !TODO: implement "snow"
+        '50': IconType.clouds,  # !TODO: implement "mist"
+    }
+    return dispatcher[weather_code]
 
 
 def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
@@ -412,10 +444,9 @@ draw = ImageDraw.Draw(img)
 
 # Draw text and weather icon
 draw_date_time_text(draw, 10, 10)
-draw_train_text(draw, data_train, 10, 50)
+draw_train_text(draw, data_train, 10, 60)
 draw_weather_text(draw, data_weather, 10, 160)
-w_icon = IconType.rain
-draw_weather_icon(draw, w_icon, 300, 200)
+draw_weather_icon(draw, get_weather_type(data_weather), 300, 200)
 
 # Render border, images (w/text) on inky screen and show on display
 I_DISPLAY.set_border(I_BLACK)
