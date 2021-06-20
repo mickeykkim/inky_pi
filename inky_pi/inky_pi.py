@@ -3,6 +3,7 @@ from enum import Enum, auto
 from time import strftime
 
 import requests
+# For some reason the linter can't find this font in the module
 # pylint: disable=no-name-in-module
 from font_hanken_grotesk import HankenGroteskBold
 from inky import InkyWHAT
@@ -14,15 +15,16 @@ I_BLACK = I_DISPLAY.BLACK
 I_WHITE = I_DISPLAY.WHITE
 
 # Font constants
-FONT_S = ImageFont.truetype(HankenGroteskBold, 25)
+FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
+FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
 
-# Train constants - i.e. from Maze Hill to London Bridge, 3 trains
+# Train constants - i.e. Maze Hill to London Bridge, next 3 departing trains
 T_STATION_FROM = 'MZH'
 T_STATION_TO = 'LBG'
-T_NUM_ARRIVALS = 3
+T_NUM_DEPARTURES = 3
 
-# Weather constants - i.e. @London, GB, exclude minutely,hourly data
+# Weather constants - i.e. lat, lon @London, GB, exclude minutely, hourly data
 W_LATITUDE = 51.5085
 W_LONGITUDE = -0.1257
 W_EXCLUDE = 'minutely,hourly'
@@ -97,14 +99,20 @@ def gen_next_train(data: dict, num: int) -> str:
         str: Formatted string or error message
     """
     try:
-        str_station = \
-            data['trainServices'][num - 1]['origin'][0]['locationName']
-        str_train_t = data['trainServices'][num - 1]['sta']
-        return f'{str(num)}) {str_station} - {str_train_t}'
+        dest_stn = data['trainServices'][num - 1]['origin'][0]['locationName']
+        # Check if on time ('sta') or cancelled/delayed ('std')
+        if 'sta' in data['trainServices'][num - 1]:
+            train_arrival_t = data['trainServices'][num - 1]['sta']
+        elif 'std' in data['trainServices'][num - 1]:
+            train_arrival_t = data['trainServices'][num - 1]['std']
+        status = data['trainServices'][num - 1]['eta']
+        return f'{train_arrival_t} to {dest_stn} - {status}'
     except (KeyError, TypeError):
         try:
-            return str(data['nrccMessages'][0]['value'])[(num - 1) * 33:num *
-                                                         33]
+            line_length = 41
+            return str(
+                data['nrccMessages'][0]['value'])[(num - 1) * line_length:num *
+                                                  line_length]
         except (KeyError, TypeError):
             if num == 1:
                 return "Error retrieving train data"
@@ -206,9 +214,9 @@ def draw_all_text(imgd: 'ImageDraw', data_t: dict, data_w: dict, x_off: int,
     imgd.text((x_off, y_off + 110), gen_next_train(data_t, 3), I_BLACK, FONT_S)
     imgd.text((x_off, y_off + 160), gen_curr_weather(data_w), I_BLACK, FONT_L)
     imgd.text((x_off, y_off + 210), gen_today_temp_range(data_w), I_BLACK,
-              FONT_S)
+              FONT_M)
     imgd.text((x_off + 10, y_off + 240), gen_today_weather_cond(data_w),
-              I_BLACK, FONT_S)
+              I_BLACK, FONT_M)
 
 
 def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
@@ -371,7 +379,7 @@ def draw_cloud_rain_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
 
 
 # Send requests to API endpoints for train and weather data
-data_train = get_train_data(T_STATION_FROM, T_STATION_TO, T_NUM_ARRIVALS)
+data_train = get_train_data(T_STATION_FROM, T_STATION_TO, T_NUM_DEPARTURES)
 data_weather = get_weather_data(W_LATITUDE, W_LONGITUDE, W_EXCLUDE, W_API_KEY)
 # Check for errors in weather response, i.e. API key is invalid (cod == 401)
 if 'cod' in data_weather:
