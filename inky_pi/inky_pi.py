@@ -89,11 +89,11 @@ def gen_next_train(data: dict, num: int) -> str:
     """Generate next train string
 
     String is returned in format:
-        [num]) [Train Station] - [HH:MM Time]
+        [hh:mm] to [Final Destination Station] - [Status]
 
     Args:
         data (dict): Dictionary data from OpenLDBWS train arrivals JSON request
-        num (int): Next train number
+        num (int): Next train departing number
 
     Returns:
         str: Formatted string or error message
@@ -139,7 +139,7 @@ def gen_curr_weather(data: dict, in_celsius: bool = True) -> str:
 
     Args:
         data (dict): Dictionary data from OpenWeatherMap JSON request
-        in_celsius (bool): If True, formats for C; otherwise formats for F
+        in_celsius (bool): If True, formats for °C; otherwise formats for °F
 
     Returns:
         str: Formatted string or error message
@@ -162,7 +162,7 @@ def gen_today_temp_range(data: dict, in_celsius: bool = True) -> str:
 
     Args:
         data (dict): Dictionary data from OpenWeatherMap JSON request
-        in_celsius (bool): If True, formats for C; otherwise formats for F
+        in_celsius (bool): If True, formats for °C; otherwise formats for °F
 
     Returns:
         str: Formatted string or error message
@@ -195,47 +195,6 @@ def gen_today_weather_cond(data: dict) -> str:
         return data['daily'][0]['weather'][0]['description']
     except (KeyError, TypeError):
         return "Error retrieving condition"
-
-
-def draw_all_text(imgd: 'ImageDraw', data_t: dict, data_w: dict, x_off: int,
-                  y_off: int) -> None:
-    """Draw all text for train and weather data
-
-    Args:
-        imgd ('ImageDraw'): ImageDraw object
-        data_t (dict): Dictionary data from OpenLDBWS train arrivals json
-        data_w (dict): Dictionary data from openweathermap json
-        x_off (int): X position offset
-        y_off (int): Y position offset
-    """
-    imgd.text((x_off, y_off), strftime('%a %d %b %Y- %H:%M'), I_BLACK, FONT_L)
-    imgd.text((x_off, y_off + 50), gen_next_train(data_t, 1), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 80), gen_next_train(data_t, 2), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 110), gen_next_train(data_t, 3), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 160), gen_curr_weather(data_w), I_BLACK, FONT_L)
-    imgd.text((x_off, y_off + 210), gen_today_temp_range(data_w), I_BLACK,
-              FONT_M)
-    imgd.text((x_off + 10, y_off + 240), gen_today_weather_cond(data_w),
-              I_BLACK, FONT_M)
-
-
-def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
-                      y_off: int) -> None:
-    """Draws specified icon
-
-    Args:
-        imgd ('ImageDraw'): ImageDraw object
-        icon (IconType): icon to draw
-        x_off (int): X position offset
-        y_off (int): Y position offset
-    """
-    dispatcher = {
-        IconType.sun: draw_sun_icon,
-        IconType.clouds: draw_clouds_icon,
-        IconType.part_cloud: draw_part_cloud_icon,
-        IconType.rain: draw_cloud_rain_icon,
-    }
-    dispatcher[icon](imgd, x_off, y_off)
 
 
 def gen_large_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
@@ -378,6 +337,68 @@ def draw_cloud_rain_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
     gen_raindrop(imgd, x_off + 42, y_off + 45)
 
 
+def draw_date_time_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+    """Draw date and time text
+
+    Args:
+        imgd ('ImageDraw'): ImageDraw object
+        x_off (int): X position offset
+        y_off (int): Y position offset
+    """
+    imgd.text((x_off, y_off), strftime('%a %d %b %Y- %H:%M'), I_BLACK, FONT_L)
+
+
+def draw_train_text(imgd: 'ImageDraw', data_t: dict, x_off: int,
+                    y_off: int) -> None:
+    """Draw all train text
+
+    Args:
+        imgd ('ImageDraw'): ImageDraw object
+        data_t (dict): Dictionary data from OpenLDBWS train arrivals json
+        x_off (int): X position offset
+        y_off (int): Y position offset
+    """
+    imgd.text((x_off, y_off), gen_next_train(data_t, 1), I_BLACK, FONT_S)
+    imgd.text((x_off, y_off + 30), gen_next_train(data_t, 2), I_BLACK, FONT_S)
+    imgd.text((x_off, y_off + 60), gen_next_train(data_t, 3), I_BLACK, FONT_S)
+
+
+def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
+                      y_off: int) -> None:
+    """Draw all weather text
+
+    Args:
+        imgd ('ImageDraw'): ImageDraw object
+        data_w (dict): Dictionary data from openweathermap json
+        x_off (int): X position offset
+        y_off (int): Y position offset
+    """
+    imgd.text((x_off, y_off), gen_curr_weather(data_w), I_BLACK, FONT_L)
+    imgd.text((x_off, y_off + 50), gen_today_temp_range(data_w), I_BLACK,
+              FONT_M)
+    imgd.text((x_off + 10, y_off + 80), gen_today_weather_cond(data_w),
+              I_BLACK, FONT_M)
+
+
+def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
+                      y_off: int) -> None:
+    """Draws specified icon
+
+    Args:
+        imgd ('ImageDraw'): ImageDraw object
+        icon (IconType): icon to draw
+        x_off (int): X position offset
+        y_off (int): Y position offset
+    """
+    dispatcher = {
+        IconType.sun: draw_sun_icon,
+        IconType.clouds: draw_clouds_icon,
+        IconType.part_cloud: draw_part_cloud_icon,
+        IconType.rain: draw_cloud_rain_icon,
+    }
+    dispatcher[icon](imgd, x_off, y_off)
+
+
 # Send requests to API endpoints for train and weather data
 data_train = get_train_data(T_STATION_FROM, T_STATION_TO, T_NUM_DEPARTURES)
 data_weather = get_weather_data(W_LATITUDE, W_LONGITUDE, W_EXCLUDE, W_API_KEY)
@@ -390,7 +411,9 @@ img = Image.new('P', (I_DISPLAY.WIDTH, I_DISPLAY.HEIGHT))
 draw = ImageDraw.Draw(img)
 
 # Draw text and weather icon
-draw_all_text(draw, data_train, data_weather, 10, 10)
+draw_date_time_text(draw, 10, 10)
+draw_train_text(draw, data_train, 10, 50)
+draw_weather_text(draw, data_weather, 10, 160)
 w_icon = IconType.rain
 draw_weather_icon(draw, w_icon, 300, 200)
 
