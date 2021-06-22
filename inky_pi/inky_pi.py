@@ -46,8 +46,8 @@ class IconType(Enum):
     rain = auto()
 
 
-def get_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
-    """Get train data from huxley2 (OpenLDBWS) train arrivals API endpoint
+def req_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
+    """Requests train data from huxley2 (OpenLDBWS) train arrivals API endpoint
 
     Args:
         stn_from (str): From station
@@ -62,9 +62,9 @@ def get_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
     return response.json()
 
 
-def get_weather_data(latitude: str, longitude: str, exclude: str,
+def req_weather_data(latitude: str, longitude: str, exclude: str,
                      api_key: str) -> dict:
-    """Get weather data from OpenWeatherMap 7-day forecast API endpoint
+    """Requests weather data from OpenWeatherMap 7-day forecast API endpoint
 
     Args:
         latitude (str): Location latitude
@@ -203,201 +203,201 @@ def _gen_today_weather_cond(data_w: dict) -> str:
         return "Error retrieving condition"
 
 
-def _gen_large_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_large_sun(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Generate large sun
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
     # Protruding rays
-    imgd.polygon((x_off + 29, y_off, x_off + 34, y_off + 16, x_off + 24,
-                  y_off + 16, x_off + 29, y_off), I_BLACK, 5)  # Top
-    imgd.polygon((x_off + 29, y_off + 56, x_off + 34, y_off + 46, x_off + 24,
-                  y_off + 46, x_off + 29, y_off + 56), I_BLACK, 5)  # Bottom
-    imgd.polygon((x_off, y_off + 28, x_off + 17, y_off + 23, x_off + 17,
-                  y_off + 33, x_off + 1, y_off + 28), I_BLACK, 5)  # Left
-    imgd.polygon((x_off + 57, y_off + 28, x_off + 41, y_off + 23, x_off + 41,
-                  y_off + 33, x_off + 57, y_off + 28), I_BLACK, 5)  # Right
-    imgd.line((x_off + 10, y_off + 10, x_off + 47, y_off + 47), I_BLACK, 5)
-    imgd.line((x_off + 10, y_off + 47, x_off + 47, y_off + 10), I_BLACK, 5)
+    draw.polygon((x_pos + 29, y_pos, x_pos + 34, y_pos + 16, x_pos + 24,
+                  y_pos + 16, x_pos + 29, y_pos), I_BLACK, 5)  # Top
+    draw.polygon((x_pos + 29, y_pos + 56, x_pos + 34, y_pos + 46, x_pos + 24,
+                  y_pos + 46, x_pos + 29, y_pos + 56), I_BLACK, 5)  # Bottom
+    draw.polygon((x_pos, y_pos + 28, x_pos + 17, y_pos + 23, x_pos + 17,
+                  y_pos + 33, x_pos + 1, y_pos + 28), I_BLACK, 5)  # Left
+    draw.polygon((x_pos + 57, y_pos + 28, x_pos + 41, y_pos + 23, x_pos + 41,
+                  y_pos + 33, x_pos + 57, y_pos + 28), I_BLACK, 5)  # Right
+    draw.line((x_pos + 10, y_pos + 10, x_pos + 47, y_pos + 47), I_BLACK, 5)
+    draw.line((x_pos + 10, y_pos + 47, x_pos + 47, y_pos + 10), I_BLACK, 5)
     # Sun circle
-    imgd.ellipse((x_off + 12, y_off + 12, x_off + 45, y_off + 45), I_WHITE)
-    imgd.ellipse((x_off + 17, y_off + 17, x_off + 40, y_off + 40), I_BLACK)
+    draw.ellipse((x_pos + 12, y_pos + 12, x_pos + 45, y_pos + 45), I_WHITE)
+    draw.ellipse((x_pos + 17, y_pos + 17, x_pos + 40, y_pos + 40), I_BLACK)
 
 
-def _gen_small_sun(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_small_sun(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Generate small sun
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    imgd.ellipse((x_off + 3, y_off + 3, x_off + 8, y_off + 7), I_BLACK)
-    imgd.polygon((x_off, y_off, x_off + 6, y_off + 6, x_off + 7, y_off + 3,
-                  x_off + 3, y_off), I_BLACK)
+    draw.ellipse((x_pos + 3, y_pos + 3, x_pos + 8, y_pos + 7), I_BLACK)
+    draw.polygon((x_pos, y_pos, x_pos + 6, y_pos + 6, x_pos + 7, y_pos + 3,
+                  x_pos + 3, y_pos), I_BLACK)
 
 
-def _gen_large_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_large_cloud(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Generate large cloud
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
     # Outline
-    imgd.ellipse((x_off, y_off + 20, x_off + 20, y_off + 40), I_BLACK)
-    imgd.ellipse((x_off + 5, y_off + 10, x_off + 35, y_off + 40), I_BLACK)
-    imgd.ellipse((x_off + 15, y_off, x_off + 55, y_off + 40), I_BLACK)
-    imgd.ellipse((x_off + 35, y_off + 10, x_off + 65, y_off + 40), I_BLACK)
+    draw.ellipse((x_pos, y_pos + 20, x_pos + 20, y_pos + 40), I_BLACK)
+    draw.ellipse((x_pos + 5, y_pos + 10, x_pos + 35, y_pos + 40), I_BLACK)
+    draw.ellipse((x_pos + 15, y_pos, x_pos + 55, y_pos + 40), I_BLACK)
+    draw.ellipse((x_pos + 35, y_pos + 10, x_pos + 65, y_pos + 40), I_BLACK)
     # Negative Space
-    imgd.ellipse((x_off + 5, y_off + 25, x_off + 15, y_off + 35), I_WHITE)
-    imgd.ellipse((x_off + 10, y_off + 15, x_off + 30, y_off + 35), I_WHITE)
-    imgd.ellipse((x_off + 20, y_off + 5, x_off + 50, y_off + 35), I_WHITE)
-    imgd.ellipse((x_off + 40, y_off + 15, x_off + 60, y_off + 35), I_WHITE)
+    draw.ellipse((x_pos + 5, y_pos + 25, x_pos + 15, y_pos + 35), I_WHITE)
+    draw.ellipse((x_pos + 10, y_pos + 15, x_pos + 30, y_pos + 35), I_WHITE)
+    draw.ellipse((x_pos + 20, y_pos + 5, x_pos + 50, y_pos + 35), I_WHITE)
+    draw.ellipse((x_pos + 40, y_pos + 15, x_pos + 60, y_pos + 35), I_WHITE)
 
 
-def _gen_small_cloud(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_small_cloud(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Generate small cloud
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
     # Outline
-    imgd.ellipse((x_off, y_off + 10, x_off + 11, y_off + 21), I_BLACK)
-    imgd.ellipse((x_off + 5, y_off + 5, x_off + 21, y_off + 21), I_BLACK)
-    imgd.ellipse((x_off + 10, y_off, x_off + 31, y_off + 21), I_BLACK)
-    imgd.ellipse((x_off + 20, y_off + 5, x_off + 36, y_off + 21), I_BLACK)
+    draw.ellipse((x_pos, y_pos + 10, x_pos + 11, y_pos + 21), I_BLACK)
+    draw.ellipse((x_pos + 5, y_pos + 5, x_pos + 21, y_pos + 21), I_BLACK)
+    draw.ellipse((x_pos + 10, y_pos, x_pos + 31, y_pos + 21), I_BLACK)
+    draw.ellipse((x_pos + 20, y_pos + 5, x_pos + 36, y_pos + 21), I_BLACK)
     # Negative Space
-    imgd.ellipse((x_off + 3, y_off + 13, x_off + 8, y_off + 18), I_WHITE)
-    imgd.ellipse((x_off + 8, y_off + 8, x_off + 18, y_off + 18), I_WHITE)
-    imgd.ellipse((x_off + 13, y_off + 3, x_off + 28, y_off + 18), I_WHITE)
-    imgd.ellipse((x_off + 23, y_off + 8, x_off + 33, y_off + 18), I_WHITE)
+    draw.ellipse((x_pos + 3, y_pos + 13, x_pos + 8, y_pos + 18), I_WHITE)
+    draw.ellipse((x_pos + 8, y_pos + 8, x_pos + 18, y_pos + 18), I_WHITE)
+    draw.ellipse((x_pos + 13, y_pos + 3, x_pos + 28, y_pos + 18), I_WHITE)
+    draw.ellipse((x_pos + 23, y_pos + 8, x_pos + 33, y_pos + 18), I_WHITE)
 
 
-def _gen_raindrop(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def _gen_raindrop(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Generate rain drop
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
     # Tail
-    imgd.ellipse((x_off + 3, y_off + 3, x_off + 8, y_off + 7), I_BLACK)
+    draw.ellipse((x_pos + 3, y_pos + 3, x_pos + 8, y_pos + 7), I_BLACK)
     # Head
-    imgd.polygon((x_off, y_off, x_off + 6, y_off + 6, x_off + 7, y_off + 3,
-                  x_off + 3, y_off), I_BLACK)
+    draw.polygon((x_pos, y_pos, x_pos + 6, y_pos + 6, x_pos + 7, y_pos + 3,
+                  x_pos + 3, y_pos), I_BLACK)
 
 
-def draw_sun_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_sun_icon(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw large sun icon
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    _gen_large_sun(imgd, x_off + 7, y_off)
+    _gen_large_sun(draw, x_pos + 7, y_pos)
 
 
-def draw_part_cloud_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_part_cloud_icon(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw large sun + small cloud icons
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    _gen_large_sun(imgd, x_off + 7, y_off)
-    _gen_small_cloud(imgd, x_off + 26, y_off + 31)
+    _gen_large_sun(draw, x_pos + 7, y_pos)
+    _gen_small_cloud(draw, x_pos + 26, y_pos + 31)
 
 
-def draw_clouds_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_clouds_icon(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw large cloud + small cloud icons
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    _gen_large_cloud(imgd, x_off, y_off)
-    _gen_small_cloud(imgd, x_off + 30, y_off + 30)
+    _gen_large_cloud(draw, x_pos, y_pos)
+    _gen_small_cloud(draw, x_pos + 30, y_pos + 30)
 
 
-def draw_cloud_rain_icon(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_cloud_rain_icon(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw large cloud + rain drops icons
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    _gen_large_cloud(imgd, x_off, y_off)
-    _gen_raindrop(imgd, x_off + 25, y_off + 45)
-    _gen_raindrop(imgd, x_off + 42, y_off + 45)
+    _gen_large_cloud(draw, x_pos, y_pos)
+    _gen_raindrop(draw, x_pos + 25, y_pos + 45)
+    _gen_raindrop(draw, x_pos + 42, y_pos + 45)
 
 
-def draw_date_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_date_text(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw date text
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    imgd.text((x_off, y_off), strftime('%a %d %b %Y'), I_BLACK, FONT_L)
+    draw.text((x_pos, y_pos), strftime('%a %d %b %Y'), I_BLACK, FONT_L)
 
 
-def draw_time_text(imgd: 'ImageDraw', x_off: int, y_off: int) -> None:
+def draw_time_text(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
     """Draw time text
 
     Args:
-        imgd (ImageDraw): ImageDraw object
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        draw (ImageDraw): ImageDraw object
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    imgd.text((x_off, y_off), strftime('%H:%M'), I_BLACK, FONT_L)
+    draw.text((x_pos, y_pos), strftime('%H:%M'), I_BLACK, FONT_L)
 
 
-def draw_train_text(imgd: 'ImageDraw', data_t: dict, x_off: int,
-                    y_off: int) -> None:
+def draw_train_text(draw: 'ImageDraw', data_t: dict, x_pos: int,
+                    y_pos: int) -> None:
     """Draw all train text
 
     Args:
-        imgd (ImageDraw): ImageDraw object
+        draw (ImageDraw): ImageDraw object
         data_t (dict): Dictionary data from OpenLDBWS train arrivals JSON req.
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    imgd.text((x_off, y_off), _gen_next_train(data_t, 1), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 30), _gen_next_train(data_t, 2), I_BLACK, FONT_S)
-    imgd.text((x_off, y_off + 60), _gen_next_train(data_t, 3), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos), _gen_next_train(data_t, 1), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos + 30), _gen_next_train(data_t, 2), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos + 60), _gen_next_train(data_t, 3), I_BLACK, FONT_S)
 
 
-def draw_weather_text(imgd: 'ImageDraw', data_w: dict, x_off: int,
-                      y_off: int) -> None:
+def draw_weather_text(draw: 'ImageDraw', data_w: dict, x_pos: int,
+                      y_pos: int) -> None:
     """Draw all weather text
 
     Args:
-        imgd (ImageDraw): ImageDraw object
+        draw (ImageDraw): ImageDraw object
         data_w (dict): Dictionary data from OpenWeatherMap JSON req.
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    imgd.text((x_off, y_off), _gen_curr_weather(data_w), I_BLACK, FONT_L)
-    imgd.text((x_off, y_off + 50), _gen_today_temp_range(data_w), I_BLACK,
+    draw.text((x_pos, y_pos), _gen_curr_weather(data_w), I_BLACK, FONT_L)
+    draw.text((x_pos, y_pos + 50), _gen_today_temp_range(data_w), I_BLACK,
               FONT_M)
-    imgd.text((x_off + 10, y_off + 85), _gen_today_weather_cond(data_w),
+    draw.text((x_pos + 10, y_pos + 85), _gen_today_weather_cond(data_w),
               I_BLACK, FONT_M)
 
 
-def get_weather_type(data_w: dict) -> 'IconType':
+def get_weather_icon(data_w: dict) -> 'IconType':
     """Retrieves weather type from current OpenWeatherMap weather icon
 
     Full list of icons/codes: https://openweathermap.org/weather-conditions
@@ -410,8 +410,8 @@ def get_weather_type(data_w: dict) -> 'IconType':
     """
     # Get first two code characters
     # Third character is 'd/n' for day/night; !TODO: implement day/night icons
-    weather_code = str(data_w['current']['weather'][0]['icon'])[0:2]
-    dispatcher = {
+    icon_code = str(data_w['current']['weather'][0]['icon'])[0:2]
+    weather_map = {
         '01': IconType.sun,  # "clear sky"
         '02': IconType.part_cloud,  # "few clouds"
         '03': IconType.clouds,  # "scattered clouds"
@@ -422,47 +422,58 @@ def get_weather_type(data_w: dict) -> 'IconType':
         '13': IconType.rain,  # !TODO: implement "snow"
         '50': IconType.clouds,  # !TODO: implement "mist"
     }
-    return dispatcher[weather_code]
+    return weather_map[icon_code]
 
 
-def draw_weather_icon(imgd: 'ImageDraw', icon: IconType, x_off: int,
-                      y_off: int) -> None:
+def draw_weather_icon(draw: 'ImageDraw', icon: IconType, x_pos: int,
+                      y_pos: int) -> None:
     """Draws specified icon
 
     Args:
-        imgd (ImageDraw): ImageDraw object
+        draw (ImageDraw): ImageDraw object
         icon (IconType): Weather IconType to draw
-        x_off (int): X position offset
-        y_off (int): Y position offset
+        x_pos (int): X position offset
+        y_pos (int): Y position offset
     """
-    dispatcher = {
+    draw_icon_dispatcher = {
         IconType.sun: draw_sun_icon,
         IconType.clouds: draw_clouds_icon,
         IconType.part_cloud: draw_part_cloud_icon,
         IconType.rain: draw_cloud_rain_icon,
     }
-    dispatcher[icon](imgd, x_off, y_off)
+    draw_icon_dispatcher[icon](draw, x_pos, y_pos)
 
 
-# Send requests to API endpoints for train and weather data
-data_train = get_train_data(T_STATION_FROM, T_STATION_TO, T_NUM_DEPARTURES)
-data_weather = get_weather_data(W_LATITUDE, W_LONGITUDE, W_EXCLUDE, W_API_KEY)
-# Check for errors in weather response, i.e. API key is invalid (cod == 401)
-if 'cod' in data_weather:
-    raise ValueError(data_weather['message'])
+def main() -> None:
+    """inky_pi main function
 
-# Set image drawing objects
-img = Image.new('P', (I_DISPLAY.WIDTH, I_DISPLAY.HEIGHT))
-draw = ImageDraw.Draw(img)
+    Retrieves train and weather data from API endpoints, generates text and
+    weather icon, and draws to inkyWHAT screen.
+    """
+    # Send requests to API endpoints to set train and weather data
+    train_data = req_train_data(T_STATION_FROM, T_STATION_TO, T_NUM_DEPARTURES)
+    weather_data = req_weather_data(W_LATITUDE, W_LONGITUDE, W_EXCLUDE,
+                                    W_API_KEY)
+    # Check for errors in weather response, i.e. API key is invalid (cod==401)
+    if 'cod' in weather_data:
+        raise ValueError(weather_data['message'])
 
-# Draw text and weather icon
-draw_date_text(draw, 10, 10)
-draw_time_text(draw, 300, 10)
-draw_train_text(draw, data_train, 10, 60)
-draw_weather_text(draw, data_weather, 10, 160)
-draw_weather_icon(draw, get_weather_type(data_weather), 300, 200)
+    # Set image drawing variables
+    img = Image.new('P', (I_DISPLAY.WIDTH, I_DISPLAY.HEIGHT))
+    img_draw = ImageDraw.Draw(img)
 
-# Render border, images (w/text) on inky screen and show on display
-I_DISPLAY.set_border(I_BLACK)
-I_DISPLAY.set_image(img)
-I_DISPLAY.show()
+    # Draw text and weather icon
+    draw_date_text(img_draw, 10, 10)
+    draw_time_text(img_draw, 300, 10)
+    draw_train_text(img_draw, train_data, 10, 60)
+    draw_weather_text(img_draw, weather_data, 10, 160)
+    draw_weather_icon(img_draw, get_weather_icon(weather_data), 300, 200)
+
+    # Render border, images (w/text) on inky screen and show on display
+    I_DISPLAY.set_border(I_BLACK)
+    I_DISPLAY.set_image(img)
+    I_DISPLAY.show()
+
+
+if __name__ == "__main__":
+    main()
