@@ -193,7 +193,25 @@ def _gen_today_weather_cond(data_w: dict) -> str:
         str: Formatted string or error message
     """
     try:
-        return data_w['daily'][0]['weather'][0]['description']
+        return "\u2022 " + data_w['daily'][0]['weather'][0]['description']
+    except (KeyError, TypeError):
+        return "Error retrieving condition"
+
+
+def _gen_tomorrow_weather_cond(data_w: dict) -> str:
+    """Generate tomorrow's weather condition string
+
+    String is returned in format:
+        Tomorrow: [weather condition]
+
+    Args:
+        data_w (dict): Dictionary data from OpenWeatherMap JSON req.
+
+    Returns:
+        str: Formatted string or error message
+    """
+    try:
+        return "Tomorrow: " + data_w['daily'][1]['weather'][0]['description']
     except (KeyError, TypeError):
         return "Error retrieving condition"
 
@@ -386,10 +404,12 @@ def draw_weather_text(draw: 'ImageDraw', data_w: dict, x_pos: int,
         y_pos (int): Y position offset
     """
     draw.text((x_pos, y_pos), _gen_curr_weather(data_w), I_BLACK, FONT_L)
-    draw.text((x_pos, y_pos + 50), _gen_today_temp_range(data_w), I_BLACK,
+    draw.text((x_pos, y_pos + 45), _gen_today_temp_range(data_w), I_BLACK,
               FONT_M)
-    draw.text((x_pos + 10, y_pos + 85), _gen_today_weather_cond(data_w),
-              I_BLACK, FONT_M)
+    draw.text((x_pos, y_pos + 75), _gen_today_weather_cond(data_w), I_BLACK,
+              FONT_M)
+    draw.text((x_pos, y_pos + 105), _gen_tomorrow_weather_cond(data_w),
+              I_BLACK, FONT_S)
 
 
 def get_weather_icon(data_w: dict) -> 'IconType':
