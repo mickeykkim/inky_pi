@@ -29,7 +29,7 @@ W_LATITUDE = 51.5085
 W_LONGITUDE = -0.1257
 W_EXCLUDE = 'minutely,hourly'
 # Replace the following w/ your OpenWeatherMap API key & keep it secret:
-W_API_KEY = ""
+W_API_KEY = "751ed6a263a1f33c129240c3a2f1a572"
 
 # Weather conversion/formatting constants
 K_CONV_C = -273.15
@@ -100,7 +100,7 @@ def _gen_next_train(data_t: dict, num: int) -> str:
     """
     try:
         dest_stn = data_t['trainServices'][num -
-                                           1]['origin'][0]['locationName']
+                                           1]['destination'][0]['locationName']
         train_arrival_t = data_t['trainServices'][num - 1]['std']
         status = data_t['trainServices'][num - 1]['etd']
         return f'{train_arrival_t} to {dest_stn} - {status}'
