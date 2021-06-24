@@ -20,9 +20,8 @@ FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
 
 # Train constants - i.e. Maze Hill to London Bridge, next 3 departing trains
-# CRS station codes: https://huxley2.azurewebsites.net/crs/london%20terminals
-T_STATION_FROM = 'MZH'
-T_STATION_TO = 'LBG'
+T_STATION_FROM = 'maze hill'
+T_STATION_TO = 'london bridge'
 T_NUM_DEPARTURES = 3
 
 # Weather constants - i.e. lat, lon @London, GB, exclude minutely, hourly data
@@ -57,8 +56,8 @@ def req_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
     Returns:
         dict: Response OpenLDBWS JSON object as dictionary data
     """
-    response = requests.get('https://huxley2.azurewebsites.net/arrivals/'
-                            f'{stn_from}/from/{stn_to}/{num_trains}')
+    response = requests.get('https://huxley2.azurewebsites.net/departures/'
+                            f'{stn_from}/to/{stn_to}/{num_trains}')
     return response.json()
 
 
@@ -102,12 +101,8 @@ def _gen_next_train(data_t: dict, num: int) -> str:
     try:
         dest_stn = data_t['trainServices'][num -
                                            1]['origin'][0]['locationName']
-        # Check if on time ('sta') or cancelled/delayed ('std')
-        if 'sta' in data_t['trainServices'][num - 1]:
-            train_arrival_t = data_t['trainServices'][num - 1]['sta']
-        elif 'std' in data_t['trainServices'][num - 1]:
-            train_arrival_t = data_t['trainServices'][num - 1]['std']
-        status = data_t['trainServices'][num - 1]['eta']
+        train_arrival_t = data_t['trainServices'][num - 1]['std']
+        status = data_t['trainServices'][num - 1]['etd']
         return f'{train_arrival_t} to {dest_stn} - {status}'
     except (KeyError, TypeError):
         try:
