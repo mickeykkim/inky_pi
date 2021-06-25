@@ -29,7 +29,7 @@ W_LATITUDE = 51.5085
 W_LONGITUDE = -0.1257
 W_EXCLUDE = 'minutely,hourly'
 # Replace the following w/ your OpenWeatherMap API key & keep it secret:
-W_API_KEY = "751ed6a263a1f33c129240c3a2f1a572"
+W_API_KEY = ""
 
 # Weather conversion/formatting constants
 K_CONV_C = -273.15
@@ -85,6 +85,28 @@ def req_weather_data(latitude: str, longitude: str, exclude: str,
     return response.json()
 
 
+def _abbreviate_station_name(station_name: str) -> str:
+    """Abbreviate station name by shortening words like street, lane, etc.
+
+    abbreviation_dict can be appended with more abbreviations
+
+    Args:
+        station_name (str): Station name
+
+    Returns:
+        str: Abbreviated station name
+    """
+    abbreviation_dict = {
+        "Street": "St",
+        "Lane": "Ln",
+        "Court": "Ct",
+    }
+    for key, value in abbreviation_dict.items():
+        station_name = station_name.replace(key, value)
+
+    return station_name
+
+
 def _gen_next_train(data_t: dict, num: int) -> str:
     """Generate next train string
 
@@ -99,11 +121,13 @@ def _gen_next_train(data_t: dict, num: int) -> str:
         str: Formatted string or error message
     """
     try:
+        platform = data_t['trainServices'][num - 1]['platform']
+        train_arrival_t = data_t['trainServices'][num - 1]['std']
         dest_stn = data_t['trainServices'][num -
                                            1]['destination'][0]['locationName']
-        train_arrival_t = data_t['trainServices'][num - 1]['std']
+        abbr_dest_stn = _abbreviate_station_name(str(dest_stn))
         status = data_t['trainServices'][num - 1]['etd']
-        return f'{train_arrival_t} to {dest_stn} - {status}'
+        return f'{train_arrival_t} (P{platform}) to {abbr_dest_stn} - {status}'
     except (KeyError, TypeError):
         try:
             # Try to get the error message & line wrap over each line
