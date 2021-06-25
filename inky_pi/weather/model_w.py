@@ -1,23 +1,16 @@
-"""Inky_Pi weather control module.
+"""Inky_Pi weather model module.
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
-from enum import Enum, auto
 from typing import Any, Dict, Union
 
 import requests
+
+from inky_pi.view.drawing import IconType
 
 # Weather conversion/formatting constants
 K_CONV_C = -273.15
 DEG_C = u"\N{DEGREE SIGN}" + "C"
 DEG_F = u"\N{DEGREE SIGN}" + "F"
-
-
-class IconType(Enum):
-    """Enum for Weather Icon types"""
-    sun = auto()
-    clouds = auto()
-    part_cloud = auto()
-    rain = auto()
 
 
 def req_weather_data(latitude: float, longitude: float, exclude: str,
@@ -72,7 +65,7 @@ def get_weather_icon(data_w: dict) -> 'IconType':
     return weather_dict[icon_code]
 
 
-def gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
+def str_curr_weather(data_w: dict, in_celsius: bool) -> str:
     """Generate current weather string
 
     String is returned in format:
@@ -95,7 +88,7 @@ def gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
         return "Error retrieving weather"
 
 
-def gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
+def str_today_temp_range(data_w: dict, in_celsius: bool) -> str:
     """Generate today's temperature range string
 
     String is returned in format:
@@ -122,7 +115,7 @@ def gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
         return "Error retrieving range"
 
 
-def gen_today_weather_cond(data_w: dict) -> str:
+def str_today_weather_cond(data_w: dict) -> str:
     """Generate today's weather condition string
 
     String is returned in format:
@@ -140,7 +133,7 @@ def gen_today_weather_cond(data_w: dict) -> str:
         return "Error retrieving condition"
 
 
-def gen_tomorrow_weather_cond(data_w: dict) -> str:
+def str_tomorrow_weather_cond(data_w: dict) -> str:
     """Generate tomorrow's weather condition string
 
     String is returned in format:

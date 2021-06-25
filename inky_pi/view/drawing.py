@@ -1,22 +1,18 @@
 """Inky_Pi drawing module.
 
 Draws strings and icons"""
-
-# For some reason the linter can't find this font in the module
-# pylint: disable=no-name-in-module
+from enum import Enum, auto
 from time import strftime
-# type: ignore[missing-imports]
 from typing import Callable, Dict
 
 from font_hanken_grotesk import HankenGroteskBold
 from inky import InkyWHAT
-from PIL import ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
-from inky_pi.train.train_control import gen_next_train
-from inky_pi.weather.weather_control import (IconType, gen_curr_weather,
-                                             gen_today_temp_range,
-                                             gen_today_weather_cond,
-                                             gen_tomorrow_weather_cond)
+from inky_pi.train.model_t import str_next_train
+from inky_pi.weather.model_w import (str_curr_weather, str_today_temp_range,
+                                     str_today_weather_cond,
+                                     str_tomorrow_weather_cond)
 
 # Inky display constants
 I_DISPLAY = InkyWHAT('black')
@@ -27,6 +23,25 @@ I_WHITE = I_DISPLAY.WHITE
 FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
 FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
+
+
+class IconType(Enum):
+    """Enum for Weather Icon types"""
+    sun = auto()
+    clouds = auto()
+    part_cloud = auto()
+    rain = auto()
+
+
+def render_inky(img: 'Image') -> None:
+    """Render border, images (w/text) on inky screen and show on display
+
+    Args:
+        img (Image): Image object
+    """
+    I_DISPLAY.set_border(I_BLACK)
+    I_DISPLAY.set_image(img)
+    I_DISPLAY.show()
 
 
 def draw_date_text(draw: 'ImageDraw', x_pos: int, y_pos: int) -> None:
@@ -61,13 +76,13 @@ def draw_train_text(draw: 'ImageDraw', data_t: dict, x_pos: int,
         x_pos (int): X position offset
         y_pos (int): Y position offset
     """
-    draw.text((x_pos, y_pos), gen_next_train(data_t, 1), I_BLACK, FONT_S)
-    draw.text((x_pos, y_pos + 30), gen_next_train(data_t, 2), I_BLACK, FONT_S)
-    draw.text((x_pos, y_pos + 60), gen_next_train(data_t, 3), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos), str_next_train(data_t, 1), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos + 30), str_next_train(data_t, 2), I_BLACK, FONT_S)
+    draw.text((x_pos, y_pos + 60), str_next_train(data_t, 3), I_BLACK, FONT_S)
 
 
-def draw_weather_text(draw: 'ImageDraw', data_w: dict, x_pos: int,
-                      y_pos: int) -> None:
+def draw_weather_text(draw: 'ImageDraw', data_w: dict, in_celsius: bool,
+                      x_pos: int, y_pos: int) -> None:
     """Draw all weather text
 
     Args:
@@ -76,12 +91,13 @@ def draw_weather_text(draw: 'ImageDraw', data_w: dict, x_pos: int,
         x_pos (int): X position offset
         y_pos (int): Y position offset
     """
-    draw.text((x_pos, y_pos), gen_curr_weather(data_w), I_BLACK, FONT_L)
-    draw.text((x_pos, y_pos + 45), gen_today_temp_range(data_w), I_BLACK,
+    draw.text((x_pos, y_pos), str_curr_weather(data_w, in_celsius), I_BLACK,
+              FONT_L)
+    draw.text((x_pos, y_pos + 45), str_today_temp_range(data_w, in_celsius),
+              I_BLACK, FONT_M)
+    draw.text((x_pos, y_pos + 75), str_today_weather_cond(data_w), I_BLACK,
               FONT_M)
-    draw.text((x_pos, y_pos + 75), gen_today_weather_cond(data_w), I_BLACK,
-              FONT_M)
-    draw.text((x_pos, y_pos + 105), gen_tomorrow_weather_cond(data_w), I_BLACK,
+    draw.text((x_pos, y_pos + 105), str_tomorrow_weather_cond(data_w), I_BLACK,
               FONT_S)
 
 

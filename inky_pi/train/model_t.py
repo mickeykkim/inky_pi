@@ -1,4 +1,4 @@
-"""Inky_Pi train control module.
+"""Inky_Pi train model module.
 
 Fetches train data from huxley2 (OpenLDBWS) and generates formatted data"""
 from typing import Dict
@@ -22,37 +22,11 @@ def req_train_data(stn_from: str, stn_to: str, num_trains: int) -> dict:
     return response.json()
 
 
-def _abbreviate_station_name(station_name: str) -> str:
-    """Abbreviate station name by shortening words like street, lane, etc.
-
-    Args:
-        station_name (str): Station name
-
-    Returns:
-        str: Abbreviated station name
-    """
-    abbreviation_dict: Dict[str, str] = {
-        "Street": "St",
-        "Lane": "Ln",
-        "Court": "Ct",
-        "Road": "Rd",
-        "North": "N",
-        "South": "S",
-        "East": "E",
-        "West": "W",
-        "Thameslink": "TL",
-    }
-    for key, value in abbreviation_dict.items():
-        station_name = station_name.replace(key, value)
-
-    return station_name
-
-
-def gen_next_train(data_t: dict, num: int) -> str:
+def str_next_train(data_t: dict, num: int) -> str:
     """Generate next train string
 
     String is returned in format:
-        [hh:mm] to [Final Destination Station] - [Status]
+        [hh:mm] (Platform #) to [Final Destination Station] - [Status/ETD]
 
     Args:
         data_t (dict): Dictionary data from OpenLDBWS train arrivals JSON req.
@@ -83,3 +57,29 @@ def gen_next_train(data_t: dict, num: int) -> str:
             if num == 1:
                 return "Error retrieving train data"
             return ""
+
+
+def _abbreviate_station_name(station_name: str) -> str:
+    """Abbreviate station name by shortening words like street, lane, etc.
+
+    Args:
+        station_name (str): Station name
+
+    Returns:
+        str: Abbreviated station name
+    """
+    abbreviation_dict: Dict[str, str] = {
+        "Street": "St",
+        "Lane": "Ln",
+        "Court": "Ct",
+        "Road": "Rd",
+        "North": "N",
+        "South": "S",
+        "East": "E",
+        "West": "W",
+        "Thameslink": "TL",
+    }
+    for key, value in abbreviation_dict.items():
+        station_name = station_name.replace(key, value)
+
+    return station_name
