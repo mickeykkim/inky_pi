@@ -42,6 +42,8 @@ pytest = "*"
 sphinx = "*"
 tox = "*"
 yapf = "*"
+mypy = "^0.910"
+types-requests = "^2.25.0"
 
 [tool.poetry.scripts]
 inky_pi = 'inky_pi.cli:main'

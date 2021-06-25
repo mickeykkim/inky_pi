@@ -1,13 +1,14 @@
 """Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from enum import Enum, auto
 from time import strftime
+from typing import Any, Dict, Union
 
 import requests
 # For some reason the linter can't find this font in the module
 # pylint: disable=no-name-in-module
-from font_hanken_grotesk import HankenGroteskBold
-from inky import InkyWHAT
-from PIL import Image, ImageDraw, ImageFont
+from font_hanken_grotesk import HankenGroteskBold  # type: ignore
+from inky import InkyWHAT  # type: ignore
+from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
 # Inky display constants
 I_DISPLAY = InkyWHAT('black')
@@ -45,7 +46,7 @@ class IconType(Enum):
     rain = auto()
 
 
-def req_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
+def req_train_data(stn_from: str, stn_to: str, num_trains: int) -> dict:
     """Requests train data from huxley2 (OpenLDBWS) train arrivals API endpoint
 
     Args:
@@ -61,20 +62,20 @@ def req_train_data(stn_from: str, stn_to: str, num_trains: str) -> dict:
     return response.json()
 
 
-def req_weather_data(latitude: str, longitude: str, exclude: str,
+def req_weather_data(latitude: float, longitude: float, exclude: str,
                      api_key: str) -> dict:
     """Requests weather data from OpenWeatherMap 7-day forecast API endpoint
 
     Args:
-        latitude (str): Location latitude
-        longitude (str): Location longitude
+        latitude (float): Location latitude
+        longitude (float): Location longitude
         exclude (str): Comma-delimited string of request exclusions
         api_key (str): OpenWeatherMap API Key
 
     Returns:
         dict: Response OpenWeatherMap JSON object as dictionary data
     """
-    payload = {
+    payload: Dict[str, Union[int, Any]] = {
         'lat': latitude,
         'lon': longitude,
         'exclude': exclude,
@@ -96,7 +97,7 @@ def _abbreviate_station_name(station_name: str) -> str:
     Returns:
         str: Abbreviated station name
     """
-    abbreviation_dict = {
+    abbreviation_dict: Dict[str, str] = {
         "Street": "St",
         "Lane": "Ln",
         "Court": "Ct",
@@ -125,7 +126,7 @@ def _gen_next_train(data_t: dict, num: int) -> str:
         train_arrival_t = data_t['trainServices'][num - 1]['std']
         dest_stn = data_t['trainServices'][num -
                                            1]['destination'][0]['locationName']
-        abbr_dest_stn = _abbreviate_station_name(str(dest_stn))
+        abbr_dest_stn = _abbreviate_station_name(dest_stn)
         status = data_t['trainServices'][num - 1]['etd']
         return f'{train_arrival_t} (P{platform}) to {abbr_dest_stn} - {status}'
     except (KeyError, TypeError):
@@ -142,14 +143,14 @@ def _gen_next_train(data_t: dict, num: int) -> str:
             return ""
 
 
-def _convert_farenheit(c_temp_str: str) -> float:
+def _convert_farenheit(c_temp_str: str) -> str:
     """Helper function to convert Celsius string to Farenheit float value
 
     Args:
         c_temp_str (str): Temperature in Celsius
 
     Returns:
-        float: Temperature in Farenheit to one decimal point
+        str: Temperature in Farenheit to one decimal point
     """
     return "{:.1f}".format(float(c_temp_str) * 9 / 5 + 32)
 
@@ -450,7 +451,7 @@ def get_weather_icon(data_w: dict) -> 'IconType':
     # Get first two code characters
     # Third character is 'd/n' for day/night; !TODO: implement day/night icons
     icon_code = str(data_w['current']['weather'][0]['icon'])[0:2]
-    weather_map = {
+    weather_dict: Dict[str, 'IconType'] = {
         '01': IconType.sun,  # "clear sky"
         '02': IconType.part_cloud,  # "few clouds"
         '03': IconType.clouds,  # "scattered clouds"
@@ -461,7 +462,7 @@ def get_weather_icon(data_w: dict) -> 'IconType':
         '13': IconType.rain,  # !TODO: implement "snow"
         '50': IconType.clouds,  # !TODO: implement "mist"
     }
-    return weather_map[icon_code]
+    return weather_dict[icon_code]
 
 
 def draw_weather_icon(draw: 'ImageDraw', icon: IconType, x_pos: int,

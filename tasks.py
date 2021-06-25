@@ -71,7 +71,15 @@ def lint_pylint(c):
     _run(c, "pylint {}".format(" ".join(PYTHON_DIRS)))
 
 
-@task(lint_flake8, lint_pylint)
+@task
+def lint_mypy(c):
+    """
+    Lint code with mypy
+    """
+    _run(c, "mypy {}".format(" ".join(PYTHON_DIRS)))
+
+
+@task(lint_flake8, lint_pylint, lint_mypy)
 def lint(c):
     """
     Run all linting
