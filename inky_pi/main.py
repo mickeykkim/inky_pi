@@ -1,7 +1,7 @@
 """Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from enum import Enum, auto
 from time import strftime
-from typing import Any, Dict, Union
+from typing import Any, Callable, Dict, Union
 
 import requests
 # For some reason the linter can't find this font in the module
@@ -52,7 +52,7 @@ def req_train_data(stn_from: str, stn_to: str, num_trains: int) -> dict:
     Args:
         stn_from (str): From station
         stn_to (str): To station
-        num_trains (str): Number of departing trains to request
+        num_trains (int): Number of departing trains to request
 
     Returns:
         dict: Response OpenLDBWS JSON object as dictionary data
@@ -89,8 +89,6 @@ def req_weather_data(latitude: float, longitude: float, exclude: str,
 def _abbreviate_station_name(station_name: str) -> str:
     """Abbreviate station name by shortening words like street, lane, etc.
 
-    abbreviation_dict can be appended with more abbreviations
-
     Args:
         station_name (str): Station name
 
@@ -101,6 +99,12 @@ def _abbreviate_station_name(station_name: str) -> str:
         "Street": "St",
         "Lane": "Ln",
         "Court": "Ct",
+        "Road": "Rd",
+        "North": "N",
+        "South": "S",
+        "East": "E",
+        "West": "W",
+        "Thameslink": "TL",
     }
     for key, value in abbreviation_dict.items():
         station_name = station_name.replace(key, value)
@@ -123,20 +127,22 @@ def _gen_next_train(data_t: dict, num: int) -> str:
     """
     try:
         platform = data_t['trainServices'][num - 1]['platform']
+        if platform == "None":
+            platform = "?"
         train_arrival_t = data_t['trainServices'][num - 1]['std']
         dest_stn = data_t['trainServices'][num -
                                            1]['destination'][0]['locationName']
         abbr_dest_stn = _abbreviate_station_name(dest_stn)
         status = data_t['trainServices'][num - 1]['etd']
         return f'{train_arrival_t} (P{platform}) to {abbr_dest_stn} - {status}'
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         try:
             # Try to get the error message & line wrap over each line
             line_length = 41
             return str(data_t['nrccMessages'][0]['value'])[(num - 1) *
                                                            line_length:num *
                                                            line_length]
-        except (KeyError, TypeError):
+        except (KeyError, TypeError, IndexError):
             # If getting the error didn't work just return a generic message
             if num == 1:
                 return "Error retrieving train data"
@@ -144,7 +150,7 @@ def _gen_next_train(data_t: dict, num: int) -> str:
 
 
 def _convert_farenheit(c_temp_str: str) -> str:
-    """Helper function to convert Celsius string to Farenheit float value
+    """Helper function to convert Celsius string to Farenheit string
 
     Args:
         c_temp_str (str): Temperature in Celsius
@@ -174,7 +180,7 @@ def _gen_curr_weather(data_w: dict, in_celsius: bool = True) -> str:
             _convert_farenheit(ctemp) + DEG_F
         str_status = data_w['current']['weather'][0]['main']
         return f'{str_temp} - {str_status}'
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         return "Error retrieving weather"
 
 
@@ -201,7 +207,7 @@ def _gen_today_temp_range(data_w: dict, in_celsius: bool = True) -> str:
         str_temp_max = ctemp_max + DEG_C if in_celsius else \
             _convert_farenheit(ctemp_max) + DEG_F
         return f'Today: {str_temp_min}–{str_temp_max}'
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         return "Error retrieving range"
 
 
@@ -209,7 +215,7 @@ def _gen_today_weather_cond(data_w: dict) -> str:
     """Generate today's weather condition string
 
     String is returned in format:
-        [weather condition]
+        • [weather condition]
 
     Args:
         data_w (dict): Dictionary data from OpenWeatherMap JSON req.
@@ -219,7 +225,7 @@ def _gen_today_weather_cond(data_w: dict) -> str:
     """
     try:
         return "\u2022 " + data_w['daily'][0]['weather'][0]['description']
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         return "Error retrieving condition"
 
 
@@ -237,7 +243,7 @@ def _gen_tomorrow_weather_cond(data_w: dict) -> str:
     """
     try:
         return "Tomorrow: " + data_w['daily'][1]['weather'][0]['description']
-    except (KeyError, TypeError):
+    except (KeyError, TypeError, IndexError):
         return "Error retrieving condition"
 
 
@@ -475,7 +481,7 @@ def draw_weather_icon(draw: 'ImageDraw', icon: IconType, x_pos: int,
         x_pos (int): X position offset
         y_pos (int): Y position offset
     """
-    draw_icon_dispatcher = {
+    draw_icon_dispatcher: Dict['IconType', Callable] = {
         IconType.sun: draw_sun_icon,
         IconType.clouds: draw_clouds_icon,
         IconType.part_cloud: draw_part_cloud_icon,
