@@ -40,9 +40,7 @@ class TrainModel:
 
         try:
             # Get all data
-            platform = self._data['trainServices'][num - 1]['platform']
-            if platform == "None":
-                platform = "?"
+            platform = self._data['trainServices'][num - 1]['platform'][0:2]
             arrival_t = self._data['trainServices'][num - 1]['std']
             dest_stn = self._data['trainServices'][
                 num - 1]['destination'][0]['locationName']

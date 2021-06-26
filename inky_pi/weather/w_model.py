@@ -14,10 +14,15 @@ DEG_F = u"\N{DEGREE SIGN}" + "F"
 
 class IconType(Enum):
     """Enum for Weather Icon types"""
-    sun = auto()
-    clouds = auto()
-    part_cloud = auto()
+    clear_sky = auto()
+    few_clouds = auto()
+    scattered_clouds = auto()
+    broken_clouds = auto()
+    shower_rain = auto()
     rain = auto()
+    thunderstorm = auto()
+    snow = auto()
+    mist = auto()
 
 
 class ScaleType(Enum):
@@ -64,23 +69,22 @@ class WeatherModel:
         Returns:
             IconType: Weather IconType
         """
-        # Get first two code characters
-        # Third character is 'd/n' for day/night; !TODO: implement all icons
+        # Get first two code characters; third character is 'd/n' for day/night
         icon_code = str(self._data['current']['weather'][0]['icon'])[0:2]
         weather_dict: Dict[str, 'IconType'] = {
-            '01': IconType.sun,  # "clear sky"
-            '02': IconType.part_cloud,  # "few clouds"
-            '03': IconType.clouds,  # "scattered clouds"
-            '04': IconType.clouds,  # "broken clouds"
-            '09': IconType.rain,  # "shower rain"
-            '10': IconType.rain,  # "rain"
-            '11': IconType.rain,  # !TODO: implement "thunderstorm"
-            '13': IconType.rain,  # !TODO: implement "snow"
-            '50': IconType.clouds,  # !TODO: implement "mist"
+            '01': IconType.clear_sky,
+            '02': IconType.few_clouds,
+            '03': IconType.scattered_clouds,
+            '04': IconType.broken_clouds,
+            '09': IconType.shower_rain,
+            '10': IconType.rain,
+            '11': IconType.thunderstorm,
+            '13': IconType.snow,
+            '50': IconType.mist,
         }
         return weather_dict[icon_code]
 
-    def current_weather(self, scale: 'ScaleType') -> str:
+    def get_current_weather(self, scale: 'ScaleType') -> str:
         """Generate current weather string
 
         String is returned in format:
@@ -101,7 +105,7 @@ class WeatherModel:
         except (KeyError, TypeError, IndexError):
             return "Error retrieving weather"
 
-    def today_temp_range(self, scale: 'ScaleType') -> str:
+    def get_today_temp_range(self, scale: 'ScaleType') -> str:
         """Generate today's temperature range string
 
         String is returned in format:
@@ -143,7 +147,8 @@ class WeatherModel:
             raise ValueError(
                 "Can only get weather conditions for today and tomorrow.")
         try:
-            return prefix + self._data['daily'][0]['weather'][0]['description']
+            return prefix + self._data['daily'][day]['weather'][0][
+                'description']
         except (KeyError, TypeError, IndexError):
             return "Error retrieving condition"
 
