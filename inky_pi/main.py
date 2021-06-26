@@ -5,7 +5,7 @@ from inky import InkyWHAT  # type: ignore
 
 from inky_pi.train.t_model import TrainModel  # type: ignore
 from inky_pi.view.inky_draw import InkyDraw  # type: ignore
-from inky_pi.weather.w_model import WeatherModel  # type: ignore
+from inky_pi.weather.w_model import WeatherModel, ScaleType  # type: ignore
 
 # Train constants
 T_STATION_FROM = 'maze hill'
@@ -37,7 +37,7 @@ def main() -> None:
     display.draw_date_text(10, 10)
     display.draw_time_text(300, 10)
     display.draw_train_text(train_data, 10, 60)
-    display.draw_weather_text(weather_data, True, 10, 160)
+    display.draw_weather_text(weather_data, ScaleType.celsius, 10, 160)
     display.draw_weather_icon(weather_data.get_icon(), 300, 200)
 
     # Render display object on Inky display screen

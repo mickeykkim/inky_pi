@@ -20,6 +20,12 @@ class IconType(Enum):
     rain = auto()
 
 
+class ScaleType(Enum):
+    """Enum for Weather Scale types"""
+    celsius = auto()
+    fahrenheit = auto()
+
+
 class WeatherModel:
     """Fetch and manage weather data"""
     def __init__(self, latitude: float, longitude: float, exclude: str,
@@ -74,35 +80,35 @@ class WeatherModel:
         }
         return weather_dict[icon_code]
 
-    def current_weather(self, in_celsius: bool) -> str:
+    def current_weather(self, scale: 'ScaleType') -> str:
         """Generate current weather string
 
         String is returned in format:
             [XX.X]°[C/F] - [Current Weather]
 
         Args:
-            in_celsius (bool): If True, formats °C; otherwise formats °F
+            scale (ScaleType): Celsius or Fahrenheit for formatting
 
         Returns:
             str: Formatted string or error message
         """
         try:
             ctemp = "{:.1f}".format(self._data['current']['temp'] + K_CONV_C)
-            str_temp = ctemp + DEG_C if in_celsius else \
+            str_temp = ctemp + DEG_C if scale == ScaleType.celsius else \
                 self._convert_farenheit(ctemp) + DEG_F
             str_status = self._data['current']['weather'][0]['main']
             return f'{str_temp} - {str_status}'
         except (KeyError, TypeError, IndexError):
             return "Error retrieving weather"
 
-    def today_temp_range(self, in_celsius: bool) -> str:
+    def today_temp_range(self, scale: 'ScaleType') -> str:
         """Generate today's temperature range string
 
         String is returned in format:
             Today: [XX.X min]°[C/F]–[XX.X max]°[C/F]
 
         Args:
-            in_celsius (bool): If True, formats °C; otherwise formats °F
+            scale (ScaleType): Celsius or Fahrenheit for formatting
 
         Returns:
             str: Formatted string or error message
@@ -112,10 +118,10 @@ class WeatherModel:
                                         K_CONV_C)
             ctemp_max = "{:.1f}".format(self._data['daily'][0]['temp']['max'] +
                                         K_CONV_C)
-            str_temp_min = ctemp_min + DEG_C if in_celsius else \
-                self._convert_farenheit(ctemp_min) + DEG_F
-            str_temp_max = ctemp_max + DEG_C if in_celsius else \
-                self._convert_farenheit(ctemp_max) + DEG_F
+            str_temp_min = ctemp_min + DEG_C if scale == ScaleType.celsius \
+                else self._convert_farenheit(ctemp_min) + DEG_F
+            str_temp_max = ctemp_max + DEG_C if scale == ScaleType.celsius \
+                else self._convert_farenheit(ctemp_max) + DEG_F
             return f'Today: {str_temp_min}–{str_temp_max}'
         except (KeyError, TypeError, IndexError):
             return "Error retrieving range"
