@@ -1,0 +1,21 @@
+{
+    "trainServices":null,
+    "busServices":null,
+    "ferryServices":null,
+    "generatedAt":"2021-06-20T07:56:37.1857842+00:00",
+    "locationName":"Maze Hill",
+    "crs":"MZH",
+    "filterLocationName":"London Bridge",
+    "filtercrs":"LBG",
+    "filterType":0,
+    "nrccMessages":[
+       {
+          "value":"There are no train services at this station on Sunday 20 June because of engineering work. More details are available from the Current Engineering Work area of the<a href=\"http://www.nationalrail.co.uk/service_disruptions/currentAndFuture.aspx&#9;\"> National Rail Enquiries website</a>."
+       },
+       {
+          "value":"Urgent repairs to the track are taking place at Kentish Town. Consequently, trains are currently unable to call at the station. More details can be found in <a href=\"http://nationalrail.co.uk/service_disruptions/273695.aspx\">Latest Travel News</a>"
+       }
+    ],
+    "platformAvailable":true,
+    "areServicesAvailable":true
+ }
