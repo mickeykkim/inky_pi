@@ -238,20 +238,12 @@ class InkyDraw():
     def _gen_small_sun(self, x_pos: int, y_pos: int) -> None:
         """Generate small sun icon
         """
-<<<<<<< HEAD
         line_thickness = 5
         # Protruding rays
         self._img_draw.line((x_pos + 5, y_pos + 5, x_pos + 25, y_pos + 25),
                             self._black, line_thickness)
         self._img_draw.line((x_pos + 5, y_pos + 25, x_pos + 25, y_pos + 5),
                             self._black, line_thickness)
-=======
-        # Protruding rays
-        self._img_draw.line((x_pos + 5, y_pos + 5, x_pos + 25, y_pos + 25),
-                            self._black, 5)
-        self._img_draw.line((x_pos + 5, y_pos + 25, x_pos + 25, y_pos + 5),
-                            self._black, 5)
->>>>>>> Add more drawn icons
         self._img_draw.polygon((x_pos + 11, y_pos + 10, x_pos, y_pos + 15,
                                 x_pos + 20, y_pos + 19), self._black)
         self._img_draw.polygon((x_pos + 15, y_pos, x_pos + 10, y_pos + 10,
@@ -330,7 +322,6 @@ class InkyDraw():
     def _gen_snowflake(self, x_pos: int, y_pos: int) -> None:
         """Generate snowflake icon
         """
-<<<<<<< HEAD
         line_thickness = 2
         self._img_draw.line((x_pos + 5, y_pos, x_pos + 5, y_pos + 8),
                             self._black, line_thickness)
@@ -338,14 +329,10 @@ class InkyDraw():
                             self._black, line_thickness)
         self._img_draw.line((x_pos + 1, y_pos + 6, x_pos + 10, y_pos + 1),
                             self._black, line_thickness)
-=======
-        self._img_draw.text((x_pos, y_pos), "*", self._black, FONT_L)
->>>>>>> Add more drawn icons
 
     def _gen_mist(self, x_pos: int, y_pos: int) -> None:
         """Generate mist icon
         """
-<<<<<<< HEAD
         line_thickness = 4
         self._img_draw.line((x_pos + 22, y_pos, x_pos + 40, y_pos),
                             self._black, line_thickness)
@@ -359,17 +346,3 @@ class InkyDraw():
                             self._black, line_thickness)
         self._img_draw.line((x_pos + 20, y_pos + 40, x_pos + 40, y_pos + 40),
                             self._black, line_thickness)
-=======
-        self._img_draw.line((x_pos + 22, y_pos, x_pos + 40, y_pos),
-                            self._black, 4)
-        self._img_draw.line((x_pos + 4, y_pos + 8, x_pos + 47, y_pos + 8),
-                            self._black, 4)
-        self._img_draw.line((x_pos + 15, y_pos + 16, x_pos + 60, y_pos + 16),
-                            self._black, 4)
-        self._img_draw.line((x_pos, y_pos + 24, x_pos + 55, y_pos + 24),
-                            self._black, 4)
-        self._img_draw.line((x_pos + 9, y_pos + 32, x_pos + 51, y_pos + 32),
-                            self._black, 4)
-        self._img_draw.line((x_pos + 20, y_pos + 40, x_pos + 40, y_pos + 40),
-                            self._black, 4)
->>>>>>> Add more drawn icons
