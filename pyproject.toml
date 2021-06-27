@@ -30,6 +30,7 @@ font-hanken-grotesk = "^0.0.2"
 inky = "^1.2.0"
 "RPi.GPIO" = "^0.7.0"
 Pillow = "^8.2.0"
+environs = "^9.3.2"
 
 [tool.poetry.dev-dependencies]
 bumpversion = "*"

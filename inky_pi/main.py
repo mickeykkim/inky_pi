@@ -3,6 +3,7 @@
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from inky import InkyWHAT  # type: ignore
 
+from inky_pi.configs import OPENWEATHER_KEY
 from inky_pi.train.t_model import TrainModel  # type: ignore
 from inky_pi.view.inky_draw import InkyDraw  # type: ignore
 from inky_pi.weather.w_model import ScaleType, WeatherModel  # type: ignore
@@ -16,8 +17,8 @@ T_NUM = 3
 W_LATITUDE = 51.5085
 W_LONGITUDE = -0.1257
 W_EXCLUDE = 'minutely,hourly'
-# Replace the following w/ your OpenWeatherMap API key & keep it secret:
-W_API_KEY = "751ed6a263a1f33c129240c3a2f1a572"
+# Replace the following w/ your OpenWeatherMap API key string & keep it secret:
+W_API_KEY = OPENWEATHER_KEY
 
 
 def main() -> None:
