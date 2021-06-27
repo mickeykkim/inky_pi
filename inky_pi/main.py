@@ -5,9 +5,10 @@ from inky import InkyWHAT  # type: ignore
 
 from inky_pi.configs import (T_NUM, T_STATION_FROM, T_STATION_TO, W_API_KEY,
                              W_EXCLUDE, W_LATITUDE, W_LONGITUDE)
-from inky_pi.train.t_model import TrainModel  # type: ignore
-from inky_pi.view.inky_draw import InkyDraw  # type: ignore
-from inky_pi.weather.w_model import ScaleType, WeatherModel  # type: ignore
+from inky_pi.display.inky_draw import InkyDraw  # type: ignore
+from inky_pi.train.openldbws import TrainModel  # type: ignore
+from inky_pi.weather.openweathermap import ScaleType  # type: ignore
+from inky_pi.weather.openweathermap import WeatherModel
 
 
 def main() -> None:
@@ -24,10 +25,10 @@ def main() -> None:
     display = InkyDraw(InkyWHAT('black'))
 
     # Draw text and weather icon on display object at specified x, y coords
-    display.draw_date_text(10, 10)
-    display.draw_time_text(300, 10)
-    display.draw_train_text(train_data, T_NUM, 10, 60)
-    display.draw_weather_text(weather_data, ScaleType.celsius, 10, 160)
+    display.draw_date(10, 10)
+    display.draw_time(300, 10)
+    display.draw_train_times(train_data, T_NUM, 10, 60)
+    display.draw_weather_forecast(weather_data, ScaleType.celsius, 10, 160)
     display.draw_weather_icon(weather_data.get_icon(), 300, 200)
 
     # Render display object on Inky display screen

@@ -7,8 +7,9 @@ from typing import Any, Callable, Dict
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.train.t_model import TrainModel  # type: ignore
-from inky_pi.weather.w_model import IconType, WeatherModel  # type: ignore
+from inky_pi.train.openldbws import TrainModel  # type: ignore
+from inky_pi.weather.openweathermap import IconType  # type: ignore
+from inky_pi.weather.openweathermap import WeatherModel
 
 # Font constants
 FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
@@ -36,7 +37,7 @@ class InkyDraw():
         self._display.set_image(self._img)
         self._display.show()
 
-    def draw_date_text(self, x_pos: int, y_pos: int) -> None:
+    def draw_date(self, x_pos: int, y_pos: int) -> None:
         """Draw date text
 
         Args:
@@ -46,7 +47,7 @@ class InkyDraw():
         self._img_draw.text((x_pos, y_pos), strftime('%a %d %b %Y'),
                             self._black, FONT_L)
 
-    def draw_time_text(self, x_pos: int, y_pos: int) -> None:
+    def draw_time(self, x_pos: int, y_pos: int) -> None:
         """Draw time text
 
         Args:
@@ -56,9 +57,9 @@ class InkyDraw():
         self._img_draw.text((x_pos, y_pos), strftime('%H:%M'), self._black,
                             FONT_L)
 
-    def draw_train_text(self, data_t: 'TrainModel', num_trains: int,
-                        x_pos: int, y_pos: int) -> None:
-        """Draw all train text
+    def draw_train_times(self, data_t: 'TrainModel', num_trains: int,
+                         x_pos: int, y_pos: int) -> None:
+        """Draw all train times text
 
         Args:
             data_t (TrainModel): TrainModel object
@@ -70,9 +71,9 @@ class InkyDraw():
             self._img_draw.text((x_pos, y_pos + i * 30),
                                 data_t.fetch_train(i + 1), self._black, FONT_S)
 
-    def draw_weather_text(self, data_w: 'WeatherModel', in_celsius: bool,
-                          x_pos: int, y_pos: int) -> None:
-        """Draw all weather text
+    def draw_weather_forecast(self, data_w: 'WeatherModel', in_celsius: bool,
+                              x_pos: int, y_pos: int) -> None:
+        """Draw all weather forecast text
 
         Args:
             data_w (WeatherModel): WeatherModel object
