@@ -7,25 +7,28 @@ from typing import Any, Callable, Dict
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.train.openldbws import TrainModel  # type: ignore
+from inky_pi.train.huxley2_openldbws import TrainModel  # type: ignore
 from inky_pi.weather.openweathermap import IconType  # type: ignore
+from inky_pi.weather.openweathermap import ScaleType  # type: ignore
 from inky_pi.weather.openweathermap import WeatherModel
 
+
 # Font constants
-FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
-FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
-FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
+FONT_S: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 20)
+FONT_M: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 25)
+FONT_L: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 35)
 
 
 class InkyDraw():
     """Draw text and shapes onto Inky e-ink display"""
     def __init__(self, inky_model: Any) -> None:
         # Create display and image drawing objects
-        self._display = inky_model
-        self._img = Image.new('P', (self._display.WIDTH, self._display.HEIGHT))
-        self._img_draw = ImageDraw.Draw(self._img)
-        self._black = self._display.BLACK
-        self._white = self._display.WHITE
+        self._display: Any = inky_model
+        self._img: 'Image' = Image.new(
+            'P', (self._display.WIDTH, self._display.HEIGHT))
+        self._img_draw: 'ImageDraw' = ImageDraw.Draw(self._img)
+        self._black: Any = self._display.BLACK
+        self._white: Any = self._display.WHITE
 
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display
@@ -71,20 +74,26 @@ class InkyDraw():
             self._img_draw.text((x_pos, y_pos + i * 30),
                                 data_t.fetch_train(i + 1), self._black, FONT_S)
 
-    def draw_weather_forecast(self, data_w: 'WeatherModel', in_celsius: bool,
+    def draw_weather_forecast(self, data_w: 'WeatherModel', scale: 'ScaleType',
                               x_pos: int, y_pos: int) -> None:
         """Draw all weather forecast text
 
+        First line: current temperature and weather condition
+        Second line: today's temperature range
+        Third line: today's weather condition description
+        Fourth line: tomorrow's weather condition description
+
         Args:
             data_w (WeatherModel): WeatherModel object
+            scale (ScaleType): Celsius or Fahrenheit for formatting
             x_pos (int): X position offset
             y_pos (int): Y position offset
         """
         self._img_draw.text((x_pos, y_pos),
-                            data_w.get_current_weather(in_celsius),
+                            data_w.get_current_weather(scale),
                             self._black, FONT_L)
         self._img_draw.text((x_pos, y_pos + 45),
-                            data_w.get_today_temp_range(in_celsius),
+                            data_w.get_today_temp_range(scale),
                             self._black, FONT_M)
         self._img_draw.text((x_pos, y_pos + 75), data_w.fetch_condition(0),
                             self._black, FONT_M)
@@ -211,7 +220,7 @@ class InkyDraw():
     def _gen_large_sun(self, x_pos: int, y_pos: int) -> None:
         """Generate large sun icon
         """
-        line_thickness = 5
+        line_thickness: int = 5
         # Protruding rays
         self._img_draw.polygon((x_pos + 29, y_pos, x_pos + 34, y_pos + 16,
                                 x_pos + 24, y_pos + 16, x_pos + 29, y_pos),
@@ -239,7 +248,7 @@ class InkyDraw():
     def _gen_small_sun(self, x_pos: int, y_pos: int) -> None:
         """Generate small sun icon
         """
-        line_thickness = 5
+        line_thickness: int = 5
         # Protruding rays
         self._img_draw.line((x_pos + 5, y_pos + 5, x_pos + 25, y_pos + 25),
                             self._black, line_thickness)
@@ -323,7 +332,7 @@ class InkyDraw():
     def _gen_snowflake(self, x_pos: int, y_pos: int) -> None:
         """Generate snowflake icon
         """
-        line_thickness = 2
+        line_thickness: int = 2
         self._img_draw.line((x_pos + 5, y_pos, x_pos + 5, y_pos + 8),
                             self._black, line_thickness)
         self._img_draw.line((x_pos + 1, y_pos + 1, x_pos + 10, y_pos + 6),
@@ -334,7 +343,7 @@ class InkyDraw():
     def _gen_mist(self, x_pos: int, y_pos: int) -> None:
         """Generate mist icon
         """
-        line_thickness = 4
+        line_thickness: int = 4
         self._img_draw.line((x_pos + 22, y_pos, x_pos + 40, y_pos),
                             self._black, line_thickness)
         self._img_draw.line((x_pos + 4, y_pos + 8, x_pos + 47, y_pos + 8),

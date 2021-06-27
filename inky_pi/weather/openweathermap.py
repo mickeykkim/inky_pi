@@ -2,14 +2,13 @@
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
 from enum import Enum, auto
-from typing import Any, Dict, Union
+from typing import Dict, Union
 
 import requests
 
-# Weather conversion/formatting constants
-K_CONV_C = -273.15
-DEG_C = u"\N{DEGREE SIGN}" + "C"
-DEG_F = u"\N{DEGREE SIGN}" + "F"
+# Weather formatting constants
+DEG_C: str = u"\N{DEGREE SIGN}" + "C"
+DEG_F: str = u"\N{DEGREE SIGN}" + "F"
 
 
 class IconType(Enum):
@@ -46,16 +45,16 @@ class WeatherModel:
         Returns:
             dict: Response OpenWeatherMap JSON object as dictionary data
         """
-        payload: Dict[str, Union[int, Any]] = {
+        payload: Dict[str, Union[float, str]] = {
             'lat': latitude,
             'lon': longitude,
             'exclude': exclude,
             'appid': api_key
         }
-        response = requests.get(
+        response: requests.Response = requests.get(
             'https://api.openweathermap.org/data/2.5/onecall?', params=payload)
 
-        self._data = response.json()
+        self._data: dict = response.json()
 
         # Check for errors in weather response, i.e. API key invalid (cod==401)
         if 'cod' in self._data:
@@ -70,8 +69,8 @@ class WeatherModel:
             IconType: Weather IconType
         """
         # Get first two code characters; third character is 'd/n' for day/night
-        icon_code = str(self._data['current']['weather'][0]['icon'])[0:2]
-        weather_dict: Dict[str, 'IconType'] = {
+        icon_code: str = str(self._data['current']['weather'][0]['icon'])[0:2]
+        weather_type_dict: Dict[str, 'IconType'] = {
             '01': IconType.clear_sky,
             '02': IconType.few_clouds,
             '03': IconType.scattered_clouds,
@@ -82,7 +81,7 @@ class WeatherModel:
             '13': IconType.snow,
             '50': IconType.mist,
         }
-        return weather_dict[icon_code]
+        return weather_type_dict[icon_code]
 
     def get_current_weather(self, scale: 'ScaleType') -> str:
         """Generate current weather string
@@ -97,19 +96,21 @@ class WeatherModel:
             str: Formatted string or error message
         """
         try:
-            ctemp = "{:.1f}".format(self._data['current']['temp'] + K_CONV_C)
-            str_temp = ctemp + DEG_C if scale == ScaleType.celsius else \
-                self._convert_farenheit(ctemp) + DEG_F
-            str_status = self._data['current']['weather'][0]['main']
+            celsius_temp: float = self._kelvin_to_celsius(
+                float(self._data['current']['temp']))
+            str_temp: str = str(celsius_temp) + DEG_C \
+                if scale == ScaleType.celsius \
+                else str(self._celsius_to_farenheit(celsius_temp)) + DEG_F
+            str_status: str = self._data['current']['weather'][0]['main']
             return f'{str_temp} - {str_status}'
-        except (KeyError, TypeError, IndexError):
-            return "Error retrieving weather"
+        except (KeyError, IndexError):
+            return "Error retrieving weather."
 
     def get_today_temp_range(self, scale: 'ScaleType') -> str:
         """Generate today's temperature range string
 
         String is returned in format:
-            Today: [XX.X min]°[C/F]–[XX.X max]°[C/F]
+            Today: [XX.X(min)]°[C/F]–[XX.X(max)]°[C/F]
 
         Args:
             scale (ScaleType): Celsius or Fahrenheit for formatting
@@ -118,41 +119,50 @@ class WeatherModel:
             str: Formatted string or error message
         """
         try:
-            ctemp_min = "{:.1f}".format(self._data['daily'][0]['temp']['min'] +
-                                        K_CONV_C)
-            ctemp_max = "{:.1f}".format(self._data['daily'][0]['temp']['max'] +
-                                        K_CONV_C)
-            str_temp_min = ctemp_min + DEG_C if scale == ScaleType.celsius \
-                else self._convert_farenheit(ctemp_min) + DEG_F
-            str_temp_max = ctemp_max + DEG_C if scale == ScaleType.celsius \
-                else self._convert_farenheit(ctemp_max) + DEG_F
+            celsius_temp_min: float = self._kelvin_to_celsius(
+                float(self._data['daily'][0]['temp']['min']))
+            celsius_temp_max: float = self._kelvin_to_celsius(
+                float(self._data['daily'][0]['temp']['max']))
+            str_temp_min: str = str(celsius_temp_min) + DEG_C \
+                if scale == ScaleType.celsius \
+                else str(self._celsius_to_farenheit(celsius_temp_min)) + DEG_F
+            str_temp_max: str = str(celsius_temp_max) + DEG_C \
+                if scale == ScaleType.celsius \
+                else str(self._celsius_to_farenheit(celsius_temp_max)) + DEG_F
             return f'Today: {str_temp_min}–{str_temp_max}'
-        except (KeyError, TypeError, IndexError):
-            return "Error retrieving range"
+        except (KeyError, IndexError):
+            return "Error retrieving range."
 
     def fetch_condition(self, day: int) -> str:
         """Generate weather condition string
 
         String is returned in format:
-            ["•"/Tomorrow:] [weather condition]
+            ["•"/"Tomorrow:"] [weather condition]
+
+        Args:
+            day (int): Desired day number (0/today or 1/tomorrow)
 
         Returns:
             str: Formatted string or error message
         """
-        if day == 0:
-            prefix = "\u2022 "
-        elif day == 1:
-            prefix = "Tomorrow: "
-        else:
+        if day < 0 or day > 1:
             raise ValueError(
-                "Can only get weather conditions for today and tomorrow.")
-        try:
-            return prefix + self._data['daily'][day]['weather'][0][
-                'description']
-        except (KeyError, TypeError, IndexError):
-            return "Error retrieving condition"
+                "Weather conditions only available for 0/today or 1/tomorrow.")
 
-    def _convert_farenheit(self, c_temp_str: str) -> str:
-        """Helper function to convert Celsius string to Farenheit string
+        prefix: str = '\u2022' if day == 0 else 'Tomorrow:'
+        try:
+            return (f"{prefix} "
+                    f"{self._data['daily'][day]['weather'][0]['description']}")
+
+        except (KeyError, IndexError):
+            return "Error retrieving condition."
+
+    def _kelvin_to_celsius(self, kelvin_temp: float) -> float:
+        """Helper function to convert Kelvin to Celsius to one decimal place
         """
-        return "{:.1f}".format(float(c_temp_str) * 9 / 5 + 32)
+        return round(kelvin_temp - 273.15, 1)
+
+    def _celsius_to_farenheit(self, celsius_temp: float) -> float:
+        """Helper function to convert Celsius to Farenheit to one decimal place
+        """
+        return round(celsius_temp * 9 / 5 + 32, 1)

@@ -6,7 +6,7 @@ _env: Env = Env()
 _env.read_env()
 
 # Train constants
-T_STATION_FROM: str = _env.str("W_API_KEY", default='maze hill')
+T_STATION_FROM: str = _env.str("T_STATION_FROM", default='maze hill')
 """From (departing) station"""
 
 T_STATION_TO: str = _env.str("T_STATION_TO", default='london bridge')

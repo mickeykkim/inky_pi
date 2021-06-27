@@ -6,7 +6,7 @@ from inky import InkyWHAT  # type: ignore
 from inky_pi.configs import (T_NUM, T_STATION_FROM, T_STATION_TO, W_API_KEY,
                              W_EXCLUDE, W_LATITUDE, W_LONGITUDE)
 from inky_pi.display.inky_draw import InkyDraw  # type: ignore
-from inky_pi.train.openldbws import TrainModel  # type: ignore
+from inky_pi.train.huxley2_openldbws import TrainModel  # type: ignore
 from inky_pi.weather.openweathermap import ScaleType  # type: ignore
 from inky_pi.weather.openweathermap import WeatherModel
 
