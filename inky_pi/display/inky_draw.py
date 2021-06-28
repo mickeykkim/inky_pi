@@ -60,8 +60,8 @@ class InkyDraw():
         self._img_draw.text((x_pos, y_pos), strftime('%H:%M'), self._black,
                             FONT_L)
 
-    def draw_train_times(self, data_t: 'TrainBase', num_trains: int,
-                         x_pos: int, y_pos: int) -> None:
+    def draw_train_times(self, data_t: TrainBase, num_trains: int, x_pos: int,
+                         y_pos: int) -> None:
         """Draw all train times text
 
         Each line: Train time, platform, destination station, ETA
@@ -76,7 +76,7 @@ class InkyDraw():
             self._img_draw.text((x_pos, y_pos + i * 30),
                                 data_t.fetch_train(i + 1), self._black, FONT_S)
 
-    def draw_weather_forecast(self, data_w: 'WeatherBase', scale: 'ScaleType',
+    def draw_weather_forecast(self, data_w: WeatherBase, scale: 'ScaleType',
                               x_pos: int, y_pos: int) -> None:
         """Draw all weather forecast text
 
@@ -110,7 +110,7 @@ class InkyDraw():
             x_pos (int): X position offset
             y_pos (int): Y position offset
         """
-        draw_icon_dispatcher: Dict['IconType', Callable] = {
+        draw_icon_dispatcher: Dict[IconType, Callable] = {
             IconType.clear_sky: self.draw_sun_icon,
             IconType.few_clouds: self.draw_sun_cloud_icon,
             IconType.scattered_clouds: self.draw_cloud_icon,

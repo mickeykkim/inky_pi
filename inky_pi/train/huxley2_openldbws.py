@@ -8,7 +8,7 @@ import requests
 from .train_base import TrainBase  # type: ignore
 
 
-class Huxley2_OpenLDBWS(TrainBase):
+class HuxleyOpenLDBWS(TrainBase):
     """Fetch and manage train data"""
     def __init__(self, stn_from: str, stn_to: str, num_trains: int) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
@@ -29,7 +29,7 @@ class Huxley2_OpenLDBWS(TrainBase):
         """Generate next train string
 
         String is returned in format:
-            [hh:mm]|[Platform #] to [Final Destination Station] - [Status/ETD]
+            [hh:mm] | [Platform #] to [Final Destination Station] - [Status]
 
         Args:
             num (int): Next train departing number
@@ -50,7 +50,7 @@ class Huxley2_OpenLDBWS(TrainBase):
                 num - 1]['destination'][0]['locationName']
             dest_stn_abbr: str = self._abbreviate_stn_name(dest_stn)
             status: str = self._data['trainServices'][num - 1]['etd']
-            return f'{arrival_t}|P{platform} to {dest_stn_abbr} - {status}'
+            return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
         except (KeyError, TypeError, IndexError):
             try:
                 # Try to get the error message & line wrap over each line

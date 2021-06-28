@@ -42,7 +42,7 @@ class OpenWeatherMap(WeatherBase):
         if 'cod' in self._data:
             raise ValueError(self._data['message'])
 
-    def get_icon(self) -> 'IconType':
+    def get_icon(self) -> IconType:
         """Retrieves weather type from current OpenWeatherMap weather icon
 
         Full list of icons/codes: https://openweathermap.org/weather-conditions
@@ -52,7 +52,7 @@ class OpenWeatherMap(WeatherBase):
         """
         # Get first two code characters; third character is 'd/n' for day/night
         icon_code: str = str(self._data['current']['weather'][0]['icon'])[0:2]
-        weather_type_dict: Dict[str, 'IconType'] = {
+        weather_type_dict: Dict[str, IconType] = {
             '01': IconType.clear_sky,
             '02': IconType.few_clouds,
             '03': IconType.scattered_clouds,
@@ -65,7 +65,7 @@ class OpenWeatherMap(WeatherBase):
         }
         return weather_type_dict[icon_code]
 
-    def get_current_weather(self, scale: 'ScaleType') -> str:
+    def get_current_weather(self, scale: ScaleType) -> str:
         """Generate current weather string
 
         String is returned in format:
@@ -88,7 +88,7 @@ class OpenWeatherMap(WeatherBase):
         except (KeyError, IndexError):
             return "Error retrieving weather."
 
-    def get_today_temp_range(self, scale: 'ScaleType') -> str:
+    def get_today_temp_range(self, scale: ScaleType) -> str:
         """Generate today's temperature range string
 
         String is returned in format:
