@@ -6,9 +6,9 @@ from inky import InkyWHAT  # type: ignore
 from inky_pi.configs import (T_NUM, T_STATION_FROM, T_STATION_TO, W_API_KEY,
                              W_EXCLUDE, W_LATITUDE, W_LONGITUDE)
 from inky_pi.display.inky_draw import InkyDraw  # type: ignore
-from inky_pi.train.huxley2_openldbws import TrainModel  # type: ignore
-from inky_pi.weather.openweathermap import ScaleType  # type: ignore
-from inky_pi.weather.openweathermap import WeatherModel
+from inky_pi.train.huxley2_openldbws import Huxley2_OpenLDBWS  # type: ignore
+from inky_pi.weather.openweathermap import OpenWeatherMap  # type: ignore
+from inky_pi.weather.weather_base import ScaleType  # type: ignore
 
 
 def main() -> None:
@@ -18,8 +18,9 @@ def main() -> None:
     weather icon, and draws to inkyWHAT screen.
     """
     # Send requests to API endpoints to set data
-    train_data = TrainModel(T_STATION_FROM, T_STATION_TO, T_NUM)
-    weather_data = WeatherModel(W_LATITUDE, W_LONGITUDE, W_EXCLUDE, W_API_KEY)
+    train_data = Huxley2_OpenLDBWS(T_STATION_FROM, T_STATION_TO, T_NUM)
+    weather_data = OpenWeatherMap(W_LATITUDE, W_LONGITUDE, W_EXCLUDE,
+                                  W_API_KEY)
 
     # Set the display object configured with specified Inky display model
     display = InkyDraw(InkyWHAT('black'))

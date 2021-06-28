@@ -5,8 +5,10 @@ from typing import Dict
 
 import requests
 
+from .train_base import TrainBase  # type: ignore
 
-class TrainModel:
+
+class Huxley2_OpenLDBWS(TrainBase):
     """Fetch and manage train data"""
     def __init__(self, stn_from: str, stn_to: str, num_trains: int) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint

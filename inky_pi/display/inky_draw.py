@@ -7,11 +7,10 @@ from typing import Any, Callable, Dict
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.train.huxley2_openldbws import TrainModel  # type: ignore
-from inky_pi.weather.openweathermap import IconType  # type: ignore
-from inky_pi.weather.openweathermap import ScaleType  # type: ignore
-from inky_pi.weather.openweathermap import WeatherModel
-
+from inky_pi.train.train_base import TrainBase  # type: ignore
+from inky_pi.weather.weather_base import IconType  # type: ignore
+from inky_pi.weather.weather_base import ScaleType  # type: ignore
+from inky_pi.weather.weather_base import WeatherBase  # type: ignore
 
 # Font constants
 FONT_S: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 20)
@@ -22,7 +21,11 @@ FONT_L: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 35)
 class InkyDraw():
     """Draw text and shapes onto Inky e-ink display"""
     def __init__(self, inky_model: Any) -> None:
-        # Create display and image drawing objects
+        """Create display and image drawing objects
+
+        Args:
+            inky_model (Any): Inky display model (i.e. InkyWHAT('black'))
+        """
         self._display: Any = inky_model
         self._img: 'Image' = Image.new(
             'P', (self._display.WIDTH, self._display.HEIGHT))
@@ -32,9 +35,6 @@ class InkyDraw():
 
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display
-
-        Args:
-            img (Image): Image object
         """
         self._display.set_border(self._black)
         self._display.set_image(self._img)
@@ -60,12 +60,14 @@ class InkyDraw():
         self._img_draw.text((x_pos, y_pos), strftime('%H:%M'), self._black,
                             FONT_L)
 
-    def draw_train_times(self, data_t: 'TrainModel', num_trains: int,
+    def draw_train_times(self, data_t: 'TrainBase', num_trains: int,
                          x_pos: int, y_pos: int) -> None:
         """Draw all train times text
 
+        Each line: Train time, platform, destination station, ETA
+
         Args:
-            data_t (TrainModel): TrainModel object
+            data_t (TrainBase): TrainBase object
             num_trains (int): Number of train info to draw
             x_pos (int): X position offset
             y_pos (int): Y position offset
@@ -74,7 +76,7 @@ class InkyDraw():
             self._img_draw.text((x_pos, y_pos + i * 30),
                                 data_t.fetch_train(i + 1), self._black, FONT_S)
 
-    def draw_weather_forecast(self, data_w: 'WeatherModel', scale: 'ScaleType',
+    def draw_weather_forecast(self, data_w: 'WeatherBase', scale: 'ScaleType',
                               x_pos: int, y_pos: int) -> None:
         """Draw all weather forecast text
 
@@ -84,17 +86,16 @@ class InkyDraw():
         Fourth line: tomorrow's weather condition description
 
         Args:
-            data_w (WeatherModel): WeatherModel object
+            data_w (WeatherBase): WeatherBase object
             scale (ScaleType): Celsius or Fahrenheit for formatting
             x_pos (int): X position offset
             y_pos (int): Y position offset
         """
-        self._img_draw.text((x_pos, y_pos),
-                            data_w.get_current_weather(scale),
+        self._img_draw.text((x_pos, y_pos), data_w.get_current_weather(scale),
                             self._black, FONT_L)
         self._img_draw.text((x_pos, y_pos + 45),
-                            data_w.get_today_temp_range(scale),
-                            self._black, FONT_M)
+                            data_w.get_today_temp_range(scale), self._black,
+                            FONT_M)
         self._img_draw.text((x_pos, y_pos + 75), data_w.fetch_condition(0),
                             self._black, FONT_M)
         self._img_draw.text((x_pos, y_pos + 105), data_w.fetch_condition(1),

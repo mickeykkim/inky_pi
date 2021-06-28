@@ -1,36 +1,18 @@
 """Inky_Pi weather model module.
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
-from enum import Enum, auto
 from typing import Dict, Union
 
 import requests
+
+from .weather_base import IconType, ScaleType, WeatherBase  # type: ignore
 
 # Weather formatting constants
 DEG_C: str = u"\N{DEGREE SIGN}" + "C"
 DEG_F: str = u"\N{DEGREE SIGN}" + "F"
 
 
-class IconType(Enum):
-    """Enum for Weather Icon types"""
-    clear_sky = auto()
-    few_clouds = auto()
-    scattered_clouds = auto()
-    broken_clouds = auto()
-    shower_rain = auto()
-    rain = auto()
-    thunderstorm = auto()
-    snow = auto()
-    mist = auto()
-
-
-class ScaleType(Enum):
-    """Enum for Weather Scale types"""
-    celsius = auto()
-    fahrenheit = auto()
-
-
-class WeatherModel:
+class OpenWeatherMap(WeatherBase):
     """Fetch and manage weather data"""
     def __init__(self, latitude: float, longitude: float, exclude: str,
                  api_key: str) -> None:
