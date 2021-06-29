@@ -6,14 +6,22 @@ _env: Env = Env()
 _env.read_env()
 
 # Train constants
-T_STATION_FROM: str = _env.str("T_STATION_FROM", default='maze hill')
+T_STATION_FROM: str = _env.str("T_STATION_FROM", default='MZH')
 """From (departing) station"""
 
-T_STATION_TO: str = _env.str("T_STATION_TO", default='london bridge')
+T_STATION_TO: str = _env.str("T_STATION_TO", default='LBG')
 """To (arrival) station"""
 
 T_NUM: int = _env.int("T_NUM", default=3)
 """Number of departing trains to fetch"""
+
+T_LDB_TOKEN: str = _env.str("T_LDB_TOKEN", default='keep-in-.env-file')
+"""OpenLDBWS API Token"""
+
+T_WSDL: str = _env.str("T_WDSL",
+                       default='http://lite.realtime.nationalrail.co.uk/' +
+                       'OpenLDBWS/wsdl.aspx?ver=2017-10-01')
+"""OpenLDBWS API Endpoint"""
 
 # Weather constants; default London
 W_LATITUDE: float = _env.float("W_LATITUDE", default=51.5085)

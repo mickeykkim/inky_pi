@@ -31,6 +31,7 @@ inky = "^1.2.0"
 "RPi.GPIO" = "^0.7.0"
 Pillow = "^8.2.0"
 environs = "^9.3.2"
+zeep = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 bumpversion = "*"
