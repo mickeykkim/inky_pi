@@ -8,7 +8,6 @@ Welcome to inky-pi's documentation!
    readme
    installation
    usage
-   modules
    contributing
    authors
    history
