@@ -5,6 +5,9 @@ from environs import Env
 _env: Env = Env()
 _env.read_env()
 
+T_MODEL: str = _env.str("T_MODEL", default='huxley2')
+"""Train model to use"""
+
 # Train constants
 T_STATION_FROM: str = _env.str("T_STATION_FROM", default='MZH')
 """From (departing) station"""

@@ -1,11 +1,9 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
-from typing import Dict
-
 import requests
 
-from .train_base import TrainBase  # type: ignore
+from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
 
 
 class HuxleyOpenLDBWS(TrainBase):
@@ -48,7 +46,7 @@ class HuxleyOpenLDBWS(TrainBase):
             arrival_t: str = self._data['trainServices'][num - 1]['std']
             dest_stn: str = self._data['trainServices'][
                 num - 1]['destination'][0]['locationName']
-            dest_stn_abbr: str = self._abbreviate_stn_name(dest_stn)
+            dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = self._data['trainServices'][num - 1]['etd']
             return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
         except (KeyError, TypeError, IndexError):
@@ -67,22 +65,3 @@ class HuxleyOpenLDBWS(TrainBase):
                 # Otherwise return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"
-
-    def _abbreviate_stn_name(self, station_name: str) -> str:
-        """Helper function to abbreviate station name by shortening words
-        """
-        abbreviation_dict: Dict[str, str] = {
-            "Street": "St",
-            "Lane": "Ln",
-            "Court": "Ct",
-            "Road": "Rd",
-            "North": "N",
-            "South": "S",
-            "East": "E",
-            "West": "W",
-            "Thameslink": "TL",
-        }
-        for word, abbreviation in abbreviation_dict.items():
-            station_name = station_name.replace(word, abbreviation)
-
-        return station_name
