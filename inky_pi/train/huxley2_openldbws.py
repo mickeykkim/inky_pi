@@ -1,6 +1,8 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
+from typing import Dict
+
 import requests
 
 from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
@@ -10,6 +12,8 @@ class HuxleyOpenLDBWS(TrainBase):
     """Fetch and manage train data"""
     def __init__(self, stn_from: str, stn_to: str, num_trains: int) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
+
+        More info here: https://huxley2.azurewebsites.net/
 
         Args:
             stn_from (str): From station
@@ -41,22 +45,21 @@ class HuxleyOpenLDBWS(TrainBase):
 
         try:
             # Get all data
-            platform: str = self._data['trainServices'][num -
-                                                        1]['platform'][0:2]
-            arrival_t: str = self._data['trainServices'][num - 1]['std']
-            dest_stn: str = self._data['trainServices'][
-                num - 1]['destination'][0]['locationName']
+            service: Dict = self._data['trainServices'][num - 1]
+            platform: str = service['platform'][0:2]
+            arrival_t: str = service['std']
+            dest_stn: str = service['destination'][0]['locationName']
             dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
-            status: str = self._data['trainServices'][num - 1]['etd']
+            status: str = service['etd']
             return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
         except (KeyError, TypeError, IndexError):
             try:
                 # Try to get the error message & line wrap over each line
-                line_length: int = 41
+                l_length: int = 41
                 return str(
                     self._data['nrccMessages'][0]['value'])[(num - 1) *
-                                                            line_length:num *
-                                                            line_length]
+                                                            l_length:num *
+                                                            l_length]
             except (KeyError, TypeError, IndexError):
                 # Check if any trains are running
                 if self._data['trainServices'] is None and num == 1:

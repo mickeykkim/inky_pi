@@ -13,9 +13,9 @@ from inky_pi.weather.weather_base import ScaleType  # type: ignore
 from inky_pi.weather.weather_base import WeatherBase  # type: ignore
 
 # Font constants
-FONT_S: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 20)
-FONT_M: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 25)
-FONT_L: 'ImageFont' = ImageFont.truetype(HankenGroteskBold, 35)
+FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
+FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
+FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
 
 
 class InkyDraw():

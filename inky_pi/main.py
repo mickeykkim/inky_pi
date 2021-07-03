@@ -32,8 +32,11 @@ def _instantiate_train_model(t_model: str,
         t_wdls (str): [Optional] OpenLDBWS WSDL URL
         t_ldb_token (str): [Optional] OpenLDBWS API token
     """
+    if t_model == "openldbws" and (t_wsdl is None or t_ldb_token is None):
+        raise ValueError('OpenLDBWS requires WSDL and LDB token.')
+
     train_dict: Dict[str, TrainBase] = {
-        "openldwbs":
+        "openldbws":
         OpenLDBWS(t_station_from, t_station_to, t_num, t_wsdl, t_ldb_token),
         "huxley2":
         HuxleyOpenLDBWS(t_station_from, t_station_to, t_num),
@@ -51,6 +54,7 @@ def main() -> None:
     train_data: TrainBase = _instantiate_train_model(T_MODEL, T_STATION_FROM,
                                                      T_STATION_TO, T_NUM,
                                                      T_WSDL, T_LDB_TOKEN)
+
     weather_data: WeatherBase = OpenWeatherMap(W_LATITUDE, W_LONGITUDE,
                                                W_EXCLUDE, W_API_KEY)
 

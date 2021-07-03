@@ -5,7 +5,7 @@ from environs import Env
 _env: Env = Env()
 _env.read_env()
 
-T_MODEL: str = _env.str("T_MODEL", default='huxley2')
+T_MODEL: str = _env.str("T_MODEL", default='openldbws')
 """Train model to use"""
 
 # Train constants
