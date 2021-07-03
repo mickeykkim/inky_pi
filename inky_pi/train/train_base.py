@@ -1,14 +1,6 @@
-"""Base class for train model"""
+"""Base class and helper functions for train model"""
 from abc import ABC, abstractmethod
 from typing import Dict
-
-
-class TrainBase(ABC):
-    """Abstract base class for all train models"""
-    @abstractmethod
-    def fetch_train(self, num: int) -> str:
-        """Return requested train data"""
-        ...
 
 
 def abbreviate_stn_name(station_name: str) -> str:
@@ -29,3 +21,11 @@ def abbreviate_stn_name(station_name: str) -> str:
         station_name = station_name.replace(word, abbreviation)
 
     return station_name
+
+
+class TrainBase(ABC):
+    """Abstract base class for all train models"""
+    @abstractmethod
+    def fetch_train(self, num: int) -> str:
+        """Return requested train data"""
+        ...

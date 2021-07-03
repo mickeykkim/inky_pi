@@ -5,7 +5,9 @@ from typing import Dict, Union
 
 import requests
 
-from .weather_base import IconType, ScaleType, WeatherBase  # type: ignore
+from .weather_base import WeatherBase  # type: ignore
+from .weather_base import (IconType, ScaleType, celsius_to_farenheit,
+                           kelvin_to_celsius)
 
 # Weather formatting constants
 DEG_C: str = u"\N{DEGREE SIGN}" + "C"
@@ -78,11 +80,11 @@ class OpenWeatherMap(WeatherBase):
             str: Formatted string or error message
         """
         try:
-            celsius_temp: float = self._kelvin_to_celsius(
+            celsius_temp: float = kelvin_to_celsius(
                 float(self._data['current']['temp']))
             str_temp: str = str(celsius_temp) + DEG_C \
                 if scale == ScaleType.celsius \
-                else str(self._celsius_to_farenheit(celsius_temp)) + DEG_F
+                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
             str_status: str = self._data['current']['weather'][0]['main']
             return f'{str_temp} - {str_status}'
         except (KeyError, IndexError):
@@ -101,16 +103,16 @@ class OpenWeatherMap(WeatherBase):
             str: Formatted string or error message
         """
         try:
-            celsius_temp_min: float = self._kelvin_to_celsius(
+            celsius_temp_min: float = kelvin_to_celsius(
                 float(self._data['daily'][0]['temp']['min']))
-            celsius_temp_max: float = self._kelvin_to_celsius(
+            celsius_temp_max: float = kelvin_to_celsius(
                 float(self._data['daily'][0]['temp']['max']))
             str_temp_min: str = str(celsius_temp_min) + DEG_C \
                 if scale == ScaleType.celsius \
-                else str(self._celsius_to_farenheit(celsius_temp_min)) + DEG_F
+                else str(celsius_to_farenheit(celsius_temp_min)) + DEG_F
             str_temp_max: str = str(celsius_temp_max) + DEG_C \
                 if scale == ScaleType.celsius \
-                else str(self._celsius_to_farenheit(celsius_temp_max)) + DEG_F
+                else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
             return f'Today: {str_temp_min}–{str_temp_max}'
         except (KeyError, IndexError):
             return "Error retrieving range."
@@ -138,13 +140,3 @@ class OpenWeatherMap(WeatherBase):
 
         except (KeyError, IndexError):
             return "Error retrieving condition."
-
-    def _kelvin_to_celsius(self, kelvin_temp: float) -> float:
-        """Helper function to convert Kelvin to Celsius to one decimal place
-        """
-        return round(kelvin_temp - 273.15, 1)
-
-    def _celsius_to_farenheit(self, celsius_temp: float) -> float:
-        """Helper function to convert Celsius to Farenheit to one decimal place
-        """
-        return round(celsius_temp * 9 / 5 + 32, 1)
