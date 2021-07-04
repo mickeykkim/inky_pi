@@ -16,12 +16,23 @@ from inky_pi.weather.openweathermap import OpenWeatherMap  # type: ignore
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
 
 
-def _instantiate_train_model(t_model: str,
-                             t_station_from: str,
-                             t_station_to: str,
-                             t_num: int,
-                             t_wsdl: str = None,
-                             t_ldb_token: str = None) -> TrainBase:
+# pylint: disable=unused-argument
+def _instantiate_huxley2(t_station_from: str, t_station_to: str, t_num: int,
+                         *args) -> HuxleyOpenLDBWS:
+    return HuxleyOpenLDBWS(t_station_from, t_station_to, t_num)
+
+
+def _instantiate_openldbws(t_station_from: str, t_station_to: str, t_num: int,
+                           t_wsdl: str, t_ldb_token: str) -> OpenLDBWS:
+    return OpenLDBWS(t_station_from, t_station_to, t_num, t_wsdl, t_ldb_token)
+
+
+def _train_model_factory(t_model: str,
+                         t_station_from: str,
+                         t_station_to: str,
+                         t_num: int,
+                         t_wsdl: str = None,
+                         t_ldb_token: str = None) -> TrainBase:
     """Selects and instantiates the defined train model to use
 
     Args:
@@ -36,12 +47,11 @@ def _instantiate_train_model(t_model: str,
         raise ValueError('OpenLDBWS requires WSDL and LDB token.')
 
     train_dict: Dict[str, TrainBase] = {
-        "openldbws":
-        OpenLDBWS(t_station_from, t_station_to, t_num, t_wsdl, t_ldb_token),
-        "huxley2":
-        HuxleyOpenLDBWS(t_station_from, t_station_to, t_num),
+        "openldbws": _instantiate_openldbws,
+        "huxley2": _instantiate_huxley2,
     }
-    return train_dict[t_model]
+    return train_dict[t_model](t_station_from, t_station_to, t_num, t_wsdl,
+                               t_ldb_token)
 
 
 def main() -> None:
@@ -51,9 +61,9 @@ def main() -> None:
     weather icon, and draws to inkyWHAT screen.
     """
     # Send requests to API endpoints to set data
-    train_data: TrainBase = _instantiate_train_model(T_MODEL, T_STATION_FROM,
-                                                     T_STATION_TO, T_NUM,
-                                                     T_WSDL, T_LDB_TOKEN)
+    train_data: TrainBase = _train_model_factory(T_MODEL, T_STATION_FROM,
+                                                 T_STATION_TO, T_NUM, T_WSDL,
+                                                 T_LDB_TOKEN)
 
     weather_data: WeatherBase = OpenWeatherMap(W_LATITUDE, W_LONGITUDE,
                                                W_EXCLUDE, W_API_KEY)
