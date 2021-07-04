@@ -18,6 +18,8 @@ T_STATION_TO: str = _env.str("T_STATION_TO", default='LBG')
 T_NUM: int = _env.int("T_NUM", default=3)
 """Number of departing trains to fetch"""
 
+# Token: https://realtime.nationalrail.co.uk/OpenLDBWSRegistration/Registration
+# Keep this in a .env file in project root folder i.e.: T_LDB_TOKEN=keyvalue
 T_LDB_TOKEN: str = _env.str("T_LDB_TOKEN", default='keep-in-.env-file')
 """OpenLDBWS API Token"""
 
