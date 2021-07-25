@@ -66,14 +66,14 @@ class OpenLDBWS(TrainBase):
             dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service.etd
             return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
-        except (AttributeError, TypeError, IndexError):
+        except (AttributeError, TypeError, KeyError, IndexError):
             try:
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
                 return str(
                     self._data.nrccMessages[0].value[(num - 1) * l_length:num *
-                                                  l_length])
-            except (AttributeError, TypeError, IndexError):
+                                                     l_length])
+            except (AttributeError, TypeError, KeyError, IndexError):
                 # Check if any trains are running
                 if self._data.trainServices is None and num == 1:
                     dest: str = self._data.filterLocationName
