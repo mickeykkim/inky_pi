@@ -8,7 +8,7 @@ from zeep.plugins import HistoryPlugin  # type: ignore
 from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
 
 
-class OpenLDBWS(TrainBase):
+class OpenLive(TrainBase):
     """Fetch and manage train data"""
     def __init__(self, stn_from: str, stn_to: str, num_trains: int,
                  t_wsdl: str, t_ldb_token: str) -> None:

@@ -8,7 +8,7 @@ import requests
 from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
 
 
-class HuxleyOpenLDBWS(TrainBase):
+class Huxley2(TrainBase):
     """Fetch and manage train data"""
     def __init__(self, stn_from: str, stn_to: str, num_trains: int) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint

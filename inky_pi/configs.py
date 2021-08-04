@@ -5,7 +5,7 @@ from environs import Env
 _env: Env = Env()
 _env.read_env()
 
-TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default='openldbws')
+TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default='open_live')
 """Train model to use"""
 
 # Train constants
