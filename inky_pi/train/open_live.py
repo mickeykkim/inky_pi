@@ -10,8 +10,8 @@ from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
 
 class OpenLive(TrainBase):
     """Fetch and manage train data"""
-    def __init__(self, stn_from: str, stn_to: str, num_trains: int,
-                 t_wsdl: str, t_ldb_token: str) -> None:
+    def __init__(self, stn_from: str, stn_to: str, num_trains: int, t_wsdl: str,
+                 t_ldb_token: str) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
 
         API description: http://lite.realtime.nationalrail.co.uk/openldbws/
@@ -34,12 +34,11 @@ class OpenLive(TrainBase):
             ]))
         header_value = header(TokenValue=t_ldb_token)
         self._num: int = num_trains
-        self._data = client.service.GetDepartureBoard(
-            numRows=num_trains,
-            crs=stn_from,
-            filterCrs=stn_to,
-            filterType='to',
-            _soapheaders=[header_value])
+        self._data = client.service.GetDepartureBoard(numRows=num_trains,
+                                                      crs=stn_from,
+                                                      filterCrs=stn_to,
+                                                      filterType='to',
+                                                      _soapheaders=[header_value])
 
     def fetch_train(self, num: int) -> str:
         """Generate next train string
@@ -70,9 +69,8 @@ class OpenLive(TrainBase):
             try:
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
-                return str(
-                    self._data.nrccMessages[0].value[(num - 1) * l_length:num *
-                                                     l_length])
+                return str(self._data.nrccMessages[0].value[(num - 1) * l_length:num *
+                                                            l_length])
             except (AttributeError, TypeError, KeyError, IndexError):
                 # Check if any trains are running
                 if self._data.trainServices is None and num == 1:

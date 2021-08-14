@@ -23,10 +23,9 @@ TRAIN_NUMBER: int = _env.int("TRAIN_NUMBER", default=3)
 TRAIN_API_TOKEN: str = _env.str("TRAIN_API_TOKEN", default='keep-in-.env-file')
 """OpenLDBWS API Token"""
 
-TRAIN_MODEL_URL: str = _env.str(
-    "TRAIN_MODEL_URL",
-    default='http://lite.realtime.nationalrail.co.uk/' +
-    'OpenLDBWS/wsdl.aspx?ver=2017-10-01')
+TRAIN_MODEL_URL: str = _env.str("TRAIN_MODEL_URL",
+                                default='http://lite.realtime.nationalrail.co.uk/' +
+                                'OpenLDBWS/wsdl.aspx?ver=2017-10-01')
 """OpenLDBWS API Endpoint"""
 
 # Weather constants; default London
@@ -41,6 +40,5 @@ EXCLUDE_FLAGS: str = _env.str("EXCLUDE_FLAGS", default='minutely,hourly')
 
 # OpenWeatherMap API Key: https://home.openweathermap.org/api_keys
 # Keep this in a .env file in project root dir i.e.: WEATHER_API_TOKEN=keyvalue
-WEATHER_API_TOKEN: str = _env.str("WEATHER_API_TOKEN",
-                                  default='keep-in-.env-file')
+WEATHER_API_TOKEN: str = _env.str("WEATHER_API_TOKEN", default='keep-in-.env-file')
 """OpenWeatherMap API Key"""

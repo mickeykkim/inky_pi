@@ -23,8 +23,8 @@ def _instantiate_huxley2(station_from: str, station_to: str, number: int,
     return Huxley2(station_from, station_to, number)
 
 
-def _instantiate_open_live(station_from: str, station_to: str, number: int,
-                           url: str, token: str) -> OpenLive:
+def _instantiate_open_live(station_from: str, station_to: str, number: int, url: str,
+                           token: str) -> OpenLive:
     return OpenLive(station_from, station_to, number, url, token)
 
 
@@ -61,13 +61,11 @@ def main() -> None:
     weather icon, and draws to inkyWHAT screen.
     """
     # Send requests to API endpoints to set data
-    train_data: TrainBase = _train_model_factory(TRAIN_MODEL, STATION_FROM,
-                                                 STATION_TO, TRAIN_NUMBER,
-                                                 TRAIN_MODEL_URL,
+    train_data: TrainBase = _train_model_factory(TRAIN_MODEL, STATION_FROM, STATION_TO,
+                                                 TRAIN_NUMBER, TRAIN_MODEL_URL,
                                                  TRAIN_API_TOKEN)
 
-    weather_data: WeatherBase = OpenWeatherMap(LATITUDE, LONGITUDE,
-                                               EXCLUDE_FLAGS,
+    weather_data: WeatherBase = OpenWeatherMap(LATITUDE, LONGITUDE, EXCLUDE_FLAGS,
                                                WEATHER_API_TOKEN)
 
     # Set the display object configured with specified Inky display model

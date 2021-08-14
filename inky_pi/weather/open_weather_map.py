@@ -80,8 +80,8 @@ class OpenWeatherMap(WeatherBase):
             str: Formatted string or error message
         """
         try:
-            celsius_temp: float = kelvin_to_celsius(
-                float(self._data['current']['temp']))
+            celsius_temp: float = kelvin_to_celsius(float(
+                self._data['current']['temp']))
             str_temp: str = str(celsius_temp) + DEG_C \
                 if scale == ScaleType.celsius \
                 else str(celsius_to_farenheit(celsius_temp)) + DEG_F

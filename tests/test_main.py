@@ -27,14 +27,14 @@ def _setup_vars() -> Generator[Dict[str, Any], None, None]:
 @patch('inky_pi.train.open_live.HistoryPlugin')
 @patch('inky_pi.train.open_live.xsd.Element')
 @patch('inky_pi.train.open_live.Client')
-def test_instantiate_train_open_live(zeep_client_mock: Mock,
-                                     zeep_xsd_mock: Mock,
+def test_instantiate_train_open_live(zeep_client_mock: Mock, zeep_xsd_mock: Mock,
                                      zeep_history_mock: Mock,
                                      _setup_vars: Dict[str, Any]) -> None:
     """Test for creating OpenLDBWS instanced object"""
-    ret: TrainBase = _train_model_factory(
-        'open_live', _setup_vars['station_from'], _setup_vars['station_to'],
-        _setup_vars['number'], _setup_vars['url'], _setup_vars['token'])
+    ret: TrainBase = _train_model_factory('open_live', _setup_vars['station_from'],
+                                          _setup_vars['station_to'],
+                                          _setup_vars['number'], _setup_vars['url'],
+                                          _setup_vars['token'])
     zeep_history_mock.assert_called_once()
     zeep_client_mock.assert_called_once()
     zeep_xsd_mock.assert_called()
@@ -45,8 +45,7 @@ def test_instantiate_train_open_live(zeep_client_mock: Mock,
 def test_instantiate_train_huxley2(requests_get_mock: Mock,
                                    _setup_vars: Dict[str, Any]) -> None:
     """Test for creating Huxley2 OpenLDBWS instanced object"""
-    ret: TrainBase = _train_model_factory('huxley2',
-                                          _setup_vars['station_from'],
+    ret: TrainBase = _train_model_factory('huxley2', _setup_vars['station_from'],
                                           _setup_vars['station_to'],
                                           _setup_vars['number'])
     requests_get_mock.assert_called_once()

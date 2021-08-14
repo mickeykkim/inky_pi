@@ -57,8 +57,7 @@ class Huxley2(TrainBase):
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
                 return str(
-                    self._data['nrccMessages'][0]['value'])[(num - 1) *
-                                                            l_length:num *
+                    self._data['nrccMessages'][0]['value'])[(num - 1) * l_length:num *
                                                             l_length]
             except (KeyError, TypeError, IndexError):
                 # Check if any trains are running
