@@ -23,7 +23,7 @@ poetry shell
 inky_pi
 ```
 
-The program can be configured by editing [configs.py](https://github.com/mickeykkim/inky_pi/blob/main/inky_pi/configs.py) or by creating a `.env` file in the program's base directory and listing configuration options in the format `key=value`, i.e.: `W_API_KEY=asdf1234`.
+The program can be configured by editing [configs.py](https://github.com/mickeykkim/inky_pi/blob/main/inky_pi/configs.py) or by creating a `.env` file in the program's base directory and listing configuration options in the format `key=value`, i.e.: `WEATHER_API_TOKEN=asdf1234`.
 
 API keys are needed for train data using OpenLDBWS and for weather data using OpenWeatherMap. Alternatively, train data can be fetched using Huxley2 without an API key (though the maintainer contends that the Huxley2 server goes down often without notice). A module for Weather Underground could be easily written as a contribution/exercise.
 
