@@ -4,6 +4,8 @@ Draws strings and icons"""
 from time import strftime
 from typing import Any, Callable, Dict
 
+# pylint: ignore=no-name-in-module
+from font_fredoka_one import FredokaOne  # type: ignore
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
@@ -16,10 +18,14 @@ from inky_pi.weather.weather_base import WeatherBase  # type: ignore
 FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
 FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
+FONT_GS = ImageFont.truetype(FredokaOne, 25)
+FONT_GM = ImageFont.truetype(FredokaOne, 30)
+FONT_GL = ImageFont.truetype(FredokaOne, 40)
 
 
 class InkyDraw():
     """Draw text and shapes onto Inky e-ink display"""
+
     def __init__(self, inky_model: Any) -> None:
         """Create display and image drawing objects
 
@@ -38,6 +44,42 @@ class InkyDraw():
         self._display.set_border(self._black)
         self._display.set_image(self._img)
         self._display.show()
+
+    def draw_goodnight(self, data_w: WeatherBase, scale: 'ScaleType') -> None:
+        """Render goodnight screen
+        """
+        # Shared constants
+        x_mid = self._display.WIDTH / 2
+        y_mid = self._display.HEIGHT / 2
+        # Message text
+        message_str = "Good Night ^^"
+        width, height = FONT_GL.getsize(message_str)
+        message_x = x_mid - (width / 2)
+        message_y = y_mid - (height / 2)
+        self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
+        # Closed eye icon
+        line_width = 8
+        x_0, y_0 = x_mid - 75, -50
+        x_1, y_1 = x_mid + 75, y_mid - 75
+        a_start = 20
+        a_end = 160
+        self._img_draw.arc([(x_0, y_0), (x_1, y_1)], a_start, a_end, self._black,
+                           line_width)
+        self._img_draw.line([(x_0 + 9, y_0 + 131), (x_0 + 29, y_0 + 111)], self._black,
+                            line_width)
+        self._img_draw.line([(x_0 + 49, y_0 + 147), (x_0 + 59, y_0 + 122)], self._black,
+                            line_width)
+        self._img_draw.line([(x_0 + 104, y_0 + 147), (x_0 + 94, y_0 + 122)],
+                            self._black, line_width)
+        self._img_draw.line([(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)],
+                            self._black, line_width)
+        # Weather text
+        x_weather = 20
+        y_weather = 210
+        self._img_draw.text((x_weather, y_weather), data_w.get_temp_range(scale, 1),
+                            self._black, FONT_GM)
+        self._img_draw.text((x_weather, y_weather + 40), data_w.fetch_condition(1),
+                            self._black, FONT_GS)
 
     def draw_date(self, x_pos: int, y_pos: int) -> None:
         """Draw date text
@@ -91,7 +133,7 @@ class InkyDraw():
         """
         self._img_draw.text((x_pos, y_pos), data_w.get_current_weather(scale),
                             self._black, FONT_L)
-        self._img_draw.text((x_pos, y_pos + 45), data_w.get_today_temp_range(scale),
+        self._img_draw.text((x_pos, y_pos + 45), data_w.get_temp_range(scale, 0),
                             self._black, FONT_M)
         self._img_draw.text((x_pos, y_pos + 75), data_w.fetch_condition(0), self._black,
                             FONT_M)

@@ -36,6 +36,7 @@ class ScaleType(Enum):
 
 class WeatherBase(ABC):
     """Abstract base class for all weather models"""
+
     @abstractmethod
     def get_icon(self) -> IconType:
         """Return requested weather icon"""
@@ -47,7 +48,7 @@ class WeatherBase(ABC):
         ...
 
     @abstractmethod
-    def get_today_temp_range(self, scale: ScaleType) -> str:
+    def get_temp_range(self, scale: ScaleType) -> str:
         """Return requested temp range"""
         ...
 

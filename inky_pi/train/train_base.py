@@ -25,6 +25,7 @@ def abbreviate_stn_name(station_name: str) -> str:
 
 class TrainBase(ABC):
     """Abstract base class for all train models"""
+
     @abstractmethod
     def fetch_train(self, num: int) -> str:
         """Return requested train data"""

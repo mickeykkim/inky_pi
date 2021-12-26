@@ -16,6 +16,7 @@ DEG_F: str = u"\N{DEGREE SIGN}" + "F"
 
 class OpenWeatherMap(WeatherBase):
     """Fetch and manage weather data"""
+
     def __init__(self, latitude: float, longitude: float, exclude: str,
                  api_key: str) -> None:
         """Requests weather data from OpenWeatherMap 7-day forecast API
@@ -90,11 +91,11 @@ class OpenWeatherMap(WeatherBase):
         except (KeyError, IndexError):
             return "Error retrieving weather."
 
-    def get_today_temp_range(self, scale: ScaleType) -> str:
-        """Generate today's temperature range string
+    def get_temp_range(self, scale: ScaleType, day: int) -> str:
+        """Generate temperature range string
 
         String is returned in format:
-            Today: [XX.X(min)]°[C/F]–[XX.X(max)]°[C/F]
+            Today/Tomorrow: [XX.X(min)]°[C/F]–[XX.X(max)]°[C/F]
 
         Args:
             scale (ScaleType): Celsius or Fahrenheit for formatting
@@ -102,18 +103,24 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
+        if day < 0 or day > 1:
+            raise ValueError(
+                "Weather conditions only available for 0/today or 1/tomorrow.")
+
+        prefix: str = 'Today:' if day == 0 else 'Tomorrow:'
+
         try:
             celsius_temp_min: float = kelvin_to_celsius(
-                float(self._data['daily'][0]['temp']['min']))
+                float(self._data['daily'][day]['temp']['min']))
             celsius_temp_max: float = kelvin_to_celsius(
-                float(self._data['daily'][0]['temp']['max']))
+                float(self._data['daily'][day]['temp']['max']))
             str_temp_min: str = str(celsius_temp_min) + DEG_C \
                 if scale == ScaleType.celsius \
                 else str(celsius_to_farenheit(celsius_temp_min)) + DEG_F
             str_temp_max: str = str(celsius_temp_max) + DEG_C \
                 if scale == ScaleType.celsius \
                 else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
-            return f'Today: {str_temp_min}–{str_temp_max}'
+            return f'{prefix} {str_temp_min}–{str_temp_max}'
         except (KeyError, IndexError):
             return "Error retrieving range."
 
