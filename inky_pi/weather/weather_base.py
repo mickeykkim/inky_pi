@@ -48,7 +48,7 @@ class WeatherBase(ABC):
         ...
 
     @abstractmethod
-    def get_temp_range(self, scale: ScaleType) -> str:
+    def get_temp_range(self, scale: ScaleType, day: int) -> str:
         """Return requested temp range"""
         ...
 

@@ -4,6 +4,7 @@ Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from typing import Dict
 
 from inky import InkyWHAT  # type: ignore
+from loguru import logger
 
 from inky_pi.configs import (EXCLUDE_FLAGS, LATITUDE, LONGITUDE, STATION_FROM,
                              STATION_TO, TRAIN_API_TOKEN, TRAIN_MODEL,
@@ -14,6 +15,11 @@ from inky_pi.train.open_live import OpenLive  # type: ignore
 from inky_pi.train.train_base import TrainBase  # type: ignore
 from inky_pi.weather.open_weather_map import OpenWeatherMap  # type: ignore
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
+
+
+def configure_logging() -> None:
+    """See: https://loguru.readthedocs.io/en/stable/api.html"""
+    logger.add("inky.log", rotation="5 MB", serialize=True)
 
 
 # pylint: disable=unused-argument
@@ -60,6 +66,9 @@ def main() -> None:
     Retrieves train and weather data from API endpoints, generates text and
     weather icon, and draws to inkyWHAT screen.
     """
+    configure_logging()
+    logger.debug("InkyPi initialized")
+
     # Send requests to API endpoints to set data
     train_data: TrainBase = _train_model_factory(TRAIN_MODEL, STATION_FROM, STATION_TO,
                                                  TRAIN_NUMBER, TRAIN_MODEL_URL,

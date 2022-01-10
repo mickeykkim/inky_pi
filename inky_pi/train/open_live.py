@@ -2,6 +2,7 @@
 """
 from typing import Any
 
+from loguru import logger
 from zeep import Client, xsd  # type: ignore
 from zeep.plugins import HistoryPlugin  # type: ignore
 
@@ -54,6 +55,7 @@ class OpenLive(TrainBase):
             str: Formatted string or error message
         """
         if num < 0 or num > self._num:
+            logger.error("Invalid fetch_train num", num)
             raise ValueError(
                 f"{num} is an invalid train request number (max: {self._num})")
 
@@ -66,13 +68,16 @@ class OpenLive(TrainBase):
             dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service.etd
             return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
-        except (AttributeError, TypeError, KeyError, IndexError):
+        except (AttributeError, TypeError, KeyError, IndexError) as ex:
+            logger.error("Invalid fetch_train data", repr(ex))
             try:
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
+                logger.error("Train error", self._data.nrccMessages[0].value)
                 return str(self._data.nrccMessages[0].value[(num - 1) * l_length:num *
                                                             l_length])
-            except (AttributeError, TypeError, KeyError, IndexError):
+            except (AttributeError, TypeError, KeyError, IndexError) as exc:
+                logger.error("Could not get train error message", repr(exc))
                 # Check if any trains are running
                 if self._data.trainServices is None and num == 1:
                     dest: str = self._data.filterLocationName

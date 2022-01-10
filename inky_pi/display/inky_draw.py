@@ -37,6 +37,7 @@ class InkyDraw():
         self._img_draw: 'ImageDraw' = ImageDraw.Draw(self._img)
         self._black: Any = self._display.BLACK
         self._white: Any = self._display.WHITE
+        self._color: Any = self._display.YELLOW
 
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display
@@ -63,23 +64,23 @@ class InkyDraw():
         x_1, y_1 = x_mid + 75, y_mid - 75
         a_start = 20
         a_end = 160
-        self._img_draw.arc([(x_0, y_0), (x_1, y_1)], a_start, a_end, self._black,
+        self._img_draw.arc([(x_0, y_0), (x_1, y_1)], a_start, a_end, self._color,
                            line_width)
-        self._img_draw.line([(x_0 + 9, y_0 + 131), (x_0 + 29, y_0 + 111)], self._black,
+        self._img_draw.line([(x_0 + 9, y_0 + 131), (x_0 + 29, y_0 + 111)], self._color,
                             line_width)
-        self._img_draw.line([(x_0 + 49, y_0 + 147), (x_0 + 59, y_0 + 122)], self._black,
+        self._img_draw.line([(x_0 + 49, y_0 + 147), (x_0 + 59, y_0 + 122)], self._color,
                             line_width)
         self._img_draw.line([(x_0 + 104, y_0 + 147), (x_0 + 94, y_0 + 122)],
-                            self._black, line_width)
+                            self._color, line_width)
         self._img_draw.line([(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)],
-                            self._black, line_width)
+                            self._color, line_width)
         # Weather text
         x_weather = 20
         y_weather = 210
         self._img_draw.text((x_weather, y_weather), data_w.get_temp_range(scale, 1),
-                            self._black, FONT_GM)
+                            self._color, FONT_GM)
         self._img_draw.text((x_weather, y_weather + 40), data_w.fetch_condition(1),
-                            self._black, FONT_GS)
+                            self._color, FONT_GS)
 
     def draw_date(self, x_pos: int, y_pos: int) -> None:
         """Draw date text
