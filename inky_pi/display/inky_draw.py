@@ -49,15 +49,12 @@ class InkyDraw():
     def draw_goodnight(self, data_w: WeatherBase, scale: 'ScaleType') -> None:
         """Render goodnight screen
         """
-        # Shared constants
+        self._draw_goodnight_icon()
+        self._draw_goodnight_text(data_w, scale)
+
+    def _draw_goodnight_icon(self):
         x_mid = self._display.WIDTH / 2
         y_mid = self._display.HEIGHT / 2
-        # Message text
-        message_str = "Good Night ^^"
-        width, height = FONT_GL.getsize(message_str)
-        message_x = x_mid - (width / 2)
-        message_y = y_mid - (height / 2)
-        self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
         # Closed eye icon
         line_width = 8
         x_0, y_0 = x_mid - 75, -50
@@ -74,6 +71,16 @@ class InkyDraw():
                             self._color, line_width)
         self._img_draw.line([(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)],
                             self._color, line_width)
+
+    def _draw_goodnight_text(self, data_w: WeatherBase, scale: 'ScaleType'):
+        x_mid = self._display.WIDTH / 2
+        y_mid = self._display.HEIGHT / 2
+        # Message text
+        message_str = "Good Night ^^"
+        width, height = FONT_GL.getsize(message_str)
+        message_x = x_mid - (width / 2)
+        message_y = y_mid - (height / 2)
+        self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
         # Weather text
         x_weather = 20
         y_weather = 210
