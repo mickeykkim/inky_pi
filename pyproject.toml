@@ -24,7 +24,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">=3.7,<4"
 click = "*"
 font-hanken-grotesk = "^0.0.2"
 inky = "^1.2.0"
@@ -34,6 +34,7 @@ environs = "^9.3.2"
 zeep = "^4.0.0"
 font-fredoka-one = "^0.0.4"
 loguru = "^0.5.3"
+urllib3 = "^1.26.8"
 
 [tool.poetry.dev-dependencies]
 bumpversion = "*"
