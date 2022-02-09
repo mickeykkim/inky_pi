@@ -1,63 +1,18 @@
 """Inky_Pi main module.
 
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
-from typing import Dict
-
 from inky import InkyWHAT  # type: ignore
 from loguru import logger
 
 from inky_pi.configs import (EXCLUDE_FLAGS, LATITUDE, LONGITUDE, STATION_FROM,
-                             STATION_TO, TRAIN_API_TOKEN, TRAIN_MODEL,
-                             TRAIN_MODEL_URL, TRAIN_NUMBER, WEATHER_API_TOKEN)
+                             STATION_TO, TRAIN_API_TOKEN, TRAIN_MODEL_URL,
+                             TRAIN_NUMBER, WEATHER_API_TOKEN)
 from inky_pi.display.inky_draw import InkyDraw  # type: ignore
-from inky_pi.train.huxley2 import Huxley2  # type: ignore
-from inky_pi.train.open_live import OpenLive  # type: ignore
+from inky_pi.helper import (TrainModel, TrainObject, configure_logging,
+                            train_model_factory)
 from inky_pi.train.train_base import TrainBase  # type: ignore
 from inky_pi.weather.open_weather_map import OpenWeatherMap  # type: ignore
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
-
-
-def configure_logging() -> None:
-    """See: https://loguru.readthedocs.io/en/stable/api.html"""
-    logger.add("inky.log", rotation="5 MB", serialize=True)
-
-
-# pylint: disable=unused-argument
-def _instantiate_huxley2(station_from: str, station_to: str, number: int,
-                         *args) -> Huxley2:
-    """Huxley2 does not require a url or api key"""
-    return Huxley2(station_from, station_to, number)
-
-
-def _instantiate_open_live(station_from: str, station_to: str, number: int, url: str,
-                           token: str) -> OpenLive:
-    return OpenLive(station_from, station_to, number, url, token)
-
-
-def _train_model_factory(model: str,
-                         station_from: str,
-                         station_to: str,
-                         number: int,
-                         url: str = None,
-                         token: str = None) -> TrainBase:
-    """Selects and instantiates the defined train model to use
-
-    Args:
-        model (str): Train model name, "huxley2" or "open_live"
-        station_from (str): Departure station
-        station_to (str): Destination station
-        number (int): Number of departing trains to retrieve
-        url (str): [Optional] Open Live URL
-        token (str): [Optional] Open Live API token
-    """
-    if model == "open_live" and (url is None or token is None):
-        raise ValueError('Open Live requires URL and API token.')
-
-    train_dict: Dict[str, TrainBase] = {
-        "open_live": _instantiate_open_live,
-        "huxley2": _instantiate_huxley2,
-    }
-    return train_dict[model](station_from, station_to, number, url, token)
 
 
 def main() -> None:
@@ -68,11 +23,15 @@ def main() -> None:
     """
     configure_logging()
     logger.debug("InkyPi initialized")
+    train_object = TrainObject(model=TrainModel.OPEN_LIVE,
+                               station_from=STATION_FROM,
+                               station_to=STATION_TO,
+                               number=TRAIN_NUMBER,
+                               url=TRAIN_MODEL_URL,
+                               token=TRAIN_API_TOKEN)
 
     # Send requests to API endpoints to set data
-    train_data: TrainBase = _train_model_factory(TRAIN_MODEL, STATION_FROM, STATION_TO,
-                                                 TRAIN_NUMBER, TRAIN_MODEL_URL,
-                                                 TRAIN_API_TOKEN)
+    train_data: TrainBase = train_model_factory(train_object)
 
     weather_data: WeatherBase = OpenWeatherMap(LATITUDE, LONGITUDE, EXCLUDE_FLAGS,
                                                WEATHER_API_TOKEN)

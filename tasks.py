@@ -50,7 +50,7 @@ def format(c, check=False):
     yapf_options = '--recursive {}'.format('--diff' if check else '--in-place')
     _run(c, "yapf {} {}".format(yapf_options, python_dirs_string))
     # Run isort
-    isort_options = '--recursive {}'.format(
+    isort_options = '{}'.format(
         '--check-only --diff' if check else '')
     _run(c, "isort {} {}".format(isort_options, python_dirs_string))
 

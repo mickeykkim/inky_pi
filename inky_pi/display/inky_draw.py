@@ -4,7 +4,7 @@ Draws strings and icons"""
 from time import strftime
 from typing import Any, Callable, Dict
 
-# pylint: ignore=no-name-in-module
+# pylint: disable=no-name-in-module
 from font_fredoka_one import FredokaOne  # type: ignore
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore

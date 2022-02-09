@@ -6,9 +6,10 @@ from typing import Dict, Union
 import requests
 from loguru import logger
 
-from .weather_base import WeatherBase  # type: ignore
-from .weather_base import (IconType, ScaleType, celsius_to_farenheit,
-                           kelvin_to_celsius)
+from inky_pi.weather.weather_base import WeatherBase  # type: ignore
+from inky_pi.weather.weather_base import (IconType, ScaleType,
+                                          celsius_to_farenheit,
+                                          kelvin_to_celsius)
 
 # Weather formatting constants
 DEG_C: str = u"\N{DEGREE SIGN}" + "C"

@@ -6,7 +6,8 @@ from typing import Dict
 import requests
 from loguru import logger
 
-from .train_base import TrainBase, abbreviate_stn_name  # type: ignore
+from inky_pi.train.train_base import TrainBase  # type: ignore
+from inky_pi.train.train_base import abbreviate_stn_name
 
 
 class Huxley2(TrainBase):
