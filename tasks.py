@@ -76,7 +76,7 @@ def lint_mypy(c):
     """
     Lint code with mypy
     """
-    _run(c, "mypy {}".format(" ".join(PYTHON_DIRS)))
+    _run(c, "mypy {}".format(SOURCE_DIR))
 
 
 @task(lint_flake8, lint_pylint, lint_mypy)

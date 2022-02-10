@@ -3,7 +3,7 @@
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Dict
+from typing import Dict, Optional
 
 from loguru import logger
 
@@ -25,8 +25,8 @@ class TrainObject:
     station_from: str
     station_to: str
     number: int
-    url: str = None
-    token: str = None
+    url: Optional[str] = None
+    token: Optional[str] = None
 
 
 def configure_logging() -> None:
