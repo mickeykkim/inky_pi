@@ -14,6 +14,7 @@ from inky_pi.train.train_base import TrainBase  # type: ignore
 
 class TrainModel(Enum):
     """Enum of train models"""
+
     HUXLEY2 = auto()
     OPEN_LIVE = auto()
 
@@ -21,6 +22,7 @@ class TrainModel(Enum):
 @dataclass
 class TrainObject:
     """Train object"""
+
     model: TrainModel
     station_from: str
     station_to: str
@@ -36,14 +38,20 @@ def configure_logging() -> None:
 
 def instantiate_huxley2(train_object: TrainObject) -> Huxley2:
     """Huxley2 does not require a url or api key"""
-    return Huxley2(train_object.station_from, train_object.station_to,
-                   train_object.number)
+    return Huxley2(
+        train_object.station_from, train_object.station_to, train_object.number
+    )
 
 
 def instantiate_open_live(train_object: TrainObject) -> OpenLive:
     """Open Live requires a url and api key"""
-    return OpenLive(train_object.station_from, train_object.station_to,
-                    train_object.number, train_object.url, train_object.token)
+    return OpenLive(
+        train_object.station_from,
+        train_object.station_to,
+        train_object.number,
+        train_object.url,
+        train_object.token,
+    )
 
 
 def train_model_factory(train_object: TrainObject) -> TrainBase:
@@ -52,9 +60,10 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
     Args:
         train_object (TrainObject): train object containing train model
     """
-    if train_object.model == TrainModel.OPEN_LIVE and (train_object.url is None
-                                                       or train_object.token is None):
-        raise ValueError('Open Live requires URL and API token.')
+    if train_object.model == TrainModel.OPEN_LIVE and (
+        train_object.url is None or train_object.token is None
+    ):
+        raise ValueError("Open Live requires URL and API token.")
 
     train_handler: Dict[TrainModel, TrainBase] = {
         TrainModel.OPEN_LIVE: instantiate_open_live,

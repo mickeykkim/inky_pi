@@ -4,19 +4,18 @@ from enum import Enum, auto
 
 
 def kelvin_to_celsius(kelvin_temp: float) -> float:
-    """Helper function to convert Kelvin to Celsius to one decimal place
-    """
+    """Helper function to convert Kelvin to Celsius to one decimal place"""
     return round(kelvin_temp - 273.15, 1)
 
 
 def celsius_to_farenheit(celsius_temp: float) -> float:
-    """Helper function to convert Celsius to Farenheit to one decimal place
-    """
+    """Helper function to convert Celsius to Farenheit to one decimal place"""
     return round(celsius_temp * 9 / 5 + 32, 1)
 
 
 class IconType(Enum):
     """Enum for Weather Icon types"""
+
     clear_sky = auto()
     few_clouds = auto()
     scattered_clouds = auto()
@@ -30,6 +29,7 @@ class IconType(Enum):
 
 class ScaleType(Enum):
     """Enum for Weather Scale types"""
+
     celsius = auto()
     fahrenheit = auto()
 

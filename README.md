@@ -45,7 +45,7 @@ poetry shell
 invoke lint
 ```
 
-#### Formatting: [yapf](https://github.com/google/yapf) and [isort](https://pycqa.github.io/isort/)
+#### Formatting: [Black](https://pypi.org/project/black/)
 
 ```bash
 invoke format

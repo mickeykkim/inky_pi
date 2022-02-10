@@ -13,8 +13,9 @@ from inky_pi.train.train_base import abbreviate_stn_name
 class OpenLive(TrainBase):
     """Fetch and manage train data"""
 
-    def __init__(self, stn_from: str, stn_to: str, num_trains: int, t_wsdl: str,
-                 t_ldb_token: str) -> None:
+    def __init__(
+        self, stn_from: str, stn_to: str, num_trains: int, t_wsdl: str, t_ldb_token: str
+    ) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
 
         API description: http://lite.realtime.nationalrail.co.uk/openldbws/
@@ -29,19 +30,26 @@ class OpenLive(TrainBase):
         history: HistoryPlugin = HistoryPlugin()
         client: Client = Client(wsdl=t_wsdl, plugins=[history])
         header: xsd.Element = xsd.Element(
-            '{http://thalesgroup.com/RTTI/2013-11-28/Token/types}AccessToken',
-            xsd.ComplexType([
-                xsd.Element(
-                    '{http://thalesgroup.com/RTTI/2013-11-28/Token/types}' +
-                    'TokenValue', xsd.String()),
-            ]))
+            "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}AccessToken",
+            xsd.ComplexType(
+                [
+                    xsd.Element(
+                        "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}"
+                        + "TokenValue",
+                        xsd.String(),
+                    ),
+                ]
+            ),
+        )
         header_value = header(TokenValue=t_ldb_token)
         self._num: int = num_trains
-        self._data = client.service.GetDepartureBoard(numRows=num_trains,
-                                                      crs=stn_from,
-                                                      filterCrs=stn_to,
-                                                      filterType='to',
-                                                      _soapheaders=[header_value])
+        self._data = client.service.GetDepartureBoard(
+            numRows=num_trains,
+            crs=stn_from,
+            filterCrs=stn_to,
+            filterType="to",
+            _soapheaders=[header_value],
+        )
 
     def fetch_train(self, num: int) -> str:
         """Generate next train string
@@ -58,7 +66,8 @@ class OpenLive(TrainBase):
         if num < 0 or num > self._num:
             logger.error("Invalid fetch_train num", num)
             raise ValueError(
-                f"{num} is an invalid train request number (max: {self._num})")
+                f"{num} is an invalid train request number (max: {self._num})"
+            )
 
         try:
             # Get all data
@@ -68,15 +77,18 @@ class OpenLive(TrainBase):
             dest_stn: str = service.destination.location[0].locationName
             dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service.etd
-            return f'{arrival_t} | P{platform} to {dest_stn_abbr} - {status}'
+            return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
         except (AttributeError, TypeError, KeyError, IndexError) as ex:
             logger.error("Invalid fetch_train data", repr(ex))
             try:
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
                 logger.error("Train error", self._data.nrccMessages[0].value)
-                return str(self._data.nrccMessages[0].value[(num - 1) * l_length:num *
-                                                            l_length])
+                return str(
+                    self._data.nrccMessages[0].value[
+                        (num - 1) * l_length : num * l_length
+                    ]
+                )
             except (AttributeError, TypeError, KeyError, IndexError) as exc:
                 logger.error("Could not get train error message", repr(exc))
                 # Check if any trains are running

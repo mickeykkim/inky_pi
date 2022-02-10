@@ -4,8 +4,7 @@ from typing import Dict
 
 
 def abbreviate_stn_name(station_name: str) -> str:
-    """Helper function to abbreviate station name by shortening words
-    """
+    """Helper function to abbreviate station name by shortening words"""
     abbreviation_dict: Dict[str, str] = {
         "Street": "St",
         "Lane": "Ln",

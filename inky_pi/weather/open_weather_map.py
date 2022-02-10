@@ -7,20 +7,24 @@ import requests
 from loguru import logger
 
 from inky_pi.weather.weather_base import WeatherBase  # type: ignore
-from inky_pi.weather.weather_base import (IconType, ScaleType,
-                                          celsius_to_farenheit,
-                                          kelvin_to_celsius)
+from inky_pi.weather.weather_base import (
+    IconType,
+    ScaleType,
+    celsius_to_farenheit,
+    kelvin_to_celsius,
+)
 
 # Weather formatting constants
-DEG_C: str = u"\N{DEGREE SIGN}" + "C"
-DEG_F: str = u"\N{DEGREE SIGN}" + "F"
+DEG_C: str = "\N{DEGREE SIGN}" + "C"
+DEG_F: str = "\N{DEGREE SIGN}" + "F"
 
 
 class OpenWeatherMap(WeatherBase):
     """Fetch and manage weather data"""
 
-    def __init__(self, latitude: float, longitude: float, exclude: str,
-                 api_key: str) -> None:
+    def __init__(
+        self, latitude: float, longitude: float, exclude: str, api_key: str
+    ) -> None:
         """Requests weather data from OpenWeatherMap 7-day forecast API
 
         Args:
@@ -33,19 +37,20 @@ class OpenWeatherMap(WeatherBase):
             dict: Response OpenWeatherMap JSON object as dictionary data
         """
         payload: Dict[str, Union[float, str]] = {
-            'lat': latitude,
-            'lon': longitude,
-            'exclude': exclude,
-            'appid': api_key
+            "lat": latitude,
+            "lon": longitude,
+            "exclude": exclude,
+            "appid": api_key,
         }
         response: requests.Response = requests.get(
-            'https://api.openweathermap.org/data/2.5/onecall?', params=payload)
+            "https://api.openweathermap.org/data/2.5/onecall?", params=payload
+        )
 
         self._data: dict = response.json()
 
         # Check for errors in weather response, i.e. API key invalid (cod==401)
-        if 'cod' in self._data:
-            err_message: str = self._data['message']
+        if "cod" in self._data:
+            err_message: str = self._data["message"]
             logger.warning("Error in weather response", err_message)
             raise ValueError(err_message)
 
@@ -58,17 +63,17 @@ class OpenWeatherMap(WeatherBase):
             IconType: Weather IconType
         """
         # Get first two code characters; third character is 'd/n' for day/night
-        icon_code: str = str(self._data['current']['weather'][0]['icon'])[0:2]
+        icon_code: str = str(self._data["current"]["weather"][0]["icon"])[0:2]
         weather_type_dict: Dict[str, IconType] = {
-            '01': IconType.clear_sky,
-            '02': IconType.few_clouds,
-            '03': IconType.scattered_clouds,
-            '04': IconType.broken_clouds,
-            '09': IconType.shower_rain,
-            '10': IconType.rain,
-            '11': IconType.thunderstorm,
-            '13': IconType.snow,
-            '50': IconType.mist,
+            "01": IconType.clear_sky,
+            "02": IconType.few_clouds,
+            "03": IconType.scattered_clouds,
+            "04": IconType.broken_clouds,
+            "09": IconType.shower_rain,
+            "10": IconType.rain,
+            "11": IconType.thunderstorm,
+            "13": IconType.snow,
+            "50": IconType.mist,
         }
         return weather_type_dict[icon_code]
 
@@ -85,13 +90,16 @@ class OpenWeatherMap(WeatherBase):
             str: Formatted string or error message
         """
         try:
-            celsius_temp: float = kelvin_to_celsius(float(
-                self._data['current']['temp']))
-            str_temp: str = str(celsius_temp) + DEG_C \
-                if scale == ScaleType.celsius \
+            celsius_temp: float = kelvin_to_celsius(
+                float(self._data["current"]["temp"])
+            )
+            str_temp: str = (
+                str(celsius_temp) + DEG_C
+                if scale == ScaleType.celsius
                 else str(celsius_to_farenheit(celsius_temp)) + DEG_F
-            str_status: str = self._data['current']['weather'][0]['main']
-            return f'{str_temp} - {str_status}'
+            )
+            str_status: str = self._data["current"]["weather"][0]["main"]
+            return f"{str_temp} - {str_status}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_current_weather data", repr(ex))
             return f"Error retrieving weather. {repr(ex)}"
@@ -111,22 +119,29 @@ class OpenWeatherMap(WeatherBase):
         if day < 0 or day > 1:
             logger.error("Invalid get_temp_range day", day)
             raise ValueError(
-                "Weather conditions only available for 0/today or 1/tomorrow.")
+                "Weather conditions only available for 0/today or 1/tomorrow."
+            )
 
-        prefix: str = 'Today:' if day == 0 else 'Tomorrow:'
+        prefix: str = "Today:" if day == 0 else "Tomorrow:"
 
         try:
             celsius_temp_min: float = kelvin_to_celsius(
-                float(self._data['daily'][day]['temp']['min']))
+                float(self._data["daily"][day]["temp"]["min"])
+            )
             celsius_temp_max: float = kelvin_to_celsius(
-                float(self._data['daily'][day]['temp']['max']))
-            str_temp_min: str = str(celsius_temp_min) + DEG_C \
-                if scale == ScaleType.celsius \
+                float(self._data["daily"][day]["temp"]["max"])
+            )
+            str_temp_min: str = (
+                str(celsius_temp_min) + DEG_C
+                if scale == ScaleType.celsius
                 else str(celsius_to_farenheit(celsius_temp_min)) + DEG_F
-            str_temp_max: str = str(celsius_temp_max) + DEG_C \
-                if scale == ScaleType.celsius \
+            )
+            str_temp_max: str = (
+                str(celsius_temp_max) + DEG_C
+                if scale == ScaleType.celsius
                 else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
-            return f'{prefix} {str_temp_min}–{str_temp_max}'
+            )
+            return f"{prefix} {str_temp_min}–{str_temp_max}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_temp_range data", repr(ex))
             return f"Error retrieving range. {repr(ex)}"
@@ -146,12 +161,14 @@ class OpenWeatherMap(WeatherBase):
         if day < 0 or day > 1:
             logger.error("Invalid fetch_condition day", day)
             raise ValueError(
-                "Weather conditions only available for 0/today or 1/tomorrow.")
+                "Weather conditions only available for 0/today or 1/tomorrow."
+            )
 
-        prefix: str = '\u2022' if day == 0 else 'Tomorrow:'
+        prefix: str = "\u2022" if day == 0 else "Tomorrow:"
         try:
-            return (f"{prefix} "
-                    f"{self._data['daily'][day]['weather'][0]['description']}")
+            return (
+                f"{prefix} " f"{self._data['daily'][day]['weather'][0]['description']}"
+            )
 
         except (KeyError, IndexError) as ex:
             logger.error("Invalid fetch_condition data", repr(ex))
