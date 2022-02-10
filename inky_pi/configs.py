@@ -30,6 +30,9 @@ TRAIN_MODEL_URL: str = _env.str(
 )
 """OpenLDBWS API Endpoint"""
 
+WEATHER_MODEL: str = _env.str("WEATHER_MODEL", default="OPEN_WEATHER_MAP")
+"""Weather model to use"""
+
 # Weather constants; default London
 LATITUDE: float = _env.float("LATITUDE", default=51.5085)
 """Target Latitude"""

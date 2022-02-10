@@ -15,7 +15,7 @@ from inky_pi.train.train_base import TrainBase  # type: ignore
 
 # pylint: disable=possibly-unused-variable
 @pytest.fixture
-def _setup_vars() -> Generator[Dict[str, Any], None, None]:
+def _setup_train_vars() -> Generator[Dict[str, Any], None, None]:
     station_from: str = "MZH"
     station_to: str = "LBG"
     number: int = 3
@@ -31,16 +31,16 @@ def test_instantiate_train_open_live(
     zeep_client_mock: Mock,
     zeep_xsd_mock: Mock,
     zeep_history_mock: Mock,
-    _setup_vars: Dict[str, Any],
+    _setup_train_vars: Dict[str, Any],
 ) -> None:
     """Test for creating OpenLDBWS instanced object"""
     train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
-        station_from=_setup_vars["station_from"],
-        station_to=_setup_vars["station_to"],
-        number=_setup_vars["number"],
-        url=_setup_vars["url"],
-        token=_setup_vars["token"],
+        station_from=_setup_train_vars["station_from"],
+        station_to=_setup_train_vars["station_to"],
+        number=_setup_train_vars["number"],
+        url=_setup_train_vars["url"],
+        token=_setup_train_vars["token"],
     )
     ret: TrainBase = train_model_factory(train_object)
     zeep_history_mock.assert_called_once()
@@ -51,27 +51,27 @@ def test_instantiate_train_open_live(
 
 @patch("inky_pi.train.huxley2.requests.get")
 def test_instantiate_train_huxley2(
-    requests_get_mock: Mock, _setup_vars: Dict[str, Any]
+    requests_get_mock: Mock, _setup_train_vars: Dict[str, Any]
 ) -> None:
     """Test for creating Huxley2 OpenLDBWS instanced object"""
     train_object = TrainObject(
         model=TrainModel.HUXLEY2,
-        station_from=_setup_vars["station_from"],
-        station_to=_setup_vars["station_to"],
-        number=_setup_vars["number"],
+        station_from=_setup_train_vars["station_from"],
+        station_to=_setup_train_vars["station_to"],
+        number=_setup_train_vars["number"],
     )
     ret: TrainBase = train_model_factory(train_object)
     requests_get_mock.assert_called_once()
     assert isinstance(ret, Huxley2)
 
 
-def test_instantiate_openldbws_error(_setup_vars: Dict[str, Any]) -> None:
+def test_instantiate_openldbws_error(_setup_train_vars: Dict[str, Any]) -> None:
     """Test for invalid OpenLDBWS object creation"""
     train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
-        station_from=_setup_vars["station_from"],
-        station_to=_setup_vars["station_to"],
-        number=_setup_vars["number"],
+        station_from=_setup_train_vars["station_from"],
+        station_to=_setup_train_vars["station_to"],
+        number=_setup_train_vars["number"],
     )
     with pytest.raises(ValueError):
         train_model_factory(train_object)

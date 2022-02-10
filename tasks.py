@@ -36,10 +36,10 @@ def _delete_file(file):
 
 
 def _run(_c, command):
-    return _c.run(command, pty=platform.system() != 'Windows')
+    return _c.run(command, pty=platform.system() != "Windows")
 
 
-@task(help={'check': "Checks if source is formatted without applying changes"})
+@task(help={"check": "Checks if source is formatted without applying changes"})
 def format(_c, check=False):
     """
     Format code
@@ -48,6 +48,7 @@ def format(_c, check=False):
     # Run black
     black_options = f"{'--check' if check else ''}"
     _run(_c, f"black {black_options} {python_dirs_string}")
+
 
 @task
 def lint_flake8(_c):
@@ -89,7 +90,7 @@ def test(_c):
     _run(_c, "pytest")
 
 
-@task(help={'publish': "Publish the result via coveralls"})
+@task(help={"publish": "Publish the result via coveralls"})
 def coverage(_c, publish=False):
     """
     Create coverage report
@@ -105,7 +106,7 @@ def coverage(_c, publish=False):
         webbrowser.open(COVERAGE_REPORT.as_uri())
 
 
-@task(help={'launch': "Launch documentation in the web browser"})
+@task(help={"launch": "Launch documentation in the web browser"})
 def docs(_c, launch=True):
     """
     Generate documentation
