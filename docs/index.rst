@@ -11,6 +11,7 @@ Welcome to inky-pi's documentation!
    contributing
    authors
    history
+   source/modules
 
 Indices and tables
 ==================

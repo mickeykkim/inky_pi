@@ -52,6 +52,9 @@ black = "^21.9b0"
 [tool.poetry.scripts]
 inky_pi = 'inky_pi.cli:main'
 
+[tool.isort]
+profile = "black"
+
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"

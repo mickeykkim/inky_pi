@@ -19,6 +19,7 @@ COVERAGE_FILE = ROOT_DIR.joinpath(".coverage")
 COVERAGE_DIR = ROOT_DIR.joinpath("htmlcov")
 COVERAGE_REPORT = COVERAGE_DIR.joinpath("index.html")
 DOCS_DIR = ROOT_DIR.joinpath("docs")
+DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
@@ -46,8 +47,11 @@ def format(_c, check=False):
     """
     python_dirs_string = " ".join(PYTHON_DIRS)
     # Run black
-    black_options = f"{'--check' if check else ''}"
+    black_options = "--check" if check else ""
     _run(_c, f"black {black_options} {python_dirs_string}")
+    # Run isort
+    isort_options = "--check-only --diff" if check else ""
+    _run(_c, f"isort {isort_options} {python_dirs_string}")
 
 
 @task
@@ -111,6 +115,9 @@ def docs(_c, launch=True):
     """
     Generate documentation
     """
+    # Generate autodoc stub files
+    _run(_c, f"sphinx-apidoc -o {DOCS_SOURCE_DIR} {SOURCE_DIR}")
+    # Generate docs
     _run(_c, f"sphinx-build -b html {DOCS_DIR} {DOCS_BUILD_DIR}")
     if launch:
         webbrowser.open(DOCS_INDEX.as_uri())

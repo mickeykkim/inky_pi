@@ -11,8 +11,8 @@ from inky_pi.configs import (
     STATION_FROM,
     STATION_TO,
     TRAIN_API_TOKEN,
-    TRAIN_MODEL_URL,
     TRAIN_MODEL,
+    TRAIN_MODEL_URL,
     TRAIN_NUMBER,
     WEATHER_API_TOKEN,
     WEATHER_MODEL,
@@ -29,7 +29,6 @@ from inky_pi.helper import (
 )
 from inky_pi.train.train_base import TrainBase  # type: ignore
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
-
 
 TRAIN_OBJECT = TrainObject(
     model=TrainModel[TRAIN_MODEL],
