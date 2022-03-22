@@ -1,4 +1,5 @@
-# This is a basic workflow to help you get started with Actions
+# GitHub Actions workflow for installing Poetry and running Tox
+# Based on: https://github.com/snok/install-poetry
 
 name: CI
 
@@ -25,26 +26,31 @@ jobs:
 
     steps:
       # Checkout out repo and setup python
-      - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v2
       - name: Setup Python
+        id: setup-python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
       # Install and configure poetry
-      - name: Install Poetry Action
-        uses: snok/install-poetry@v1.1.6
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
-          virtualenvs-in-project: true
+          virtualenvs-in-project: false
+          installer-parallel: true
       # Load cached venv if cache exists
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-      # Install and run tox using the version of Python in `PATH`
-      - name: Install Tox and any other packages
-        run: pip install tox
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      # Install dependencies if cache does not exist
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      # Run tox
       - name: Run Tox
-        run: tox -e py
+        run: poetry run tox -e py

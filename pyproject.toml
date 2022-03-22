@@ -39,15 +39,15 @@ urllib3 = "^1.26.8"
 [tool.poetry.dev-dependencies]
 bumpversion = "*"
 coverage = "*"
-flake8 = "*"
+flake8 = "^3.9.2"
 invoke = "*"
 pylint = "^2.0"
-pytest = "*"
+pytest = "^6.2.5"
 sphinx = "*"
-tox = "*"
+tox = "^3.24.4"
 mypy = "^0.910"
-types-requests = "^2.25.0"
-black = "^22.1.0"
+types-requests = "^2.25.8"
+black = "^21.9b0"
 
 [tool.poetry.scripts]
 inky_pi = 'inky_pi.cli:main'
