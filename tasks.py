@@ -8,7 +8,7 @@ import shutil
 import webbrowser
 from pathlib import Path
 
-from invoke import task
+from invoke import task  # type: ignore
 
 ROOT_DIR = Path(__file__).parent
 SETUP_FILE = ROOT_DIR.joinpath("setup.py")
@@ -41,7 +41,7 @@ def _run(_c, command):
 
 
 @task(help={"check": "Checks if source is formatted without applying changes"})
-def format(_c, check=False):
+def format(_c, check=False):  # pylint: disable=redefined-builtin
     """
     Format code
     """
@@ -94,20 +94,20 @@ def test(_c):
     _run(_c, "pytest")
 
 
-@task(help={"publish": "Publish the result via coveralls"})
-def coverage(_c, publish=False):
+@task(
+    help={"html": 'Set to "True" for html output'},
+)
+def coverage(_c, html=False):
     """
     Create coverage report
     """
     _run(_c, f"coverage run --source {SOURCE_DIR} -m pytest")
-    _run(_c, "coverage report")
-    if publish:
-        # Publish the results via coveralls
-        _run(_c, "coveralls")
-    else:
+    if html:
         # Build a local report
         _run(_c, "coverage html")
         webbrowser.open(COVERAGE_REPORT.as_uri())
+    else:
+        _run(_c, "coverage report")
 
 
 @task(help={"launch": "Launch documentation in the web browser"})
