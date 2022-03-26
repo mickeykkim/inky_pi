@@ -1,0 +1,28 @@
+dl {
+    margin: 1em 0;
+}
+
+dl.class > dt,
+dl.method > dt,
+dl.exception > dt,
+dl.function > dt {
+    padding: 6px;
+}
+
+dl.class > dt, dl.exception > dt {
+    color: hsl(195, 60%, 52%);
+    background: hsl(195, 62%, 94%);
+    border-top: solid 3px hsl(195, 69%, 68%);
+    margin: 6px 0;
+}
+
+dl.method > dt, dl.function > dt {
+    color: #555;
+    background: #f0f0f0;
+    border-left: solid 3px #ccc;
+    margin-bottom: 6px;
+}
+
+code.sig-prename, code.sig-name {
+    font-weight: bold;
+}

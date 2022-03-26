@@ -4,7 +4,7 @@ from loguru import logger
 
 from inky_pi.configs import EXCLUDE_FLAGS, LATITUDE, LONGITUDE, WEATHER_API_TOKEN
 from inky_pi.display.inky_draw import InkyDraw  # type: ignore
-from inky_pi.main import configure_logging
+from inky_pi.util import configure_logging
 from inky_pi.weather.open_weather_map import OpenWeatherMap  # type: ignore
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
 

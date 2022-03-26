@@ -44,6 +44,14 @@ inky\_pi.main module
    :undoc-members:
    :show-inheritance:
 
+inky\_pi.util module
+--------------------
+
+.. automodule:: inky_pi.util
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

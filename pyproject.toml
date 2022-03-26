@@ -1,55 +1,57 @@
 [tool]
 [tool.poetry]
-name = "inky_pi"
-version = "0.1.0"
-homepage = "https://github.com/mickeykkim/inky_pi"
-description = "Top-level package for inky-pi."
 authors = ["Mickey Kim <mickeykkim@gmail.com>"]
-readme = "README.rst"
-license = "MIT"
 classifiers = [
-    'Development Status :: 2 - Pre-Alpha',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Natural Language :: English',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.5',
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7',
-    'Programming Language :: Python :: 3.8',
+  'Development Status :: 2 - Pre-Alpha',
+  'Intended Audience :: Developers',
+  'License :: OSI Approved :: MIT License',
+  'Natural Language :: English',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.5',
+  'Programming Language :: Python :: 3.6',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
 ]
-packages = [{ include = "inky_pi" }, { include = "tests", format = "sdist" }]
+description = "Top-level package for inky-pi."
+homepage = "https://github.com/mickeykkim/inky_pi"
+license = "MIT"
+name = "inky_pi"
+packages = [{include = "inky_pi"}, {include = "tests", format = "sdist"}]
+readme = "README.rst"
+version = "0.1.0"
 
 [[tool.poetry.source]]
 name = "piwheels"
+secondary = true
 url = "https://www.piwheels.org/simple/"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4"
-click = "^8.0.4"
-font-hanken-grotesk = "^0.0.2"
-inky = "^1.2.0"
-"RPi.GPIO" = "^0.7.0"
 Pillow = "^9.0.0"
+"RPi.GPIO" = {version = "^0.7.0", markers = "sys_platform == 'armv7l'"}
+click = "^8.0.4"
 environs = "^9.3.2"
-zeep = "^4.0.0"
 font-fredoka-one = "^0.0.4"
+font-hanken-grotesk = "^0.0.2"
+inky = {version = "^1.2.0", markers = "sys_platform == 'armv7l'"}
 loguru = "^0.5.3"
+python = ">=3.7,<4"
 urllib3 = "^1.26.8"
+zeep = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
-bumpversion = "^0.6.0"
-coverage = "^6.3.2"
+black = "^21.9b0"
+bumpversion = "*"
+coverage = "*"
 flake8 = "^3.9.2"
 invoke = "*"
+mypy = "^0.910"
+pre-commit = "^2.17.0"
 pylint = "^2.0"
 pytest = "^6.2.5"
 sphinx = "4.4.0"
+sphinx-rtd-theme = "^1.0.0"
 tox = "^3.24.4"
-mypy = "^0.910"
 types-requests = "^2.25.8"
-black = "^21.9b0"
-pre-commit = "^2.17.0"
 
 [tool.poetry.scripts]
 inky_pi = 'inky_pi.cli:main'
@@ -58,5 +60,5 @@ inky_pi = 'inky_pi.cli:main'
 profile = "black"
 
 [build-system]
-requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"
+requires = ["poetry>=1.0"]

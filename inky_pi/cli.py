@@ -8,7 +8,6 @@ import inky_pi.main
 @click.group()
 def cli():
     """CLI group for inky_pi."""
-    ...
 
 
 @cli.command()

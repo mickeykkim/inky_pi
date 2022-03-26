@@ -5,8 +5,6 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Dict, Optional
 
-from loguru import logger
-
 from inky_pi.train.huxley2 import Huxley2  # type: ignore
 from inky_pi.train.open_live import OpenLive  # type: ignore
 from inky_pi.train.train_base import TrainBase  # type: ignore
@@ -48,11 +46,6 @@ class WeatherObject:
     longitude: float
     exclude_flags: str
     weather_api_token: str
-
-
-def configure_logging() -> None:
-    """See: https://loguru.readthedocs.io/en/stable/api.html"""
-    logger.add("inky.log", rotation="5 MB", serialize=True)
 
 
 def instantiate_huxley2(train_object: TrainObject) -> Huxley2:

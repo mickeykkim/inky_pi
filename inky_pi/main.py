@@ -23,11 +23,11 @@ from inky_pi.helper import (
     TrainObject,
     WeatherModel,
     WeatherObject,
-    configure_logging,
     train_model_factory,
     weather_model_factory,
 )
 from inky_pi.train.train_base import TrainBase  # type: ignore
+from inky_pi.util import configure_logging
 from inky_pi.weather.weather_base import ScaleType, WeatherBase  # type: ignore
 
 TRAIN_OBJECT = TrainObject(

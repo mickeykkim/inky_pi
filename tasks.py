@@ -129,6 +129,7 @@ def clean_docs(_c):
     Clean up files from documentation builds
     """
     _run(_c, f"rm -fr {DOCS_BUILD_DIR}")
+    _run(_c, f"rm -fr {DOCS_SOURCE_DIR}")
 
 
 @task
