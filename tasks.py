@@ -83,7 +83,6 @@ def lint(_):
     """
     Run all linting
     """
-    ...
 
 
 @task
@@ -110,7 +109,16 @@ def coverage(_c, html=False):
         _run(_c, "coverage report")
 
 
-@task(help={"launch": "Launch documentation in the web browser"})
+@task
+def clean_docs(_c):
+    """
+    Clean up files from documentation builds
+    """
+    _run(_c, f"rm -fr {DOCS_BUILD_DIR}")
+    _run(_c, f"rm -fr {DOCS_SOURCE_DIR}")
+
+
+@task(pre=[clean_docs], help={"launch": "Launch documentation in the web browser"})
 def docs(_c, launch=True):
     """
     Generate documentation
@@ -121,15 +129,6 @@ def docs(_c, launch=True):
     _run(_c, f"sphinx-build -b html {DOCS_DIR} {DOCS_BUILD_DIR}")
     if launch:
         webbrowser.open(DOCS_INDEX.as_uri())
-
-
-@task
-def clean_docs(_c):
-    """
-    Clean up files from documentation builds
-    """
-    _run(_c, f"rm -fr {DOCS_BUILD_DIR}")
-    _run(_c, f"rm -fr {DOCS_SOURCE_DIR}")
 
 
 @task
@@ -170,7 +169,6 @@ def clean(_):
     """
     Runs all clean sub-tasks
     """
-    ...
 
 
 @task(clean)
