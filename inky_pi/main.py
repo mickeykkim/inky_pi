@@ -65,11 +65,11 @@ def main() -> None:
     display = InkyDraw(InkyWHAT("black"))
 
     # Draw text and weather icon on display object at specified x, y coords
-    display.draw_date(10, 10)
-    display.draw_time(297, 10)
-    display.draw_train_times(train_data, TRAIN_NUMBER, 10, 60)
-    display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 160)
-    display.draw_weather_icon(weather_data.get_icon(), 300, 200)
+    display.draw_date()
+    display.draw_time()
+    display.draw_train_times(train_data, TRAIN_NUMBER, 10, 50)
+    display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 150, True)
+    display.draw_weather_icon(weather_data.get_icon(), 280, 200)
 
     # Render display object on Inky display screen
     display.render_screen()

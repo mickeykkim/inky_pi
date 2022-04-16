@@ -1,22 +1,26 @@
 """Inky_Pi drawing module.
 
 Draws strings and icons"""
+from datetime import datetime, timedelta
 from time import strftime
 from typing import Any, Callable, Dict
 
 # pylint: disable=no-name-in-module
 from font_fredoka_one import FredokaOne  # type: ignore
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
+
+# pylint: enable=no-name-in-module
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
 from inky_pi.train.train_base import TrainBase
-from inky_pi.weather.weather_base import ScaleType  # pylint: disable=unused-import
-from inky_pi.weather.weather_base import IconType, WeatherBase
+from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
 # Font constants
+FONT_XS = ImageFont.truetype(HankenGroteskBold, 16)
 FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
 FONT_M = ImageFont.truetype(HankenGroteskBold, 25)
 FONT_L = ImageFont.truetype(HankenGroteskBold, 35)
+FONT_XL = ImageFont.truetype(HankenGroteskBold, 40)
 FONT_GS = ImageFont.truetype(FredokaOne, 25)
 FONT_GM = ImageFont.truetype(FredokaOne, 30)
 FONT_GL = ImageFont.truetype(FredokaOne, 40)
@@ -32,8 +36,8 @@ class InkyDraw:
             inky_model (Any): Inky display model (i.e. InkyWHAT('black'))
         """
         self._display: Any = inky_model
-        self._img: "Image" = Image.new("P", (self._display.WIDTH, self._display.HEIGHT))
-        self._img_draw: "ImageDraw" = ImageDraw.Draw(self._img)
+        self._img: Image = Image.new("P", (self._display.WIDTH, self._display.HEIGHT))
+        self._img_draw: ImageDraw = ImageDraw.Draw(self._img)
         self._black: Any = self._display.BLACK
         self._white: Any = self._display.WHITE
         self._color: Any = self._display.YELLOW
@@ -44,7 +48,7 @@ class InkyDraw:
         self._display.set_image(self._img)
         self._display.show()
 
-    def draw_goodnight(self, data_w: WeatherBase, scale: "ScaleType") -> None:
+    def draw_goodnight(self, data_w: WeatherBase, scale: ScaleType) -> None:
         """Render goodnight screen"""
         self._draw_goodnight_icon()
         self._draw_goodnight_text(data_w, scale)
@@ -74,7 +78,7 @@ class InkyDraw:
             [(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)], self._color, line_width
         )
 
-    def _draw_goodnight_text(self, data_w: WeatherBase, scale: "ScaleType"):
+    def _draw_goodnight_text(self, data_w: WeatherBase, scale: ScaleType):
         x_mid = self._display.WIDTH / 2
         y_mid = self._display.HEIGHT / 2
         # Message text
@@ -88,15 +92,15 @@ class InkyDraw:
         y_weather = 210
         self._img_draw.text(
             (x_weather, y_weather),
-            data_w.get_temp_range(scale, 1),
+            data_w.get_temp_range(1, scale),
             self._color,
             FONT_GM,
         )
         self._img_draw.text(
-            (x_weather, y_weather + 40), data_w.fetch_condition(1), self._color, FONT_GS
+            (x_weather, y_weather + 40), data_w.get_condition(1), self._color, FONT_GS
         )
 
-    def draw_date(self, x_pos: int, y_pos: int) -> None:
+    def draw_date(self, x_pos: int = 10, y_pos: int = 5) -> None:
         """Draw date text
 
         Args:
@@ -104,17 +108,19 @@ class InkyDraw:
             y_pos (int): Y position offset
         """
         self._img_draw.text(
-            (x_pos, y_pos), strftime("%a %d %b %Y"), self._black, FONT_L
+            (x_pos, y_pos), strftime("%a %d %b %Y"), self._black, FONT_S
         )
 
-    def draw_time(self, x_pos: int, y_pos: int) -> None:
+    def draw_time(self, x_pos: int = 257, y_pos: int = 5) -> None:
         """Draw time text
 
         Args:
             x_pos (int): X position offset
             y_pos (int): Y position offset
         """
-        self._img_draw.text((x_pos, y_pos), strftime("%H:%M"), self._black, FONT_L)
+        self._img_draw.text(
+            (x_pos, y_pos), f"Updated {strftime('%H:%M')}", self._black, FONT_S
+        )
 
     def draw_train_times(
         self, data_t: TrainBase, num_trains: int, x_pos: int, y_pos: int
@@ -135,7 +141,12 @@ class InkyDraw:
             )
 
     def draw_weather_forecast(
-        self, data_w: WeatherBase, scale: "ScaleType", x_pos: int, y_pos: int
+        self,
+        data_w: WeatherBase,
+        scale: ScaleType,
+        x_pos: int = 135,
+        y_pos: int = 50,
+        disp_tomorrow: bool = False,
     ) -> None:
         """Draw all weather forecast text
 
@@ -151,17 +162,33 @@ class InkyDraw:
             y_pos (int): Y position offset
         """
         self._img_draw.text(
-            (x_pos, y_pos), data_w.get_current_weather(scale), self._black, FONT_L
+            (x_pos, y_pos),
+            data_w.get_current_temperature(scale),
+            self._black,
+            FONT_XL,
         )
         self._img_draw.text(
-            (x_pos, y_pos + 45), data_w.get_temp_range(scale, 0), self._black, FONT_M
+            (x_pos + 140, y_pos + 13),
+            data_w.get_current_condition(),
+            self._black,
+            FONT_M,
         )
         self._img_draw.text(
-            (x_pos, y_pos + 75), data_w.fetch_condition(0), self._black, FONT_M
+            (x_pos, y_pos + 50),
+            data_w.get_temp_range(0, scale),
+            self._black,
+            FONT_M,
         )
         self._img_draw.text(
-            (x_pos, y_pos + 105), data_w.fetch_condition(1), self._black, FONT_S
+            (x_pos, y_pos + 80), data_w.get_condition(0), self._black, FONT_M
         )
+        if disp_tomorrow:
+            self._img_draw.text(
+                (x_pos, y_pos + 110),
+                data_w.get_condition(1),
+                self._black,
+                FONT_S,
+            )
 
     def draw_weather_icon(self, icon: IconType, x_pos: int, y_pos: int) -> None:
         """Draws specified icon
@@ -183,6 +210,52 @@ class InkyDraw:
             IconType.MIST: self.draw_mist_icon,
         }
         draw_icon_dispatcher[icon](x_pos, y_pos)
+
+    def draw_mini_forecast(
+        self,
+        data_w: WeatherBase,
+        scale: ScaleType,
+        x_pos: int = 30,
+        y_pos: int = 40,
+        day: int = 0,
+    ) -> None:
+        """Draws weather forecast icons and text future day
+
+        Args:
+            data_w (WeatherBase): WeatherBase object
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+            x_pos (int): X position offset
+            y_pos (int): Y position offset
+        """
+        new_date = datetime.now() + timedelta(days=day)
+        if day > 0:
+            self._img_draw.text(
+                (x_pos + 10, y_pos + 5),
+                new_date.strftime("%a %d"),
+                self._black,
+                FONT_XS,
+            )
+        self.draw_weather_icon(data_w.get_icon(day), x_pos, y_pos + 27)
+        self._img_draw.text(
+            ((x_pos + 10 if day > 0 else x_pos), y_pos + 90),
+            data_w.get_future_weather(day, scale),
+            self._black,
+            FONT_XS if day > 0 else FONT_S,
+        )
+
+    def draw_forecast_icons(
+        self, data_w: WeatherBase, scale: ScaleType, x_pos: int = 10, y_pos: int = 180
+    ) -> None:
+        """Draws weather forecast icons and text for next 5 days
+
+        Args:
+            data_w (WeatherBase): WeatherBase object
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+            x_pos (int): X position offset
+            y_pos (int): Y position offset
+        """
+        for i in range(0, 5):
+            self.draw_mini_forecast(data_w, scale, x_pos + (i * 78), y_pos, i + 1)
 
     def draw_sun_icon(self, x_pos: int, y_pos: int) -> None:
         """Draw large sun icon

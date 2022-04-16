@@ -54,16 +54,24 @@ class OpenWeatherMap(WeatherBase):
             logger.warning("Error in weather response", err_message)
             raise ValueError(err_message)
 
-    def get_icon(self) -> IconType:
+    def get_icon(self, day: int = 0) -> IconType:
         """Retrieves weather type from current OpenWeatherMap weather icon
 
         Full list of icons/codes: https://openweathermap.org/weather-conditions
 
+        Args:
+            day (int): Desired day number (0/today or 1..7)
+
         Returns:
             IconType: Weather IconType
         """
+        icon_code: str = ""
         # Get first two code characters; third character is 'd/n' for day/night
-        icon_code: str = str(self._data["current"]["weather"][0]["icon"])[0:2]
+        if day == 0:
+            icon_code = str(self._data["current"]["weather"][0]["icon"])[0:2]
+        else:
+            icon_code = str(self._data["daily"][day]["weather"][0]["icon"])[0:2]
+
         weather_type_dict: Dict[str, IconType] = {
             "01": IconType.CLEAR_SKY,
             "02": IconType.FEW_CLOUDS,
@@ -89,41 +97,57 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
-        try:
-            celsius_temp: float = kelvin_to_celsius(
-                float(self._data["current"]["temp"])
-            )
-            str_temp: str = (
-                str(celsius_temp) + DEG_C
-                if scale == ScaleType.CELSIUS
-                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
-            )
-            str_status: str = self._data["current"]["weather"][0]["main"]
-            return f"{str_temp} - {str_status}"
-        except (KeyError, IndexError) as ex:
-            logger.error("Invalid get_current_weather data", repr(ex))
-            return f"Error retrieving weather. {repr(ex)}"
+        return f"{self.get_current_temperature(scale)} - {self.get_current_condition()}"
 
-    def get_temp_range(self, scale: ScaleType, day: int) -> str:
-        """Generate temperature range string
-
-        String is returned in format:
-            Today/Tomorrow: [XX.X(min)]°[C/F]–[XX.X(max)]°[C/F]
+    def get_current_temperature(self, scale: ScaleType) -> str:
+        """Generate current temperature
 
         Args:
             scale (ScaleType): Celsius or Fahrenheit for formatting
 
         Returns:
+            str: Formatted temperature string or error message
+        """
+        try:
+            celsius_temp: float = kelvin_to_celsius(
+                float(self._data["current"]["temp"])
+            )
+            formatted_temp: str = (
+                str(celsius_temp) + DEG_C
+                if scale == ScaleType.CELSIUS
+                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
+            )
+            return f"{formatted_temp}"
+        except (KeyError, IndexError) as ex:
+            logger.error("Invalid get_current_weather data", repr(ex))
+            return "Error retrieving temperature."
+
+    def get_current_condition(self) -> str:
+        """Generate current weather condition
+
+        Returns:
+            str: Condition or error message
+        """
+        try:
+            str_status: str = self._data["current"]["weather"][0]["main"]
+            return str_status
+        except (KeyError, IndexError) as ex:
+            logger.error("Invalid get_current_weather data", repr(ex))
+            return "Error retrieving condition."
+
+    def get_temp_range(self, day: int, scale: ScaleType) -> str:
+        """Generate temperature range string
+
+        String is returned in format:
+            [XX.X(min)]°[C/F] – [XX.X(max)]°[C/F]
+
+        Args:
+            day (int): Desired day number (0/today or 1/tomorrow)
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
             str: Formatted string or error message
         """
-        if day < 0 or day > 1:
-            logger.error("Invalid get_temp_range day", day)
-            raise ValueError(
-                "Weather conditions only available for 0/today or 1/tomorrow."
-            )
-
-        prefix: str = "Today:" if day == 0 else "Tomorrow:"
-
         try:
             celsius_temp_min: float = kelvin_to_celsius(
                 float(self._data["daily"][day]["temp"]["min"])
@@ -141,12 +165,12 @@ class OpenWeatherMap(WeatherBase):
                 if scale == ScaleType.CELSIUS
                 else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
             )
-            return f"{prefix} {str_temp_min}–{str_temp_max}"
+            return f"{str_temp_min} – {str_temp_max}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_temp_range data", repr(ex))
             return f"Error retrieving range. {repr(ex)}"
 
-    def fetch_condition(self, day: int) -> str:
+    def get_condition(self, day: int) -> str:
         """Generate weather condition string
 
         String is returned in format:
@@ -164,12 +188,36 @@ class OpenWeatherMap(WeatherBase):
                 "Weather conditions only available for 0/today or 1/tomorrow."
             )
 
-        prefix: str = "\u2022" if day == 0 else "Tomorrow:"
         try:
-            return (
-                f"{prefix} " f"{self._data['daily'][day]['weather'][0]['description']}"
-            )
+            return f"{self._data['daily'][day]['weather'][0]['description']}"
 
         except (KeyError, IndexError) as ex:
             logger.error("Invalid fetch_condition data", repr(ex))
             return f"Error retrieving condition. {repr(ex)}"
+
+    def get_future_weather(self, day: int, scale: ScaleType) -> str:
+        """Generate weather string for given day
+
+        String is returned in format:
+            [XX.X]°[C/F]
+
+        Args:
+            day (int): Desired day number (0/today or 1..7)
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
+            str: Formatted string or error message
+        """
+        try:
+            celsius_temp: float = kelvin_to_celsius(
+                float(self._data["daily"][day]["temp"]["day"])
+            )
+            str_temp: str = (
+                str(celsius_temp) + DEG_C
+                if scale == ScaleType.CELSIUS
+                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
+            )
+            return f"{str_temp}"
+        except (KeyError, IndexError) as ex:
+            logger.error("Invalid get_current_weather data", repr(ex))
+            return f"Error retrieving weather. {repr(ex)}"

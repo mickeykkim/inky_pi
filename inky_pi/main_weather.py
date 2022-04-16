@@ -1,6 +1,6 @@
-"""Inky_Pi main module.
+"""Inky_Pi main weather module.
 
-Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
+Fetches extended weather data and displays on a Raspberry Pi w/InkyWHAT."""
 # pylint: disable=duplicate-code
 from inky import InkyWHAT  # type: ignore
 from loguru import logger
@@ -29,8 +29,8 @@ WEATHER_OBJECT = WeatherObject(
 def main() -> None:
     """inky_pi main function
 
-    Retrieves train and weather data from API endpoints, generates text and
-    weather icon, and draws to inkyWHAT screen.
+    Retrieves weather data from API endpoints, generates text and weather icon,
+    and draws to inkyWHAT screen.
     """
     configure_logging()
     logger.debug("InkyPi initialized")
@@ -42,10 +42,12 @@ def main() -> None:
     display = InkyDraw(InkyWHAT("black"))
 
     # Draw text and weather icon on display object at specified x, y coords
-    display.draw_date(10, 5)
-    display.draw_time(297, 5)
-    display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 45)
-    display.draw_weather_icon(weather_data.get_icon(), 300, 85)
+    scale = ScaleType.CELSIUS
+    display.draw_date()
+    display.draw_time()
+    display.draw_mini_forecast(weather_data, scale)
+    display.draw_weather_forecast(weather_data, scale)
+    display.draw_forecast_icons(weather_data, scale)
 
     # Render display object on Inky display screen
     display.render_screen()

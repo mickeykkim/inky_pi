@@ -51,6 +51,7 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
+      # Install project package
       - name: Install library
         run: poetry install --no-interaction
       # Run tox

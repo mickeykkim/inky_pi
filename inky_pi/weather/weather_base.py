@@ -1,4 +1,5 @@
 """Base class and helper functionsfor weather model"""
+# pylint: disable=duplicate-code
 from abc import ABC, abstractmethod
 from enum import Enum, auto
 
@@ -38,17 +39,77 @@ class WeatherBase(ABC):
     """Abstract base class for all weather models"""
 
     @abstractmethod
-    def get_icon(self) -> IconType:
-        """Return requested weather icon"""
+    def get_icon(self, day: int = 0) -> IconType:
+        """Return requested weather icon
+
+        Args:
+            day (int): Desired day number (0/today or 1..7)
+
+        Returns:
+            IconType: Weather IconType
+        """
 
     @abstractmethod
     def get_current_weather(self, scale: ScaleType) -> str:
-        """Return requested weather data"""
+        """Return requested weather data
+
+        Args:
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
+            str: Formatted string or error message
+        """
 
     @abstractmethod
-    def get_temp_range(self, scale: ScaleType, day: int) -> str:
-        """Return requested temp range"""
+    def get_current_temperature(self, scale: ScaleType) -> str:
+        """Return requested current temperature
+
+        Args:
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
+            str: Formatted string or error message
+        """
 
     @abstractmethod
-    def fetch_condition(self, day: int) -> str:
-        """Return requested weather condition"""
+    def get_current_condition(self) -> str:
+        """Return requested current condition
+
+        Returns:
+            str: Formatted string or error message
+        """
+
+    @abstractmethod
+    def get_temp_range(self, day: int, scale: ScaleType) -> str:
+        """Return temperature range string
+
+        Args:
+            day (int): Desired day number (0/today or 1..7)
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
+            str: Formatted string or error message
+        """
+
+    @abstractmethod
+    def get_condition(self, day: int) -> str:
+        """Return weather condition string
+
+        Args:
+            day (int): Desired day number (0/today or 1/tomorrow)
+
+        Returns:
+            str: Formatted string or error message
+        """
+
+    @abstractmethod
+    def get_future_weather(self, day: int, scale: ScaleType) -> str:
+        """Return weather string for given day
+
+        Args:
+            day (int): Desired day number (0/today or 1..7)
+            scale (ScaleType): Celsius or Fahrenheit for formatting
+
+        Returns:
+            str: Formatted string or error message
+        """
