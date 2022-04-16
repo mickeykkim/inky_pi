@@ -3,13 +3,13 @@
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Dict, Optional
+from typing import Callable, Dict
 
-from inky_pi.train.huxley2 import Huxley2  # type: ignore
-from inky_pi.train.open_live import OpenLive  # type: ignore
-from inky_pi.train.train_base import TrainBase  # type: ignore
-from inky_pi.weather.open_weather_map import OpenWeatherMap  # type: ignore
-from inky_pi.weather.weather_base import WeatherBase  # type: ignore
+from inky_pi.train.huxley2 import Huxley2
+from inky_pi.train.open_live import OpenLive
+from inky_pi.train.train_base import TrainBase
+from inky_pi.weather.open_weather_map import OpenWeatherMap
+from inky_pi.weather.weather_base import WeatherBase
 
 
 class TrainModel(Enum):
@@ -33,8 +33,8 @@ class TrainObject:
     station_from: str
     station_to: str
     number: int
-    url: Optional[str] = None
-    token: Optional[str] = None
+    url: str = ""
+    token: str = ""
 
 
 @dataclass
@@ -87,7 +87,7 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
     ):
         raise ValueError("Open Live requires URL and API token.")
 
-    train_handler: Dict[TrainModel, TrainBase] = {
+    train_handler: Dict[TrainModel, Callable[[TrainObject], TrainBase]] = {
         TrainModel.OPEN_LIVE: instantiate_open_live,
         TrainModel.HUXLEY2: instantiate_huxley2,
     }
@@ -100,7 +100,7 @@ def weather_model_factory(weather_object: WeatherObject) -> WeatherBase:
     Args:
         weather_object (WeatherObject): weather object containing model
     """
-    weather_handler: Dict[WeatherModel, WeatherBase] = {
+    weather_handler: Dict[WeatherModel, Callable[[WeatherObject], WeatherBase]] = {
         WeatherModel.OPEN_WEATHER_MAP: instantiate_open_weather_map,
     }
     return weather_handler[weather_object.model](weather_object)

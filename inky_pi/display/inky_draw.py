@@ -9,10 +9,9 @@ from font_fredoka_one import FredokaOne  # type: ignore
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.train.train_base import TrainBase  # type: ignore
-from inky_pi.weather.weather_base import IconType  # type: ignore
-from inky_pi.weather.weather_base import ScaleType  # type: ignore
-from inky_pi.weather.weather_base import WeatherBase  # type: ignore
+from inky_pi.train.train_base import TrainBase
+from inky_pi.weather.weather_base import ScaleType  # pylint: disable=unused-import
+from inky_pi.weather.weather_base import IconType, WeatherBase
 
 # Font constants
 FONT_S = ImageFont.truetype(HankenGroteskBold, 20)
@@ -173,15 +172,15 @@ class InkyDraw:
             y_pos (int): Y position offset
         """
         draw_icon_dispatcher: Dict[IconType, Callable] = {
-            IconType.clear_sky: self.draw_sun_icon,
-            IconType.few_clouds: self.draw_sun_cloud_icon,
-            IconType.scattered_clouds: self.draw_cloud_icon,
-            IconType.broken_clouds: self.draw_two_clouds_icon,
-            IconType.shower_rain: self.draw_cloud_rain_icon,
-            IconType.rain: self.draw_sun_cloud_rain_icon,
-            IconType.thunderstorm: self.draw_cloud_lightning_icon,
-            IconType.snow: self.draw_cloud_snow_icon,
-            IconType.mist: self.draw_mist_icon,
+            IconType.CLEAR_SKY: self.draw_sun_icon,
+            IconType.FEW_CLOUDS: self.draw_sun_cloud_icon,
+            IconType.SCATTERED_CLOUDS: self.draw_cloud_icon,
+            IconType.BROKEN_CLOUDS: self.draw_two_clouds_icon,
+            IconType.SHOWER_RAIN: self.draw_cloud_rain_icon,
+            IconType.RAIN: self.draw_sun_cloud_rain_icon,
+            IconType.THUNDERSTORM: self.draw_cloud_lightning_icon,
+            IconType.SNOW: self.draw_cloud_snow_icon,
+            IconType.MIST: self.draw_mist_icon,
         }
         draw_icon_dispatcher[icon](x_pos, y_pos)
 

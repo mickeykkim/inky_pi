@@ -16,22 +16,22 @@ def celsius_to_farenheit(celsius_temp: float) -> float:
 class IconType(Enum):
     """Enum for Weather Icon types"""
 
-    clear_sky = auto()
-    few_clouds = auto()
-    scattered_clouds = auto()
-    broken_clouds = auto()
-    shower_rain = auto()
-    rain = auto()
-    thunderstorm = auto()
-    snow = auto()
-    mist = auto()
+    CLEAR_SKY = auto()
+    FEW_CLOUDS = auto()
+    SCATTERED_CLOUDS = auto()
+    BROKEN_CLOUDS = auto()
+    SHOWER_RAIN = auto()
+    RAIN = auto()
+    THUNDERSTORM = auto()
+    SNOW = auto()
+    MIST = auto()
 
 
 class ScaleType(Enum):
     """Enum for Weather Scale types"""
 
-    celsius = auto()
-    fahrenheit = auto()
+    CELSIUS = auto()
+    FAHRENHEIT = auto()
 
 
 class WeatherBase(ABC):
@@ -40,19 +40,15 @@ class WeatherBase(ABC):
     @abstractmethod
     def get_icon(self) -> IconType:
         """Return requested weather icon"""
-        ...
 
     @abstractmethod
     def get_current_weather(self, scale: ScaleType) -> str:
         """Return requested weather data"""
-        ...
 
     @abstractmethod
     def get_temp_range(self, scale: ScaleType, day: int) -> str:
         """Return requested temp range"""
-        ...
 
     @abstractmethod
     def fetch_condition(self, day: int) -> str:
         """Return requested weather condition"""
-        ...

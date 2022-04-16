@@ -1,6 +1,6 @@
-#!/usr/bin/env python
 """Tests for inky_pi.main"""
 # pylint: disable=redefined-outer-name
+# pylint: disable=duplicate-code
 
 from typing import Any, Dict, Generator
 from unittest.mock import Mock, patch
@@ -8,9 +8,9 @@ from unittest.mock import Mock, patch
 import pytest
 
 from inky_pi.helper import TrainModel, TrainObject, train_model_factory
-from inky_pi.train.huxley2 import Huxley2  # type: ignore
-from inky_pi.train.open_live import OpenLive  # type: ignore
-from inky_pi.train.train_base import TrainBase  # type: ignore
+from inky_pi.train.huxley2 import Huxley2
+from inky_pi.train.open_live import OpenLive
+from inky_pi.train.train_base import TrainBase
 
 
 # pylint: disable=possibly-unused-variable

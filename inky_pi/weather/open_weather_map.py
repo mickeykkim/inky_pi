@@ -6,10 +6,10 @@ from typing import Dict, Union
 import requests
 from loguru import logger
 
-from inky_pi.weather.weather_base import WeatherBase  # type: ignore
 from inky_pi.weather.weather_base import (
     IconType,
     ScaleType,
+    WeatherBase,
     celsius_to_farenheit,
     kelvin_to_celsius,
 )
@@ -65,15 +65,15 @@ class OpenWeatherMap(WeatherBase):
         # Get first two code characters; third character is 'd/n' for day/night
         icon_code: str = str(self._data["current"]["weather"][0]["icon"])[0:2]
         weather_type_dict: Dict[str, IconType] = {
-            "01": IconType.clear_sky,
-            "02": IconType.few_clouds,
-            "03": IconType.scattered_clouds,
-            "04": IconType.broken_clouds,
-            "09": IconType.shower_rain,
-            "10": IconType.rain,
-            "11": IconType.thunderstorm,
-            "13": IconType.snow,
-            "50": IconType.mist,
+            "01": IconType.CLEAR_SKY,
+            "02": IconType.FEW_CLOUDS,
+            "03": IconType.SCATTERED_CLOUDS,
+            "04": IconType.BROKEN_CLOUDS,
+            "09": IconType.SHOWER_RAIN,
+            "10": IconType.RAIN,
+            "11": IconType.THUNDERSTORM,
+            "13": IconType.SNOW,
+            "50": IconType.MIST,
         }
         return weather_type_dict[icon_code]
 
@@ -95,7 +95,7 @@ class OpenWeatherMap(WeatherBase):
             )
             str_temp: str = (
                 str(celsius_temp) + DEG_C
-                if scale == ScaleType.celsius
+                if scale == ScaleType.CELSIUS
                 else str(celsius_to_farenheit(celsius_temp)) + DEG_F
             )
             str_status: str = self._data["current"]["weather"][0]["main"]
@@ -133,12 +133,12 @@ class OpenWeatherMap(WeatherBase):
             )
             str_temp_min: str = (
                 str(celsius_temp_min) + DEG_C
-                if scale == ScaleType.celsius
+                if scale == ScaleType.CELSIUS
                 else str(celsius_to_farenheit(celsius_temp_min)) + DEG_F
             )
             str_temp_max: str = (
                 str(celsius_temp_max) + DEG_C
-                if scale == ScaleType.celsius
+                if scale == ScaleType.CELSIUS
                 else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
             )
             return f"{prefix} {str_temp_min}–{str_temp_max}"

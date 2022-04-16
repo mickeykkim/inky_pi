@@ -28,4 +28,3 @@ class TrainBase(ABC):
     @abstractmethod
     def fetch_train(self, num: int) -> str:
         """Return requested train data"""
-        ...

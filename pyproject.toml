@@ -21,6 +21,11 @@ readme = "README.rst"
 version = "0.1.0"
 
 [[tool.poetry.source]]
+default = true
+name = "pypi-public"
+url = "https://pypi.org/simple/"
+
+[[tool.poetry.source]]
 name = "piwheels"
 url = "https://www.piwheels.org/simple/"
 

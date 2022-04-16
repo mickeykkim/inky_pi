@@ -1,13 +1,13 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
+# pylint: disable=duplicate-code
 from typing import Dict
 
 import requests
 from loguru import logger
 
-from inky_pi.train.train_base import TrainBase  # type: ignore
-from inky_pi.train.train_base import abbreviate_stn_name
+from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
 
 
 class Huxley2(TrainBase):

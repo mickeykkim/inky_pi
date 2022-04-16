@@ -6,8 +6,7 @@ from loguru import logger
 from zeep import Client, xsd  # type: ignore
 from zeep.plugins import HistoryPlugin  # type: ignore
 
-from inky_pi.train.train_base import TrainBase  # type: ignore
-from inky_pi.train.train_base import abbreviate_stn_name
+from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
 
 
 class OpenLive(TrainBase):
