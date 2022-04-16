@@ -22,24 +22,23 @@ version = "0.1.0"
 
 [[tool.poetry.source]]
 name = "piwheels"
-secondary = true
 url = "https://www.piwheels.org/simple/"
 
 [tool.poetry.dependencies]
 Pillow = "^9.0.0"
-"RPi.GPIO" = {version = "^0.7.0", markers = "sys_platform == 'armv7l'"}
-click = "^8.0.4"
+"RPi.GPIO" = {version = "^0.7.0", markers = "platform_machine == 'armv7l'"}
+click = "*"
 environs = "^9.3.2"
 font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
-inky = {version = "^1.2.0", markers = "sys_platform == 'armv7l'"}
+inky = {version = "^1.2.0", markers = "platform_machine == 'armv7l'"}
 loguru = "^0.5.3"
 python = ">=3.7,<4"
 urllib3 = "^1.26.8"
 zeep = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
-black = "^21.9b0"
+black = "^22.3.0"
 bumpversion = "*"
 coverage = "*"
 flake8 = "^3.9.2"
@@ -48,7 +47,7 @@ mypy = "^0.910"
 pre-commit = "^2.17.0"
 pylint = "^2.0"
 pytest = "^6.2.5"
-sphinx = "4.4.0"
+sphinx = "^4.4.0"
 sphinx-rtd-theme = "^1.0.0"
 tox = "^3.24.4"
 types-requests = "^2.25.8"
