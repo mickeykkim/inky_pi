@@ -1,38 +1,32 @@
-# GitHub Actions workflow for installing Poetry and running Tox
-# Based on: https://github.com/snok/install-poetry
+# GitHub Actions workflow for building docs and publishing to GitHub pages
+# Based on: https://tomasfarias.dev/posts/sphinx-docs-with-poetry-and-github-pages/
 
-name: CI
+name: Docs2Pages
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push (all branches) or pull requests (only for main branch)
+  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ '*' ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build-docs:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: [3.7, 3.8, 3.9, "3.10"]
-
     steps:
-      # Checkout out repo and setup python
       - name: Check out repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Setup Python
         id: setup-python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python }}
+          python-version: 3.7
       # Install and configure poetry
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -51,9 +45,16 @@ jobs:
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
-      # Install project package
-      - name: Install library
-        run: poetry install --no-interaction
-      # Run tox
-      - name: Run Tox
-        run: poetry run tox -e py
+      # Build docs and deploy to pages
+      - name: Build documentation
+        run: |
+          mkdir gh-pages
+          touch gh-pages/.nojekyll
+          poetry run invoke docs      
+          cp -r docs/_build/* gh-pages/ 
+      - name: Deploy documentation
+        if: ${{ github.event_name == 'push' }}
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: gh-pages
