@@ -50,7 +50,7 @@ class WeatherBase(ABC):
         """
 
     @abstractmethod
-    def get_current_weather(self, scale: ScaleType) -> str:
+    def get_current_weather(self, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Return requested weather data
 
         Args:
@@ -61,7 +61,7 @@ class WeatherBase(ABC):
         """
 
     @abstractmethod
-    def get_current_temperature(self, scale: ScaleType) -> str:
+    def get_current_temperature(self, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Return requested current temperature
 
         Args:
@@ -80,7 +80,7 @@ class WeatherBase(ABC):
         """
 
     @abstractmethod
-    def get_temp_range(self, day: int, scale: ScaleType) -> str:
+    def get_temp_range(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Return temperature range string
 
         Args:
@@ -103,7 +103,7 @@ class WeatherBase(ABC):
         """
 
     @abstractmethod
-    def get_future_weather(self, day: int, scale: ScaleType) -> str:
+    def get_future_weather(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Return weather string for given day
 
         Args:

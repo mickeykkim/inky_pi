@@ -48,7 +48,9 @@ class InkyDraw:
         self._display.set_image(self._img)
         self._display.show()
 
-    def draw_goodnight(self, data_w: WeatherBase, scale: ScaleType) -> None:
+    def draw_goodnight(
+        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
+    ) -> None:
         """Render goodnight screen"""
         self._draw_goodnight_icon()
         self._draw_goodnight_text(data_w, scale)
@@ -78,7 +80,9 @@ class InkyDraw:
             [(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)], self._color, line_width
         )
 
-    def _draw_goodnight_text(self, data_w: WeatherBase, scale: ScaleType):
+    def _draw_goodnight_text(
+        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
+    ):
         x_mid = self._display.WIDTH / 2
         y_mid = self._display.HEIGHT / 2
         # Message text
@@ -143,7 +147,7 @@ class InkyDraw:
     def draw_weather_forecast(
         self,
         data_w: WeatherBase,
-        scale: ScaleType,
+        scale: ScaleType = ScaleType.CELSIUS,
         x_pos: int = 135,
         y_pos: int = 50,
         disp_tomorrow: bool = False,
@@ -214,7 +218,7 @@ class InkyDraw:
     def draw_mini_forecast(
         self,
         data_w: WeatherBase,
-        scale: ScaleType,
+        scale: ScaleType = ScaleType.CELSIUS,
         x_pos: int = 30,
         y_pos: int = 40,
         day: int = 0,
@@ -244,7 +248,11 @@ class InkyDraw:
         )
 
     def draw_forecast_icons(
-        self, data_w: WeatherBase, scale: ScaleType, x_pos: int = 10, y_pos: int = 180
+        self,
+        data_w: WeatherBase,
+        scale: ScaleType = ScaleType.CELSIUS,
+        x_pos: int = 10,
+        y_pos: int = 180,
     ) -> None:
         """Draws weather forecast icons and text for next 5 days
 

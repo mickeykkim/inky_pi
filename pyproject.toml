@@ -59,10 +59,33 @@ tox = "^3.24.4"
 types-requests = "^2.25.8"
 
 [tool.poetry.scripts]
-inky_pi = 'inky_pi.cli:main'
+inky_pi = "inky_pi.cli:main"
+
+[tool.pytest.ini_options]
+filterwarnings = "ignore::DeprecationWarning"
+minversion = "6.0"
 
 [tool.isort]
 profile = "black"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = true
+envlist = py3
+
+[testenv]
+description = Run compliance tests
+whitelist_externals = poetry
+setenv =
+    PIP_EXTRA_INDEX_URL = https://www.piwheels.org/simple/
+require_locked_deps = true
+install_dev_deps = true
+commands =
+    poetry run invoke format --check
+    poetry run invoke lint
+    poetry run invoke test
+"""
 
 [build-system]
 build-backend = "poetry.core.masonry.api"

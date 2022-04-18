@@ -1,1 +1,1 @@
-"""Unit test package for inky_pi."""
+"""Test package for inky_pi."""

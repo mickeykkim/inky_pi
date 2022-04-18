@@ -1,8 +1,8 @@
 """Console script for inky_pi."""
 import click
 
-import inky_pi.goodnight
 import inky_pi.main
+import inky_pi.main_goodnight
 import inky_pi.main_weather
 
 
@@ -26,7 +26,7 @@ def weather():
 @cli.command()
 def night():
     """Console script for inky_pi night mode."""
-    inky_pi.goodnight.main()
+    inky_pi.main_goodnight.main()
 
 
 def main():

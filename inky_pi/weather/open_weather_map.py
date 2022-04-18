@@ -85,7 +85,7 @@ class OpenWeatherMap(WeatherBase):
         }
         return weather_type_dict[icon_code]
 
-    def get_current_weather(self, scale: ScaleType) -> str:
+    def get_current_weather(self, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate current weather string
 
         String is returned in format:
@@ -99,7 +99,7 @@ class OpenWeatherMap(WeatherBase):
         """
         return f"{self.get_current_temperature(scale)} - {self.get_current_condition()}"
 
-    def get_current_temperature(self, scale: ScaleType) -> str:
+    def get_current_temperature(self, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate current temperature
 
         Args:
@@ -135,7 +135,7 @@ class OpenWeatherMap(WeatherBase):
             logger.error("Invalid get_current_weather data", repr(ex))
             return "Error retrieving condition."
 
-    def get_temp_range(self, day: int, scale: ScaleType) -> str:
+    def get_temp_range(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate temperature range string
 
         String is returned in format:
@@ -195,7 +195,7 @@ class OpenWeatherMap(WeatherBase):
             logger.error("Invalid fetch_condition data", repr(ex))
             return f"Error retrieving condition. {repr(ex)}"
 
-    def get_future_weather(self, day: int, scale: ScaleType) -> str:
+    def get_future_weather(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate weather string for given day
 
         String is returned in format:

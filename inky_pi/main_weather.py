@@ -15,7 +15,7 @@ from inky_pi.configs import (
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.helper import WeatherModel, WeatherObject, weather_model_factory
 from inky_pi.util import configure_logging
-from inky_pi.weather.weather_base import ScaleType, WeatherBase
+from inky_pi.weather.weather_base import WeatherBase
 
 WEATHER_OBJECT = WeatherObject(
     model=WeatherModel[WEATHER_MODEL],
@@ -42,12 +42,11 @@ def main() -> None:
     display = InkyDraw(InkyWHAT("black"))
 
     # Draw text and weather icon on display object at specified x, y coords
-    scale = ScaleType.CELSIUS
     display.draw_date()
     display.draw_time()
-    display.draw_mini_forecast(weather_data, scale)
-    display.draw_weather_forecast(weather_data, scale)
-    display.draw_forecast_icons(weather_data, scale)
+    display.draw_mini_forecast(weather_data)
+    display.draw_weather_forecast(weather_data)
+    display.draw_forecast_icons(weather_data)
 
     # Render display object on Inky display screen
     display.render_screen()

@@ -6,7 +6,7 @@ from inky_pi.configs import EXCLUDE_FLAGS, LATITUDE, LONGITUDE, WEATHER_API_TOKE
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.util import configure_logging
 from inky_pi.weather.open_weather_map import OpenWeatherMap
-from inky_pi.weather.weather_base import ScaleType, WeatherBase
+from inky_pi.weather.weather_base import WeatherBase
 
 
 def main() -> None:
@@ -20,7 +20,7 @@ def main() -> None:
 
     # Set the display object configured with specified Inky display model
     display = InkyDraw(InkyWHAT("yellow"))
-    display.draw_goodnight(weather_data, ScaleType.CELSIUS)
+    display.draw_goodnight(weather_data)
     display.render_screen()
 
 
