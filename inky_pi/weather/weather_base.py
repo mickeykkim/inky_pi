@@ -1,4 +1,4 @@
-"""Base class and helper functionsfor weather model"""
+"""Base class and helper functions for weather model"""
 # pylint: disable=duplicate-code
 from abc import ABC, abstractmethod
 from enum import Enum, auto
@@ -6,12 +6,16 @@ from enum import Enum, auto
 
 def kelvin_to_celsius(kelvin_temp: float) -> float:
     """Helper function to convert Kelvin to Celsius to one decimal place"""
+    if kelvin_temp < 0:
+        raise ValueError("Kelvin temperature cannot be less than 0.")
     return round(kelvin_temp - 273.15, 1)
 
 
 def celsius_to_farenheit(celsius_temp: float) -> float:
     """Helper function to convert Celsius to Farenheit to one decimal place"""
-    return round(celsius_temp * 9 / 5 + 32, 1)
+    if celsius_temp < -273.15:
+        raise ValueError("Celsius temperature cannot be less than -273.15.")
+    return round((celsius_temp * 9 / 5) + 32.0, 1)
 
 
 class IconType(Enum):

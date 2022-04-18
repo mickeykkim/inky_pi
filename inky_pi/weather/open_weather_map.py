@@ -120,7 +120,7 @@ class OpenWeatherMap(WeatherBase):
             return f"{formatted_temp}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_current_weather data", repr(ex))
-            return "Error retrieving temperature."
+            return f"Error retrieving temperature. {ex!r}"
 
     def get_current_condition(self) -> str:
         """Generate current weather condition
@@ -133,7 +133,7 @@ class OpenWeatherMap(WeatherBase):
             return str_status
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_current_weather data", repr(ex))
-            return "Error retrieving condition."
+            return f"Error retrieving condition. {ex!r}"
 
     def get_temp_range(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate temperature range string
@@ -168,13 +168,10 @@ class OpenWeatherMap(WeatherBase):
             return f"{str_temp_min} – {str_temp_max}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_temp_range data", repr(ex))
-            return f"Error retrieving range. {repr(ex)}"
+            return f"Error retrieving range. {ex!r}"
 
     def get_condition(self, day: int) -> str:
         """Generate weather condition string
-
-        String is returned in format:
-            ["•"/"Tomorrow:"] [weather condition]
 
         Args:
             day (int): Desired day number (0/today or 1/tomorrow)
@@ -182,10 +179,10 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
-        if day < 0 or day > 1:
+        if day < 0 or day > 6:
             logger.error("Invalid fetch_condition day", day)
             raise ValueError(
-                "Weather conditions only available for 0/today or 1/tomorrow."
+                "Weather conditions only available for 0 (today) up to 7 days ahead."
             )
 
         try:
@@ -193,7 +190,7 @@ class OpenWeatherMap(WeatherBase):
 
         except (KeyError, IndexError) as ex:
             logger.error("Invalid fetch_condition data", repr(ex))
-            return f"Error retrieving condition. {repr(ex)}"
+            return f"Error retrieving condition. {ex!r}"
 
     def get_future_weather(self, day: int, scale: ScaleType = ScaleType.CELSIUS) -> str:
         """Generate weather string for given day
@@ -220,4 +217,4 @@ class OpenWeatherMap(WeatherBase):
             return f"{str_temp}"
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_current_weather data", repr(ex))
-            return f"Error retrieving weather. {repr(ex)}"
+            return f"Error retrieving weather. {ex!r}"

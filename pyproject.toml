@@ -6,11 +6,10 @@ classifiers = [
   'Intended Audience :: Developers',
   'License :: OSI Approved :: MIT License',
   'Natural Language :: English',
-  'Programming Language :: Python :: 3',
-  'Programming Language :: Python :: 3.5',
-  'Programming Language :: Python :: 3.6',
   'Programming Language :: Python :: 3.7',
   'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
 ]
 description = "Top-level package for inky-pi."
 homepage = "https://github.com/mickeykkim/inky_pi"
@@ -32,7 +31,7 @@ url = "https://www.piwheels.org/simple/"
 [tool.poetry.dependencies]
 Pillow = "^9.0.0"
 "RPi.GPIO" = {version = "^0.7.0", markers = "platform_machine == 'armv7l'"}
-click = "*"
+click = "^8.1.2"
 environs = "^9.3.2"
 font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
@@ -44,16 +43,16 @@ zeep = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
-bumpversion = "*"
-coverage = "*"
+bumpversion = "^0.6.0"
+coverage = "^6.3.2"
 flake8 = "^3.9.2"
-importlib-metadata = "^1.7.0"
-invoke = "*"
+importlib-metadata = "^4.11.3"
+invoke = "^1.7.0"
 mypy = "^0.910"
 pre-commit = "^2.17.0"
 pylint = "^2.0"
 pytest = "^6.2.5"
-sphinx = "*"
+sphinx = "^4.3.2"
 sphinx-rtd-theme = "^1.0.0"
 tox = "^3.24.4"
 types-requests = "^2.25.8"

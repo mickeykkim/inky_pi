@@ -1,5 +1,4 @@
-"""Inky_Pi configuration settings.
-"""
+"""Inky_Pi configuration settings."""
 from environs import Env
 
 _env: Env = Env()
