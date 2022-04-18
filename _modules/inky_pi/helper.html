@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.helper &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">inky_pi</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>inky_pi.helper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for inky_pi.helper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Inky_Pi main module.</span>
+
+<span class="sd">Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">inky_pi.train.huxley2</span> <span class="kn">import</span> <span class="n">Huxley2</span>
+<span class="kn">from</span> <span class="nn">inky_pi.train.open_live</span> <span class="kn">import</span> <span class="n">OpenLive</span>
+<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
+<span class="kn">from</span> <span class="nn">inky_pi.weather.open_weather_map</span> <span class="kn">import</span> <span class="n">OpenWeatherMap</span>
+<span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">WeatherBase</span>
+
+
+<div class="viewcode-block" id="TrainModel"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.TrainModel">[docs]</a><span class="k">class</span> <span class="nc">TrainModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of train models&quot;&quot;&quot;</span>
+
+    <span class="n">HUXLEY2</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">OPEN_LIVE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WeatherModel"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.WeatherModel">[docs]</a><span class="k">class</span> <span class="nc">WeatherModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
+
+    <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TrainObject"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.TrainObject">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TrainObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Train object&quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">TrainModel</span>
+    <span class="n">station_from</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">station_to</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="WeatherObject"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.WeatherObject">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">WeatherObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Weather object&quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">WeatherModel</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">exclude_flags</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">weather_api_token</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Huxley2 object creator&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Huxley2</span><span class="p">(</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">station_from</span><span class="p">,</span> <span class="n">train_object</span><span class="o">.</span><span class="n">station_to</span><span class="p">,</span> <span class="n">train_object</span><span class="o">.</span><span class="n">number</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="instantiate_open_live"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.instantiate_open_live">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_live</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenLive</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Open Live object creator&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">OpenLive</span><span class="p">(</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">station_from</span><span class="p">,</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">station_to</span><span class="p">,</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="instantiate_open_weather_map"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.instantiate_open_weather_map">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_weather_map</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenWeatherMap</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Open Weather Map object creator&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">OpenWeatherMap</span><span class="p">(</span>
+        <span class="n">weather_object</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+        <span class="n">weather_object</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+        <span class="n">weather_object</span><span class="o">.</span><span class="n">exclude_flags</span><span class="p">,</span>
+        <span class="n">weather_object</span><span class="o">.</span><span class="n">weather_api_token</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="train_model_factory"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.train_model_factory">[docs]</a><span class="k">def</span> <span class="nf">train_model_factory</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TrainBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined train model to use</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        train_object (TrainObject): train object containing model</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span> <span class="ow">and</span> <span class="p">(</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Open Live requires URL and API token.&quot;</span><span class="p">)</span>
+
+    <span class="n">train_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">TrainModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">TrainObject</span><span class="p">],</span> <span class="n">TrainBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="p">:</span> <span class="n">instantiate_open_live</span><span class="p">,</span>
+        <span class="n">TrainModel</span><span class="o">.</span><span class="n">HUXLEY2</span><span class="p">:</span> <span class="n">instantiate_huxley2</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">train_handler</span><span class="p">[</span><span class="n">train_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">train_object</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="weather_model_factory"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.helper.weather_model_factory">[docs]</a><span class="k">def</span> <span class="nf">weather_model_factory</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WeatherBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined weather model to use</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        weather_object (WeatherObject): weather object containing model</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weather_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">WeatherModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">WeatherObject</span><span class="p">],</span> <span class="n">WeatherBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="p">:</span> <span class="n">instantiate_open_weather_map</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">weather_handler</span><span class="p">[</span><span class="n">weather_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">weather_object</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

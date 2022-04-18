@@ -1,0 +1,29 @@
+inky\_pi.weather package
+========================
+
+Submodules
+----------
+
+inky\_pi.weather.open\_weather\_map module
+------------------------------------------
+
+.. automodule:: inky_pi.weather.open_weather_map
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+inky\_pi.weather.weather\_base module
+-------------------------------------
+
+.. automodule:: inky_pi.weather.weather_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: inky_pi.weather
+   :members:
+   :undoc-members:
+   :show-inheritance:

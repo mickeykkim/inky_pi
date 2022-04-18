@@ -1,0 +1,21 @@
+inky\_pi.display package
+========================
+
+Submodules
+----------
+
+inky\_pi.display.inky\_draw module
+----------------------------------
+
+.. automodule:: inky_pi.display.inky_draw
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: inky_pi.display
+   :members:
+   :undoc-members:
+   :show-inheritance:

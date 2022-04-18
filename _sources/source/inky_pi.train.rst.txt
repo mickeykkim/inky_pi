@@ -1,0 +1,37 @@
+inky\_pi.train package
+======================
+
+Submodules
+----------
+
+inky\_pi.train.huxley2 module
+-----------------------------
+
+.. automodule:: inky_pi.train.huxley2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+inky\_pi.train.open\_live module
+--------------------------------
+
+.. automodule:: inky_pi.train.open_live
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+inky\_pi.train.train\_base module
+---------------------------------
+
+.. automodule:: inky_pi.train.train_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: inky_pi.train
+   :members:
+   :undoc-members:
+   :show-inheritance:
