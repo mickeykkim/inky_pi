@@ -59,7 +59,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.cli">inky_pi.cli module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.configs">inky_pi.configs module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.helper">inky_pi.helper module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.main">inky_pi.main module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.main_goodnight">inky_pi.main_goodnight module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-inky_pi.main_weather">inky_pi.main_weather module</a></li>
@@ -209,149 +208,6 @@
 </dd></dl>
 
 </section>
-<section id="module-inky_pi.helper">
-<span id="inky-pi-helper-module"></span><h2>inky_pi.helper module<a class="headerlink" href="#module-inky_pi.helper" title="Permalink to this headline"></a></h2>
-<p>Inky_Pi main module.</p>
-<p>Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">TrainModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/helper.html#TrainModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.TrainModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
-<p>Enum of train models</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainModel.HUXLEY2">
-<span class="sig-name descname"><span class="pre">HUXLEY2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.helper.TrainModel.HUXLEY2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainModel.OPEN_LIVE">
-<span class="sig-name descname"><span class="pre">OPEN_LIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#inky_pi.helper.TrainModel.OPEN_LIVE" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">TrainObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.TrainModel" title="inky_pi.helper.TrainModel"><span class="pre">inky_pi.helper.TrainModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/helper.html#TrainObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.TrainObject" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Train object</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.helper.TrainModel" title="inky_pi.helper.TrainModel"><span class="pre">inky_pi.helper.TrainModel</span></a></em><a class="headerlink" href="#inky_pi.helper.TrainObject.model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.number">
-<span class="sig-name descname"><span class="pre">number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#inky_pi.helper.TrainObject.number" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.station_from">
-<span class="sig-name descname"><span class="pre">station_from</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.helper.TrainObject.station_from" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.station_to">
-<span class="sig-name descname"><span class="pre">station_to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.helper.TrainObject.station_to" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.token">
-<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.helper.TrainObject.token" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.TrainObject.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.helper.TrainObject.url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">WeatherModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/helper.html#WeatherModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.WeatherModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
-<p>Enum of weather models</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherModel.OPEN_WEATHER_MAP">
-<span class="sig-name descname"><span class="pre">OPEN_WEATHER_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.helper.WeatherModel.OPEN_WEATHER_MAP" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">WeatherObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.WeatherModel" title="inky_pi.helper.WeatherModel"><span class="pre">inky_pi.helper.WeatherModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_api_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/helper.html#WeatherObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.WeatherObject" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Weather object</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject.exclude_flags">
-<span class="sig-name descname"><span class="pre">exclude_flags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.helper.WeatherObject.exclude_flags" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject.latitude">
-<span class="sig-name descname"><span class="pre">latitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.helper.WeatherObject.latitude" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject.longitude">
-<span class="sig-name descname"><span class="pre">longitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.helper.WeatherObject.longitude" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject.model">
-<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.helper.WeatherModel" title="inky_pi.helper.WeatherModel"><span class="pre">inky_pi.helper.WeatherModel</span></a></em><a class="headerlink" href="#inky_pi.helper.WeatherObject.model" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.helper.WeatherObject.weather_api_token">
-<span class="sig-name descname"><span class="pre">weather_api_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.helper.WeatherObject.weather_api_token" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.helper.instantiate_huxley2">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">instantiate_huxley2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.TrainObject" title="inky_pi.helper.TrainObject"><span class="pre">inky_pi.helper.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.huxley2.Huxley2" title="inky_pi.train.huxley2.Huxley2"><span class="pre">inky_pi.train.huxley2.Huxley2</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/helper.html#instantiate_huxley2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.instantiate_huxley2" title="Permalink to this definition"></a></dt>
-<dd><p>Huxley2 object creator</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.helper.instantiate_open_live">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.TrainObject" title="inky_pi.helper.TrainObject"><span class="pre">inky_pi.helper.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive"><span class="pre">inky_pi.train.open_live.OpenLive</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/helper.html#instantiate_open_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.instantiate_open_live" title="Permalink to this definition"></a></dt>
-<dd><p>Open Live object creator</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.helper.instantiate_open_weather_map">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_weather_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.WeatherObject" title="inky_pi.helper.WeatherObject"><span class="pre">inky_pi.helper.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap" title="inky_pi.weather.open_weather_map.OpenWeatherMap"><span class="pre">inky_pi.weather.open_weather_map.OpenWeatherMap</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/helper.html#instantiate_open_weather_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.instantiate_open_weather_map" title="Permalink to this definition"></a></dt>
-<dd><p>Open Weather Map object creator</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.helper.train_model_factory">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">train_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.TrainObject" title="inky_pi.helper.TrainObject"><span class="pre">inky_pi.helper.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/helper.html#train_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.train_model_factory" title="Permalink to this definition"></a></dt>
-<dd><p>Selects and instantiates the defined train model to use</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.helper.TrainObject" title="inky_pi.helper.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.helper.weather_model_factory">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.helper.</span></span><span class="sig-name descname"><span class="pre">weather_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.helper.WeatherObject" title="inky_pi.helper.WeatherObject"><span class="pre">inky_pi.helper.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/helper.html#weather_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.helper.weather_model_factory" title="Permalink to this definition"></a></dt>
-<dd><p>Selects and instantiates the defined weather model to use</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>weather_object</strong> (<a class="reference internal" href="#inky_pi.helper.WeatherObject" title="inky_pi.helper.WeatherObject"><em>WeatherObject</em></a>) – weather object containing model</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="module-inky_pi.main">
 <span id="inky-pi-main-module"></span><h2>inky_pi.main module<a class="headerlink" href="#module-inky_pi.main" title="Permalink to this headline"></a></h2>
 <p>Inky_Pi main module.</p>
@@ -391,10 +247,148 @@ and draws to inkyWHAT screen.</p>
 <section id="module-inky_pi.util">
 <span id="inky-pi-util-module"></span><h2>inky_pi.util module<a class="headerlink" href="#module-inky_pi.util" title="Permalink to this headline"></a></h2>
 <p>Utility functions for inky_pi.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.util.TrainModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">TrainModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/util.html#TrainModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.TrainModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enum of train models</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainModel.HUXLEY2">
+<span class="sig-name descname"><span class="pre">HUXLEY2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.util.TrainModel.HUXLEY2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainModel.OPEN_LIVE">
+<span class="sig-name descname"><span class="pre">OPEN_LIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#inky_pi.util.TrainModel.OPEN_LIVE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">TrainObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.TrainModel" title="inky_pi.util.TrainModel"><span class="pre">inky_pi.util.TrainModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/util.html#TrainObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.TrainObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Train object</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.util.TrainModel" title="inky_pi.util.TrainModel"><span class="pre">inky_pi.util.TrainModel</span></a></em><a class="headerlink" href="#inky_pi.util.TrainObject.model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.number">
+<span class="sig-name descname"><span class="pre">number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#inky_pi.util.TrainObject.number" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.station_from">
+<span class="sig-name descname"><span class="pre">station_from</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.util.TrainObject.station_from" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.station_to">
+<span class="sig-name descname"><span class="pre">station_to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.util.TrainObject.station_to" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.token">
+<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.util.TrainObject.token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.TrainObject.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.util.TrainObject.url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">WeatherModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/util.html#WeatherModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.WeatherModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enum of weather models</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherModel.OPEN_WEATHER_MAP">
+<span class="sig-name descname"><span class="pre">OPEN_WEATHER_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.util.WeatherModel.OPEN_WEATHER_MAP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">WeatherObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.WeatherModel" title="inky_pi.util.WeatherModel"><span class="pre">inky_pi.util.WeatherModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_api_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/util.html#WeatherObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.WeatherObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Weather object</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject.exclude_flags">
+<span class="sig-name descname"><span class="pre">exclude_flags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.util.WeatherObject.exclude_flags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.util.WeatherObject.latitude" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.util.WeatherObject.longitude" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.util.WeatherModel" title="inky_pi.util.WeatherModel"><span class="pre">inky_pi.util.WeatherModel</span></a></em><a class="headerlink" href="#inky_pi.util.WeatherObject.model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.WeatherObject.weather_api_token">
+<span class="sig-name descname"><span class="pre">weather_api_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.util.WeatherObject.weather_api_token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="inky_pi.util.configure_logging">
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">configure_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#configure_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.configure_logging" title="Permalink to this definition"></a></dt>
 <dd><p>See: <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api.html">https://loguru.readthedocs.io/en/stable/api.html</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.instantiate_huxley2">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">instantiate_huxley2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.TrainObject" title="inky_pi.util.TrainObject"><span class="pre">inky_pi.util.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.huxley2.Huxley2" title="inky_pi.train.huxley2.Huxley2"><span class="pre">inky_pi.train.huxley2.Huxley2</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#instantiate_huxley2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.instantiate_huxley2" title="Permalink to this definition"></a></dt>
+<dd><p>Huxley2 object creator</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.instantiate_open_live">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.TrainObject" title="inky_pi.util.TrainObject"><span class="pre">inky_pi.util.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive"><span class="pre">inky_pi.train.open_live.OpenLive</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#instantiate_open_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.instantiate_open_live" title="Permalink to this definition"></a></dt>
+<dd><p>Open Live object creator</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.instantiate_open_weather_map">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_weather_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.WeatherObject" title="inky_pi.util.WeatherObject"><span class="pre">inky_pi.util.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap" title="inky_pi.weather.open_weather_map.OpenWeatherMap"><span class="pre">inky_pi.weather.open_weather_map.OpenWeatherMap</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#instantiate_open_weather_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.instantiate_open_weather_map" title="Permalink to this definition"></a></dt>
+<dd><p>Open Weather Map object creator</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.train_model_factory">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">train_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.TrainObject" title="inky_pi.util.TrainObject"><span class="pre">inky_pi.util.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#train_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.train_model_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Selects and instantiates the defined train model to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.util.TrainObject" title="inky_pi.util.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.weather_model_factory">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">weather_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.WeatherObject" title="inky_pi.util.WeatherObject"><span class="pre">inky_pi.util.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#weather_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.weather_model_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Selects and instantiates the defined weather model to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weather_object</strong> (<a class="reference internal" href="#inky_pi.util.WeatherObject" title="inky_pi.util.WeatherObject"><em>WeatherObject</em></a>) – weather object containing model</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

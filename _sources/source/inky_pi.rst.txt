@@ -30,14 +30,6 @@ inky\_pi.configs module
    :undoc-members:
    :show-inheritance:
 
-inky\_pi.helper module
-----------------------
-
-.. automodule:: inky_pi.helper
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 inky\_pi.main module
 --------------------
 
