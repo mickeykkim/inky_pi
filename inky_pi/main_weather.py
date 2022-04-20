@@ -13,8 +13,12 @@ from inky_pi.configs import (
     WEATHER_MODEL,
 )
 from inky_pi.display.inky_draw import InkyDraw
-from inky_pi.helper import WeatherModel, WeatherObject, weather_model_factory
-from inky_pi.util import configure_logging
+from inky_pi.util import (
+    WeatherModel,
+    WeatherObject,
+    configure_logging,
+    weather_model_factory,
+)
 from inky_pi.weather.weather_base import WeatherBase
 
 WEATHER_OBJECT = WeatherObject(

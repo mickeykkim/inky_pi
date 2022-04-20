@@ -4,10 +4,10 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from inky_pi.helper import TrainModel, TrainObject, train_model_factory
 from inky_pi.train.huxley2 import Huxley2
 from inky_pi.train.open_live import OpenLive
 from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
+from inky_pi.util import TrainModel, TrainObject, train_model_factory
 
 
 # pylint: disable=possibly-unused-variable

@@ -18,16 +18,16 @@ from inky_pi.configs import (
     WEATHER_MODEL,
 )
 from inky_pi.display.inky_draw import InkyDraw
-from inky_pi.helper import (
+from inky_pi.train.train_base import TrainBase
+from inky_pi.util import (
     TrainModel,
     TrainObject,
     WeatherModel,
     WeatherObject,
+    configure_logging,
     train_model_factory,
     weather_model_factory,
 )
-from inky_pi.train.train_base import TrainBase
-from inky_pi.util import configure_logging
 from inky_pi.weather.weather_base import ScaleType, WeatherBase
 
 TRAIN_OBJECT = TrainObject(

@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from inky_pi.helper import WeatherModel, WeatherObject, weather_model_factory
+from inky_pi.util import WeatherModel, WeatherObject, weather_model_factory
 from inky_pi.weather.open_weather_map import OpenWeatherMap
 from inky_pi.weather.weather_base import (
     WeatherBase,
