@@ -117,6 +117,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_white</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">WHITE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">YELLOW</span>
 
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InkyDraw&quot;</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Enter context manager&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Exit context manager; render the drawn screen&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_screen</span><span class="p">()</span>
+
 <div class="viewcode-block" id="InkyDraw.render_screen"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw.render_screen">[docs]</a>    <span class="k">def</span> <span class="nf">render_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Render border, images (w/text) on inky screen and show on display&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">set_border</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_black</span><span class="p">)</span>

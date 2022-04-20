@@ -136,18 +136,13 @@
     <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
-    <span class="c1"># Set the display object configured with specified Inky display model</span>
-    <span class="n">display</span> <span class="o">=</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">InkyWHAT</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">))</span>
-
-    <span class="c1"># Draw text and weather icon on display object at specified x, y coords</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_icon</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(),</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-
-    <span class="c1"># Render display object on Inky display screen</span>
-    <span class="n">display</span><span class="o">.</span><span class="n">render_screen</span><span class="p">()</span></div>
+    <span class="c1"># Draw to inkyWHAT screen</span>
+    <span class="k">with</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">InkyWHAT</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_icon</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">get_icon</span><span class="p">(),</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
