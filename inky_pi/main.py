@@ -61,18 +61,13 @@ def main() -> None:
     train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
 
-    # Set the display object configured with specified Inky display model
-    display = InkyDraw(InkyWHAT("black"))
-
-    # Draw text and weather icon on display object at specified x, y coords
-    display.draw_date()
-    display.draw_time()
-    display.draw_train_times(train_data, TRAIN_NUMBER, 10, 50)
-    display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 150, True)
-    display.draw_weather_icon(weather_data.get_icon(), 280, 200)
-
-    # Render display object on Inky display screen
-    display.render_screen()
+    # Draw to inkyWHAT screen
+    with InkyDraw(InkyWHAT("black")) as display:
+        display.draw_date()
+        display.draw_time()
+        display.draw_train_times(train_data, TRAIN_NUMBER, 10, 50)
+        display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 150, True)
+        display.draw_weather_icon(weather_data.get_icon(), 280, 200)
 
 
 if __name__ == "__main__":

@@ -42,6 +42,14 @@ class InkyDraw:
         self._white: Any = self._display.WHITE
         self._color: Any = self._display.YELLOW
 
+    def __enter__(self) -> "InkyDraw":
+        """Enter context manager"""
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context manager; render the drawn screen"""
+        self.render_screen()
+
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display"""
         self._display.set_border(self._black)

@@ -42,18 +42,13 @@ def main() -> None:
     # Send requests to API endpoints to set data
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
 
-    # Set the display object configured with specified Inky display model
-    display = InkyDraw(InkyWHAT("black"))
-
-    # Draw text and weather icon on display object at specified x, y coords
-    display.draw_date()
-    display.draw_time()
-    display.draw_mini_forecast(weather_data)
-    display.draw_weather_forecast(weather_data)
-    display.draw_forecast_icons(weather_data)
-
-    # Render display object on Inky display screen
-    display.render_screen()
+    # Draw to inkyWHAT screen
+    with InkyDraw(InkyWHAT("black")) as display:
+        display.draw_date()
+        display.draw_time()
+        display.draw_mini_forecast(weather_data)
+        display.draw_weather_forecast(weather_data)
+        display.draw_forecast_icons(weather_data)
 
 
 if __name__ == "__main__":

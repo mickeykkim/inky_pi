@@ -18,10 +18,8 @@ def main() -> None:
     configure_logging()
     logger.debug("InkyPi goodnight")
 
-    # Set the display object configured with specified Inky display model
-    display = InkyDraw(InkyWHAT("yellow"))
-    display.draw_goodnight(weather_data)
-    display.render_screen()
+    with InkyDraw(InkyWHAT("yellow")) as display:
+        display.draw_goodnight(weather_data)
 
 
 if __name__ == "__main__":

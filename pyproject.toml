@@ -2,20 +2,20 @@
 [tool.poetry]
 authors = ["Mickey Kim <mickeykkim@gmail.com>"]
 classifiers = [
-    'Development Status :: 2 - Pre-Alpha',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Natural Language :: English',
-    'Programming Language :: Python :: 3.7',
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
+  'Development Status :: 2 - Pre-Alpha',
+  'Intended Audience :: Developers',
+  'License :: OSI Approved :: MIT License',
+  'Natural Language :: English',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
 ]
 description = "Top-level package for inky-pi."
 homepage = "https://github.com/mickeykkim/inky_pi"
 license = "MIT"
 name = "inky_pi"
-packages = [{ include = "inky_pi" }, { include = "tests", format = "sdist" }]
+packages = [{include = "inky_pi"}, {include = "tests", format = "sdist"}]
 readme = "README.rst"
 version = "0.1.0"
 
@@ -30,12 +30,12 @@ url = "https://www.piwheels.org/simple/"
 
 [tool.poetry.dependencies]
 Pillow = "^9.0.0"
-"RPi.GPIO" = { version = "^0.7.0", markers = "platform_machine == 'armv7l'" }
+"RPi.GPIO" = {version = "^0.7.0", markers = "platform_machine == 'armv7l'"}
 click = "^8.1.2"
 environs = "^9.3.2"
 font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
-inky = { version = "^1.2.0", markers = "platform_machine == 'armv7l'" }
+inky = {version = "^1.2.0", markers = "platform_machine == 'armv7l'"}
 loguru = "^0.5.3"
 python = ">=3.7,<4"
 urllib3 = "^1.26.8"
