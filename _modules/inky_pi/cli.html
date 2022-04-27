@@ -45,21 +45,27 @@
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">inky</span><span class="p">():</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">inky</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Console script for inky_pi train and weather.&quot;&quot;&quot;</span>
-    <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">weather</span><span class="p">():</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">weather</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Console script for inky_pi weather extended forecast.&quot;&quot;&quot;</span>
-    <span class="n">inky_pi</span><span class="o">.</span><span class="n">main_weather</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main_weather</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">night</span><span class="p">():</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">night</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Console script for inky_pi night mode.&quot;&quot;&quot;</span>
-    <span class="n">inky_pi</span><span class="o">.</span><span class="n">main_goodnight</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main_goodnight</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
