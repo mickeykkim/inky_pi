@@ -2,7 +2,11 @@
 
 Fetches extended weather data and displays on a Raspberry Pi w/InkyWHAT."""
 # pylint: disable=duplicate-code
-from inky import InkyWHAT  # type: ignore
+import platform
+
+# pylint: disable=wrong-import-position
+if platform.machine() == "armv7l":
+    from inky import InkyWHAT  # type: ignore
 from loguru import logger
 
 from inky_pi.configs import (

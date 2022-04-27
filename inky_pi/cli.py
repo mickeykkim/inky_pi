@@ -12,21 +12,27 @@ def cli():
 
 
 @cli.command()
-def inky():
+@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
+def inky(dry_run: bool):
     """Console script for inky_pi train and weather."""
-    inky_pi.main.main()
+    if not dry_run:
+        inky_pi.main.main()
 
 
 @cli.command()
-def weather():
+@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
+def weather(dry_run: bool):
     """Console script for inky_pi weather extended forecast."""
-    inky_pi.main_weather.main()
+    if not dry_run:
+        inky_pi.main_weather.main()
 
 
 @cli.command()
-def night():
+@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
+def night(dry_run: bool):
     """Console script for inky_pi night mode."""
-    inky_pi.main_goodnight.main()
+    if not dry_run:
+        inky_pi.main_goodnight.main()
 
 
 def main():

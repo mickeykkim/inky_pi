@@ -67,6 +67,10 @@ minversion = "6.0"
 [tool.isort]
 profile = "black"
 
+[tool.coverage.report]
+exclude_lines = ["if __name__ == .__main__.:"]
+skip_empty = true
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
