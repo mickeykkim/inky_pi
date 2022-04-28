@@ -32,7 +32,11 @@
             
   <h1>Source code for inky_pi.main_goodnight</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Goodnight message after hours&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">inky</span> <span class="kn">import</span> <span class="n">InkyWHAT</span>  <span class="c1"># type: ignore</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+
+<span class="c1"># pylint: disable=wrong-import-position</span>
+<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;armv7l&quot;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">inky</span> <span class="kn">import</span> <span class="n">InkyWHAT</span>  <span class="c1"># type: ignore</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="n">EXCLUDE_FLAGS</span><span class="p">,</span> <span class="n">LATITUDE</span><span class="p">,</span> <span class="n">LONGITUDE</span><span class="p">,</span> <span class="n">WEATHER_API_TOKEN</span>
