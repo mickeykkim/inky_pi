@@ -38,22 +38,6 @@ inky\_pi.main module
    :undoc-members:
    :show-inheritance:
 
-inky\_pi.main\_goodnight module
--------------------------------
-
-.. automodule:: inky_pi.main_goodnight
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.main\_weather module
------------------------------
-
-.. automodule:: inky_pi.main_weather
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 inky\_pi.util module
 --------------------
 
