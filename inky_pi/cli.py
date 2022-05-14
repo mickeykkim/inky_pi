@@ -2,8 +2,6 @@
 import click
 
 import inky_pi.main
-import inky_pi.main_goodnight
-import inky_pi.main_weather
 
 
 @click.group()
@@ -13,8 +11,9 @@ def cli():
 
 @cli.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def inky(dry_run: bool):
+def train(dry_run: bool):
     """Console script for inky_pi train and weather."""
+    click.echo("CLI inky_pi train")
     if not dry_run:
         inky_pi.main.main()
 
@@ -23,16 +22,18 @@ def inky(dry_run: bool):
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def weather(dry_run: bool):
     """Console script for inky_pi weather extended forecast."""
+    click.echo("CLI inky_pi weather")
     if not dry_run:
-        inky_pi.main_weather.main()
+        inky_pi.main.weather()
 
 
 @cli.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def night(dry_run: bool):
     """Console script for inky_pi night mode."""
+    click.echo("CLI inky_pi night")
     if not dry_run:
-        inky_pi.main_goodnight.main()
+        inky_pi.main.night()
 
 
 def main():

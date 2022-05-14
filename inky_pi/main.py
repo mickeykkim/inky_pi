@@ -2,8 +2,11 @@
 
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
 import platform
+from argparse import ArgumentParser, Namespace
+from typing import Callable, Dict
 
 # pylint: disable=wrong-import-position
+
 if platform.machine() == "armv7l":
     from inky import InkyWHAT  # type: ignore
 
@@ -75,5 +78,66 @@ def main() -> None:
         display.draw_weather_icon(weather_data.get_icon(), 280, 200)
 
 
+def weather() -> None:
+    """inky_pi weather with extended forecast function
+
+    Retrieves weather data from API endpoints, generates text and weather icon,
+    and draws to inkyWHAT screen.
+    """
+    configure_logging()
+    logger.debug("InkyPi initialized")
+
+    # Send requests to API endpoints to set data
+    weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
+
+    # Draw to inkyWHAT screen
+    with InkyDraw(InkyWHAT("black")) as display:
+        display.draw_date()
+        display.draw_time()
+        display.draw_mini_forecast(weather_data)
+        display.draw_weather_forecast(weather_data)
+        display.draw_forecast_icons(weather_data)
+
+
+def night() -> None:
+    """inky_pi goodnight message main function"""
+    configure_logging()
+    logger.debug("InkyPi goodnight")
+
+    # Send requests to API endpoints to set data
+    weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
+
+    with InkyDraw(InkyWHAT("yellow")) as display:
+        display.draw_goodnight(weather_data)
+
+
+def terminal() -> None:
+    """
+    CLI for inky_pi.
+    """
+    print("TODO: terminal display option")
+
+
 if __name__ == "__main__":
-    main()
+    parser = ArgumentParser(
+        description="Inky_pi display function",
+    )
+    parser.add_argument(
+        "--display", help="Display option (train, weather, night, terminal)"
+    )
+    args: Namespace = parser.parse_args()
+    args_handler: Dict[str, Callable] = {
+        "train": main,
+        "weather": weather,
+        "night": night,
+        "terminal": terminal,
+    }
+    try:
+        if args.display:
+            args_handler[args.display]()
+        else:
+            main()
+    except KeyError:
+        logger.error("Invalid display option specified")
+    except Exception as e:  # pylint: disable=broad-except # noqa: E722
+        logger.exception(e)
