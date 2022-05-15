@@ -154,11 +154,10 @@
         <span class="kn">from</span> <span class="nn">inky</span> <span class="kn">import</span> <span class="n">InkyWHAT</span>  <span class="c1"># type: ignore</span>
 
         <span class="k">return</span> <span class="n">InkyWHAT</span>
-
     <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;InkyWHAT library unavailable (are you on a Raspberry Pi?)&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_import_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
+<div class="viewcode-block" id="import_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.import_display">[docs]</a><span class="k">def</span> <span class="nf">import_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Imports the display model from the given object and returns it</span>
 
@@ -172,7 +171,7 @@
         <span class="k">return</span> <span class="n">display_model_factory</span><span class="p">(</span><span class="n">display_object</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="configure_logging"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.configure_logging">[docs]</a><span class="k">def</span> <span class="nf">configure_logging</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
