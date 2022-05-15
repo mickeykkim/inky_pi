@@ -1,7 +1,9 @@
 """Console script for inky_pi."""
 import click
+from loguru import logger
 
 import inky_pi.main
+from inky_pi.util import configure_logging
 
 
 @click.group()
@@ -36,8 +38,19 @@ def night(dry_run: bool):
         inky_pi.main.night()
 
 
+@cli.command()
+@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
+def terminal(dry_run: bool):
+    """Console script for inky_pi night mode."""
+    click.echo("CLI inky_pi terminal")
+    if not dry_run:
+        inky_pi.main.terminal()
+
+
 def main():
     """CLI main method."""
+    configure_logging()
+    logger.debug("InkyPi initialized")
     cli()
 
 

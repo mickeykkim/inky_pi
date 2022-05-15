@@ -1,6 +1,6 @@
 """Tests for weather module"""
 from math import isclose
-from typing import Dict, Generator, Union
+from typing import Generator, Mapping, Union
 from unittest.mock import Mock, patch
 
 import pytest
@@ -16,7 +16,7 @@ from inky_pi.weather.weather_base import (
 
 # pylint: disable=possibly-unused-variable
 @pytest.fixture
-def _setup_weather_vars() -> Generator[Dict[str, Union[float, str]], None, None]:
+def _setup_weather_vars() -> Generator[Mapping[str, Union[float, str]], None, None]:
     latitude: float = 51.5085
     longitude: float = -0.1257
     exclude_flags: str = "minutely,hourly"
@@ -27,7 +27,7 @@ def _setup_weather_vars() -> Generator[Dict[str, Union[float, str]], None, None]
 @patch("inky_pi.weather.open_weather_map.requests.get")
 def test_can_successfully_instantiate_weather_open_weather_map(
     requests_get_mock: Mock,
-    _setup_weather_vars: Dict[str, Union[float, str]],
+    _setup_weather_vars: Mapping[str, Union[float, str]],
 ) -> None:
     """Test for creating OpenWeatherMap instanced object"""
     weather_object = WeatherObject(

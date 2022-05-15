@@ -1,5 +1,5 @@
 """Tests for train module"""
-from typing import Dict, Generator, Union
+from typing import Generator, Mapping, Union
 from unittest.mock import Mock, patch
 
 import pytest
@@ -12,7 +12,7 @@ from inky_pi.util import TrainModel, TrainObject, train_model_factory
 
 # pylint: disable=possibly-unused-variable
 @pytest.fixture
-def _setup_train_vars() -> Generator[Dict[str, Union[float, str]], None, None]:
+def _setup_train_vars() -> Generator[Mapping[str, Union[int, float, str]], None, None]:
     station_from: str = "MZH"
     station_to: str = "LBG"
     number: int = 3
@@ -28,7 +28,7 @@ def test_can_successfully_instantiate_train_open_live(
     zeep_client_mock: Mock,
     zeep_xsd_mock: Mock,
     zeep_history_mock: Mock,
-    _setup_train_vars: Dict[str, Union[float, str]],
+    _setup_train_vars: Mapping[str, Union[int, float, str]],
 ) -> None:
     """Test for creating OpenLDBWS instanced object"""
     train_object = TrainObject(
@@ -48,7 +48,7 @@ def test_can_successfully_instantiate_train_open_live(
 
 @patch("inky_pi.train.huxley2.requests.get")
 def test_can_successfully_instantiate_train_huxley2(
-    requests_get_mock: Mock, _setup_train_vars: Dict[str, Union[float, str]]
+    requests_get_mock: Mock, _setup_train_vars: Mapping[str, Union[int, float, str]]
 ) -> None:
     """Test for creating Huxley2 OpenLDBWS instanced object"""
     train_object = TrainObject(
@@ -63,7 +63,7 @@ def test_can_successfully_instantiate_train_huxley2(
 
 
 def test_instantiate_openldbws_without_url_and_token_raises_error(
-    _setup_train_vars: Dict[str, Union[float, str]]
+    _setup_train_vars: Mapping[str, Union[int, float, str]]
 ) -> None:
     """Test for invalid OpenLDBWS object creation
     Due to the fact that OpenLDBWS requires a URL and a token, this test will raise an

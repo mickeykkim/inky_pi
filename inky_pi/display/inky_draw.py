@@ -1,6 +1,6 @@
 """Inky_Pi drawing module.
 
-Draws strings and icons"""
+Draw strings and icons"""
 from datetime import datetime, timedelta
 from time import strftime
 from typing import Any, Callable, Dict
@@ -12,6 +12,7 @@ from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 # pylint: enable=no-name-in-module
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
+from inky_pi.display.display_base import DisplayBase
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
@@ -26,7 +27,7 @@ FONT_GM = ImageFont.truetype(FredokaOne, 30)
 FONT_GL = ImageFont.truetype(FredokaOne, 40)
 
 
-class InkyDraw:
+class InkyDraw(DisplayBase):
     """Draw text and shapes onto Inky e-ink display"""
 
     def __init__(self, inky_model: Any) -> None:
@@ -43,7 +44,11 @@ class InkyDraw:
         self._color: Any = self._display.YELLOW
 
     def __enter__(self) -> "InkyDraw":
-        """Enter context manager"""
+        """Enter context manager
+
+        Returns:
+            self
+        """
         return self
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
@@ -135,7 +140,7 @@ class InkyDraw:
         )
 
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int, x_pos: int, y_pos: int
+        self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 10, y_pos: int = 50
     ) -> None:
         """Draw all train times text
 
@@ -172,6 +177,7 @@ class InkyDraw:
             scale (ScaleType): Celsius or Fahrenheit for formatting
             x_pos (int): X position offset
             y_pos (int): Y position offset
+            disp_tomorrow (bool): Display tomorrow's weather forecast
         """
         self._img_draw.text(
             (x_pos, y_pos),
@@ -202,7 +208,9 @@ class InkyDraw:
                 FONT_S,
             )
 
-    def draw_weather_icon(self, icon: IconType, x_pos: int, y_pos: int) -> None:
+    def draw_weather_icon(
+        self, icon: IconType, x_pos: int = 280, y_pos: int = 200
+    ) -> None:
         """Draws specified icon
 
         Args:
@@ -238,6 +246,7 @@ class InkyDraw:
             scale (ScaleType): Celsius or Fahrenheit for formatting
             x_pos (int): X position offset
             y_pos (int): Y position offset
+            day (int): Day to display
         """
         new_date = datetime.now() + timedelta(days=day)
         if day > 0:
@@ -366,7 +375,7 @@ class InkyDraw:
         self._gen_mist(x_pos + 5, y_pos)
 
     # =======================================================================
-    # Private methods to draw icon sub-elements using ImageDraw primatives:
+    # Private methods to draw icon sub-elements using ImageDraw primitives:
     # =======================================================================
     def _gen_large_sun(self, x_pos: int, y_pos: int) -> None:
         """Generate large sun icon"""

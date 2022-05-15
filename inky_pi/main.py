@@ -1,14 +1,8 @@
 """Inky_Pi main module.
 
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
-import platform
 from argparse import ArgumentParser, Namespace
 from typing import Callable, Dict
-
-# pylint: disable=wrong-import-position
-
-if platform.machine() == "armv7l":
-    from inky import InkyWHAT  # type: ignore
 
 from loguru import logger
 
@@ -25,19 +19,24 @@ from inky_pi.configs import (
     WEATHER_API_TOKEN,
     WEATHER_MODEL,
 )
-from inky_pi.display.inky_draw import InkyDraw
+from inky_pi.display.display_base import DisplayBase
 from inky_pi.train.train_base import TrainBase
 from inky_pi.util import (
+    DisplayModel,
+    DisplayObject,
     TrainModel,
     TrainObject,
     WeatherModel,
     WeatherObject,
     configure_logging,
+    display_model_factory,
+    import_display,
     train_model_factory,
     weather_model_factory,
 )
 from inky_pi.weather.weather_base import ScaleType, WeatherBase
 
+# Define objects to be used in fetching and displaying data
 TRAIN_OBJECT = TrainObject(
     model=TrainModel[TRAIN_MODEL],
     station_from=STATION_FROM,
@@ -55,6 +54,16 @@ WEATHER_OBJECT = WeatherObject(
     weather_api_token=WEATHER_API_TOKEN,
 )
 
+DEFAULT_DISPLAY_OBJECT = DisplayObject(
+    model=DisplayModel.INKY_WHAT,
+    base_color="black",
+)
+
+NIGHT_DISPLAY_OBJECT = DisplayObject(
+    model=DisplayModel.INKY_WHAT,
+    base_color="yellow",
+)
+
 
 def main() -> None:
     """inky_pi main function
@@ -62,15 +71,13 @@ def main() -> None:
     Retrieves train and weather data from API endpoints, generates text and
     weather icon, and draws to inkyWHAT screen.
     """
-    configure_logging()
-    logger.debug("InkyPi initialized")
-
     # Send requests to API endpoints to set data
     train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
 
     # Draw to inkyWHAT screen
-    with InkyDraw(InkyWHAT("black")) as display:
+    inky_display = import_display(DEFAULT_DISPLAY_OBJECT)
+    with inky_display as display:
         display.draw_date()
         display.draw_time()
         display.draw_train_times(train_data, TRAIN_NUMBER, 10, 50)
@@ -84,14 +91,12 @@ def weather() -> None:
     Retrieves weather data from API endpoints, generates text and weather icon,
     and draws to inkyWHAT screen.
     """
-    configure_logging()
-    logger.debug("InkyPi initialized")
-
     # Send requests to API endpoints to set data
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
 
     # Draw to inkyWHAT screen
-    with InkyDraw(InkyWHAT("black")) as display:
+    inky_display = import_display(DEFAULT_DISPLAY_OBJECT)
+    with inky_display as display:
         display.draw_date()
         display.draw_time()
         display.draw_mini_forecast(weather_data)
@@ -101,24 +106,37 @@ def weather() -> None:
 
 def night() -> None:
     """inky_pi goodnight message main function"""
-    configure_logging()
-    logger.debug("InkyPi goodnight")
-
     # Send requests to API endpoints to set data
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
 
-    with InkyDraw(InkyWHAT("yellow")) as display:
+    # Draw to night inkyWHAT screen
+    inky_display = import_display(NIGHT_DISPLAY_OBJECT)
+    with inky_display as display:
         display.draw_goodnight(weather_data)
 
 
 def terminal() -> None:
     """
-    CLI for inky_pi.
+    Terminal display for inky_pi.
     """
-    print("TODO: terminal display option")
+    # Send requests to API endpoints to set data
+    train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
+    weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
+
+    # Draw to terminal
+    terminal_display_object = DisplayObject(model=DisplayModel.TERMINAL)
+    terminal_display: DisplayBase = display_model_factory(terminal_display_object)
+    with terminal_display as display:
+        display.draw_date()
+        display.draw_time()
+        display.draw_weather_icon(weather_data.get_icon())
+        display.draw_weather_forecast(weather_data)
+        display.draw_train_times(train_data)
 
 
 if __name__ == "__main__":
+    configure_logging()
+    logger.debug("InkyPi initialized")
     parser = ArgumentParser(
         description="Inky_pi display function",
     )
@@ -139,5 +157,5 @@ if __name__ == "__main__":
             main()
     except KeyError:
         logger.error("Invalid display option specified")
-    except Exception as e:  # pylint: disable=broad-except # noqa: E722
-        logger.exception(e)
+    except Exception as exc:  # pylint: disable=broad-except
+        logger.exception(exc)

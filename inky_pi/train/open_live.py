@@ -77,23 +77,20 @@ class OpenLive(TrainBase):
             dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service.etd
             return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
-        except (AttributeError, TypeError, KeyError, IndexError) as ex:
-            logger.error("Invalid fetch_train data", repr(ex))
+        except (AttributeError, TypeError, KeyError, IndexError):
             try:
                 # Try to get the error message & line wrap over each line
                 l_length: int = 41
-                logger.error("Train error", self._data.nrccMessages[0].value)
-                return str(
-                    self._data.nrccMessages[0].value[
-                        (num - 1) * l_length : num * l_length
-                    ]
-                )
+                # pylint: disable=protected-access
+                error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
+                logger.warning(error_msg)
+                return error_msg[(num - 1) * l_length : num * l_length]
             except (AttributeError, TypeError, KeyError, IndexError) as exc:
                 logger.error("Could not get train error message", repr(exc))
                 # Check if any trains are running
                 if self._data.trainServices is None and num == 1:
                     dest: str = self._data.filterLocationName
                     return f"No train services to {dest}."
-                # Otherwise return generic message on line 1
+                # Otherwise, return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"
