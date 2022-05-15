@@ -4,10 +4,26 @@ inky\_pi.display package
 Submodules
 ----------
 
+inky\_pi.display.display\_base module
+-------------------------------------
+
+.. automodule:: inky_pi.display.display_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 inky\_pi.display.inky\_draw module
 ----------------------------------
 
 .. automodule:: inky_pi.display.inky_draw
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+inky\_pi.display.terminal\_draw module
+--------------------------------------
+
+.. automodule:: inky_pi.display.terminal_draw
    :members:
    :undoc-members:
    :show-inheritance:

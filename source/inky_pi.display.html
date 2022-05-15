@@ -99,14 +99,149 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
+<section id="module-inky_pi.display.display_base">
+<span id="inky-pi-display-display-base-module"></span><h2>inky_pi.display.display_base module<a class="headerlink" href="#module-inky_pi.display.display_base" title="Permalink to this headline"></a></h2>
+<p>Inky Pi base display module.</p>
+<p>Abstract class for all display models</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.display.display_base.</span></span><span class="sig-name descname"><span class="pre">DisplayBase</span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base class for all display models</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_date">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_date" title="Permalink to this definition"></a></dt>
+<dd><p>Display date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_forecast_icons">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_forecast_icons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_forecast_icons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_forecast_icons" title="Permalink to this definition"></a></dt>
+<dd><p>Display extended forecast icons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_goodnight">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_goodnight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_goodnight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_goodnight" title="Permalink to this definition"></a></dt>
+<dd><p>Display goodnight message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_mini_forecast">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_mini_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_mini_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_mini_forecast" title="Permalink to this definition"></a></dt>
+<dd><p>Display mini weather forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+<li><p><strong>day</strong> – day to display</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_time">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_time" title="Permalink to this definition"></a></dt>
+<dd><p>Display time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_train_times">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_train_times" title="Permalink to this definition"></a></dt>
+<dd><p>Display train data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_t</strong> – train data</p></li>
+<li><p><strong>num_trains</strong> – number of trains to display</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_weather_forecast">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_weather_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_tomorrow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_weather_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_weather_forecast" title="Permalink to this definition"></a></dt>
+<dd><p>Display weather forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+<li><p><strong>disp_tomorrow</strong> – display tomorrow’s forecast</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.display_base.DisplayBase.draw_weather_icon">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">draw_weather_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.IconType" title="inky_pi.weather.weather_base.IconType"><span class="pre">inky_pi.weather.weather_base.IconType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/display_base.html#DisplayBase.draw_weather_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.display_base.DisplayBase.draw_weather_icon" title="Permalink to this definition"></a></dt>
+<dd><p>Display weather icon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> – icon type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-inky_pi.display.inky_draw">
 <span id="inky-pi-display-inky-draw-module"></span><h2>inky_pi.display.inky_draw module<a class="headerlink" href="#module-inky_pi.display.inky_draw" title="Permalink to this headline"></a></h2>
 <p>Inky_Pi drawing module.</p>
-<p>Draws strings and icons</p>
+<p>Draw strings and icons</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.display.inky_draw.</span></span><span class="sig-name descname"><span class="pre">InkyDraw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inky_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">inky_pi.display.display_base.DisplayBase</span></code></a></p>
 <p>Draw text and shapes onto Inky e-ink display</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.draw_cloud_icon">
@@ -211,6 +346,7 @@
 <li><p><strong>scale</strong> (<a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><em>ScaleType</em></a>) – Celsius or Fahrenheit for formatting</p></li>
 <li><p><strong>x_pos</strong> (<em>int</em>) – X position offset</p></li>
 <li><p><strong>y_pos</strong> (<em>int</em>) – Y position offset</p></li>
+<li><p><strong>day</strong> (<em>int</em>) – Day to display</p></li>
 </ul>
 </dd>
 </dl>
@@ -288,7 +424,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.draw_train_times">
-<span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_train_times" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_train_times" title="Permalink to this definition"></a></dt>
 <dd><p>Draw all train times text</p>
 <p>Each line: Train time, platform, destination station, ETA</p>
 <dl class="field-list simple">
@@ -332,6 +468,7 @@ Fourth line: tomorrow’s weather condition description</p>
 <li><p><strong>scale</strong> (<a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><em>ScaleType</em></a>) – Celsius or Fahrenheit for formatting</p></li>
 <li><p><strong>x_pos</strong> (<em>int</em>) – X position offset</p></li>
 <li><p><strong>y_pos</strong> (<em>int</em>) – Y position offset</p></li>
+<li><p><strong>disp_tomorrow</strong> (<em>bool</em>) – Display tomorrow’s weather forecast</p></li>
 </ul>
 </dd>
 </dl>
@@ -356,6 +493,146 @@ Fourth line: tomorrow’s weather condition description</p>
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.render_screen">
 <span class="sig-name descname"><span class="pre">render_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.render_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.render_screen" title="Permalink to this definition"></a></dt>
 <dd><p>Render border, images (w/text) on inky screen and show on display</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-inky_pi.display.terminal_draw">
+<span id="inky-pi-display-terminal-draw-module"></span><h2>inky_pi.display.terminal_draw module<a class="headerlink" href="#module-inky_pi.display.terminal_draw" title="Permalink to this headline"></a></h2>
+<p>Terminal drawing module.</p>
+<p>Draws data to terminal</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.display.terminal_draw.</span></span><span class="sig-name descname"><span class="pre">TerminalDraw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">inky_pi.display.display_base.DisplayBase</span></code></a></p>
+<p>Draw text and shapes onto Inky e-ink display</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.TODO">
+<span class="sig-name descname"><span class="pre">TODO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'[bold</span> <span class="pre">red]TODO[/bold</span> <span class="pre">red]'</span></em><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.TODO" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_date">
+<span class="sig-name descname"><span class="pre">draw_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_date" title="Permalink to this definition"></a></dt>
+<dd><p>Display date</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_forecast_icons">
+<span class="sig-name descname"><span class="pre">draw_forecast_icons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_forecast_icons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_forecast_icons" title="Permalink to this definition"></a></dt>
+<dd><p>Display extended forecast icons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_goodnight">
+<span class="sig-name descname"><span class="pre">draw_goodnight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_goodnight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_goodnight" title="Permalink to this definition"></a></dt>
+<dd><p>Display goodnight message</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_mini_forecast">
+<span class="sig-name descname"><span class="pre">draw_mini_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_mini_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_mini_forecast" title="Permalink to this definition"></a></dt>
+<dd><p>Display mini weather forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+<li><p><strong>day</strong> – day to display</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_time">
+<span class="sig-name descname"><span class="pre">draw_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_time" title="Permalink to this definition"></a></dt>
+<dd><p>Display time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_train_times">
+<span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_train_times" title="Permalink to this definition"></a></dt>
+<dd><p>Display train data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_t</strong> – train data</p></li>
+<li><p><strong>num_trains</strong> – number of trains to display</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_weather_forecast">
+<span class="sig-name descname"><span class="pre">draw_weather_forecast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disp_tomorrow</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_weather_forecast"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_weather_forecast" title="Permalink to this definition"></a></dt>
+<dd><p>Display weather forecast</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> – weather data</p></li>
+<li><p><strong>scale</strong> – scale type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+<li><p><strong>disp_tomorrow</strong> – display tomorrow’s forecast</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.terminal_draw.TerminalDraw.draw_weather_icon">
+<span class="sig-name descname"><span class="pre">draw_weather_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.IconType" title="inky_pi.weather.weather_base.IconType"><span class="pre">inky_pi.weather.weather_base.IconType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/terminal_draw.html#TerminalDraw.draw_weather_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.terminal_draw.TerminalDraw.draw_weather_icon" title="Permalink to this definition"></a></dt>
+<dd><p>Display weather icon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> – icon type</p></li>
+<li><p><strong>x_pos</strong> – x position</p></li>
+<li><p><strong>y_pos</strong> – y position</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

@@ -76,14 +76,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;Inky_Pi main module.</span>
 
 <span class="sd">Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">Namespace</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
-
-<span class="c1"># pylint: disable=wrong-import-position</span>
-
-<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;armv7l&quot;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">inky</span> <span class="kn">import</span> <span class="n">InkyWHAT</span>  <span class="c1"># type: ignore</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -100,19 +94,24 @@
     <span class="n">WEATHER_API_TOKEN</span><span class="p">,</span>
     <span class="n">WEATHER_MODEL</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">inky_pi.display.inky_draw</span> <span class="kn">import</span> <span class="n">InkyDraw</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DisplayModel</span><span class="p">,</span>
+    <span class="n">DisplayObject</span><span class="p">,</span>
     <span class="n">TrainModel</span><span class="p">,</span>
     <span class="n">TrainObject</span><span class="p">,</span>
     <span class="n">WeatherModel</span><span class="p">,</span>
     <span class="n">WeatherObject</span><span class="p">,</span>
+    <span class="n">_import_display</span><span class="p">,</span>
     <span class="n">configure_logging</span><span class="p">,</span>
+    <span class="n">display_model_factory</span><span class="p">,</span>
     <span class="n">train_model_factory</span><span class="p">,</span>
     <span class="n">weather_model_factory</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">ScaleType</span><span class="p">,</span> <span class="n">WeatherBase</span>
 
+<span class="c1"># Define objects to be used in fetching and displaying data</span>
 <span class="n">TRAIN_OBJECT</span> <span class="o">=</span> <span class="n">TrainObject</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="n">TrainModel</span><span class="p">[</span><span class="n">TRAIN_MODEL</span><span class="p">],</span>
     <span class="n">station_from</span><span class="o">=</span><span class="n">STATION_FROM</span><span class="p">,</span>
@@ -130,6 +129,16 @@
     <span class="n">weather_api_token</span><span class="o">=</span><span class="n">WEATHER_API_TOKEN</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="n">DEFAULT_DISPLAY_OBJECT</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span>
+    <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">NIGHT_DISPLAY_OBJECT</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span>
+    <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;inky_pi main function</span>
@@ -145,7 +154,8 @@
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
     <span class="c1"># Draw to inkyWHAT screen</span>
-    <span class="k">with</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">InkyWHAT</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="n">inky_display</span> <span class="o">=</span> <span class="n">_import_display</span><span class="p">(</span><span class="n">DEFAULT_DISPLAY_OBJECT</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">inky_display</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
@@ -166,7 +176,8 @@
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
     <span class="c1"># Draw to inkyWHAT screen</span>
-    <span class="k">with</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">InkyWHAT</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="n">inky_display</span> <span class="o">=</span> <span class="n">_import_display</span><span class="p">(</span><span class="n">DEFAULT_DISPLAY_OBJECT</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">inky_display</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_mini_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
@@ -182,15 +193,33 @@
     <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">InkyWHAT</span><span class="p">(</span><span class="s2">&quot;yellow&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="c1"># Draw to night inkyWHAT screen</span>
+    <span class="n">inky_display</span> <span class="o">=</span> <span class="n">_import_display</span><span class="p">(</span><span class="n">NIGHT_DISPLAY_OBJECT</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">inky_display</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_goodnight</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="terminal"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.terminal">[docs]</a><span class="k">def</span> <span class="nf">terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    CLI for inky_pi.</span>
+<span class="sd">    Terminal display for inky_pi.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TODO: terminal display option&quot;</span><span class="p">)</span></div>
+    <span class="n">configure_logging</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Send requests to API endpoints to set data</span>
+    <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
+    <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
+
+    <span class="c1"># Draw to terminal</span>
+    <span class="n">terminal_display_object</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">)</span>
+    <span class="n">terminal_display</span><span class="p">:</span> <span class="n">DisplayBase</span> <span class="o">=</span> <span class="n">display_model_factory</span><span class="p">(</span><span class="n">terminal_display_object</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">terminal_display</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_mini_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_forecast_icons</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>

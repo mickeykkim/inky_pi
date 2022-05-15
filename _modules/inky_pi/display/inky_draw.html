@@ -75,7 +75,7 @@
   <h1>Source code for inky_pi.display.inky_draw</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Inky_Pi drawing module.</span>
 
-<span class="sd">Draws strings and icons&quot;&quot;&quot;</span>
+<span class="sd">Draw strings and icons&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">strftime</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
@@ -87,6 +87,7 @@
 <span class="c1"># pylint: enable=no-name-in-module</span>
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>  <span class="c1"># type: ignore</span>
 
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
 <span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">IconType</span><span class="p">,</span> <span class="n">ScaleType</span><span class="p">,</span> <span class="n">WeatherBase</span>
 
@@ -101,7 +102,7 @@
 <span class="n">FONT_GL</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">FredokaOne</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="InkyDraw"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw">[docs]</a><span class="k">class</span> <span class="nc">InkyDraw</span><span class="p">:</span>
+<div class="viewcode-block" id="InkyDraw"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw">[docs]</a><span class="k">class</span> <span class="nc">InkyDraw</span><span class="p">(</span><span class="n">DisplayBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Draw text and shapes onto Inky e-ink display&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inky_model</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -118,7 +119,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">YELLOW</span>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InkyDraw&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Enter context manager&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Enter context manager</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -210,7 +215,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="InkyDraw.draw_train_times"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw.draw_train_times">[docs]</a>    <span class="k">def</span> <span class="nf">draw_train_times</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">data_t</span><span class="p">:</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">num_trains</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data_t</span><span class="p">:</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">num_trains</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Draw all train times text</span>
 
@@ -247,6 +252,7 @@
 <span class="sd">            scale (ScaleType): Celsius or Fahrenheit for formatting</span>
 <span class="sd">            x_pos (int): X position offset</span>
 <span class="sd">            y_pos (int): Y position offset</span>
+<span class="sd">            disp_tomorrow (bool): Display tomorrow&#39;s weather forecast</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span>
@@ -313,6 +319,7 @@
 <span class="sd">            scale (ScaleType): Celsius or Fahrenheit for formatting</span>
 <span class="sd">            x_pos (int): X position offset</span>
 <span class="sd">            y_pos (int): Y position offset</span>
+<span class="sd">            day (int): Day to display</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">new_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">day</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">day</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -441,7 +448,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_gen_mist</span><span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span></div>
 
     <span class="c1"># =======================================================================</span>
-    <span class="c1"># Private methods to draw icon sub-elements using ImageDraw primatives:</span>
+    <span class="c1"># Private methods to draw icon sub-elements using ImageDraw primitives:</span>
     <span class="c1"># =======================================================================</span>
     <span class="k">def</span> <span class="nf">_gen_large_sun</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate large sun icon&quot;&quot;&quot;</span>

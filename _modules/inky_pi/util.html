@@ -74,12 +74,17 @@
              
   <h1>Source code for inky_pi.util</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Utility functions for inky_pi.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.inky_draw</span> <span class="kn">import</span> <span class="n">InkyDraw</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.terminal_draw</span> <span class="kn">import</span> <span class="n">TerminalDraw</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.huxley2</span> <span class="kn">import</span> <span class="n">Huxley2</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.open_live</span> <span class="kn">import</span> <span class="n">OpenLive</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
@@ -98,6 +103,13 @@
     <span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
 
     <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="DisplayModel"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.DisplayModel">[docs]</a><span class="k">class</span> <span class="nc">DisplayModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of display models&quot;&quot;&quot;</span>
+
+    <span class="n">INKY_WHAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">TERMINAL</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="TrainObject"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.TrainObject">[docs]</a><span class="nd">@dataclass</span>
@@ -123,20 +135,77 @@
     <span class="n">weather_api_token</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
+<div class="viewcode-block" id="DisplayObject"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.DisplayObject">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DisplayObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Display object&quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">DisplayModel</span>
+    <span class="n">base_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<span class="k">def</span> <span class="nf">_import_inky_what</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This is a wrapper that imports InkyWHAT to allow mocking it in tests.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        InkyWHAT: Raspberry pi InkyWHAT library</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">machine</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;armv7l&quot;</span><span class="p">:</span>
+        <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">from</span> <span class="nn">inky</span> <span class="kn">import</span> <span class="n">InkyWHAT</span>  <span class="c1"># type: ignore</span>
+
+        <span class="k">return</span> <span class="n">InkyWHAT</span>
+
+    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;InkyWHAT library unavailable (are you on a Raspberry Pi?)&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_import_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Imports the display model from the given object and returns it</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        display_object (DisplayObject): The display object to be imported.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DisplayBase: The display model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">display_model_factory</span><span class="p">(</span><span class="n">display_object</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="configure_logging"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.configure_logging">[docs]</a><span class="k">def</span> <span class="nf">configure_logging</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;See: https://loguru.readthedocs.io/en/stable/api.html&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Configure logging options</span>
+
+<span class="sd">    See: https://loguru.readthedocs.io/en/stable/api.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;inky.log&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s2">&quot;5 MB&quot;</span><span class="p">,</span> <span class="n">serialize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Huxley2 object creator&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Huxley2 object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        train_object (TrainObject): train object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Huxley2: Huxley2 object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">Huxley2</span><span class="p">(</span>
         <span class="n">train_object</span><span class="o">.</span><span class="n">station_from</span><span class="p">,</span> <span class="n">train_object</span><span class="o">.</span><span class="n">station_to</span><span class="p">,</span> <span class="n">train_object</span><span class="o">.</span><span class="n">number</span>
     <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="instantiate_open_live"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_open_live">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_live</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenLive</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Open Live object creator&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Open Live object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        train_object (TrainObject): train object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        OpenLive: OpenLive object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">OpenLive</span><span class="p">(</span>
         <span class="n">train_object</span><span class="o">.</span><span class="n">station_from</span><span class="p">,</span>
         <span class="n">train_object</span><span class="o">.</span><span class="n">station_to</span><span class="p">,</span>
@@ -147,7 +216,14 @@
 
 
 <div class="viewcode-block" id="instantiate_open_weather_map"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_open_weather_map">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_weather_map</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenWeatherMap</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Open Weather Map object creator&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Open Weather Map object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        weather_object (WeatherObject): weather object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        OpenWeatherMap: OpenWeatherMap object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">OpenWeatherMap</span><span class="p">(</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
@@ -156,11 +232,39 @@
     <span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="instantiate_inky_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_inky_display">[docs]</a><span class="k">def</span> <span class="nf">instantiate_inky_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InkyDraw</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Inky display object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        display_object (DisplayObject): display object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        InkyDraw: InkyDraw object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inky_what</span> <span class="o">=</span> <span class="n">_import_inky_what</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">inky_what</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">display_object</span><span class="o">.</span><span class="n">base_color</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="instantiate_terminal_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_terminal_display">[docs]</a><span class="k">def</span> <span class="nf">instantiate_terminal_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TerminalDraw</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Terminal display object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        display_object (DisplayObject): display object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TerminalDraw: TerminalDraw object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">TerminalDraw</span><span class="p">(</span><span class="n">display_object</span><span class="o">.</span><span class="n">base_color</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="train_model_factory"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.train_model_factory">[docs]</a><span class="k">def</span> <span class="nf">train_model_factory</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TrainBase</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined train model to use</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        train_object (TrainObject): train object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TrainBase: TrainBase object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span> <span class="ow">and</span> <span class="p">(</span>
         <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -179,11 +283,30 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        weather_object (WeatherObject): weather object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        WeatherBase: WeatherBase object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">weather_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">WeatherModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">WeatherObject</span><span class="p">],</span> <span class="n">WeatherBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="p">:</span> <span class="n">instantiate_open_weather_map</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">weather_handler</span><span class="p">[</span><span class="n">weather_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">weather_object</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="display_model_factory"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.display_model_factory">[docs]</a><span class="k">def</span> <span class="nf">display_model_factory</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined display model to use</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        display_object (DisplayObject): display object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DisplayBase: DisplayBase object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">display_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">DisplayModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DisplayObject</span><span class="p">],</span> <span class="n">DisplayBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">:</span> <span class="n">instantiate_terminal_display</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">display_handler</span><span class="p">[</span><span class="n">display_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">display_object</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
