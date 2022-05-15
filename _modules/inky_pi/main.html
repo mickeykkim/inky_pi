@@ -146,9 +146,6 @@
 <span class="sd">    Retrieves train and weather data from API endpoints, generates text and</span>
 <span class="sd">    weather icon, and draws to inkyWHAT screen.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
-
     <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
@@ -169,9 +166,6 @@
 <span class="sd">    Retrieves weather data from API endpoints, generates text and weather icon,</span>
 <span class="sd">    and draws to inkyWHAT screen.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
-
     <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
@@ -187,9 +181,6 @@
 
 <div class="viewcode-block" id="night"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.night">[docs]</a><span class="k">def</span> <span class="nf">night</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;inky_pi goodnight message main function&quot;&quot;&quot;</span>
-    <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi goodnight&quot;</span><span class="p">)</span>
-
     <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
@@ -203,9 +194,6 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Terminal display for inky_pi.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
-
     <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
@@ -220,6 +208,8 @@
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">configure_logging</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Inky_pi display function&quot;</span><span class="p">,</span>
     <span class="p">)</span>

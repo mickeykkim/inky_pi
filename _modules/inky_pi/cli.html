@@ -75,8 +75,10 @@
   <h1>Source code for inky_pi.cli</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Console script for inky_pi.&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">import</span> <span class="nn">inky_pi.main</span>
+<span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="n">configure_logging</span>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
@@ -122,6 +124,8 @@
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;CLI main method.&quot;&quot;&quot;</span>
+    <span class="n">configure_logging</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
     <span class="n">cli</span><span class="p">()</span></div>
 
 
