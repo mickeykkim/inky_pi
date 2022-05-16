@@ -32,12 +32,15 @@ class InkyDraw(DisplayBase):
 
     def __init__(self, inky_model: Any) -> None:
         """Create display and image drawing objects
+        inky_model can be an InkyWHAT model or a DesktopDisplayDriver object
 
         Args:
             inky_model (Any): Inky display model (i.e. InkyWHAT('black'))
         """
         self._display: Any = inky_model
-        self._img: Image = Image.new("P", (self._display.WIDTH, self._display.HEIGHT))
+        self._img: Image = Image.new(
+            "P", (self._display.WIDTH, self._display.HEIGHT), color="white"
+        )
         self._img_draw: ImageDraw = ImageDraw.Draw(self._img)
         self._black: Any = self._display.BLACK
         self._white: Any = self._display.WHITE
@@ -57,14 +60,19 @@ class InkyDraw(DisplayBase):
 
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display"""
-        self._display.set_border(self._black)
         self._display.set_image(self._img)
+        self._display.set_border(self._black)
         self._display.show()
 
     def draw_goodnight(
         self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
     ) -> None:
-        """Render goodnight screen"""
+        """Render goodnight screen
+
+        Args:
+            data_w (WeatherBase): Weather data object
+            scale (ScaleType): Scale type
+        """
         self._draw_goodnight_icon()
         self._draw_goodnight_text(data_w, scale)
 
@@ -140,7 +148,7 @@ class InkyDraw(DisplayBase):
         )
 
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 10, y_pos: int = 50
+        self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 10, y_pos: int = 205
     ) -> None:
         """Draw all train times text
 
@@ -203,13 +211,13 @@ class InkyDraw(DisplayBase):
         if disp_tomorrow:
             self._img_draw.text(
                 (x_pos, y_pos + 110),
-                data_w.get_condition(1),
+                "tomorrow: " + data_w.get_condition(1),
                 self._black,
                 FONT_S,
             )
 
     def draw_weather_icon(
-        self, icon: IconType, x_pos: int = 280, y_pos: int = 200
+        self, icon: IconType, x_pos: int = 30, y_pos: int = 90
     ) -> None:
         """Draws specified icon
 

@@ -5,8 +5,14 @@ from unittest.mock import Mock, patch
 import pytest
 
 from inky_pi.display.display_base import DisplayBase
+from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw
-from inky_pi.util import DisplayModel, DisplayObject, display_model_factory
+from inky_pi.util import (
+    DisplayModel,
+    DisplayObject,
+    display_model_factory,
+    import_display,
+)
 
 
 @patch("inky_pi.util._import_inky_what")
@@ -20,21 +26,24 @@ def test_can_successfully_instantiate_inky_draw_object(
         model=DisplayModel.INKY_WHAT,
         base_color="black",
     )
-    display_model_factory(inky_object)
+    import_display(inky_object)
     mock_inky_draw.assert_called_once()
     mock_inky_what.assert_called_once()
 
 
 def test_instantiating_inky_draw_object_not_on_rpi_raises_import_error() -> None:
-    """Test for attempting to create InkyDraw instanced object while not on RPI
-    raises ImportError
+    """In on a Raspberry Pi, should be able to instantiate an inky display object;
+    but if not, should get an ImportError
     """
 
-    if platform.machine() != "armv7l":
-        inky_object = DisplayObject(
-            model=DisplayModel.INKY_WHAT,
-            base_color="black",
-        )
+    inky_object = DisplayObject(
+        model=DisplayModel.INKY_WHAT,
+        base_color="black",
+    )
+    if platform.machine() == "armv7l":
+        ret: DisplayBase = import_display(inky_object)
+        assert isinstance(ret, InkyDraw)
+    else:
         with pytest.raises(ImportError):
             display_model_factory(inky_object)
 
@@ -45,5 +54,16 @@ def test_can_successfully_instantiate_terminal_draw_object() -> None:
     terminal_object = DisplayObject(
         model=DisplayModel.TERMINAL,
     )
-    ret: DisplayBase = display_model_factory(terminal_object)
+    ret: DisplayBase = import_display(terminal_object)
     assert isinstance(ret, TerminalDraw)
+
+
+def test_can_successfully_instantiate_desktop_draw_object() -> None:
+    """Test for creating desktop instanced object"""
+
+    desktop_object = DisplayObject(
+        model=DisplayModel.DESKTOP,
+        base_color="yellow",
+    )
+    ret: DisplayBase = import_display(desktop_object)
+    assert isinstance(ret, InkyDraw)

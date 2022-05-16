@@ -38,8 +38,16 @@ def test_cli_goodnight() -> None:
 
 
 def test_cli_terminal() -> None:
-    """Tests inky_pi goodnight command"""
+    """Tests inky_pi terminal command"""
     runner = CliRunner()
     result = runner.invoke(cli, ["terminal", "--dry-run"])
     assert result.exit_code == 0
     assert result.output == "CLI inky_pi terminal\n"
+
+
+def test_cli_desktop() -> None:
+    """Tests inky_pi desktop command"""
+    runner = CliRunner()
+    result = runner.invoke(cli, ["desktop", "--dry-run"])
+    assert result.exit_code == 0
+    assert result.output == "CLI inky_pi desktop\n"

@@ -42,7 +42,7 @@ def test_can_successfully_instantiate_train_open_live(
     ret: TrainBase = train_model_factory(train_object)
     zeep_history_mock.assert_called_once()
     zeep_client_mock.assert_called_once()
-    zeep_xsd_mock.assert_called()
+    assert zeep_xsd_mock.call_count == 2
     assert isinstance(ret, OpenLive)
 
 

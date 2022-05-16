@@ -7,6 +7,7 @@ from typing import Any, Callable, Dict
 
 from loguru import logger
 
+from inky_pi.display.desktop_driver import DesktopDisplayDriver
 from inky_pi.display.display_base import DisplayBase
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw
@@ -35,6 +36,7 @@ class DisplayModel(Enum):
 
     INKY_WHAT = auto()
     TERMINAL = auto()
+    DESKTOP = auto()
 
 
 @dataclass
@@ -84,7 +86,8 @@ def _import_inky_what() -> Any:
 
 def import_display(display_object: DisplayObject) -> DisplayBase:
     """
-    Imports the display model from the given object and returns it
+    Imports the display model from the given display object and returns it.
+    On error, logs and exits program (typically if not running on RPi).
 
     Args:
         display_object (DisplayObject): The display object to be imported.
@@ -181,6 +184,18 @@ def instantiate_terminal_display(display_object: DisplayObject) -> TerminalDraw:
     return TerminalDraw(display_object.base_color)
 
 
+def instantiate_desktop_display(display_object: DisplayObject) -> InkyDraw:
+    """Desktop display object creator for testing purposes
+
+    Args:
+        display_object (DisplayObject): display object containing model
+
+    Returns:
+        TerminalDraw: TerminalDraw object
+    """
+    return InkyDraw(DesktopDisplayDriver(display_object.base_color))
+
+
 def train_model_factory(train_object: TrainObject) -> TrainBase:
     """Selects and instantiates the defined train model to use
 
@@ -229,5 +244,6 @@ def display_model_factory(display_object: DisplayObject) -> DisplayBase:
     display_handler: Dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
         DisplayModel.INKY_WHAT: instantiate_inky_display,
         DisplayModel.TERMINAL: instantiate_terminal_display,
+        DisplayModel.DESKTOP: instantiate_desktop_display,
     }
     return display_handler[display_object.model](display_object)

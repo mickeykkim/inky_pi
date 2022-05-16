@@ -41,10 +41,19 @@ def night(dry_run: bool):
 @cli.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def terminal(dry_run: bool):
-    """Console script for inky_pi night mode."""
+    """Console script for terminal mode."""
     click.echo("CLI inky_pi terminal")
     if not dry_run:
         inky_pi.main.terminal()
+
+
+@cli.command()
+@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
+def desktop(dry_run: bool):
+    """Console script for desktop mode."""
+    click.echo("CLI inky_pi desktop")
+    if not dry_run:
+        inky_pi.main.desktop()
 
 
 def main():

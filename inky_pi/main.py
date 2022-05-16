@@ -19,7 +19,6 @@ from inky_pi.configs import (
     WEATHER_API_TOKEN,
     WEATHER_MODEL,
 )
-from inky_pi.display.display_base import DisplayBase
 from inky_pi.train.train_base import TrainBase
 from inky_pi.util import (
     DisplayModel,
@@ -29,7 +28,6 @@ from inky_pi.util import (
     WeatherModel,
     WeatherObject,
     configure_logging,
-    display_model_factory,
     import_display,
     train_model_factory,
     weather_model_factory,
@@ -59,11 +57,6 @@ DEFAULT_DISPLAY_OBJECT = DisplayObject(
     base_color="black",
 )
 
-NIGHT_DISPLAY_OBJECT = DisplayObject(
-    model=DisplayModel.INKY_WHAT,
-    base_color="yellow",
-)
-
 
 def main() -> None:
     """inky_pi main function
@@ -71,18 +64,16 @@ def main() -> None:
     Retrieves train and weather data from API endpoints, generates text and
     weather icon, and draws to inkyWHAT screen.
     """
-    # Send requests to API endpoints to set data
     train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
-
-    # Draw to inkyWHAT screen
-    inky_display = import_display(DEFAULT_DISPLAY_OBJECT)
-    with inky_display as display:
+    with import_display(DEFAULT_DISPLAY_OBJECT) as display:
         display.draw_date()
         display.draw_time()
-        display.draw_train_times(train_data, TRAIN_NUMBER, 10, 50)
-        display.draw_weather_forecast(weather_data, ScaleType.CELSIUS, 10, 150, True)
-        display.draw_weather_icon(weather_data.get_icon(), 280, 200)
+        display.draw_weather_icon(weather_data.get_icon())
+        display.draw_weather_forecast(
+            weather_data, ScaleType.CELSIUS, disp_tomorrow=True
+        )
+        display.draw_train_times(train_data, TRAIN_NUMBER)
 
 
 def weather() -> None:
@@ -91,12 +82,8 @@ def weather() -> None:
     Retrieves weather data from API endpoints, generates text and weather icon,
     and draws to inkyWHAT screen.
     """
-    # Send requests to API endpoints to set data
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
-
-    # Draw to inkyWHAT screen
-    inky_display = import_display(DEFAULT_DISPLAY_OBJECT)
-    with inky_display as display:
+    with import_display(DEFAULT_DISPLAY_OBJECT) as display:
         display.draw_date()
         display.draw_time()
         display.draw_mini_forecast(weather_data)
@@ -106,32 +93,33 @@ def weather() -> None:
 
 def night() -> None:
     """inky_pi goodnight message main function"""
-    # Send requests to API endpoints to set data
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
-
-    # Draw to night inkyWHAT screen
-    inky_display = import_display(NIGHT_DISPLAY_OBJECT)
-    with inky_display as display:
+    with import_display(DisplayObject(DisplayModel.INKY_WHAT, "yellow")) as display:
         display.draw_goodnight(weather_data)
 
 
 def terminal() -> None:
-    """
-    Terminal display for inky_pi.
-    """
-    # Send requests to API endpoints to set data
+    """Terminal display for inky_pi."""
     train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
-
-    # Draw to terminal
-    terminal_display_object = DisplayObject(model=DisplayModel.TERMINAL)
-    terminal_display: DisplayBase = display_model_factory(terminal_display_object)
-    with terminal_display as display:
+    with import_display(DisplayObject(DisplayModel.TERMINAL)) as display:
         display.draw_date()
         display.draw_time()
         display.draw_weather_icon(weather_data.get_icon())
         display.draw_weather_forecast(weather_data)
-        display.draw_train_times(train_data)
+        display.draw_train_times(train_data, 1)
+
+
+def desktop() -> None:
+    """Desktop display for inky_pi for testing purposes."""
+    # train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
+    weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
+    with import_display(DisplayObject(DisplayModel.DESKTOP)) as display:
+        display.draw_date()
+        display.draw_time()
+        display.draw_mini_forecast(weather_data)
+        display.draw_weather_forecast(weather_data)
+        display.draw_forecast_icons(weather_data)
 
 
 if __name__ == "__main__":
@@ -141,7 +129,7 @@ if __name__ == "__main__":
         description="Inky_pi display function",
     )
     parser.add_argument(
-        "--display", help="Display option (train, weather, night, terminal)"
+        "--display", help="Display option (train, weather, night, terminal, desktop)"
     )
     args: Namespace = parser.parse_args()
     args_handler: Dict[str, Callable] = {
@@ -149,6 +137,7 @@ if __name__ == "__main__":
         "weather": weather,
         "night": night,
         "terminal": terminal,
+        "desktop": desktop,
     }
     try:
         if args.display:

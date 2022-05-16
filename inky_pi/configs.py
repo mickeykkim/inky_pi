@@ -8,10 +8,10 @@ TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default="OPEN_LIVE")
 """Train model to use"""
 
 # Train constants
-STATION_FROM: str = _env.str("STATION_FROM", default="MZH")
+STATION_FROM: str = _env.str("STATION_FROM", default="BHO")
 """From (departing) station"""
 
-STATION_TO: str = _env.str("STATION_TO", default="LBG")
+STATION_TO: str = _env.str("STATION_TO", default="WMW")
 """To (arrival) station"""
 
 TRAIN_NUMBER: int = _env.int("TRAIN_NUMBER", default=3)
