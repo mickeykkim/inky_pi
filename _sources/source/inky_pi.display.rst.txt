@@ -4,6 +4,14 @@ inky\_pi.display package
 Submodules
 ----------
 
+inky\_pi.display.desktop\_driver module
+---------------------------------------
+
+.. automodule:: inky_pi.display.desktop_driver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 inky\_pi.display.display\_base module
 -------------------------------------
 

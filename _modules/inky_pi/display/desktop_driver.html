@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.display.desktop_driver &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">inky_pi</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>inky_pi.display.desktop_driver</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for inky_pi.display.desktop_driver</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Desktop Display Driver</span>
+
+<span class="sd">This class is a drop-in replacement for the Inky library InkyWHAT class.</span>
+<span class="sd">Images are drawn using Pillow to a desktop window for testing purposes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
+
+
+<div class="viewcode-block" id="DesktopDisplayDriver"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.desktop_driver.DesktopDisplayDriver">[docs]</a><span class="k">class</span> <span class="nc">DesktopDisplayDriver</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Desktop Display Driver.&quot;&quot;&quot;</span>
+
+    <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">400</span>
+    <span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">300</span>
+    <span class="n">BORDER_SIZE</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">WHITE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">BLACK</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">YELLOW</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+    <span class="c1"># pylint: disable=unused-argument</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_color</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize display driver.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            base_color: base color (ignored)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_black</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BLACK</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_white</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">WHITE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">YELLOW</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ImageDraw</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="DesktopDisplayDriver.set_image"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.desktop_driver.DesktopDisplayDriver.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set image</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            PIL image: image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span> <span class="o">=</span> <span class="n">image</span></div>
+
+<div class="viewcode-block" id="DesktopDisplayDriver.set_border"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.desktop_driver.DesktopDisplayDriver.set_border">[docs]</a>    <span class="k">def</span> <span class="nf">set_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Set border</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            border_color: border color (one of self.&lt;COLOR&gt;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">),</span>
+                <span class="n">border_color</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">BORDER_SIZE</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">),</span>
+                <span class="n">border_color</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">BORDER_SIZE</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">border_color</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">BORDER_SIZE</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">border_color</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">BORDER_SIZE</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="DesktopDisplayDriver.show"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.desktop_driver.DesktopDisplayDriver.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Show image</span>
+
+<span class="sd">        Uses Pillow to display image on desktop.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No image to show&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

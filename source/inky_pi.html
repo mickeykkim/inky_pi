@@ -101,6 +101,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="inky_pi.display.html">inky_pi.display package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="inky_pi.display.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.display.html#module-inky_pi.display.desktop_driver">inky_pi.display.desktop_driver module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inky_pi.display.html#module-inky_pi.display.display_base">inky_pi.display.display_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inky_pi.display.html#module-inky_pi.display.inky_draw">inky_pi.display.inky_draw module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inky_pi.display.html#module-inky_pi.display.terminal_draw">inky_pi.display.terminal_draw module</a></li>
@@ -213,6 +214,12 @@
 <p>Inky_Pi main module.</p>
 <p>Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.main.desktop">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.main.</span></span><span class="sig-name descname"><span class="pre">desktop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/main.html#desktop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.main.desktop" title="Permalink to this definition"></a></dt>
+<dd><p>Desktop display for inky_pi for testing purposes.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="inky_pi.main.main">
 <span class="sig-prename descclassname"><span class="pre">inky_pi.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/main.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.main.main" title="Permalink to this definition"></a></dt>
 <dd><p>inky_pi main function</p>
@@ -249,6 +256,11 @@ and draws to inkyWHAT screen.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">DisplayModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/util.html#DisplayModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.DisplayModel" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
 <p>Enum of display models</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.util.DisplayModel.DESKTOP">
+<span class="sig-name descname"><span class="pre">DESKTOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#inky_pi.util.DisplayModel.DESKTOP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="inky_pi.util.DisplayModel.INKY_WHAT">
 <span class="sig-name descname"><span class="pre">INKY_WHAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.util.DisplayModel.INKY_WHAT" title="Permalink to this definition"></a></dt>
@@ -413,6 +425,23 @@ and draws to inkyWHAT screen.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase">DisplayBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.instantiate_desktop_display">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">instantiate_desktop_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.util.DisplayObject" title="inky_pi.util.DisplayObject"><span class="pre">inky_pi.util.DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw" title="inky_pi.display.inky_draw.InkyDraw"><span class="pre">inky_pi.display.inky_draw.InkyDraw</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#instantiate_desktop_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.instantiate_desktop_display" title="Permalink to this definition"></a></dt>
+<dd><p>Desktop display object creator for testing purposes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>display_object</strong> (<a class="reference internal" href="#inky_pi.util.DisplayObject" title="inky_pi.util.DisplayObject"><em>DisplayObject</em></a>) – display object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TerminalDraw object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.html#inky_pi.display.terminal_draw.TerminalDraw" title="inky_pi.display.terminal_draw.TerminalDraw">TerminalDraw</a></p>
 </dd>
 </dl>
 </dd></dl>

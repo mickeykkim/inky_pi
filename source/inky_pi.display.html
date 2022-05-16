@@ -99,6 +99,83 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
+<section id="module-inky_pi.display.desktop_driver">
+<span id="inky-pi-display-desktop-driver-module"></span><h2>inky_pi.display.desktop_driver module<a class="headerlink" href="#module-inky_pi.display.desktop_driver" title="Permalink to this headline"></a></h2>
+<p>Desktop Display Driver</p>
+<p>This class is a drop-in replacement for the Inky library InkyWHAT class.
+Images are drawn using Pillow to a desktop window for testing purposes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.display.desktop_driver.</span></span><span class="sig-name descname"><span class="pre">DesktopDisplayDriver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/display/desktop_driver.html#DesktopDisplayDriver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Desktop Display Driver.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.BLACK">
+<span class="sig-name descname"><span class="pre">BLACK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">255)</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.BLACK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.BORDER_SIZE">
+<span class="sig-name descname"><span class="pre">BORDER_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.BORDER_SIZE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.HEIGHT">
+<span class="sig-name descname"><span class="pre">HEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">300</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.HEIGHT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">255)</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.RED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.WHITE">
+<span class="sig-name descname"><span class="pre">WHITE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255,</span> <span class="pre">255)</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.WHITE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.WIDTH">
+<span class="sig-name descname"><span class="pre">WIDTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">400</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.WIDTH" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">0,</span> <span class="pre">255)</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.YELLOW" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.set_border">
+<span class="sig-name descname"><span class="pre">set_border</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/desktop_driver.html#DesktopDisplayDriver.set_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.set_border" title="Permalink to this definition"></a></dt>
+<dd><p>Set border</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>border_color</strong> – border color (one of self.&lt;COLOR&gt;)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.set_image">
+<span class="sig-name descname"><span class="pre">set_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/desktop_driver.html#DesktopDisplayDriver.set_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.set_image" title="Permalink to this definition"></a></dt>
+<dd><p>Set image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>PIL</em>) – image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/desktop_driver.html#DesktopDisplayDriver.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.show" title="Permalink to this definition"></a></dt>
+<dd><p>Show image</p>
+<p>Uses Pillow to display image on desktop.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-inky_pi.display.display_base">
 <span id="inky-pi-display-display-base-module"></span><h2>inky_pi.display.display_base module<a class="headerlink" href="#module-inky_pi.display.display_base" title="Permalink to this headline"></a></h2>
 <p>Inky Pi base display module.</p>
@@ -333,6 +410,14 @@
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.draw_goodnight">
 <span class="sig-name descname"><span class="pre">draw_goodnight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_w</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><span class="pre">inky_pi.weather.weather_base.ScaleType</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">ScaleType.CELSIUS</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_goodnight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_goodnight" title="Permalink to this definition"></a></dt>
 <dd><p>Render goodnight screen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_w</strong> (<a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><em>WeatherBase</em></a>) – Weather data object</p></li>
+<li><p><strong>scale</strong> (<a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.ScaleType" title="inky_pi.weather.weather_base.ScaleType"><em>ScaleType</em></a>) – Scale type</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -424,7 +509,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.draw_train_times">
-<span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_train_times" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">draw_train_times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">205</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_train_times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_train_times" title="Permalink to this definition"></a></dt>
 <dd><p>Draw all train times text</p>
 <p>Each line: Train time, platform, destination station, ETA</p>
 <dl class="field-list simple">
@@ -476,7 +561,7 @@ Fourth line: tomorrow’s weather condition description</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.display.inky_draw.InkyDraw.draw_weather_icon">
-<span class="sig-name descname"><span class="pre">draw_weather_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.IconType" title="inky_pi.weather.weather_base.IconType"><span class="pre">inky_pi.weather.weather_base.IconType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">280</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_weather_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_weather_icon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">draw_weather_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.html#inky_pi.weather.weather_base.IconType" title="inky_pi.weather.weather_base.IconType"><span class="pre">inky_pi.weather.weather_base.IconType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">90</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/inky_draw.html#InkyDraw.draw_weather_icon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.inky_draw.InkyDraw.draw_weather_icon" title="Permalink to this definition"></a></dt>
 <dd><p>Draws specified icon</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
