@@ -220,7 +220,9 @@
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
 
     <span class="c1"># Draw to Desktop screen</span>
-    <span class="n">desktop_display_object</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">)</span>
+    <span class="n">desktop_display_object</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span>
+    <span class="p">)</span>
     <span class="n">desktop_display</span><span class="p">:</span> <span class="n">DisplayBase</span> <span class="o">=</span> <span class="n">display_model_factory</span><span class="p">(</span><span class="n">desktop_display_object</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">desktop_display</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
