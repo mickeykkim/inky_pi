@@ -116,12 +116,17 @@ Images are drawn using Pillow to a desktop window for testing purposes.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.BORDER_SIZE">
-<span class="sig-name descname"><span class="pre">BORDER_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">8</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.BORDER_SIZE" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">BORDER_SIZE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.BORDER_SIZE" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.HEIGHT">
 <span class="sig-name descname"><span class="pre">HEIGHT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">300</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.HEIGHT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.MAX_VAL">
+<span class="sig-name descname"><span class="pre">MAX_VAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">255</span></em><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.MAX_VAL" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -147,7 +152,7 @@ Images are drawn using Pillow to a desktop window for testing purposes.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.display.desktop_driver.DesktopDisplayDriver.set_border">
 <span class="sig-name descname"><span class="pre">set_border</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/display/desktop_driver.html#DesktopDisplayDriver.set_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.display.desktop_driver.DesktopDisplayDriver.set_border" title="Permalink to this definition"></a></dt>
-<dd><p>Set border</p>
+<dd><p>Draw border around the edge (1/2 self.BORDER_SIZE + 1)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>border_color</strong> – border color (one of self.&lt;COLOR&gt;)</p>
