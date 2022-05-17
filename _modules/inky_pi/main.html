@@ -139,10 +139,8 @@
 <span class="sd">    Retrieves train and weather data from API endpoints, generates text and</span>
 <span class="sd">    weather icon, and draws to inkyWHAT screen.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Send requests to API endpoints to set data</span>
     <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
-    <span class="c1"># Draw to inkyWHAT screen</span>
     <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DEFAULT_DISPLAY_OBJECT</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
