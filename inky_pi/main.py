@@ -99,7 +99,10 @@ def night() -> None:
 
 
 def terminal() -> None:
-    """Terminal display for inky_pi."""
+    """Terminal display for inky_pi.
+
+    These are used for e2e testing; changes here must be accompanied by e2e test fixes.
+    """
     train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(DisplayObject(DisplayModel.TERMINAL)) as display:

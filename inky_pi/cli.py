@@ -5,6 +5,12 @@ from loguru import logger
 import inky_pi.main
 from inky_pi.util import configure_logging
 
+TRAIN_ECHO = "CLI inky_pi train"
+WEATHER_ECHO = "CLI inky_pi weather"
+NIGHT_ECHO = "CLI inky_pi night"
+TERMINAL_ECHO = "CLI inky_pi terminal"
+DESKTOP_ECHO = "CLI inky_pi desktop"
+
 
 @click.group()
 def cli():
@@ -15,7 +21,7 @@ def cli():
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def train(dry_run: bool):
     """Console script for inky_pi train and weather."""
-    click.echo("CLI inky_pi train")
+    click.echo(TRAIN_ECHO)
     if not dry_run:
         inky_pi.main.main()
 
@@ -24,7 +30,7 @@ def train(dry_run: bool):
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def weather(dry_run: bool):
     """Console script for inky_pi weather extended forecast."""
-    click.echo("CLI inky_pi weather")
+    click.echo(WEATHER_ECHO)
     if not dry_run:
         inky_pi.main.weather()
 
@@ -33,7 +39,7 @@ def weather(dry_run: bool):
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def night(dry_run: bool):
     """Console script for inky_pi night mode."""
-    click.echo("CLI inky_pi night")
+    click.echo(NIGHT_ECHO)
     if not dry_run:
         inky_pi.main.night()
 
@@ -42,7 +48,7 @@ def night(dry_run: bool):
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def terminal(dry_run: bool):
     """Console script for terminal mode."""
-    click.echo("CLI inky_pi terminal")
+    click.echo(TERMINAL_ECHO)
     if not dry_run:
         inky_pi.main.terminal()
 
@@ -51,7 +57,7 @@ def terminal(dry_run: bool):
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def desktop(dry_run: bool):
     """Console script for desktop mode."""
-    click.echo("CLI inky_pi desktop")
+    click.echo(DESKTOP_ECHO)
     if not dry_run:
         inky_pi.main.desktop()
 

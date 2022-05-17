@@ -2,7 +2,14 @@
 
 from click.testing import CliRunner
 
-from inky_pi.cli import cli
+from inky_pi.cli import (
+    DESKTOP_ECHO,
+    NIGHT_ECHO,
+    TERMINAL_ECHO,
+    TRAIN_ECHO,
+    WEATHER_ECHO,
+    cli,
+)
 
 
 def test_cli_main() -> None:
@@ -18,7 +25,7 @@ def test_cli_train() -> None:
     runner = CliRunner()
     result = runner.invoke(cli, ["train", "--dry-run"])
     assert result.exit_code == 0
-    assert result.output == "CLI inky_pi train\n"
+    assert result.output == f"{TRAIN_ECHO}\n"
 
 
 def test_cli_weather() -> None:
@@ -26,7 +33,7 @@ def test_cli_weather() -> None:
     runner = CliRunner()
     result = runner.invoke(cli, ["weather", "--dry-run"])
     assert result.exit_code == 0
-    assert result.output == "CLI inky_pi weather\n"
+    assert result.output == f"{WEATHER_ECHO}\n"
 
 
 def test_cli_goodnight() -> None:
@@ -34,7 +41,7 @@ def test_cli_goodnight() -> None:
     runner = CliRunner()
     result = runner.invoke(cli, ["night", "--dry-run"])
     assert result.exit_code == 0
-    assert result.output == "CLI inky_pi night\n"
+    assert result.output == f"{NIGHT_ECHO}\n"
 
 
 def test_cli_terminal() -> None:
@@ -42,7 +49,7 @@ def test_cli_terminal() -> None:
     runner = CliRunner()
     result = runner.invoke(cli, ["terminal", "--dry-run"])
     assert result.exit_code == 0
-    assert result.output == "CLI inky_pi terminal\n"
+    assert result.output == f"{TERMINAL_ECHO}\n"
 
 
 def test_cli_desktop() -> None:
@@ -50,4 +57,4 @@ def test_cli_desktop() -> None:
     runner = CliRunner()
     result = runner.invoke(cli, ["desktop", "--dry-run"])
     assert result.exit_code == 0
-    assert result.output == "CLI inky_pi desktop\n"
+    assert result.output == f"{DESKTOP_ECHO}\n"
