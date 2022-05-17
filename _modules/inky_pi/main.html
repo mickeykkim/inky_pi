@@ -132,19 +132,6 @@
     <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">NIGHT_DISPLAY_OBJECT</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span>
-    <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">TERMINAL_DISPLAY_OBJECT</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">DESKTOP_DISPLAY_OBJECT</span> <span class="o">=</span> <span class="n">DisplayObject</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">,</span>
-<span class="p">)</span>
-
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;inky_pi main function</span>
@@ -184,7 +171,7 @@
 <div class="viewcode-block" id="night"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.night">[docs]</a><span class="k">def</span> <span class="nf">night</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;inky_pi goodnight message main function&quot;&quot;&quot;</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">NIGHT_DISPLAY_OBJECT</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DisplayObject</span><span class="p">(</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_goodnight</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span></div>
 
 
@@ -194,7 +181,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">TERMINAL_DISPLAY_OBJECT</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DisplayObject</span><span class="p">(</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_icon</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">get_icon</span><span class="p">())</span>
@@ -208,7 +195,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># train_data: TrainBase = train_model_factory(TRAIN_OBJECT)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DESKTOP_DISPLAY_OBJECT</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DisplayObject</span><span class="p">(</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_mini_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
