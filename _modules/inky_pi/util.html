@@ -161,7 +161,8 @@
 
 <div class="viewcode-block" id="import_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.import_display">[docs]</a><span class="k">def</span> <span class="nf">import_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Imports the display model from the given object and returns it</span>
+<span class="sd">    Imports the display model from the given display object and returns it.</span>
+<span class="sd">    On error, logs and exits program (typically if not running on RPi).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        display_object (DisplayObject): The display object to be imported.</span>
