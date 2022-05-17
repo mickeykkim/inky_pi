@@ -9,7 +9,6 @@ classifiers = [
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
 ]
 description = "Top-level package for inky-pi."
 homepage = "https://github.com/mickeykkim/inky_pi"
@@ -29,6 +28,7 @@ name = "piwheels"
 url = "https://www.piwheels.org/simple/"
 
 [tool.poetry.dependencies]
+python = ">=3.7,<3.10"
 Pillow = "^9.0.0"
 "RPi.GPIO" = { version = "^0.7.0", markers = "platform_machine == 'armv7l'" }
 click = "^8.1.2"
@@ -37,10 +37,9 @@ font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
 inky = { version = "^1.2.0", markers = "platform_machine == 'armv7l'" }
 loguru = "^0.5.3"
-python = ">=3.7,<4"
+rich = "^12.4.1"
 urllib3 = "^1.26.8"
 zeep = "^4.0.0"
-rich = "^12.4.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
@@ -76,7 +75,7 @@ skip_empty = true
 legacy_tox_ini = """
 [tox]
 isolated_build = true
-envlist = py3.7, py3.8, py3.9, py3.10
+envlist = py3.7, py3.8, py3.9
 
 [testenv]
 description = Run compliance tests

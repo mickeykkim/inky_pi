@@ -6,18 +6,19 @@ from typing import Any, Dict, List
 
 from rich.console import Console
 
+from inky_pi.configs import STATION_FROM, STATION_TO
 from inky_pi.display.display_base import DisplayBase
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
 
 class TerminalDraw(DisplayBase):
-    """Draw text and shapes onto Inky e-ink display"""
+    """Draw text and weather emoji in terminal window"""
 
     todo = "[bold red]TODO[/bold red]"
 
     def __init__(self, base_color: str = "") -> None:
-        """Initialise display
+        """Initialise terminal text library
 
         Args:
             base_color: base color
@@ -37,10 +38,14 @@ class TerminalDraw(DisplayBase):
 
     def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
         """Exit context manager"""
+        self.render_text()
+
+    def render_text(self) -> None:
+        """Render collected text onto the terminal"""
         self._console.print("\n".join(self._output))
 
     def draw_date(self, x_pos: int = 0, y_pos: int = 0) -> None:
-        """Display date
+        """Append date to terminal text
 
         Args:
             x_pos: x position
@@ -50,7 +55,7 @@ class TerminalDraw(DisplayBase):
         self._output.append(date)
 
     def draw_time(self, x_pos: int = 0, y_pos: int = 0) -> None:
-        """Display time
+        """Append time to terminal text
 
         Args:
             x_pos: x position
@@ -62,7 +67,7 @@ class TerminalDraw(DisplayBase):
     def draw_train_times(
         self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 0, y_pos: int = 0
     ) -> None:
-        """Display train data
+        """Append train data to terminal text
 
         Args:
             data_t: train data
@@ -70,6 +75,7 @@ class TerminalDraw(DisplayBase):
             x_pos: x position
             y_pos: y position
         """
+        self._output.append(f"train schedule from {STATION_FROM} to {STATION_TO}:")
         for i in range(0, num_trains):
             train = data_t.fetch_train(i + 1)
             self._output.append(train)
@@ -82,7 +88,7 @@ class TerminalDraw(DisplayBase):
         y_pos: int = 0,
         disp_tomorrow: bool = False,
     ) -> None:
-        """Display weather forecast
+        """Append weather forecast to terminal text
 
         Args:
             data_w: weather data
@@ -92,16 +98,16 @@ class TerminalDraw(DisplayBase):
             disp_tomorrow: display tomorrow's forecast
         """
         current_temp = data_w.get_current_temperature(scale)
-        self._output.append(current_temp)
         current_condition = data_w.get_current_condition()
-        self._output.append(current_condition)
         temp_range = data_w.get_temp_range(0, scale)
-        self._output.append(temp_range)
         condition = data_w.get_condition(0)
-        self._output.append(condition)
+        self._output.append(f"now: {current_temp}")
+        self._output.append(f"now: {current_condition}")
+        self._output.append(f"today: {temp_range}")
+        self._output.append(f"today: {condition}")
         if disp_tomorrow:
             tomorrow_condition = data_w.get_condition(1)
-            self._output.append(tomorrow_condition)
+            self._output.append(f"tomorrow: {tomorrow_condition}")
 
     def draw_mini_forecast(
         self,
@@ -111,7 +117,7 @@ class TerminalDraw(DisplayBase):
         y_pos: int = 0,
         day: int = 0,
     ) -> None:
-        """Display mini weather forecast
+        """Append mini weather forecast to terminal text
 
         Args:
             data_w: weather data
@@ -123,7 +129,7 @@ class TerminalDraw(DisplayBase):
         self._output.append(f"{self.todo}: draw_mini_forecast")
 
     def draw_weather_icon(self, icon: IconType, x_pos: int = 0, y_pos: int = 0) -> None:
-        """Display weather icon
+        """Append weather icon to terminal text
 
         Args:
             icon: icon type
@@ -151,7 +157,7 @@ class TerminalDraw(DisplayBase):
         x_pos: int = 0,
         y_pos: int = 0,
     ) -> None:
-        """Display extended forecast icons
+        """Append extended weather forecast icons to terminal text
 
         Args:
             data_w: weather data
@@ -164,13 +170,13 @@ class TerminalDraw(DisplayBase):
     def draw_goodnight(
         self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
     ) -> None:
-        """Display goodnight message
+        """Append goodnight message to terminal text
 
         Args:
             data_w: weather data
             scale: scale type
         """
         message = "Good Night ^^"
-        self._output.append(message)
         temp = data_w.get_temp_range(1, scale)
+        self._output.append(message)
         self._output.append(temp)

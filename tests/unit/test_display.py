@@ -46,6 +46,10 @@ def test_instantiating_inky_draw_object_not_on_rpi_raises_import_error() -> None
     else:
         with pytest.raises(ImportError):
             display_model_factory(inky_object)
+        with pytest.raises(SystemExit) as err:
+            import_display(inky_object)
+            assert err.type == SystemExit
+            assert err.value.code == 1
 
 
 def test_can_successfully_instantiate_terminal_draw_object() -> None:

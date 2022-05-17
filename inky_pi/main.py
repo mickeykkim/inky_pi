@@ -106,7 +106,7 @@ def terminal() -> None:
         display.draw_date()
         display.draw_time()
         display.draw_weather_icon(weather_data.get_icon())
-        display.draw_weather_forecast(weather_data)
+        display.draw_weather_forecast(weather_data, disp_tomorrow=True)
         display.draw_train_times(train_data, 1)
 
 
