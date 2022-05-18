@@ -1,5 +1,5 @@
 """Test cli commands"""
-
+import pytest
 from click.testing import CliRunner
 
 from inky_pi.cli import (
@@ -13,48 +13,31 @@ from inky_pi.cli import (
 
 
 def test_cli_main() -> None:
-    """Tests inky_pi main command"""
+    """Tests inky_pi main command outputs expected result"""
     runner = CliRunner()
     result = runner.invoke(cli)
     assert result.exit_code == 0
     assert "Usage: cli [OPTIONS] COMMAND [ARGS]" in result.output
 
 
-def test_cli_train() -> None:
-    """Tests inky_pi inky command"""
+@pytest.mark.parametrize(
+    "command, expected_output",
+    [
+        (["train", "--dry-run"], TRAIN_ECHO),
+        (["weather", "--dry-run"], WEATHER_ECHO),
+        (["night", "--dry-run"], NIGHT_ECHO),
+        (["terminal", "--dry-run"], TERMINAL_ECHO),
+        (["desktop", "--dry-run"], DESKTOP_ECHO),
+    ],
+)
+def test_cli_args(command, expected_output) -> None:
+    """Tests inky_pi command with various args outputs expected result
+
+    Args:
+        command (list): command to run
+        expected_output (str): expected output
+    """
     runner = CliRunner()
-    result = runner.invoke(cli, ["train", "--dry-run"])
+    result = runner.invoke(cli, command)
     assert result.exit_code == 0
-    assert result.output == f"{TRAIN_ECHO}\n"
-
-
-def test_cli_weather() -> None:
-    """Tests inky_pi weather command"""
-    runner = CliRunner()
-    result = runner.invoke(cli, ["weather", "--dry-run"])
-    assert result.exit_code == 0
-    assert result.output == f"{WEATHER_ECHO}\n"
-
-
-def test_cli_goodnight() -> None:
-    """Tests inky_pi goodnight command"""
-    runner = CliRunner()
-    result = runner.invoke(cli, ["night", "--dry-run"])
-    assert result.exit_code == 0
-    assert result.output == f"{NIGHT_ECHO}\n"
-
-
-def test_cli_terminal() -> None:
-    """Tests inky_pi terminal command"""
-    runner = CliRunner()
-    result = runner.invoke(cli, ["terminal", "--dry-run"])
-    assert result.exit_code == 0
-    assert result.output == f"{TERMINAL_ECHO}\n"
-
-
-def test_cli_desktop() -> None:
-    """Tests inky_pi desktop command"""
-    runner = CliRunner()
-    result = runner.invoke(cli, ["desktop", "--dry-run"])
-    assert result.exit_code == 0
-    assert result.output == f"{DESKTOP_ECHO}\n"
+    assert result.output == f"{expected_output}\n"

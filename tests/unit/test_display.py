@@ -20,7 +20,12 @@ from inky_pi.util import (
 def test_can_successfully_instantiate_inky_draw_object(
     mock_inky_draw: Mock, mock_inky_what: Mock
 ) -> None:
-    """Test for creating InkyDraw instanced object"""
+    """Test for creating InkyDraw instanced object
+
+    Args:
+        mock_inky_draw: Mock for InkyDraw
+        mock_inky_what: Mock for _import_inky_what
+    """
 
     inky_object = DisplayObject(
         model=DisplayModel.INKY_WHAT,

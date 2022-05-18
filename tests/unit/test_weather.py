@@ -8,7 +8,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 from inky_pi.util import WeatherModel, WeatherObject, weather_model_factory
-from inky_pi.weather.open_weather_map import OpenWeatherMap
+from inky_pi.weather.open_weather_map import DEG_C, DEG_F, OpenWeatherMap
 from inky_pi.weather.weather_base import (
     IconType,
     ScaleType,
@@ -81,7 +81,12 @@ def test_can_successfully_instantiate_weather_open_weather_map(
     requests_get_mock: Mock,
     _setup_weather_vars: Mapping,
 ) -> None:
-    """Test for creating OpenWeatherMap instanced object"""
+    """Test for creating OpenWeatherMap instanced object
+
+    Args:
+        requests_get_mock: Mock for requests.get
+        _setup_weather_vars: Setup weather data
+    """
     weather_object = WeatherObject(
         model=WeatherModel.OPEN_WEATHER_MAP,
         latitude=_setup_weather_vars["latitude"],
@@ -97,7 +102,11 @@ def test_can_successfully_instantiate_weather_open_weather_map(
 def test_retrieving_invalid_weather_data_raises_value_error(
     _setup_weather_vars: Mapping,
 ) -> None:
-    """Test for retrieving weather icon"""
+    """Test to detect sending an invalid API key response
+
+    Args:
+        _setup_weather_vars: Setup weather data
+    """
     _invalid_requests = FakeRequests()
     with open(INVALID_WEATHER_DATA, "r", encoding="utf-8") as file:
         weather_data = json.load(file)
@@ -133,7 +142,13 @@ def test_can_successfully_retrieve_weather_icon(
     expected_icon_type: IconType,
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving weather icon"""
+    """Test for retrieving weather icons
+
+    Args:
+        day: Day of the week
+        expected_icon_type: Expected icon type
+        _setup_weather_fake_data: Setup fixture
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
     assert weather_obj.get_icon(day) == expected_icon_type
 
@@ -151,7 +166,13 @@ def test_can_successfully_retrieve_condition(
     condition: str,
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving current weather"""
+    """Test for retrieving weather conditions
+
+    Args:
+        day (int): Day of the week
+        condition (str): Expected condition
+        _setup_weather_fake_data (Mapping): Fixture for weather data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
     assert weather_obj.get_condition(day) == condition
 
@@ -164,7 +185,12 @@ def test_retrieving_invalid_day_condition_raises_value_error(
     day: int,
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving invalid day condition"""
+    """Test for that retrieving invalid day condition raises ValueError
+
+    Args:
+        day (int): Day of the week
+        _setup_weather_fake_data (Mapping): Fixture for weather data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
     with pytest.raises(ValueError):
         weather_obj.get_condition(day)
@@ -173,7 +199,11 @@ def test_retrieving_invalid_day_condition_raises_value_error(
 def test_can_successfully_retrieve_current_condition(
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving current weather"""
+    """Test for retrieving current condition
+
+    Args:
+        _setup_weather_fake_data: Setup weather fake data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
     current_condition = "Clouds"
     assert weather_obj.get_current_condition() == current_condition
@@ -182,16 +212,20 @@ def test_can_successfully_retrieve_current_condition(
 def test_can_successfully_retrieve_current_weather(
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving current weather"""
+    """Test for retrieving current weather
+
+    Args:
+        _setup_weather_fake_data: Setup weather data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
     current_temp = 289.46
     current_condition = "Clouds"
     expected_string_c = (
-        f"{kelvin_to_celsius(current_temp)}\N{DEGREE SIGN}C - {current_condition}"
+        f"{kelvin_to_celsius(current_temp)}{DEG_C} - {current_condition}"
     )
     expected_string_f = (
         f"{celsius_to_fahrenheit(kelvin_to_celsius(current_temp))}"
-        f"\N{DEGREE SIGN}F - {current_condition}"
+        f"{DEG_F} - {current_condition}"
     )
     assert weather_obj.get_current_weather() == expected_string_c
     assert weather_obj.get_current_weather(ScaleType.FAHRENHEIT) == expected_string_f
@@ -211,12 +245,19 @@ def test_can_successfully_retrieve_temp_range(
     max_k: float,
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving current weather"""
+    """Test for retrieving temp ranges
+
+    Args:
+        day (int): Day of the week
+        min_k (float): Minimum temperature in Kelvin
+        max_k (float): Maximum temperature in Kelvin
+        _setup_weather_fake_data (Mapping): Setup weather data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
-    min_c = str(kelvin_to_celsius(min_k)) + "\N{DEGREE SIGN}C"
-    max_c = str(kelvin_to_celsius(max_k)) + "\N{DEGREE SIGN}C"
-    min_f = str(celsius_to_fahrenheit(kelvin_to_celsius(min_k))) + "\N{DEGREE SIGN}F"
-    max_f = str(celsius_to_fahrenheit(kelvin_to_celsius(max_k))) + "\N{DEGREE SIGN}F"
+    min_c = str(kelvin_to_celsius(min_k)) + DEG_C
+    max_c = str(kelvin_to_celsius(max_k)) + DEG_C
+    min_f = str(celsius_to_fahrenheit(kelvin_to_celsius(min_k))) + DEG_F
+    max_f = str(celsius_to_fahrenheit(kelvin_to_celsius(max_k))) + DEG_F
     assert weather_obj.get_temp_range(day) == f"{min_c} – {max_c}"
     assert weather_obj.get_temp_range(day, ScaleType.FAHRENHEIT) == f"{min_f} – {max_f}"
 
@@ -234,9 +275,15 @@ def test_can_successfully_retrieve_future_weather(
     temp_k: float,
     _setup_weather_fake_data: Mapping,
 ) -> None:
-    """Test for retrieving current weather"""
+    """Test for retrieving future weather
+
+    Args:
+        day (int): Day of the week
+        temp_k (float): Temperature in Kelvin
+        _setup_weather_fake_data (Mapping): Setup weather data
+    """
     weather_obj = _setup_weather_fake_data["weather_base"]
-    temp_c = str(kelvin_to_celsius(temp_k)) + "\N{DEGREE SIGN}C"
-    temp_f = str(celsius_to_fahrenheit(kelvin_to_celsius(temp_k))) + "\N{DEGREE SIGN}F"
+    temp_c = str(kelvin_to_celsius(temp_k)) + DEG_C
+    temp_f = str(celsius_to_fahrenheit(kelvin_to_celsius(temp_k))) + DEG_F
     assert weather_obj.get_future_weather(day) == temp_c
     assert weather_obj.get_future_weather(day, ScaleType.FAHRENHEIT) == temp_f

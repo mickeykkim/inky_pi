@@ -28,6 +28,11 @@ def _setup_result() -> Generator:
 def test_can_successfully_run_full_program_in_terminal(
     test_regex_str: str, _setup_result: Result
 ) -> None:
-    """runs the full program, and checks each test string is present in output"""
+    """Runs the full program and checks each test string is present in output
+
+    Args:
+        test_regex_str (str): regex string to test for
+        _setup_result (Result): fixture for cli runner
+    """
     assert _setup_result.exit_code == 0
     assert re.compile(test_regex_str).search(_setup_result.output) is not None

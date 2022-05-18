@@ -30,7 +30,14 @@ def test_can_successfully_instantiate_train_open_live(
     zeep_history_mock: Mock,
     _setup_train_vars: Mapping,
 ) -> None:
-    """Test for creating OpenLDBWS instanced object"""
+    """Test for creating OpenLDBWS instanced object
+
+    Args:
+        zeep_client_mock: Mock for Client class
+        zeep_xsd_mock: Mock for xsd.Element class
+        zeep_history_mock: Mock for HistoryPlugin class
+        _setup_train_vars: Mapping of variables to be used in the test
+    """
     train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
         station_from=_setup_train_vars["station_from"],
@@ -50,7 +57,12 @@ def test_can_successfully_instantiate_train_open_live(
 def test_can_successfully_instantiate_train_huxley2(
     requests_get_mock: Mock, _setup_train_vars: Mapping
 ) -> None:
-    """Test for creating Huxley2 OpenLDBWS instanced object"""
+    """Test for creating Huxley2 OpenLDBWS instanced object
+
+    Args:
+        requests_get_mock: Mock for requests.get class
+        _setup_train_vars: Mapping of variables to be used in the test
+    """
     train_object = TrainObject(
         model=TrainModel.HUXLEY2,
         station_from=_setup_train_vars["station_from"],
@@ -68,6 +80,9 @@ def test_instantiate_openldbws_without_url_and_token_raises_error(
     """Test for invalid OpenLDBWS object creation
     Due to the fact that OpenLDBWS requires a URL and a token, this test will raise an
     error.
+
+    Args:
+        _setup_train_vars: Mapping of variables to be used in the test
     """
     train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
