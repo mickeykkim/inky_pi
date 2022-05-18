@@ -104,7 +104,7 @@
 <p>Fetches data from OpenWeatherMap API and generates formatted data</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.weather.open_weather_map.OpenWeatherMap">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.weather.open_weather_map.</span></span><span class="sig-name descname"><span class="pre">OpenWeatherMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#OpenWeatherMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.OpenWeatherMap" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.weather.open_weather_map.</span></span><span class="sig-name descname"><span class="pre">OpenWeatherMap</span></span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#OpenWeatherMap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.OpenWeatherMap" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></code></a></p>
 <p>Fetch and manage weather data</p>
 <dl class="py method">
@@ -238,6 +238,24 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">
+<span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#OpenWeatherMap.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves weather data from OpenWeatherMap 7-day forecast API.
+This must be called before any other data manipulation methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>requests</strong> (<em>Any</em>) – Requests object</p></li>
+<li><p><strong>latitude</strong> (<em>float</em>) – Location latitude</p></li>
+<li><p><strong>longitude</strong> (<em>float</em>) – Location longitude</p></li>
+<li><p><strong>exclude</strong> (<em>str</em>) – Comma-delimited string of request exclusions</p></li>
+<li><p><strong>api_key</strong> (<em>str</em>) – OpenWeatherMap API Key</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -447,9 +465,9 @@
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="inky_pi.weather.weather_base.celsius_to_farenheit">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.weather.weather_base.</span></span><span class="sig-name descname"><span class="pre">celsius_to_farenheit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">celsius_temp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/weather_base.html#celsius_to_farenheit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.weather_base.celsius_to_farenheit" title="Permalink to this definition"></a></dt>
-<dd><p>Helper function to convert Celsius to Farenheit to one decimal place</p>
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.celsius_to_fahrenheit">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.weather.weather_base.</span></span><span class="sig-name descname"><span class="pre">celsius_to_fahrenheit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">celsius_temp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/weather_base.html#celsius_to_fahrenheit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.weather_base.celsius_to_fahrenheit" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to convert Celsius to Fahrenheit to one decimal place</p>
 </dd></dl>
 
 <dl class="py function">

@@ -80,6 +80,7 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span>
 
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi.display.desktop_driver</span> <span class="kn">import</span> <span class="n">DesktopDisplayDriver</span>
@@ -226,12 +227,15 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        OpenWeatherMap: OpenWeatherMap object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">OpenWeatherMap</span><span class="p">(</span>
+    <span class="n">weather_base</span> <span class="o">=</span> <span class="n">OpenWeatherMap</span><span class="p">()</span>
+    <span class="n">weather_base</span><span class="o">.</span><span class="n">retrieve_data</span><span class="p">(</span>
+        <span class="n">requests</span><span class="p">,</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">exclude_flags</span><span class="p">,</span>
         <span class="n">weather_object</span><span class="o">.</span><span class="n">weather_api_token</span><span class="p">,</span>
-    <span class="p">)</span></div>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">weather_base</span></div>
 
 
 <div class="viewcode-block" id="instantiate_inky_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_inky_display">[docs]</a><span class="k">def</span> <span class="nf">instantiate_inky_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InkyDraw</span><span class="p">:</span>
