@@ -11,8 +11,8 @@ def kelvin_to_celsius(kelvin_temp: float) -> float:
     return round(kelvin_temp - 273.15, 1)
 
 
-def celsius_to_farenheit(celsius_temp: float) -> float:
-    """Helper function to convert Celsius to Farenheit to one decimal place"""
+def celsius_to_fahrenheit(celsius_temp: float) -> float:
+    """Helper function to convert Celsius to Fahrenheit to one decimal place"""
     if celsius_temp < -273.15:
         raise ValueError("Celsius temperature cannot be less than -273.15.")
     return round((celsius_temp * 9 / 5) + 32.0, 1)

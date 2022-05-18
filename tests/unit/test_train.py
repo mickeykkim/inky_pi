@@ -28,7 +28,7 @@ def test_can_successfully_instantiate_train_open_live(
     zeep_client_mock: Mock,
     zeep_xsd_mock: Mock,
     zeep_history_mock: Mock,
-    _setup_train_vars: Mapping[str, Union[int, float, str]],
+    _setup_train_vars: Mapping,
 ) -> None:
     """Test for creating OpenLDBWS instanced object"""
     train_object = TrainObject(
@@ -48,7 +48,7 @@ def test_can_successfully_instantiate_train_open_live(
 
 @patch("inky_pi.train.huxley2.requests.get")
 def test_can_successfully_instantiate_train_huxley2(
-    requests_get_mock: Mock, _setup_train_vars: Mapping[str, Union[int, float, str]]
+    requests_get_mock: Mock, _setup_train_vars: Mapping
 ) -> None:
     """Test for creating Huxley2 OpenLDBWS instanced object"""
     train_object = TrainObject(
@@ -63,7 +63,7 @@ def test_can_successfully_instantiate_train_huxley2(
 
 
 def test_instantiate_openldbws_without_url_and_token_raises_error(
-    _setup_train_vars: Mapping[str, Union[int, float, str]]
+    _setup_train_vars: Mapping,
 ) -> None:
     """Test for invalid OpenLDBWS object creation
     Due to the fact that OpenLDBWS requires a URL and a token, this test will raise an

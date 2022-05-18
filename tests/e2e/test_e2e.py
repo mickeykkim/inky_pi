@@ -4,6 +4,7 @@ Actively retrieves data from both weather and train APIs for testing. Tests may 
 if API endpoints are down.
 """
 import re
+from typing import Generator
 
 import pytest
 from click.testing import CliRunner, Result
@@ -12,7 +13,7 @@ from inky_pi.cli import cli
 
 
 @pytest.fixture
-def _setup_result() -> Result:
+def _setup_result() -> Generator:
     result: Result = CliRunner().invoke(cli, ["terminal"])
     yield result
 

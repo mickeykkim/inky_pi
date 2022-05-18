@@ -1,16 +1,15 @@
 """Inky_Pi weather model module.
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
-from typing import Dict, Union
+from typing import Any, Dict, Union
 
-import requests
 from loguru import logger
 
 from inky_pi.weather.weather_base import (
     IconType,
     ScaleType,
     WeatherBase,
-    celsius_to_farenheit,
+    celsius_to_fahrenheit,
     kelvin_to_celsius,
 )
 
@@ -19,22 +18,38 @@ DEG_C: str = "\N{DEGREE SIGN}" + "C"
 DEG_F: str = "\N{DEGREE SIGN}" + "F"
 
 
+def _check_day_limit(day: int) -> None:
+    if day < 0 or day >= 8:
+        logger.error("Invalid day requested", day)
+        raise ValueError(
+            "Weather data only available for 0 (today) or up to 7 days ahead."
+        )
+
+
 class OpenWeatherMap(WeatherBase):
     """Fetch and manage weather data"""
 
-    def __init__(
-        self, latitude: float, longitude: float, exclude: str, api_key: str
+    def __init__(self) -> None:
+        """Initialize variables"""
+        self._data: dict = {}
+
+    def retrieve_data(
+        self,
+        requests: Any,
+        latitude: float,
+        longitude: float,
+        exclude: str,
+        api_key: str,
     ) -> None:
-        """Requests weather data from OpenWeatherMap 7-day forecast API
+        """Retrieves weather data from OpenWeatherMap 7-day forecast API.
+        This must be called before any other data manipulation methods.
 
         Args:
+            requests (Any): Requests object
             latitude (float): Location latitude
             longitude (float): Location longitude
             exclude (str): Comma-delimited string of request exclusions
             api_key (str): OpenWeatherMap API Key
-
-        Returns:
-            dict: Response OpenWeatherMap JSON object as dictionary data
         """
         payload: Dict[str, Union[float, str]] = {
             "lat": latitude,
@@ -42,11 +57,11 @@ class OpenWeatherMap(WeatherBase):
             "exclude": exclude,
             "appid": api_key,
         }
-        response: requests.Response = requests.get(
+        response: Any = requests.get(
             "https://api.openweathermap.org/data/2.5/onecall?", params=payload
         )
 
-        self._data: dict = response.json()
+        self._data = response.json()
 
         # Check for errors in weather response, i.e. API key invalid (cod==401)
         if "cod" in self._data:
@@ -65,8 +80,9 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             IconType: Weather IconType
         """
+        _check_day_limit(day)
         icon_code: str = ""
-        # Get first two code characters; third character is 'd/n' for day/night
+        # Get first 2 code characters; 3rd character is 'd/n' for day/night (ignored)
         if day == 0:
             icon_code = str(self._data["current"]["weather"][0]["icon"])[0:2]
         else:
@@ -115,7 +131,7 @@ class OpenWeatherMap(WeatherBase):
             formatted_temp: str = (
                 str(celsius_temp) + DEG_C
                 if scale == ScaleType.CELSIUS
-                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
+                else str(celsius_to_fahrenheit(celsius_temp)) + DEG_F
             )
             return f"{formatted_temp}"
         except (KeyError, IndexError) as ex:
@@ -148,6 +164,7 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
+        _check_day_limit(day)
         try:
             celsius_temp_min: float = kelvin_to_celsius(
                 float(self._data["daily"][day]["temp"]["min"])
@@ -158,12 +175,12 @@ class OpenWeatherMap(WeatherBase):
             str_temp_min: str = (
                 str(celsius_temp_min) + DEG_C
                 if scale == ScaleType.CELSIUS
-                else str(celsius_to_farenheit(celsius_temp_min)) + DEG_F
+                else str(celsius_to_fahrenheit(celsius_temp_min)) + DEG_F
             )
             str_temp_max: str = (
                 str(celsius_temp_max) + DEG_C
                 if scale == ScaleType.CELSIUS
-                else str(celsius_to_farenheit(celsius_temp_max)) + DEG_F
+                else str(celsius_to_fahrenheit(celsius_temp_max)) + DEG_F
             )
             return f"{str_temp_min} – {str_temp_max}"
         except (KeyError, IndexError) as ex:
@@ -179,12 +196,7 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
-        if day < 0 or day > 6:
-            logger.error("Invalid fetch_condition day", day)
-            raise ValueError(
-                "Weather conditions only available for 0 (today) up to 7 days ahead."
-            )
-
+        _check_day_limit(day)
         try:
             return f"{self._data['daily'][day]['weather'][0]['description']}"
 
@@ -205,6 +217,7 @@ class OpenWeatherMap(WeatherBase):
         Returns:
             str: Formatted string or error message
         """
+        _check_day_limit(day)
         try:
             celsius_temp: float = kelvin_to_celsius(
                 float(self._data["daily"][day]["temp"]["day"])
@@ -212,7 +225,7 @@ class OpenWeatherMap(WeatherBase):
             str_temp: str = (
                 str(celsius_temp) + DEG_C
                 if scale == ScaleType.CELSIUS
-                else str(celsius_to_farenheit(celsius_temp)) + DEG_F
+                else str(celsius_to_fahrenheit(celsius_temp)) + DEG_F
             )
             return f"{str_temp}"
         except (KeyError, IndexError) as ex:

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from enum import Enum, auto
 from typing import Any, Callable, Dict
 
+import requests
 from loguru import logger
 
 from inky_pi.display.desktop_driver import DesktopDisplayDriver
@@ -151,12 +152,15 @@ def instantiate_open_weather_map(weather_object: WeatherObject) -> OpenWeatherMa
     Returns:
         OpenWeatherMap: OpenWeatherMap object
     """
-    return OpenWeatherMap(
+    weather_base = OpenWeatherMap()
+    weather_base.retrieve_data(
+        requests,
         weather_object.latitude,
         weather_object.longitude,
         weather_object.exclude_flags,
         weather_object.weather_api_token,
     )
+    return weather_base
 
 
 def instantiate_inky_display(display_object: DisplayObject) -> InkyDraw:
