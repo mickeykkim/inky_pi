@@ -1,35 +1,38 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
-# pylint: disable=duplicate-code
-from typing import Dict
+from typing import Any, Dict
 
 import requests
 from loguru import logger
 
-from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
+from inky_pi.train.train_base import TrainBase, TrainObject, abbreviate_stn_name
 
 
 class Huxley2(TrainBase):
     """Fetch and manage train data"""
 
-    def __init__(self, stn_from: str, stn_to: str, num_trains: int) -> None:
+    def __init__(self) -> None:
+        self._num: int = 0
+        self._data: dict = {}
+
+    def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
 
         More info here: https://huxley2.azurewebsites.net/
 
         Args:
-            stn_from (str): From station
-            stn_to (str): To station
-            num_trains (int): Number of departing trains to request
+            protocol (Any): Requests object for HTTP requests
+            train_object (TrainObject): Train object
         """
-        response: requests.Response = requests.get(
+        response: Any = protocol.get(
             "https://huxley2.azurewebsites.net/departures/"
-            f"{stn_from}/to/{stn_to}/{num_trains}"
+            f"{train_object.station_from}/to/"
+            f"{train_object.station_to}/{train_object.number}"
         )
 
-        self._num: int = num_trains
-        self._data: dict = response.json()
+        self._num = train_object.number
+        self._data = response.json()
 
     def fetch_train(self, num: int) -> str:
         """Generate next train string
@@ -74,3 +77,17 @@ class Huxley2(TrainBase):
                 # Otherwise, return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"
+
+
+def instantiate_huxley2(train_object: TrainObject) -> Huxley2:
+    """Huxley2 object creator
+
+    Args:
+        train_object (TrainObject): train object containing model
+
+    Returns:
+        Huxley2: Huxley2 object
+    """
+    train_base = Huxley2()
+    train_base.retrieve_data(requests, train_object)
+    return train_base

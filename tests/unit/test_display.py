@@ -4,15 +4,10 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from inky_pi.display.display_base import DisplayBase
+from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw
-from inky_pi.util import (
-    DisplayModel,
-    DisplayObject,
-    display_model_factory,
-    import_display,
-)
+from inky_pi.util import display_model_factory, import_display
 
 
 @patch("inky_pi.util._import_inky_what")

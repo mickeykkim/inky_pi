@@ -1,7 +1,9 @@
 """Base class and helper functions for weather model"""
 # pylint: disable=duplicate-code
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from enum import Enum, auto
+from typing import Any
 
 
 def kelvin_to_celsius(kelvin_temp: float) -> float:
@@ -16,6 +18,23 @@ def celsius_to_fahrenheit(celsius_temp: float) -> float:
     if celsius_temp < -273.15:
         raise ValueError("Celsius temperature cannot be less than -273.15.")
     return round((celsius_temp * 9 / 5) + 32.0, 1)
+
+
+class WeatherModel(Enum):
+    """Enum of weather models"""
+
+    OPEN_WEATHER_MAP = auto()
+
+
+@dataclass
+class WeatherObject:
+    """Weather object"""
+
+    model: WeatherModel
+    latitude: float
+    longitude: float
+    exclude_flags: str
+    weather_api_token: str
 
 
 class IconType(Enum):
@@ -41,6 +60,15 @@ class ScaleType(Enum):
 
 class WeatherBase(ABC):
     """Abstract base class for all weather models"""
+
+    @abstractmethod
+    def retrieve_data(self, protocol: Any, weather_object: WeatherObject) -> None:
+        """Retrieves weather data from API; must be called after constructor
+
+        Args:
+            protocol: HTTP data protocol (e.g. requests)
+            weather_object: Weather object
+        """
 
     @abstractmethod
     def get_icon(self, day: int = 0) -> IconType:

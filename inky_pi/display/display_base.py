@@ -2,10 +2,28 @@
 
 Abstract class for all display models"""
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from enum import Enum, auto
 from typing import Any
 
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
+
+
+class DisplayModel(Enum):
+    """Enum of display models"""
+
+    INKY_WHAT = auto()
+    TERMINAL = auto()
+    DESKTOP = auto()
+
+
+@dataclass
+class DisplayObject:
+    """Display object"""
+
+    model: DisplayModel
+    base_color: str = ""
 
 
 class DisplayBase(ABC):

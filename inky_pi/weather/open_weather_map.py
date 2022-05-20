@@ -3,12 +3,14 @@
 Fetches data from OpenWeatherMap API and generates formatted data"""
 from typing import Any, Dict, Union
 
+import requests
 from loguru import logger
 
 from inky_pi.weather.weather_base import (
     IconType,
     ScaleType,
     WeatherBase,
+    WeatherObject,
     celsius_to_fahrenheit,
     kelvin_to_celsius,
 )
@@ -33,31 +35,21 @@ class OpenWeatherMap(WeatherBase):
         """Initialize variables"""
         self._data: dict = {}
 
-    def retrieve_data(
-        self,
-        requests: Any,
-        latitude: float,
-        longitude: float,
-        exclude: str,
-        api_key: str,
-    ) -> None:
+    def retrieve_data(self, protocol: Any, weather_object: WeatherObject) -> None:
         """Retrieves weather data from OpenWeatherMap 7-day forecast API.
         This must be called before any other data manipulation methods.
 
         Args:
-            requests (Any): Requests object
-            latitude (float): Location latitude
-            longitude (float): Location longitude
-            exclude (str): Comma-delimited string of request exclusions
-            api_key (str): OpenWeatherMap API Key
+            protocol (Any): Requests object
+            weather_object: WeatherObject object
         """
         payload: Dict[str, Union[float, str]] = {
-            "lat": latitude,
-            "lon": longitude,
-            "exclude": exclude,
-            "appid": api_key,
+            "lat": weather_object.latitude,
+            "lon": weather_object.longitude,
+            "exclude": weather_object.exclude_flags,
+            "appid": weather_object.weather_api_token,
         }
-        response: Any = requests.get(
+        response: Any = protocol.get(
             "https://api.openweathermap.org/data/2.5/onecall?", params=payload
         )
 
@@ -231,3 +223,17 @@ class OpenWeatherMap(WeatherBase):
         except (KeyError, IndexError) as ex:
             logger.error("Invalid get_current_weather data", repr(ex))
             return f"Error retrieving weather. {ex!r}"
+
+
+def instantiate_open_weather_map(weather_object: WeatherObject) -> OpenWeatherMap:
+    """Open Weather Map object creator
+
+    Args:
+        weather_object (WeatherObject): weather object containing model
+
+    Returns:
+        OpenWeatherMap: OpenWeatherMap object
+    """
+    weather_base = OpenWeatherMap()
+    weather_base.retrieve_data(requests, weather_object)
+    return weather_base

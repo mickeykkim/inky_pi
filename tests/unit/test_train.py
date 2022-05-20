@@ -6,11 +6,17 @@ import pytest
 
 from inky_pi.train.huxley2 import Huxley2
 from inky_pi.train.open_live import OpenLive
-from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
-from inky_pi.util import TrainModel, TrainObject, train_model_factory
-
+from inky_pi.train.train_base import (
+    TrainBase,
+    TrainModel,
+    TrainObject,
+    abbreviate_stn_name,
+)
 
 # pylint: disable=possibly-unused-variable
+from inky_pi.util import train_model_factory
+
+
 @pytest.fixture
 def _setup_train_vars() -> Generator[Mapping[str, Union[int, float, str]], None, None]:
     station_from: str = "MZH"
@@ -21,9 +27,9 @@ def _setup_train_vars() -> Generator[Mapping[str, Union[int, float, str]], None,
     yield locals()
 
 
-@patch("inky_pi.train.open_live.HistoryPlugin")
-@patch("inky_pi.train.open_live.xsd.Element")
-@patch("inky_pi.train.open_live.Client")
+@patch("inky_pi.train.open_live.zeep.plugins.HistoryPlugin")
+@patch("inky_pi.train.open_live.zeep.xsd.Element")
+@patch("inky_pi.train.open_live.zeep.Client")
 def test_can_successfully_instantiate_train_open_live(
     zeep_client_mock: Mock,
     zeep_xsd_mock: Mock,

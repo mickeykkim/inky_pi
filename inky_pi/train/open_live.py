@@ -1,51 +1,49 @@
 """Open Live Departure Boards Web Service (OpenLDBWS) API
 """
-from typing import Any
+from typing import Any, Optional
 
+import zeep
 from loguru import logger
-from zeep import Client, xsd  # type: ignore
-from zeep.plugins import HistoryPlugin  # type: ignore
 
-from inky_pi.train.train_base import TrainBase, abbreviate_stn_name
+from inky_pi.train.train_base import TrainBase, TrainObject, abbreviate_stn_name
 
 
 class OpenLive(TrainBase):
     """Fetch and manage train data"""
 
-    def __init__(
-        self, stn_from: str, stn_to: str, num_trains: int, t_wsdl: str, t_ldb_token: str
-    ) -> None:
+    def __init__(self) -> None:
+        self._num: int = 0
+        self._data: Optional[Any] = None
+
+    def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
 
         API description: http://lite.realtime.nationalrail.co.uk/openldbws/
 
         Args:
-            stn_from (str): From station
-            stn_to (str): To station
-            num_trains (int): Number of departing trains to request
-            t_wsdl (str): WSDL address
-            t_ldb_token: OpenLDBWS API Token
+            protocol (Any): Zeep object for SOAP requests
+            train_object (TrainObject): Train object
         """
-        history: HistoryPlugin = HistoryPlugin()
-        client: Client = Client(wsdl=t_wsdl, plugins=[history])
-        header: xsd.Element = xsd.Element(
+        history: Any = protocol.plugins.HistoryPlugin()
+        client: Any = protocol.Client(wsdl=train_object.url, plugins=[history])
+        header: Any = protocol.xsd.Element(
             "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}AccessToken",
-            xsd.ComplexType(
+            protocol.xsd.ComplexType(
                 [
-                    xsd.Element(
+                    protocol.xsd.Element(
                         "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}"
                         + "TokenValue",
-                        xsd.String(),
+                        protocol.xsd.String(),
                     ),
                 ]
             ),
         )
-        header_value = header(TokenValue=t_ldb_token)
-        self._num: int = num_trains
+        header_value = header(TokenValue=train_object.token)
+        self._num = train_object.number
         self._data = client.service.GetDepartureBoard(
-            numRows=num_trains,
-            crs=stn_from,
-            filterCrs=stn_to,
+            numRows=train_object.number,
+            crs=train_object.station_from,
+            filterCrs=train_object.station_to,
             filterType="to",
             _soapheaders=[header_value],
         )
@@ -67,6 +65,9 @@ class OpenLive(TrainBase):
             raise ValueError(
                 f"{num} is an invalid train request number (max: {self._num})"
             )
+
+        if not self._data:
+            raise ValueError("No train data available")
 
         try:
             # Get all data
@@ -94,3 +95,17 @@ class OpenLive(TrainBase):
                 # Otherwise, return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"
+
+
+def instantiate_open_live(train_object: TrainObject) -> OpenLive:
+    """Open Live object creator
+
+    Args:
+        train_object (TrainObject): train object containing model
+
+    Returns:
+        OpenLive: OpenLive object
+    """
+    train_base = OpenLive()
+    train_base.retrieve_data(zeep, train_object)
+    return train_base

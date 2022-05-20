@@ -2,17 +2,19 @@
 import json
 from math import isclose
 from pathlib import Path
-from typing import Generator, Mapping, Union
+from typing import Generator, Mapping
 from unittest.mock import Mock, patch
 
 import pytest
 
-from inky_pi.util import WeatherModel, WeatherObject, weather_model_factory
+from inky_pi.util import weather_model_factory
 from inky_pi.weather.open_weather_map import DEG_C, DEG_F, OpenWeatherMap
 from inky_pi.weather.weather_base import (
     IconType,
     ScaleType,
     WeatherBase,
+    WeatherModel,
+    WeatherObject,
     celsius_to_fahrenheit,
     kelvin_to_celsius,
 )
@@ -26,11 +28,14 @@ INVALID_WEATHER_DATA = RESOURCES_DIR.joinpath("cod401.json")
 
 # pylint: disable=possibly-unused-variable
 @pytest.fixture
-def _setup_weather_vars() -> Generator[Mapping[str, Union[float, str]], None, None]:
-    latitude: float = 51.5085
-    longitude: float = -0.1257
-    exclude_flags: str = "minutely,hourly"
-    weather_api_token: str = "1234567890"
+def _setup_weather_vars() -> Generator[Mapping, None, None]:
+    weather_object = WeatherObject(
+        model=WeatherModel.OPEN_WEATHER_MAP,
+        latitude=51.5085,
+        longitude=-0.1257,
+        exclude_flags="minutely,hourly",
+        weather_api_token="1234567890",
+    )
     yield locals()
 
 
@@ -44,13 +49,7 @@ def _setup_weather_fake_data(
         _requests.add_response(weather_data, 200)
 
     weather_base = OpenWeatherMap()
-    weather_base.retrieve_data(
-        _requests,
-        latitude=_setup_weather_vars["latitude"],
-        longitude=_setup_weather_vars["longitude"],
-        exclude=_setup_weather_vars["exclude_flags"],
-        api_key=_setup_weather_vars["weather_api_token"],
-    )
+    weather_base.retrieve_data(_requests, _setup_weather_vars["weather_object"])
     yield locals()
 
 
@@ -76,7 +75,7 @@ def test_kelvin_to_celsius() -> None:
         kelvin_to_celsius(-1)
 
 
-@patch("inky_pi.util.requests.get")
+@patch("inky_pi.weather.open_weather_map.requests.get")
 def test_can_successfully_instantiate_weather_open_weather_map(
     requests_get_mock: Mock,
     _setup_weather_vars: Mapping,
@@ -87,13 +86,7 @@ def test_can_successfully_instantiate_weather_open_weather_map(
         requests_get_mock: Mock for requests.get
         _setup_weather_vars: Setup weather data
     """
-    weather_object = WeatherObject(
-        model=WeatherModel.OPEN_WEATHER_MAP,
-        latitude=_setup_weather_vars["latitude"],
-        longitude=_setup_weather_vars["longitude"],
-        exclude_flags=_setup_weather_vars["exclude_flags"],
-        weather_api_token=_setup_weather_vars["weather_api_token"],
-    )
+    weather_object = _setup_weather_vars["weather_object"]
     ret: WeatherBase = weather_model_factory(weather_object)
     requests_get_mock.assert_called_once()
     assert isinstance(ret, OpenWeatherMap)
@@ -115,11 +108,7 @@ def test_retrieving_invalid_weather_data_raises_value_error(
     with pytest.raises(ValueError) as exc_info:
         weather_base = OpenWeatherMap()
         weather_base.retrieve_data(
-            _invalid_requests,
-            latitude=_setup_weather_vars["latitude"],
-            longitude=_setup_weather_vars["longitude"],
-            exclude=_setup_weather_vars["exclude_flags"],
-            api_key=_setup_weather_vars["weather_api_token"],
+            _invalid_requests, _setup_weather_vars["weather_object"]
         )
         assert "Invalid API Key" in str(exc_info.value)
 

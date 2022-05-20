@@ -19,20 +19,20 @@ from inky_pi.configs import (
     WEATHER_API_TOKEN,
     WEATHER_MODEL,
 )
-from inky_pi.train.train_base import TrainBase
+from inky_pi.display.display_base import DisplayModel, DisplayObject
+from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
 from inky_pi.util import (
-    DisplayModel,
-    DisplayObject,
-    TrainModel,
-    TrainObject,
-    WeatherModel,
-    WeatherObject,
     configure_logging,
     import_display,
     train_model_factory,
     weather_model_factory,
 )
-from inky_pi.weather.weather_base import ScaleType, WeatherBase
+from inky_pi.weather.weather_base import (
+    ScaleType,
+    WeatherBase,
+    WeatherModel,
+    WeatherObject,
+)
 
 # Define objects to be used in fetching and displaying data
 TRAIN_OBJECT = TrainObject(
