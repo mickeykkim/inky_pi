@@ -1,22 +1,21 @@
 # Inky Pi
 
-[![build](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml/badge.svg)](https://github.com/mickeykkim/inky_pi/actions)
+[![build](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml/badge.svg)](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/mickeykkim/inky_pi/branch/main/graph/badge.svg?token=0RT5PRPRTZ)](https://codecov.io/gh/mickeykkim/inky_pi)
-[![codeclimate](https://codeclimate.com/github/mickeykkim/inky_pi/badges/gpa.svg)](https://codeclimate.com/github/mickeykkim/inky_pi)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b0f2104a75145d097108/maintainability)](https://codeclimate.com/github/mickeykkim/inky_pi/maintainability)
 
 Inky_pi is a project to display train and weather data on an [Inky](https://github.com/pimoroni/inky) e-ink display
 using a Raspberry Pi. It is modular and fetches data from a variety of
-sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxley2](https://huxley2.azurewebsites.net/)
-, [OpenWeatherMap](https://openweathermap.org/)).
+sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxley2](https://huxley2.azurewebsites.net/), [OpenWeatherMap](https://openweathermap.org/)).
 
 ![image 1](https://i.imgur.com/0CRIW9X.jpg)
 
-Example displays:
+Example outputs (generated with `desktop` display option):
 
 ![weather_train](https://i.imgur.com/dkTOQPH.jpg)
 ![weather_only](https://i.imgur.com/4PohWbR.jpg)
 
-Example terminal output:
+Example terminal output (generated with `terminal` display option):
 
 ```bash
 Fri 20 May 2022
@@ -33,7 +32,7 @@ train schedule from BHO to WMW:
 
 Weather icon drawing code was adapted from [raspi-weather](https://github.com/DerekCaelin/raspi-weather).
 
-Project setup was aided using a [cookiecutter template](https://github.com/briggySmalls/cookiecutter-pypackage) fork.
+Project setup was aided using [Sam Brigg](https://github.com/briggySmalls)'s [cookiecutter template](https://github.com/briggySmalls/cookiecutter-pypackage) fork.
 
 ## Installation
 
@@ -65,6 +64,8 @@ i.e.: `WEATHER_API_TOKEN=asdf1234`.
 API keys are needed for train data using OpenLDBWS and for weather data using OpenWeatherMap. Alternatively, train data
 can be fetched using Huxley2 without an API key (though the maintainer contends that the Huxley2 server goes down often
 without notice). A module for Weather Underground could be easily written as a contribution/exercise.
+
+The program runs once per invocation. For automated scheduling, [cron](https://www.mankier.com/8/cron) is recommended using the `python main.py` invocation as described above.
 
 ## Development Tools
 
