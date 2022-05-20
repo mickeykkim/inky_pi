@@ -1,5 +1,8 @@
 # Inky Pi
 
+[![codecov](https://codecov.io/gh/mickeykkim/inky_pi/branch/main/graph/badge.svg?token=0RT5PRPRTZ)](https://codecov.io/gh/mickeykkim/inky_pi)
+[![codeclimate](https://codeclimate.com/github/mickeykkim/inky_pi/badges/gpa.svg)](https://codeclimate.com/github/mickeykkim/inky_pi)
+
 Inky_pi is a project to display train and weather data on an [Inky](https://github.com/pimoroni/inky) e-ink display
 using a Raspberry Pi. It is modular and fetches data from a variety of
 sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxley2](https://huxley2.azurewebsites.net/)

@@ -1,7 +1,7 @@
-# GitHub Actions workflow for installing Poetry and running Tox
-# Based on: https://github.com/snok/install-poetry
+# GitHub Actions workflow for installing Poetry and running Coverage
+# Based on: https://github.com/marketplace/actions/codecov
 
-name: CI
+name: Coverage
 
 # Controls when the workflow will run
 on:
@@ -15,13 +15,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Build and run compliance tests
-  build:
+  run:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python: [ 3.7, 3.8, 3.9 ]
-
     steps:
       # Checkout out repo and setup python
       - name: Check out repository
@@ -30,7 +25,7 @@ jobs:
         id: setup-python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python }}
+          python-version: '3.9'
       # Install and configure poetry
       - name: Install Poetry
         uses: snok/install-poetry@v1
@@ -53,11 +48,16 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       # Save api keys to .env file
-      - name: Create .env file
+      - name: Create .env file and run coverage
         run: |
           echo TRAIN_API_TOKEN=${{ secrets.TRAIN_API_TOKEN }} > .env
           echo WEATHER_API_TOKEN=${{ secrets.WEATHER_API_TOKEN }} >> .env
-      # Run tox
-      - name: Run Tox
-        run: poetry run tox -e py
-
+          poetry run invoke coverage --xml
+      # Upload coverage report to Codecov
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)

@@ -94,9 +94,12 @@ def test(_c):
 
 
 @task(
-    help={"html": 'Set to "True" for html output'},
+    help={
+        "html": 'Set to "True" for html output',
+        "xml": 'Set to "True" for junit xml output',
+    },
 )
-def coverage(_c, html=False):
+def coverage(_c, html=False, xml=False):
     """
     Create coverage report
     """
@@ -105,6 +108,9 @@ def coverage(_c, html=False):
         # Build a local report
         _run(_c, "coverage html")
         webbrowser.open(COVERAGE_REPORT.as_uri())
+    elif xml:
+        # Build a local xml for CI
+        _run(_c, "coverage xml")
     else:
         _run(_c, "coverage report")
 
