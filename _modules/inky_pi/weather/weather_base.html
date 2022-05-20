@@ -76,7 +76,9 @@
 <span></span><span class="sd">&quot;&quot;&quot;Base class and helper functions for weather model&quot;&quot;&quot;</span>
 <span class="c1"># pylint: disable=duplicate-code</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 
 <div class="viewcode-block" id="kelvin_to_celsius"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.kelvin_to_celsius">[docs]</a><span class="k">def</span> <span class="nf">kelvin_to_celsius</span><span class="p">(</span><span class="n">kelvin_temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -91,6 +93,23 @@
     <span class="k">if</span> <span class="n">celsius_temp</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">273.15</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Celsius temperature cannot be less than -273.15.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">round</span><span class="p">((</span><span class="n">celsius_temp</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WeatherModel"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherModel">[docs]</a><span class="k">class</span> <span class="nc">WeatherModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
+
+    <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="WeatherObject"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherObject">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">WeatherObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Weather object&quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">WeatherModel</span>
+    <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">exclude_flags</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">weather_api_token</span><span class="p">:</span> <span class="nb">str</span></div>
 
 
 <div class="viewcode-block" id="IconType"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.IconType">[docs]</a><span class="k">class</span> <span class="nc">IconType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -116,6 +135,10 @@
 
 <div class="viewcode-block" id="WeatherBase"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase">[docs]</a><span class="k">class</span> <span class="nc">WeatherBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for all weather models&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WeatherBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves weather data from API; must be called after constructor&quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="WeatherBase.get_icon"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase.get_icon">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IconType</span><span class="p">:</span>

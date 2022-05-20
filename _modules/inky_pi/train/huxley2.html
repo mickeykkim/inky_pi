@@ -76,35 +76,38 @@
 <span></span><span class="sd">&quot;&quot;&quot;Inky_Pi train model module.</span>
 
 <span class="sd">Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data&quot;&quot;&quot;</span>
-<span class="c1"># pylint: disable=duplicate-code</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">abbreviate_stn_name</span>
+<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainObject</span><span class="p">,</span> <span class="n">abbreviate_stn_name</span>
 
 
 <div class="viewcode-block" id="Huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.huxley2.Huxley2">[docs]</a><span class="k">class</span> <span class="nc">Huxley2</span><span class="p">(</span><span class="n">TrainBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and manage train data&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stn_from</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stn_to</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_trains</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="Huxley2.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.huxley2.Huxley2.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Requests train data from OpenLDBWS train arrivals API endpoint</span>
 
 <span class="sd">        More info here: https://huxley2.azurewebsites.net/</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            stn_from (str): From station</span>
-<span class="sd">            stn_to (str): To station</span>
-<span class="sd">            num_trains (int): Number of departing trains to request</span>
+<span class="sd">            protocol (Any): Requests object for HTTP requests</span>
+<span class="sd">            train_object (TrainObject): Train object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">response</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">response</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;https://huxley2.azurewebsites.net/departures/&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stn_from</span><span class="si">}</span><span class="s2">/to/</span><span class="si">{</span><span class="n">stn_to</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num_trains</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">train_object</span><span class="o">.</span><span class="n">station_from</span><span class="si">}</span><span class="s2">/to/&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">train_object</span><span class="o">.</span><span class="n">station_to</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">train_object</span><span class="o">.</span><span class="n">number</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">num_trains</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="o">=</span> <span class="n">train_object</span><span class="o">.</span><span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Huxley2.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.huxley2.Huxley2.fetch_train">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate next train string</span>
@@ -149,6 +152,20 @@
                 <span class="c1"># Otherwise, return generic message on line 1</span>
                 <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Error retrieving train data.&quot;</span> <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
                 <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2">&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.huxley2.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Huxley2 object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        train_object (TrainObject): train object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Huxley2: Huxley2 object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">train_base</span> <span class="o">=</span> <span class="n">Huxley2</span><span class="p">()</span>
+    <span class="n">train_base</span><span class="o">.</span><span class="n">retrieve_data</span><span class="p">(</span><span class="n">requests</span><span class="p">,</span> <span class="n">train_object</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_base</span></div>
 </pre></div>
 
            </div>

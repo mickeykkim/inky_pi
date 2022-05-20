@@ -94,20 +94,20 @@
     <span class="n">WEATHER_API_TOKEN</span><span class="p">,</span>
     <span class="n">WEATHER_MODEL</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayObject</span>
+<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainModel</span><span class="p">,</span> <span class="n">TrainObject</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DisplayModel</span><span class="p">,</span>
-    <span class="n">DisplayObject</span><span class="p">,</span>
-    <span class="n">TrainModel</span><span class="p">,</span>
-    <span class="n">TrainObject</span><span class="p">,</span>
-    <span class="n">WeatherModel</span><span class="p">,</span>
-    <span class="n">WeatherObject</span><span class="p">,</span>
     <span class="n">configure_logging</span><span class="p">,</span>
     <span class="n">import_display</span><span class="p">,</span>
     <span class="n">train_model_factory</span><span class="p">,</span>
     <span class="n">weather_model_factory</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">ScaleType</span><span class="p">,</span> <span class="n">WeatherBase</span>
+<span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ScaleType</span><span class="p">,</span>
+    <span class="n">WeatherBase</span><span class="p">,</span>
+    <span class="n">WeatherModel</span><span class="p">,</span>
+    <span class="n">WeatherObject</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="c1"># Define objects to be used in fetching and displaying data</span>
 <span class="n">TRAIN_OBJECT</span> <span class="o">=</span> <span class="n">TrainObject</span><span class="p">(</span>

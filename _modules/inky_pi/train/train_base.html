@@ -75,7 +75,40 @@
   <h1>Source code for inky_pi.train.train_base</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Base class and helper functions for train model&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+
+
+<div class="viewcode-block" id="TrainModel"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainModel">[docs]</a><span class="k">class</span> <span class="nc">TrainModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of train models&quot;&quot;&quot;</span>
+
+    <span class="n">HUXLEY2</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">OPEN_LIVE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="TrainObject"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainObject">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TrainObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Train object&quot;&quot;&quot;</span>
+
+    <span class="n">model</span><span class="p">:</span> <span class="n">TrainModel</span>
+    <span class="n">station_from</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">station_to</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">number</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="TrainBase"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase">[docs]</a><span class="k">class</span> <span class="nc">TrainBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Abstract base class for all train models&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TrainBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Retrieves train data from API; must be called after constructor&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="TrainBase.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.fetch_train">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return requested train data&quot;&quot;&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="abbreviate_stn_name"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.abbreviate_stn_name">[docs]</a><span class="k">def</span> <span class="nf">abbreviate_stn_name</span><span class="p">(</span><span class="n">station_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -95,14 +128,6 @@
         <span class="n">station_name</span> <span class="o">=</span> <span class="n">station_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">abbreviation</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">station_name</span></div>
-
-
-<div class="viewcode-block" id="TrainBase"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase">[docs]</a><span class="k">class</span> <span class="nc">TrainBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Abstract base class for all train models&quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="TrainBase.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.fetch_train">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested train data&quot;&quot;&quot;</span></div></div>
 </pre></div>
 
            </div>

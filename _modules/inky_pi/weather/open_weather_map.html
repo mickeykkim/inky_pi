@@ -78,12 +78,14 @@
 <span class="sd">Fetches data from OpenWeatherMap API and generates formatted data&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">IconType</span><span class="p">,</span>
     <span class="n">ScaleType</span><span class="p">,</span>
     <span class="n">WeatherBase</span><span class="p">,</span>
+    <span class="n">WeatherObject</span><span class="p">,</span>
     <span class="n">celsius_to_fahrenheit</span><span class="p">,</span>
     <span class="n">kelvin_to_celsius</span><span class="p">,</span>
 <span class="p">)</span>
@@ -108,31 +110,21 @@
         <span class="sd">&quot;&quot;&quot;Initialize variables&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="OpenWeatherMap.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">requests</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-        <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">longitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">exclude</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Retrieves weather data from OpenWeatherMap 7-day forecast API.</span>
 <span class="sd">        This must be called before any other data manipulation methods.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            requests (Any): Requests object</span>
-<span class="sd">            latitude (float): Location latitude</span>
-<span class="sd">            longitude (float): Location longitude</span>
-<span class="sd">            exclude (str): Comma-delimited string of request exclusions</span>
-<span class="sd">            api_key (str): OpenWeatherMap API Key</span>
+<span class="sd">            protocol (Any): Requests object</span>
+<span class="sd">            weather_object: WeatherObject object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">payload</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="n">latitude</span><span class="p">,</span>
-            <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="n">longitude</span><span class="p">,</span>
-            <span class="s2">&quot;exclude&quot;</span><span class="p">:</span> <span class="n">exclude</span><span class="p">,</span>
-            <span class="s2">&quot;appid&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">,</span>
+            <span class="s2">&quot;lat&quot;</span><span class="p">:</span> <span class="n">weather_object</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+            <span class="s2">&quot;lon&quot;</span><span class="p">:</span> <span class="n">weather_object</span><span class="o">.</span><span class="n">longitude</span><span class="p">,</span>
+            <span class="s2">&quot;exclude&quot;</span><span class="p">:</span> <span class="n">weather_object</span><span class="o">.</span><span class="n">exclude_flags</span><span class="p">,</span>
+            <span class="s2">&quot;appid&quot;</span><span class="p">:</span> <span class="n">weather_object</span><span class="o">.</span><span class="n">weather_api_token</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">response</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="n">response</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
             <span class="s2">&quot;https://api.openweathermap.org/data/2.5/onecall?&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">payload</span>
         <span class="p">)</span>
 
@@ -306,6 +298,20 @@
         <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid get_current_weather data&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving weather. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="instantiate_open_weather_map"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.instantiate_open_weather_map">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_weather_map</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenWeatherMap</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Open Weather Map object creator</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        weather_object (WeatherObject): weather object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        OpenWeatherMap: OpenWeatherMap object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">weather_base</span> <span class="o">=</span> <span class="n">OpenWeatherMap</span><span class="p">()</span>
+    <span class="n">weather_base</span><span class="o">.</span><span class="n">retrieve_data</span><span class="p">(</span><span class="n">requests</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">weather_base</span></div>
 </pre></div>
 
            </div>

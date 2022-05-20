@@ -105,7 +105,7 @@
 <p>Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.train.huxley2.Huxley2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.huxley2.</span></span><span class="sig-name descname"><span class="pre">Huxley2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stn_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stn_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/train/huxley2.html#Huxley2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.huxley2.Huxley2" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.huxley2.</span></span><span class="sig-name descname"><span class="pre">Huxley2</span></span><a class="reference internal" href="../_modules/inky_pi/train/huxley2.html#Huxley2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.huxley2.Huxley2" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">inky_pi.train.train_base.TrainBase</span></code></a></p>
 <p>Fetch and manage train data</p>
 <dl class="py method">
@@ -129,6 +129,38 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.train.huxley2.Huxley2.retrieve_data">
+<span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/huxley2.html#Huxley2.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.huxley2.Huxley2.retrieve_data" title="Permalink to this definition"></a></dt>
+<dd><p>Requests train data from OpenLDBWS train arrivals API endpoint</p>
+<p>More info here: <a class="reference external" href="https://huxley2.azurewebsites.net/">https://huxley2.azurewebsites.net/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protocol</strong> (<em>Any</em>) – Requests object for HTTP requests</p></li>
+<li><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – Train object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.train.huxley2.instantiate_huxley2">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.train.huxley2.</span></span><span class="sig-name descname"><span class="pre">instantiate_huxley2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#inky_pi.train.huxley2.Huxley2" title="inky_pi.train.huxley2.Huxley2"><span class="pre">inky_pi.train.huxley2.Huxley2</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/train/huxley2.html#instantiate_huxley2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.huxley2.instantiate_huxley2" title="Permalink to this definition"></a></dt>
+<dd><p>Huxley2 object creator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Huxley2 object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#inky_pi.train.huxley2.Huxley2" title="inky_pi.train.huxley2.Huxley2">Huxley2</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -137,7 +169,7 @@
 <p>Open Live Departure Boards Web Service (OpenLDBWS) API</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.train.open_live.OpenLive">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.open_live.</span></span><span class="sig-name descname"><span class="pre">OpenLive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stn_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stn_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_wsdl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_ldb_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#OpenLive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.OpenLive" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.open_live.</span></span><span class="sig-name descname"><span class="pre">OpenLive</span></span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#OpenLive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.OpenLive" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">inky_pi.train.train_base.TrainBase</span></code></a></p>
 <p>Fetch and manage train data</p>
 <dl class="py method">
@@ -161,6 +193,38 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.train.open_live.OpenLive.retrieve_data">
+<span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#OpenLive.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.OpenLive.retrieve_data" title="Permalink to this definition"></a></dt>
+<dd><p>Requests train data from OpenLDBWS train arrivals API endpoint</p>
+<p>API description: <a class="reference external" href="http://lite.realtime.nationalrail.co.uk/openldbws/">http://lite.realtime.nationalrail.co.uk/openldbws/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protocol</strong> (<em>Any</em>) – Zeep object for SOAP requests</p></li>
+<li><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – Train object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.train.open_live.instantiate_open_live">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.train.open_live.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive"><span class="pre">inky_pi.train.open_live.OpenLive</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#instantiate_open_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.instantiate_open_live" title="Permalink to this definition"></a></dt>
+<dd><p>Open Live object creator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>OpenLive object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive">OpenLive</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -177,6 +241,66 @@
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase.fetch_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.fetch_train" title="Permalink to this definition"></a></dt>
 <dd><p>Return requested train data</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainBase.retrieve_data">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.retrieve_data" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves train data from API; must be called after constructor</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.train_base.</span></span><span class="sig-name descname"><span class="pre">TrainModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enum of train models</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel.HUXLEY2">
+<span class="sig-name descname"><span class="pre">HUXLEY2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel.HUXLEY2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel.OPEN_LIVE">
+<span class="sig-name descname"><span class="pre">OPEN_LIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel.OPEN_LIVE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.train_base.</span></span><span class="sig-name descname"><span class="pre">TrainObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.train.train_base.TrainModel" title="inky_pi.train.train_base.TrainModel"><span class="pre">inky_pi.train.train_base.TrainModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_from</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">station_to</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Train object</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.train.train_base.TrainModel" title="inky_pi.train.train_base.TrainModel"><span class="pre">inky_pi.train.train_base.TrainModel</span></a></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.number">
+<span class="sig-name descname"><span class="pre">number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.number" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.station_from">
+<span class="sig-name descname"><span class="pre">station_from</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.station_from" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.station_to">
+<span class="sig-name descname"><span class="pre">station_to</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.station_to" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.token">
+<span class="sig-name descname"><span class="pre">token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainObject.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainObject.url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 

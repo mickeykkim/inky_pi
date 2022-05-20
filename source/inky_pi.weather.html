@@ -244,22 +244,36 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">
-<span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">requests</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#OpenWeatherMap.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><span class="pre">inky_pi.weather.weather_base.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#OpenWeatherMap.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data" title="Permalink to this definition"></a></dt>
 <dd><p>Retrieves weather data from OpenWeatherMap 7-day forecast API.
 This must be called before any other data manipulation methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>requests</strong> (<em>Any</em>) – Requests object</p></li>
-<li><p><strong>latitude</strong> (<em>float</em>) – Location latitude</p></li>
-<li><p><strong>longitude</strong> (<em>float</em>) – Location longitude</p></li>
-<li><p><strong>exclude</strong> (<em>str</em>) – Comma-delimited string of request exclusions</p></li>
-<li><p><strong>api_key</strong> (<em>str</em>) – OpenWeatherMap API Key</p></li>
+<li><p><strong>protocol</strong> (<em>Any</em>) – Requests object</p></li>
+<li><p><strong>weather_object</strong> – WeatherObject object</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.weather.open_weather_map.instantiate_open_weather_map">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.weather.open_weather_map.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_weather_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><span class="pre">inky_pi.weather.weather_base.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#inky_pi.weather.open_weather_map.OpenWeatherMap" title="inky_pi.weather.open_weather_map.OpenWeatherMap"><span class="pre">inky_pi.weather.open_weather_map.OpenWeatherMap</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/weather/open_weather_map.html#instantiate_open_weather_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.open_weather_map.instantiate_open_weather_map" title="Permalink to this definition"></a></dt>
+<dd><p>Open Weather Map object creator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weather_object</strong> (<a class="reference internal" href="#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><em>WeatherObject</em></a>) – weather object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>OpenWeatherMap object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#inky_pi.weather.open_weather_map.OpenWeatherMap" title="inky_pi.weather.open_weather_map.OpenWeatherMap">OpenWeatherMap</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -461,6 +475,56 @@ This must be called before any other data manipulation methods.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherBase.retrieve_data">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">retrieve_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><span class="pre">inky_pi.weather.weather_base.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/weather/weather_base.html#WeatherBase.retrieve_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherBase.retrieve_data" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves weather data from API; must be called after constructor</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.weather.weather_base.</span></span><span class="sig-name descname"><span class="pre">WeatherModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/weather/weather_base.html#WeatherModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>Enum of weather models</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherModel.OPEN_WEATHER_MAP">
+<span class="sig-name descname"><span class="pre">OPEN_WEATHER_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherModel.OPEN_WEATHER_MAP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.weather.weather_base.</span></span><span class="sig-name descname"><span class="pre">WeatherObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.weather.weather_base.WeatherModel" title="inky_pi.weather.weather_base.WeatherModel"><span class="pre">inky_pi.weather.weather_base.WeatherModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_api_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/weather/weather_base.html#WeatherObject"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Weather object</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject.exclude_flags">
+<span class="sig-name descname"><span class="pre">exclude_flags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject.exclude_flags" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject.latitude" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject.longitude" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject.model">
+<span class="sig-name descname"><span class="pre">model</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#inky_pi.weather.weather_base.WeatherModel" title="inky_pi.weather.weather_base.WeatherModel"><span class="pre">inky_pi.weather.weather_base.WeatherModel</span></a></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject.model" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="inky_pi.weather.weather_base.WeatherObject.weather_api_token">
+<span class="sig-name descname"><span class="pre">weather_api_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#inky_pi.weather.weather_base.WeatherObject.weather_api_token" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
