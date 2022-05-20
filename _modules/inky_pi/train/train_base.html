@@ -123,11 +123,23 @@
 
 <div class="viewcode-block" id="TrainBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Retrieves train data from API; must be called after constructor&quot;&quot;&quot;</span></div>
+        <span class="sd">&quot;&quot;&quot;Retrieves train data from API; must be called after constructor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            protocol: HTTP data protocol (e.g. requests or zeep)</span>
+<span class="sd">            train_object: Train object</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="TrainBase.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.fetch_train">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested train data&quot;&quot;&quot;</span></div></div>
+        <span class="sd">&quot;&quot;&quot;Return requested train data</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): Desired train number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Train data</span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 </pre></div>
 
            </div>

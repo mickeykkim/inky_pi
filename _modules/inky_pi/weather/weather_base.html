@@ -138,7 +138,12 @@
 
 <div class="viewcode-block" id="WeatherBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Retrieves weather data from API; must be called after constructor&quot;&quot;&quot;</span></div>
+        <span class="sd">&quot;&quot;&quot;Retrieves weather data from API; must be called after constructor</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            protocol: HTTP data protocol (e.g. requests)</span>
+<span class="sd">            weather_object: Weather object</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
 
 <div class="viewcode-block" id="WeatherBase.get_icon"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.weather_base.WeatherBase.get_icon">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IconType</span><span class="p">:</span>
