@@ -1,5 +1,6 @@
 # Inky Pi
 
+[![build](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml/badge.svg)](https://github.com/mickeykkim/inky_pi/actions)
 [![codecov](https://codecov.io/gh/mickeykkim/inky_pi/branch/main/graph/badge.svg?token=0RT5PRPRTZ)](https://codecov.io/gh/mickeykkim/inky_pi)
 [![codeclimate](https://codeclimate.com/github/mickeykkim/inky_pi/badges/gpa.svg)](https://codeclimate.com/github/mickeykkim/inky_pi)
 
@@ -9,6 +10,26 @@ sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxle
 , [OpenWeatherMap](https://openweathermap.org/)).
 
 ![image 1](https://i.imgur.com/0CRIW9X.jpg)
+
+Example displays:
+
+![weather_train](https://i.imgur.com/dkTOQPH.jpg)
+![weather_only](https://i.imgur.com/4PohWbR.jpg)
+
+Example terminal output:
+
+```bash
+Fri 20 May 2022
+14:08
+⛅
+now: 14.4°C
+now: Clouds
+today: 11.6°C – 16.1°C
+today: moderate rain
+tomorrow: overcast clouds
+train schedule from BHO to WMW:
+14:12 | P2 to Barking - On time
+```
 
 Weather icon drawing code was adapted from [raspi-weather](https://github.com/DerekCaelin/raspi-weather).
 

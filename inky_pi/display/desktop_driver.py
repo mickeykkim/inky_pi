@@ -19,7 +19,7 @@ class DesktopDisplayDriver:
     WHITE = (MAX_VAL, MAX_VAL, MAX_VAL, MAX_VAL)
     BLACK = (0, 0, 0, MAX_VAL)
     RED = (MAX_VAL, 0, 0, MAX_VAL)
-    YELLOW = (MAX_VAL, MAX_VAL, 0, MAX_VAL)
+    YELLOW = (MAX_VAL, MAX_VAL, MAX_VAL // 3, MAX_VAL)
 
     def __init__(self, base_color: str = "") -> None:
         """Initialize display driver.
