@@ -80,6 +80,25 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 
+<div class="viewcode-block" id="abbreviate_stn_name"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.abbreviate_stn_name">[docs]</a><span class="k">def</span> <span class="nf">abbreviate_stn_name</span><span class="p">(</span><span class="n">station_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Helper function to abbreviate station name by shortening words&quot;&quot;&quot;</span>
+    <span class="n">abbreviation_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Street&quot;</span><span class="p">:</span> <span class="s2">&quot;St&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Lane&quot;</span><span class="p">:</span> <span class="s2">&quot;Ln&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Court&quot;</span><span class="p">:</span> <span class="s2">&quot;Ct&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Road&quot;</span><span class="p">:</span> <span class="s2">&quot;Rd&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;North&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;South&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;East&quot;</span><span class="p">:</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;West&quot;</span><span class="p">:</span> <span class="s2">&quot;W&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Thameslink&quot;</span><span class="p">:</span> <span class="s2">&quot;TL&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">abbreviation</span> <span class="ow">in</span> <span class="n">abbreviation_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">station_name</span> <span class="o">=</span> <span class="n">station_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">abbreviation</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">station_name</span></div>
+
+
 <div class="viewcode-block" id="TrainModel"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainModel">[docs]</a><span class="k">class</span> <span class="nc">TrainModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Enum of train models&quot;&quot;&quot;</span>
 
@@ -109,25 +128,6 @@
 <div class="viewcode-block" id="TrainBase.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.fetch_train">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Return requested train data&quot;&quot;&quot;</span></div></div>
-
-
-<div class="viewcode-block" id="abbreviate_stn_name"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.abbreviate_stn_name">[docs]</a><span class="k">def</span> <span class="nf">abbreviate_stn_name</span><span class="p">(</span><span class="n">station_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Helper function to abbreviate station name by shortening words&quot;&quot;&quot;</span>
-    <span class="n">abbreviation_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;Street&quot;</span><span class="p">:</span> <span class="s2">&quot;St&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Lane&quot;</span><span class="p">:</span> <span class="s2">&quot;Ln&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Court&quot;</span><span class="p">:</span> <span class="s2">&quot;Ct&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Road&quot;</span><span class="p">:</span> <span class="s2">&quot;Rd&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;North&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;South&quot;</span><span class="p">:</span> <span class="s2">&quot;S&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;East&quot;</span><span class="p">:</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;West&quot;</span><span class="p">:</span> <span class="s2">&quot;W&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;Thameslink&quot;</span><span class="p">:</span> <span class="s2">&quot;TL&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">abbreviation</span> <span class="ow">in</span> <span class="n">abbreviation_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">station_name</span> <span class="o">=</span> <span class="n">station_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">abbreviation</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">station_name</span></div>
 </pre></div>
 
            </div>
