@@ -14,6 +14,8 @@ class OpenLive(TrainBase):
     def __init__(self) -> None:
         self._num: int = 0
         self._data: Optional[Any] = None
+        self._origin: str = ""
+        self._destination: str = ""
 
     def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
@@ -40,13 +42,19 @@ class OpenLive(TrainBase):
         )
         header_value = header(TokenValue=train_object.token)
         self._num = train_object.number
-        self._data = client.service.GetDepartureBoard(
-            numRows=train_object.number,
-            crs=train_object.station_from,
-            filterCrs=train_object.station_to,
-            filterType="to",
-            _soapheaders=[header_value],
-        )
+        try:
+            self._data = client.service.GetDepartureBoard(
+                numRows=train_object.number,
+                crs=train_object.station_from,
+                filterCrs=train_object.station_to,
+                filterType="to",
+                _soapheaders=[header_value],
+            )
+            self._origin = abbreviate_stn_name(self._data.locationName)
+            self._destination = abbreviate_stn_name(self._data.filterLocationName)
+        except protocol.exceptions.Fault as exc:
+            logger.error("Error retrieving train data (check stations?).")
+            raise ValueError(f"Invalid train data request: {train_object}") from exc
 
     def fetch_train(self, num: int) -> str:
         """Generate next train string
@@ -79,19 +87,22 @@ class OpenLive(TrainBase):
             status: str = service.etd
             return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
         except (AttributeError, TypeError, KeyError, IndexError):
+            # Try to get the error message & line wrap over each line
+            l_len: int = 38
             try:
-                # Try to get the error message & line wrap over each line
-                l_length: int = 41
                 # pylint: disable=protected-access
                 error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
-                logger.warning(error_msg)
-                return error_msg[(num - 1) * l_length : num * l_length]
+                if num == 1:
+                    logger.warning(error_msg)
+                return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
             except (AttributeError, TypeError, KeyError, IndexError) as exc:
                 logger.error("Could not get train error message", repr(exc))
                 # Check if any trains are running
-                if self._data.trainServices is None and num == 1:
-                    dest: str = self._data.filterLocationName
-                    return f"No train services to {dest}."
+                error_msg = f"No trains to {self._destination} from {self._origin}."
+                if num == 1:
+                    logger.warning(error_msg)
+                if self._data.trainServices is None:
+                    return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
                 # Otherwise, return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"

@@ -15,6 +15,8 @@ class Huxley2(TrainBase):
     def __init__(self) -> None:
         self._num: int = 0
         self._data: dict = {}
+        self._origin: str = ""
+        self._destination: str = ""
 
     def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
@@ -32,7 +34,13 @@ class Huxley2(TrainBase):
         )
 
         self._num = train_object.number
-        self._data = response.json()
+        try:
+            self._data = response.json()
+            self._origin = abbreviate_stn_name(self._data["locationName"])
+            self._destination = abbreviate_stn_name(self._data["filterLocationName"])
+        except protocol.exceptions.JSONDecodeError as exc:
+            logger.error("Error retrieving train data (check stations?).")
+            raise ValueError(f"Invalid train data request: {train_object}") from exc
 
     def fetch_train(self, num: int) -> str:
         """Generate next train string
@@ -62,18 +70,21 @@ class Huxley2(TrainBase):
             status: str = service["etd"]
             return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
         except (KeyError, TypeError, IndexError):
+            # Try to get the error message & line wrap over each line
+            l_len: int = 38
             try:
-                # Try to get the error message & line wrap over each line
-                l_length: int = 41
                 error_msg = str(self._data["nrccMessages"][0]["value"])
-                logger.warning("Train error", error_msg)
-                return error_msg[(num - 1) * l_length : num * l_length]
+                if num == 1:
+                    logger.warning(error_msg)
+                return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
             except (KeyError, TypeError, IndexError) as exc:
                 logger.error("Could not get train error message", repr(exc))
                 # Check if any trains are running
-                if self._data["trainServices"] is None and num == 1:
-                    dest: str = self._data["filterLocationName"]
-                    return f"No train services to {dest}."
+                error_msg = f"No trains to {self._destination} from {self._origin}."
+                if num == 1:
+                    logger.warning(error_msg)
+                if self._data["trainServices"] is None:
+                    return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
                 # Otherwise, return generic message on line 1
                 msg: str = "Error retrieving train data." if num == 1 else ""
                 return f"{msg}"

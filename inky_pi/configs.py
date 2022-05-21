@@ -5,7 +5,7 @@ _env: Env = Env()
 _env.read_env()
 
 TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default="OPEN_LIVE")
-"""Train model to use"""
+"""Train model to use (OPEN_LIVE or HUXLEY2)"""
 
 # Train constants
 STATION_FROM: str = _env.str("STATION_FROM", default="BHO")
@@ -30,7 +30,7 @@ TRAIN_MODEL_URL: str = _env.str(
 """OpenLDBWS API Endpoint"""
 
 WEATHER_MODEL: str = _env.str("WEATHER_MODEL", default="OPEN_WEATHER_MAP")
-"""Weather model to use"""
+"""Weather model to use (OPEN_WEATHER_MAP only for now)"""
 
 # Weather constants; default London
 LATITUDE: float = _env.float("LATITUDE", default=51.5085)

@@ -1,6 +1,7 @@
 """Utility functions for inky_pi."""
 import platform
 import sys
+from pathlib import Path
 from typing import Any, Callable, Dict
 
 from loguru import logger
@@ -35,7 +36,9 @@ def configure_logging() -> None:
 
     See: https://loguru.readthedocs.io/en/stable/api.html
     """
-    logger.add("inky.log", rotation="5 MB", serialize=True)
+    root_dir = Path(__file__).parent.parent
+    log_file = root_dir.joinpath("inky.log")
+    logger.add(log_file, rotation="5 MB", serialize=True)
 
 
 def import_display(display_object: DisplayObject) -> DisplayBase:
@@ -83,7 +86,10 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
         TrainBase: TrainBase object
     """
     if train_object.model == TrainModel.OPEN_LIVE and (
-        train_object.url is None or train_object.token is None
+        train_object.url is None
+        or train_object.token is None
+        or train_object.url == ""
+        or train_object.token == ""
     ):
         raise ValueError("Open Live requires URL and API token.")
 
@@ -91,7 +97,11 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
         TrainModel.OPEN_LIVE: instantiate_open_live,
         TrainModel.HUXLEY2: instantiate_huxley2,
     }
-    return train_handler[train_object.model](train_object)
+    try:
+        return train_handler[train_object.model](train_object)
+    except ValueError as exc:
+        logger.error(exc)
+        sys.exit(1)
 
 
 def weather_model_factory(weather_object: WeatherObject) -> WeatherBase:
@@ -106,7 +116,11 @@ def weather_model_factory(weather_object: WeatherObject) -> WeatherBase:
     weather_handler: Dict[WeatherModel, Callable[[WeatherObject], WeatherBase]] = {
         WeatherModel.OPEN_WEATHER_MAP: instantiate_open_weather_map,
     }
-    return weather_handler[weather_object.model](weather_object)
+    try:
+        return weather_handler[weather_object.model](weather_object)
+    except ValueError as exc:
+        logger.error(exc)
+        sys.exit(1)
 
 
 def instantiate_inky_display(display_object: DisplayObject) -> InkyDraw:

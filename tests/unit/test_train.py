@@ -80,7 +80,9 @@ def test_can_successfully_instantiate_train_huxley2(
     assert isinstance(ret, Huxley2)
 
 
+@patch("inky_pi.util.sys.exit")
 def test_instantiate_openldbws_without_url_and_token_raises_error(
+    sys_exit_mock: Mock,
     _setup_train_vars: Mapping,
 ) -> None:
     """Test for invalid OpenLDBWS object creation
@@ -98,6 +100,7 @@ def test_instantiate_openldbws_without_url_and_token_raises_error(
     )
     with pytest.raises(ValueError):
         train_model_factory(train_object)
+        sys_exit_mock.assert_called_once()
 
 
 def test_abbreviate_station_name() -> None:

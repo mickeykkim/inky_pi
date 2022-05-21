@@ -115,14 +115,16 @@ def terminal() -> None:
 
 def desktop() -> None:
     """Desktop display for inky_pi for testing purposes."""
-    # train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
+    train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(DisplayObject(DisplayModel.DESKTOP)) as display:
         display.draw_date()
         display.draw_time()
-        display.draw_mini_forecast(weather_data)
-        display.draw_weather_forecast(weather_data)
-        display.draw_forecast_icons(weather_data)
+        display.draw_weather_icon(weather_data.get_icon())
+        display.draw_weather_forecast(
+            weather_data, ScaleType.CELSIUS, disp_tomorrow=True
+        )
+        display.draw_train_times(train_data, TRAIN_NUMBER)
 
 
 if __name__ == "__main__":
