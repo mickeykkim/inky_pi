@@ -7,7 +7,6 @@ _env.read_env()
 TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default="OPEN_LIVE")
 """Train model to use (OPEN_LIVE or HUXLEY2)"""
 
-# Train constants
 STATION_FROM: str = _env.str("STATION_FROM", default="BHO")
 """From (departing) station"""
 
@@ -17,10 +16,11 @@ STATION_TO: str = _env.str("STATION_TO", default="WMW")
 TRAIN_NUMBER: int = _env.int("TRAIN_NUMBER", default=3)
 """Number of departing trains to fetch"""
 
-# Token: https://realtime.nationalrail.co.uk/OpenLDBWSRegistration/Registration
-# Keep this in a .env file in project root dir i.e.: TRAIN_API_TOKEN=keyvalue
 TRAIN_API_TOKEN: str = _env.str("TRAIN_API_TOKEN", default="keep-in-.env-file")
-"""OpenLDBWS API Token"""
+"""OpenLDBWS API Token
+Register: https://realtime.nationalrail.co.uk/OpenLDBWSRegistration/Registration
+Keep this in a .env file in project root dir i.e.: TRAIN_API_TOKEN=keyvalue
+"""
 
 TRAIN_MODEL_URL: str = _env.str(
     "TRAIN_MODEL_URL",
@@ -32,17 +32,17 @@ TRAIN_MODEL_URL: str = _env.str(
 WEATHER_MODEL: str = _env.str("WEATHER_MODEL", default="OPEN_WEATHER_MAP")
 """Weather model to use (OPEN_WEATHER_MAP only for now)"""
 
-# Weather constants; default London
 LATITUDE: float = _env.float("LATITUDE", default=51.5085)
-"""Target Latitude"""
+"""Target Latitude (default in London)"""
 
 LONGITUDE: float = _env.float("LONGITUDE", default=-0.1257)
-"""Target Longitude"""
+"""Target Longitude (default in London)"""
 
 EXCLUDE_FLAGS: str = _env.str("EXCLUDE_FLAGS", default="minutely,hourly")
 """Weather data exclude flags"""
 
-# OpenWeatherMap API Key: https://home.openweathermap.org/api_keys
-# Keep this in a .env file in project root dir i.e.: WEATHER_API_TOKEN=keyvalue
 WEATHER_API_TOKEN: str = _env.str("WEATHER_API_TOKEN", default="keep-in-.env-file")
-"""OpenWeatherMap API Key"""
+"""OpenWeatherMap API Key
+Keys: https://home.openweathermap.org/api_keys
+Keep this in a .env file in project root dir i.e.: WEATHER_API_TOKEN=keyvalue
+"""

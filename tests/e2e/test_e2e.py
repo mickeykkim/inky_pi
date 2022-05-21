@@ -18,6 +18,7 @@ def _setup_result() -> Generator:
     yield result
 
 
+@pytest.mark.e2e
 def test_running_terminal_ui_generates_expected_output(_setup_result: Result) -> None:
     """Runs the full program and checks each test string is present in output
 
@@ -41,7 +42,7 @@ def test_running_terminal_ui_generates_expected_output(_setup_result: Result) ->
         # train schedule from <station> to <station>
         rf"train\sschedule\sfrom\s{station_abbr}\sto\s{station_abbr}:",
         # <HH:MM> | P<#> to <station> - <status> [OR] <error message>
-        rf"({time}\s\|\sP\d\sto\s\w+\s\-\s\w+)|({error_msg})",
+        rf"({time}\s\|\sP\d\+sto\s\w+\s\-\s\w+)|({error_msg})",
     ]
 
     assert _setup_result.exit_code == 0
