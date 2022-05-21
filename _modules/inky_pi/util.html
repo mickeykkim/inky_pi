@@ -158,7 +158,10 @@
 <span class="sd">        TrainBase: TrainBase object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span> <span class="ow">and</span> <span class="p">(</span>
-        <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
+        <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
     <span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Open Live requires URL and API token.&quot;</span><span class="p">)</span>
 
@@ -166,7 +169,11 @@
         <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="p">:</span> <span class="n">instantiate_open_live</span><span class="p">,</span>
         <span class="n">TrainModel</span><span class="o">.</span><span class="n">HUXLEY2</span><span class="p">:</span> <span class="n">instantiate_huxley2</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="n">train_handler</span><span class="p">[</span><span class="n">train_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">train_object</span><span class="p">)</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">train_handler</span><span class="p">[</span><span class="n">train_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">train_object</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="weather_model_factory"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.weather_model_factory">[docs]</a><span class="k">def</span> <span class="nf">weather_model_factory</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WeatherBase</span><span class="p">:</span>
@@ -181,7 +188,11 @@
     <span class="n">weather_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">WeatherModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">WeatherObject</span><span class="p">],</span> <span class="n">WeatherBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="p">:</span> <span class="n">instantiate_open_weather_map</span><span class="p">,</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="n">weather_handler</span><span class="p">[</span><span class="n">weather_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">weather_object</span><span class="p">)</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">weather_handler</span><span class="p">[</span><span class="n">weather_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">weather_object</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="instantiate_inky_display"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.util.instantiate_inky_display">[docs]</a><span class="k">def</span> <span class="nf">instantiate_inky_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InkyDraw</span><span class="p">:</span>

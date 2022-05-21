@@ -190,14 +190,16 @@
 
 <div class="viewcode-block" id="desktop"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.main.desktop">[docs]</a><span class="k">def</span> <span class="nf">desktop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Desktop display for inky_pi for testing purposes.&quot;&quot;&quot;</span>
-    <span class="c1"># train_data: TrainBase = train_model_factory(TRAIN_OBJECT)</span>
+    <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">DisplayObject</span><span class="p">(</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">))</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
         <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
-        <span class="n">display</span><span class="o">.</span><span class="n">draw_mini_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
-        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
-        <span class="n">display</span><span class="o">.</span><span class="n">draw_forecast_icons</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span></div>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_icon</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">get_icon</span><span class="p">())</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span>
+            <span class="n">weather_data</span><span class="p">,</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">,</span> <span class="n">disp_tomorrow</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">)</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
