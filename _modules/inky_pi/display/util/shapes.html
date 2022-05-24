@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.display.util.shapes &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">inky_pi</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>inky_pi.display.util.shapes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for inky_pi.display.util.shapes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Image drawing primitives&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
+
+
+<div class="viewcode-block" id="gen_large_sun"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_large_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_large_sun</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate large sun icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="c1"># Protruding rays</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">29</span><span class="p">,</span>
+            <span class="n">y_pos</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">34</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">24</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">29</span><span class="p">,</span>
+            <span class="n">y_pos</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>  <span class="c1"># Top</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">29</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">56</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">34</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">46</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">24</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">46</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">29</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">56</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>  <span class="c1"># Bottom</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">x_pos</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">23</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">33</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>  <span class="c1"># Left</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">57</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">41</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">23</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">41</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">33</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">57</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span>  <span class="c1"># Right</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">47</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">47</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">47</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">47</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Sun circle</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_small_sun"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_small_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_small_sun</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate small sun icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="c1"># Protruding rays</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">11</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">19</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Sun circle</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_large_cloud"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_large_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_large_cloud</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate large cloud icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Outline</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">55</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">65</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="c1"># Negative Space</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">50</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">60</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">35</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_small_cloud"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_small_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_small_cloud</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate small cloud icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Outline</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">11</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">21</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">21</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">21</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">31</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">21</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">36</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">21</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="c1"># Negative Space</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">13</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">18</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">18</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">18</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">13</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">28</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">18</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">23</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">33</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">18</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_raindrop"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_raindrop">[docs]</a><span class="k">def</span> <span class="nf">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate raindrop icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the object</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Tail</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">7</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span>
+    <span class="c1"># Head</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="n">x_pos</span><span class="p">,</span>
+            <span class="n">y_pos</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span>
+            <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">y_pos</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_lightning"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_lightning">[docs]</a><span class="k">def</span> <span class="nf">gen_lightning</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate lightning bolt icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the object</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">polygon</span><span class="p">(</span>
+        <span class="p">(</span>
+            <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">12</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_snowflake"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_snowflake">[docs]</a><span class="k">def</span> <span class="nf">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate snowflake icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the object</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="gen_mist"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.shapes.gen_mist">[docs]</a><span class="k">def</span> <span class="nf">gen_mist</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Generate mist icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the object</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_thickness</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">22</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">47</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">8</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">16</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">60</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">16</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">24</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">55</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">24</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">9</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">32</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">51</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">32</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_thickness</span><span class="p">)</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x_pos</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span>
+        <span class="n">color</span><span class="p">,</span>
+        <span class="n">line_thickness</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

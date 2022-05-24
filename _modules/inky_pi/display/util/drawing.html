@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.display.util.drawing &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">inky_pi</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>inky_pi.display.util.drawing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for inky_pi.display.util.drawing</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Weather icon drawing functions&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
+
+<span class="kn">from</span> <span class="nn">inky_pi.display.util.shapes</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">gen_large_cloud</span><span class="p">,</span>
+    <span class="n">gen_large_sun</span><span class="p">,</span>
+    <span class="n">gen_lightning</span><span class="p">,</span>
+    <span class="n">gen_mist</span><span class="p">,</span>
+    <span class="n">gen_raindrop</span><span class="p">,</span>
+    <span class="n">gen_small_cloud</span><span class="p">,</span>
+    <span class="n">gen_small_sun</span><span class="p">,</span>
+    <span class="n">gen_snowflake</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="draw_sun_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_sun_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large sun icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_sun</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_sun_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_sun_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw small sun + large cloud icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_small_sun</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large cloud</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_two_clouds_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_two_clouds_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_two_clouds_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large cloud + small cloud icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_small_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_rain_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large cloud + two rain drop icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">42</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_sun_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_sun_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_rain_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw small sun, large cloud + two rain drop icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_small_sun</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">25</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">42</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_cloud_lightning_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_cloud_lightning_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_lightning_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large cloud + lightning bolt icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_lightning</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="draw_cloud_snow_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_cloud_snow_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_snow_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw large cloud + snowflake icons</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span>
+    <span class="n">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">12</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">)</span>
+    <span class="n">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">26</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">y_pos</span> <span class="o">+</span> <span class="mi">45</span><span class="p">)</span></div>
+
+
+<span class="c1"># pylint: disable=unused-argument</span>
+<div class="viewcode-block" id="draw_mist_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.html#inky_pi.display.util.drawing.draw_mist_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_mist_icon</span><span class="p">(</span>
+    <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_pos</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Draw mist icon</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        draw: ImageDraw object</span>
+<span class="sd">        color: Color of the outlines</span>
+<span class="sd">        color_neg: Color of the negative space</span>
+<span class="sd">        x_pos: X position of the sun</span>
+<span class="sd">        y_pos: Y position of the sun</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gen_mist</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">x_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
