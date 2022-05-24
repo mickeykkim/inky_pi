@@ -79,6 +79,8 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
 
 <div class="viewcode-block" id="abbreviate_stn_name"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.abbreviate_stn_name">[docs]</a><span class="k">def</span> <span class="nf">abbreviate_stn_name</span><span class="p">(</span><span class="n">station_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Helper function to abbreviate station name by shortening words&quot;&quot;&quot;</span>
@@ -162,7 +164,22 @@
         <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2"> is an invalid train request number (max: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="si">}</span><span class="s2">)&quot;</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_format_error_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Format error message</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error_msg (str): Error message</span>
+<span class="sd">            num (int): Train number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Formatted error message if num is 1 else empty string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LINE_LEN</span> <span class="p">:</span> <span class="n">num</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LINE_LEN</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
