@@ -43,7 +43,7 @@ class Huxley2(TrainBase):
             [hh:mm] | [Platform #] to [Final Destination Station] - [Status]
 
         Args:
-            num (int): Next train departing number
+            num (int): Next train departing number starting from 1
 
         Returns:
             str: Formatted string or error message
@@ -53,14 +53,12 @@ class Huxley2(TrainBase):
             raise ValueError("No train data available.")
 
         try:
-            # Get all data
             service: Dict = self._data["trainServices"][num - 1]
             platform: str = service["platform"][0:2]
             arrival_t: str = service["std"]
             dest_stn: str = service["destination"][0]["locationName"]
-            dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service["etd"]
-            return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
+            return TrainBase.format_train_string(arrival_t, platform, dest_stn, status)
         except (KeyError, TypeError, IndexError):
             return self._handle_error(num)
 
@@ -78,10 +76,10 @@ class Huxley2(TrainBase):
 
         try:
             error_msg = str(self._data["nrccMessages"][0]["value"])
-            return self._format_error_msg(error_msg, num)
+            return TrainBase.format_error_msg(error_msg, num)
         except (AttributeError, TypeError, KeyError, IndexError):
             error_msg = f"No trains to {self._destination} from {self._origin}."
-            return self._format_error_msg(error_msg, num)
+            return TrainBase.format_error_msg(error_msg, num)
 
 
 def instantiate_huxley2(train_object: TrainObject) -> Huxley2:

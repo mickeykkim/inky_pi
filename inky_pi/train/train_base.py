@@ -56,8 +56,6 @@ class TrainObject:
 class TrainBase(ABC):
     """Abstract base class for all train models"""
 
-    LINE_LEN: int = 38
-
     def __init__(self):
         self._num: int = 0
         self._data: Optional[Any] = None
@@ -84,6 +82,42 @@ class TrainBase(ABC):
             str: Train data
         """
 
+    @staticmethod
+    def format_train_string(
+        arrival_t: str, platform: str, dest_stn: str, status: str
+    ) -> str:
+        """Takes in a train's arrival time, platform, destination station, and status,
+        and returns a string with the train's information in a display format.
+
+        Args:
+            arrival_t (str): The time the train is due to arrive at the station.
+            platform (str): The platform number the train is arriving at.
+            dest_stn (str): The destination station of the train.
+            status (str): The status of the train.
+
+        Returns:
+            str: Formatted string
+        """
+        return (
+            f"{arrival_t} | P{platform} to {abbreviate_stn_name(dest_stn)} - {status}"
+        )
+
+    @staticmethod
+    def format_error_msg(error_msg: str, num: int) -> str:
+        """Format error message by line wrapping over each line
+
+        Args:
+            error_msg (str): Error message
+            num (int): Train number
+
+        Returns:
+            str: Formatted error message if num is 1 else empty string
+        """
+        line_length: int = 38
+        if num == 1:
+            logger.error(error_msg)
+        return (error_msg[(num - 1) * line_length : num * line_length]).lstrip(" ")
+
     def _validate_number(self, num: int) -> None:
         """Check if train number is valid
 
@@ -97,17 +131,3 @@ class TrainBase(ABC):
             raise ValueError(
                 f"{num} is an invalid train request number (max: {self._num})"
             )
-
-    def _format_error_msg(self, error_msg: str, num: int) -> str:
-        """Format error message by line wrapping over each line
-
-        Args:
-            error_msg (str): Error message
-            num (int): Train number
-
-        Returns:
-            str: Formatted error message if num is 1 else empty string
-        """
-        if num == 1:
-            logger.error(error_msg)
-        return (error_msg[(num - 1) * self.LINE_LEN : num * self.LINE_LEN]).lstrip(" ")

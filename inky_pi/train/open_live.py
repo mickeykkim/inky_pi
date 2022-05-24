@@ -67,14 +67,12 @@ class OpenLive(TrainBase):
             raise ValueError("No train data available.")
 
         try:
-            # Get all data
             service: Any = self._data.trainServices.service[num - 1]
             platform: str = service.platform[0:2]
             arrival_t: str = service.std
             dest_stn: str = service.destination.location[0].locationName
-            dest_stn_abbr: str = abbreviate_stn_name(dest_stn)
             status: str = service.etd
-            return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
+            return TrainBase.format_train_string(arrival_t, platform, dest_stn, status)
         except (AttributeError, TypeError, KeyError, IndexError):
             return self._handle_error(num)
 
@@ -93,10 +91,10 @@ class OpenLive(TrainBase):
         try:
             # pylint: disable=protected-access
             error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
-            return self._format_error_msg(error_msg, num)
+            return TrainBase.format_error_msg(error_msg, num)
         except (AttributeError, TypeError, KeyError, IndexError):
             error_msg = f"No trains to {self._destination} from {self._origin}."
-            return self._format_error_msg(error_msg, num)
+            return TrainBase.format_error_msg(error_msg, num)
 
 
 def instantiate_open_live(train_object: TrainObject) -> OpenLive:
