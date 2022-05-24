@@ -12,11 +12,10 @@ from inky_pi.train.train_base import (
     TrainObject,
     abbreviate_stn_name,
 )
-
-# pylint: disable=possibly-unused-variable
 from inky_pi.util import train_model_factory
 
 
+# pylint: disable=possibly-unused-variable
 @pytest.fixture
 def _setup_train_vars() -> Generator[Mapping[str, Union[int, float, str]], None, None]:
     station_from: str = "MZH"

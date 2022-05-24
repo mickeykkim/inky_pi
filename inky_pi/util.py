@@ -6,10 +6,10 @@ from typing import Any, Callable, Dict
 
 from loguru import logger
 
-from inky_pi.display.desktop_driver import DesktopDisplayDriver
 from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw
+from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
 from inky_pi.train.huxley2 import instantiate_huxley2
 from inky_pi.train.open_live import instantiate_open_live
 from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
