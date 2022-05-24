@@ -2,11 +2,20 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any, Dict
+from typing import Any, Dict, Optional
+
+from loguru import logger
 
 
 def abbreviate_stn_name(station_name: str) -> str:
-    """Helper function to abbreviate station name by shortening words"""
+    """Helper function to abbreviate station name by shortening words
+
+    Args:
+        station_name (str): Station name
+
+    Returns:
+        str: Abbreviated station name
+    """
     abbreviation_dict: Dict[str, str] = {
         "Station": "Stn",
         "Street": "St",
@@ -47,6 +56,14 @@ class TrainObject:
 class TrainBase(ABC):
     """Abstract base class for all train models"""
 
+    LINE_LEN: int = 38
+
+    def __init__(self):
+        self._num: int = 0
+        self._data: Optional[Any] = None
+        self._origin: str = ""
+        self._destination: str = ""
+
     @abstractmethod
     def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Retrieves train data from API; must be called after constructor
@@ -66,3 +83,31 @@ class TrainBase(ABC):
         Returns:
             str: Train data
         """
+
+    def _validate_number(self, num: int) -> None:
+        """Check if train number is valid
+
+        Args:
+            num (int): Train number to check
+
+        Raises:
+            ValueError: Invalid train number
+        """
+        if num < 0 or num > self._num:
+            raise ValueError(
+                f"{num} is an invalid train request number (max: {self._num})"
+            )
+
+    def _format_error_msg(self, error_msg: str, num: int) -> str:
+        """Format error message by line wrapping over each line
+
+        Args:
+            error_msg (str): Error message
+            num (int): Train number
+
+        Returns:
+            str: Formatted error message if num is 1 else empty string
+        """
+        if num == 1:
+            logger.error(error_msg)
+        return (error_msg[(num - 1) * self.LINE_LEN : num * self.LINE_LEN]).lstrip(" ")

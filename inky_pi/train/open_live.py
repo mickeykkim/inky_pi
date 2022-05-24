@@ -1,6 +1,6 @@
 """Open Live Departure Boards Web Service (OpenLDBWS) API
 """
-from typing import Any, Optional
+from typing import Any
 
 import zeep
 from loguru import logger
@@ -10,12 +10,6 @@ from inky_pi.train.train_base import TrainBase, TrainObject, abbreviate_stn_name
 
 class OpenLive(TrainBase):
     """Fetch and manage train data"""
-
-    def __init__(self) -> None:
-        self._num: int = 0
-        self._data: Optional[Any] = None
-        self._origin: str = ""
-        self._destination: str = ""
 
     def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
         """Requests train data from OpenLDBWS train arrivals API endpoint
@@ -68,14 +62,9 @@ class OpenLive(TrainBase):
         Returns:
             str: Formatted string or error message
         """
-        if num < 0 or num > self._num:
-            logger.error("Invalid fetch_train num", num)
-            raise ValueError(
-                f"{num} is an invalid train request number (max: {self._num})"
-            )
-
+        self._validate_number(num)
         if not self._data:
-            raise ValueError("No train data available")
+            raise ValueError("No train data available.")
 
         try:
             # Get all data
@@ -87,25 +76,27 @@ class OpenLive(TrainBase):
             status: str = service.etd
             return f"{arrival_t} | P{platform} to {dest_stn_abbr} - {status}"
         except (AttributeError, TypeError, KeyError, IndexError):
-            # Try to get the error message & line wrap over each line
-            l_len: int = 38
-            try:
-                # pylint: disable=protected-access
-                error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
-                if num == 1:
-                    logger.warning(error_msg)
-                return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
-            except (AttributeError, TypeError, KeyError, IndexError) as exc:
-                logger.error("Could not get train error message", repr(exc))
-                # Check if any trains are running
-                error_msg = f"No trains to {self._destination} from {self._origin}."
-                if num == 1:
-                    logger.warning(error_msg)
-                if self._data.trainServices is None:
-                    return (error_msg[(num - 1) * l_len : num * l_len]).lstrip(" ")
-                # Otherwise, return generic message on line 1
-                msg: str = "Error retrieving train data." if num == 1 else ""
-                return f"{msg}"
+            return self._handle_error(num)
+
+    def _handle_error(self, num: int) -> str:
+        """Log error and raise exception
+
+        Args:
+            num (int): Train number
+
+        Raises:
+            Exception: Exception to raise
+        """
+        if not self._data:
+            raise ValueError("No train data available.")
+
+        try:
+            # pylint: disable=protected-access
+            error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
+            return self._format_error_msg(error_msg, num)
+        except (AttributeError, TypeError, KeyError, IndexError):
+            error_msg = f"No trains to {self._destination} from {self._origin}."
+            return self._format_error_msg(error_msg, num)
 
 
 def instantiate_open_live(train_object: TrainObject) -> OpenLive:
