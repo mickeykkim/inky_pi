@@ -4,7 +4,7 @@ Abstract class for all display models"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum, auto
-from typing import Any
+from typing import Any, Tuple
 
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
@@ -42,34 +42,31 @@ class DisplayBase(ABC):
         """Exit context manager"""
 
     @abstractmethod
-    def draw_date(self, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_date(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Display date
 
         Args:
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
 
     @abstractmethod
-    def draw_time(self, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_time(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Display time
 
         Args:
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
 
     @abstractmethod
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int = 0, x_pos: int = 0, y_pos: int = 0
+        self, data_t: TrainBase, num_trains: int = 0, x_y: Tuple[int, int] = (0, 0)
     ) -> None:
         """Display train data
 
         Args:
             data_t: train data
             num_trains: number of trains to display
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
 
     @abstractmethod
@@ -77,8 +74,7 @@ class DisplayBase(ABC):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
         disp_tomorrow: bool = False,
     ) -> None:
         """Display weather forecast
@@ -86,8 +82,7 @@ class DisplayBase(ABC):
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
             disp_tomorrow: display tomorrow's forecast
         """
 
@@ -96,8 +91,7 @@ class DisplayBase(ABC):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
         day: int = 0,
     ) -> None:
         """Display mini weather forecast
@@ -105,19 +99,17 @@ class DisplayBase(ABC):
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
             day: day to display
         """
 
     @abstractmethod
-    def draw_weather_icon(self, icon: IconType, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_weather_icon(self, icon: IconType, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Display weather icon
 
         Args:
             icon: icon type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
 
     @abstractmethod
@@ -125,16 +117,14 @@ class DisplayBase(ABC):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
     ) -> None:
         """Display extended forecast icons
 
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
 
     @abstractmethod

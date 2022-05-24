@@ -3,7 +3,7 @@
 Draw strings and icons"""
 from datetime import datetime, timedelta
 from time import strftime
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Tuple
 
 # pylint: disable=no-name-in-module
 from font_fredoka_one import FredokaOne  # type: ignore
@@ -83,14 +83,12 @@ class InkyDraw(DisplayBase):
         self._draw_goodnight_text(data_w, scale)
 
     def _draw_goodnight_icon(self):
-        x_mid = self._display.WIDTH / 2
-        y_mid = self._display.HEIGHT / 2
+        x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
         # Closed eye icon
         line_width = 8
-        x_0, y_0 = x_mid - 75, -50
+        x_0, y_0 = x_mid - 75 - 50
         x_1, y_1 = x_mid + 75, y_mid - 75
-        a_start = 20
-        a_end = 160
+        a_start, a_end = 20, 160
         self._img_draw.arc(
             [(x_0, y_0), (x_1, y_1)], a_start, a_end, self._color, line_width
         )
@@ -110,17 +108,14 @@ class InkyDraw(DisplayBase):
     def _draw_goodnight_text(
         self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
     ):
-        x_mid = self._display.WIDTH / 2
-        y_mid = self._display.HEIGHT / 2
+        x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
         # Message text
         message_str = "Good Night ^^"
         width, height = FONT_GL.getsize(message_str)
-        message_x = x_mid - (width / 2)
-        message_y = y_mid - (height / 2)
+        message_x, message_y = x_mid - (width / 2), y_mid - (height / 2)
         self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
         # Weather text
-        x_weather = 20
-        y_weather = 210
+        x_weather, y_weather = 20, 210
         self._img_draw.text(
             (x_weather, y_weather),
             data_w.get_temp_range(1, scale),
@@ -131,30 +126,24 @@ class InkyDraw(DisplayBase):
             (x_weather, y_weather + 40), data_w.get_condition(1), self._color, FONT_GS
         )
 
-    def draw_date(self, x_pos: int = 10, y_pos: int = 5) -> None:
+    def draw_date(self, x_y: Tuple[int, int] = (10, 5)) -> None:
         """Draw date text
 
         Args:
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
         """
-        self._img_draw.text(
-            (x_pos, y_pos), strftime("%a %d %b %Y"), self._black, FONT_S
-        )
+        self._img_draw.text(x_y, strftime("%a %d %b %Y"), self._black, FONT_S)
 
-    def draw_time(self, x_pos: int = 257, y_pos: int = 5) -> None:
+    def draw_time(self, x_y: Tuple[int, int] = (257, 5)) -> None:
         """Draw time text
 
         Args:
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
         """
-        self._img_draw.text(
-            (x_pos, y_pos), f"Updated {strftime('%H:%M')}", self._black, FONT_S
-        )
+        self._img_draw.text(x_y, f"Updated {strftime('%H:%M')}", self._black, FONT_S)
 
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 10, y_pos: int = 205
+        self, data_t: TrainBase, num_trains: int = 3, x_y: Tuple[int, int] = (10, 205)
     ) -> None:
         """Draw all train times text
 
@@ -163,20 +152,21 @@ class InkyDraw(DisplayBase):
         Args:
             data_t (TrainBase): TrainBase object
             num_trains (int): Number of train info to draw
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
         """
         for i in range(0, num_trains):
             self._img_draw.text(
-                (x_pos, y_pos + i * 30), data_t.fetch_train(i + 1), self._black, FONT_S
+                (x_y[0], x_y[1] + i * 30),
+                data_t.fetch_train(i + 1),
+                self._black,
+                FONT_S,
             )
 
     def draw_weather_forecast(
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 135,
-        y_pos: int = 50,
+        x_y: Tuple[int, int] = (135, 50),
         disp_tomorrow: bool = False,
     ) -> None:
         """Draw all weather forecast text
@@ -189,34 +179,33 @@ class InkyDraw(DisplayBase):
         Args:
             data_w (WeatherBase): WeatherBase object
             scale (ScaleType): Celsius or Fahrenheit for formatting
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
             disp_tomorrow (bool): Display tomorrow's weather forecast
         """
         self._img_draw.text(
-            (x_pos, y_pos),
+            x_y,
             data_w.get_current_temperature(scale),
             self._black,
             FONT_XL,
         )
         self._img_draw.text(
-            (x_pos + 140, y_pos + 13),
+            (x_y[0] + 140, x_y[1] + 13),
             data_w.get_current_condition(),
             self._black,
             FONT_M,
         )
         self._img_draw.text(
-            (x_pos, y_pos + 50),
+            (x_y[0], x_y[1] + 50),
             data_w.get_temp_range(0, scale),
             self._black,
             FONT_M,
         )
         self._img_draw.text(
-            (x_pos, y_pos + 80), data_w.get_condition(0), self._black, FONT_M
+            (x_y[0], x_y[1] + 80), data_w.get_condition(0), self._black, FONT_M
         )
         if disp_tomorrow:
             self._img_draw.text(
-                (x_pos, y_pos + 110),
+                (x_y[0], x_y[1] + 110),
                 "tomorrow: " + data_w.get_condition(1),
                 self._black,
                 FONT_S,
@@ -225,15 +214,13 @@ class InkyDraw(DisplayBase):
     def draw_weather_icon(
         self,
         icon: IconType,
-        x_pos: int = 30,
-        y_pos: int = 90,
+        x_y: Tuple[int, int] = (30, 90),
     ) -> None:
         """Draws specified icon
 
         Args:
             icon (IconType): Weather IconType to draw
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
         """
         draw_icon_dispatcher: Dict[IconType, Callable] = {
             IconType.CLEAR_SKY: draw_sun_icon,
@@ -246,16 +233,13 @@ class InkyDraw(DisplayBase):
             IconType.SNOW: draw_cloud_snow_icon,
             IconType.MIST: draw_mist_icon,
         }
-        draw_icon_dispatcher[icon](
-            self._img_draw, self._black, self._white, x_pos, y_pos
-        )
+        draw_icon_dispatcher[icon](self._img_draw, self._black, self._white, x_y)
 
     def draw_mini_forecast(
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 30,
-        y_pos: int = 40,
+        x_y: Tuple[int, int] = (30, 40),
         day: int = 0,
     ) -> None:
         """Draws weather forecast icons and text future day
@@ -263,21 +247,20 @@ class InkyDraw(DisplayBase):
         Args:
             data_w (WeatherBase): WeatherBase object
             scale (ScaleType): Celsius or Fahrenheit for formatting
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
             day (int): Day to display
         """
         new_date = datetime.now() + timedelta(days=day)
         if day > 0:
             self._img_draw.text(
-                (x_pos + 10, y_pos + 5),
+                (x_y[0] + 10, x_y[1] + 5),
                 new_date.strftime("%a %d"),
                 self._black,
                 FONT_XS,
             )
-        self.draw_weather_icon(data_w.get_icon(day), x_pos, y_pos + 27)
+        self.draw_weather_icon(data_w.get_icon(day), (x_y[0], x_y[1] + 27))
         self._img_draw.text(
-            ((x_pos + 10 if day > 0 else x_pos), y_pos + 90),
+            ((x_y[0] + 10 if day > 0 else x_y[0]), x_y[1] + 90),
             data_w.get_future_weather(day, scale),
             self._black,
             FONT_XS if day > 0 else FONT_S,
@@ -287,16 +270,17 @@ class InkyDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 10,
-        y_pos: int = 180,
+        x_y: Tuple[int, int] = (10, 180),
     ) -> None:
         """Draws weather forecast icons and text for next 5 days
 
         Args:
             data_w (WeatherBase): WeatherBase object
             scale (ScaleType): Celsius or Fahrenheit for formatting
-            x_pos (int): X position offset
-            y_pos (int): Y position offset
+            x_y: (x, y) coordinates
         """
+        spacing: int = 78
         for i in range(0, 5):
-            self.draw_mini_forecast(data_w, scale, x_pos + (i * 78), y_pos, i + 1)
+            self.draw_mini_forecast(
+                data_w, scale, (x_y[0] + (i * spacing), x_y[1]), i + 1
+            )

@@ -2,7 +2,7 @@
 
 Draws data to terminal"""
 from time import strftime
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 
 from rich.console import Console
 
@@ -44,36 +44,33 @@ class TerminalDraw(DisplayBase):
         """Render collected text onto the terminal"""
         self._console.print("\n".join(self._output))
 
-    def draw_date(self, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_date(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Append date to terminal text
 
         Args:
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
         date = strftime("%a %d %b %Y")
         self._output.append(date)
 
-    def draw_time(self, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_time(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Append time to terminal text
 
         Args:
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
         time = strftime("%H:%M")
         self._output.append(time)
 
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int = 3, x_pos: int = 0, y_pos: int = 0
+        self, data_t: TrainBase, num_trains: int = 3, x_y: Tuple[int, int] = (0, 0)
     ) -> None:
         """Append train data to terminal text
 
         Args:
             data_t: train data
             num_trains: number of trains to display
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
         self._output.append(f"train schedule from {STATION_FROM} to {STATION_TO}:")
         for i in range(0, num_trains):
@@ -84,8 +81,7 @@ class TerminalDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
         disp_tomorrow: bool = False,
     ) -> None:
         """Append weather forecast to terminal text
@@ -93,8 +89,7 @@ class TerminalDraw(DisplayBase):
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
             disp_tomorrow: display tomorrow's forecast
         """
         current_temp = data_w.get_current_temperature(scale)
@@ -113,8 +108,7 @@ class TerminalDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
         day: int = 0,
     ) -> None:
         """Append mini weather forecast to terminal text
@@ -122,19 +116,17 @@ class TerminalDraw(DisplayBase):
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
             day: day to display
         """
         self._output.append(f"{self.todo}: draw_mini_forecast")
 
-    def draw_weather_icon(self, icon: IconType, x_pos: int = 0, y_pos: int = 0) -> None:
+    def draw_weather_icon(self, icon: IconType, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Append weather icon to terminal text
 
         Args:
             icon: icon type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
         draw_icon_dispatcher: Dict[IconType, str] = {
             IconType.CLEAR_SKY: "\U00002600",
@@ -154,16 +146,14 @@ class TerminalDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_pos: int = 0,
-        y_pos: int = 0,
+        x_y: Tuple[int, int] = (0, 0),
     ) -> None:
         """Append extended weather forecast icons to terminal text
 
         Args:
             data_w: weather data
             scale: scale type
-            x_pos: x position
-            y_pos: y position
+            x_y: (x, y) coordinates
         """
         self._output.append(f"{self.todo}: draw_forecast_icons")
 

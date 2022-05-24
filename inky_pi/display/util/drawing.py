@@ -1,5 +1,5 @@
 """Weather icon drawing functions"""
-from typing import Any
+from typing import Any, Tuple
 
 from PIL import ImageDraw  # type: ignore
 
@@ -16,7 +16,7 @@ from inky_pi.display.util.shapes import (
 
 
 def draw_sun_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large sun icon
 
@@ -24,14 +24,13 @@ def draw_sun_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_sun(draw, color, color_neg, x_pos + 7, y_pos)
+    gen_large_sun(draw, color, color_neg, (x_y[0] + 7, x_y[1]))
 
 
 def draw_sun_cloud_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw small sun + large cloud icons
 
@@ -39,15 +38,14 @@ def draw_sun_cloud_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_small_sun(draw, color, color_neg, x_pos, y_pos)
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos + 5)
+    gen_small_sun(draw, color, color_neg, x_y)
+    gen_large_cloud(draw, color, color_neg, (x_y[0], x_y[1] + 5))
 
 
 def draw_cloud_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large cloud
 
@@ -55,14 +53,13 @@ def draw_cloud_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos)
+    gen_large_cloud(draw, color, color_neg, x_y)
 
 
 def draw_two_clouds_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large cloud + small cloud icons
 
@@ -70,15 +67,14 @@ def draw_two_clouds_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos)
-    gen_small_cloud(draw, color, color_neg, x_pos + 30, y_pos + 25)
+    gen_large_cloud(draw, color, color_neg, x_y)
+    gen_small_cloud(draw, color, color_neg, (x_y[0] + 30, x_y[1] + 25))
 
 
 def draw_cloud_rain_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large cloud + two rain drop icons
 
@@ -86,16 +82,15 @@ def draw_cloud_rain_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos)
-    gen_raindrop(draw, color, x_pos + 25, y_pos + 45)
-    gen_raindrop(draw, color, x_pos + 42, y_pos + 45)
+    gen_large_cloud(draw, color, color_neg, x_y)
+    gen_raindrop(draw, color, (x_y[0] + 25, x_y[1] + 45))
+    gen_raindrop(draw, color, (x_y[0] + 42, x_y[1] + 45))
 
 
 def draw_sun_cloud_rain_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw small sun, large cloud + two rain drop icons
 
@@ -103,17 +98,16 @@ def draw_sun_cloud_rain_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_small_sun(draw, color, color_neg, x_pos, y_pos)
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos + 5)
-    gen_raindrop(draw, color, x_pos + 25, y_pos + 50)
-    gen_raindrop(draw, color, x_pos + 42, y_pos + 50)
+    gen_small_sun(draw, color, color_neg, x_y)
+    gen_large_cloud(draw, color, color_neg, (x_y[0], x_y[1] + 5))
+    gen_raindrop(draw, color, (x_y[0] + 25, x_y[1] + 50))
+    gen_raindrop(draw, color, (x_y[0] + 42, x_y[1] + 50))
 
 
 def draw_cloud_lightning_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large cloud + lightning bolt icons
 
@@ -121,15 +115,14 @@ def draw_cloud_lightning_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos)
-    gen_lightning(draw, color, x_pos + 30, y_pos + 45)
+    gen_large_cloud(draw, color, color_neg, x_y)
+    gen_lightning(draw, color, (x_y[0] + 30, x_y[1] + 45))
 
 
 def draw_cloud_snow_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw large cloud + snowflake icons
 
@@ -137,18 +130,17 @@ def draw_cloud_snow_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_large_cloud(draw, color, color_neg, x_pos, y_pos)
-    gen_snowflake(draw, color, x_pos + 12, y_pos + 45)
-    gen_snowflake(draw, color, x_pos + 26, y_pos + 50)
-    gen_snowflake(draw, color, x_pos + 40, y_pos + 45)
+    gen_large_cloud(draw, color, color_neg, x_y)
+    gen_snowflake(draw, color, (x_y[0] + 12, x_y[1] + 45))
+    gen_snowflake(draw, color, (x_y[0] + 26, x_y[1] + 50))
+    gen_snowflake(draw, color, (x_y[0] + 40, x_y[1] + 45))
 
 
 # pylint: disable=unused-argument
 def draw_mist_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_pos: int, y_pos: int
+    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
 ) -> None:
     """Draw mist icon
 
@@ -156,7 +148,6 @@ def draw_mist_icon(
         draw: ImageDraw object
         color: Color of the outlines
         color_neg: Color of the negative space
-        x_pos: X position of the sun
-        y_pos: Y position of the sun
+        x_y: (x, y) coordinates
     """
-    gen_mist(draw, color, x_pos + 5, y_pos)
+    gen_mist(draw, color, (x_y[0] + 5, x_y[1]))
