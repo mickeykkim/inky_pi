@@ -118,7 +118,7 @@
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – Next train departing number</p>
+<dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – Next train departing number starting from 1</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Formatted string or error message</p>
@@ -236,11 +236,6 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.train_base.</span></span><span class="sig-name descname"><span class="pre">TrainBase</span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Abstract base class for all train models</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainBase.LINE_LEN">
-<span class="sig-name descname"><span class="pre">LINE_LEN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">38</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.LINE_LEN" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="inky_pi.train.train_base.TrainBase.fetch_train">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch_train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase.fetch_train"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.fetch_train" title="Permalink to this definition"></a></dt>
@@ -251,6 +246,49 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Train data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainBase.format_error_msg">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format_error_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase.format_error_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.format_error_msg" title="Permalink to this definition"></a></dt>
+<dd><p>Format error message by line wrapping over each line</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>error_msg</strong> (<em>str</em>) – Error message</p></li>
+<li><p><strong>num</strong> (<em>int</em>) – Train number</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Formatted error message if num is 1 else empty string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainBase.format_train_string">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format_train_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrival_t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">platform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest_stn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/train_base.html#TrainBase.format_train_string"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainBase.format_train_string" title="Permalink to this definition"></a></dt>
+<dd><p>Takes in a train’s arrival time, platform, destination station, and status,
+and returns a string with the train’s information in a display format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arrival_t</strong> (<em>str</em>) – The time the train is due to arrive at the station.</p></li>
+<li><p><strong>platform</strong> (<em>str</em>) – The platform number the train is arriving at.</p></li>
+<li><p><strong>dest_stn</strong> (<em>str</em>) – The destination station of the train.</p></li>
+<li><p><strong>status</strong> (<em>str</em>) – The status of the train.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Formatted string</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>str</p>

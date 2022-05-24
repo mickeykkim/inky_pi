@@ -131,8 +131,6 @@
 <div class="viewcode-block" id="TrainBase"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase">[docs]</a><span class="k">class</span> <span class="nc">TrainBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class for all train models&quot;&quot;&quot;</span>
 
-    <span class="n">LINE_LEN</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">38</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -159,6 +157,42 @@
 <span class="sd">            str: Train data</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
+<div class="viewcode-block" id="TrainBase.format_train_string"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.format_train_string">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">format_train_string</span><span class="p">(</span>
+        <span class="n">arrival_t</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">platform</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest_stn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Takes in a train&#39;s arrival time, platform, destination station, and status,</span>
+<span class="sd">        and returns a string with the train&#39;s information in a display format.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            arrival_t (str): The time the train is due to arrive at the station.</span>
+<span class="sd">            platform (str): The platform number the train is arriving at.</span>
+<span class="sd">            dest_stn (str): The destination station of the train.</span>
+<span class="sd">            status (str): The status of the train.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Formatted string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">arrival_t</span><span class="si">}</span><span class="s2"> | P</span><span class="si">{</span><span class="n">platform</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">abbreviate_stn_name</span><span class="p">(</span><span class="n">dest_stn</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="TrainBase.format_error_msg"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.train_base.TrainBase.format_error_msg">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Format error message by line wrapping over each line</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            error_msg (str): Error message</span>
+<span class="sd">            num (int): Train number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Formatted error message if num is 1 else empty string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">38</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">line_length</span> <span class="p">:</span> <span class="n">num</span> <span class="o">*</span> <span class="n">line_length</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">_validate_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if train number is valid</span>
 
@@ -171,21 +205,7 @@
         <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2"> is an invalid train request number (max: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="si">}</span><span class="s2">)&quot;</span>
-            <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_format_error_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Format error message by line wrapping over each line</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            error_msg (str): Error message</span>
-<span class="sd">            num (int): Train number</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            str: Formatted error message if num is 1 else empty string</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LINE_LEN</span> <span class="p">:</span> <span class="n">num</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">LINE_LEN</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+            <span class="p">)</span></div>
 </pre></div>
 
            </div>

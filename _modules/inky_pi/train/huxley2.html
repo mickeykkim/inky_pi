@@ -118,7 +118,7 @@
 <span class="sd">            [hh:mm] | [Platform #] to [Final Destination Station] - [Status]</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num (int): Next train departing number</span>
+<span class="sd">            num (int): Next train departing number starting from 1</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: Formatted string or error message</span>
@@ -128,14 +128,12 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No train data available.&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Get all data</span>
             <span class="n">service</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;trainServices&quot;</span><span class="p">][</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
             <span class="n">platform</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="p">[</span><span class="s2">&quot;platform&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">arrival_t</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="p">[</span><span class="s2">&quot;std&quot;</span><span class="p">]</span>
             <span class="n">dest_stn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="p">[</span><span class="s2">&quot;destination&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;locationName&quot;</span><span class="p">]</span>
-            <span class="n">dest_stn_abbr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">abbreviate_stn_name</span><span class="p">(</span><span class="n">dest_stn</span><span class="p">)</span>
             <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="p">[</span><span class="s2">&quot;etd&quot;</span><span class="p">]</span>
-            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">arrival_t</span><span class="si">}</span><span class="s2"> | P</span><span class="si">{</span><span class="n">platform</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">dest_stn_abbr</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">return</span> <span class="n">TrainBase</span><span class="o">.</span><span class="n">format_train_string</span><span class="p">(</span><span class="n">arrival_t</span><span class="p">,</span> <span class="n">platform</span><span class="p">,</span> <span class="n">dest_stn</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_error</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></div>
 
@@ -153,10 +151,10 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">error_msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;nrccMessages&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">TrainBase</span><span class="o">.</span><span class="n">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
             <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No trains to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_destination</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_origin</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="n">TrainBase</span><span class="o">.</span><span class="n">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.html#inky_pi.train.huxley2.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
