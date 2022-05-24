@@ -44,8 +44,8 @@ class OpenLive(TrainBase):
                 filterType="to",
                 _soapheaders=[header_value],
             )
-            self._origin = abbreviate_stn_name(self._data.locationName)
-            self._destination = abbreviate_stn_name(self._data.filterLocationName)
+            self.origin = abbreviate_stn_name(self._data.locationName)
+            self.destination = abbreviate_stn_name(self._data.filterLocationName)
         except protocol.exceptions.Fault as exc:
             logger.error("Error retrieving train data (check stations?).")
             raise ValueError(f"Invalid train data request: {train_object}") from exc
@@ -93,7 +93,7 @@ class OpenLive(TrainBase):
             error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
             return TrainBase.format_error_msg(error_msg, num)
         except (AttributeError, TypeError, KeyError, IndexError):
-            error_msg = f"No trains to {self._destination} from {self._origin}."
+            error_msg = f"No trains to {self.destination} from {self.origin}."
             return TrainBase.format_error_msg(error_msg, num)
 
 

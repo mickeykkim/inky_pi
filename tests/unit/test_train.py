@@ -1,4 +1,5 @@
 """Tests for train module"""
+import json
 from pathlib import Path
 from typing import Generator, Mapping, Union
 from unittest.mock import Mock, patch
@@ -14,6 +15,7 @@ from inky_pi.train.train_base import (
     abbreviate_stn_name,
 )
 from inky_pi.util import train_model_factory
+from tests.unit.resources.fakes import FakeRequests
 
 TEST_DIR = Path(__file__).parent
 RESOURCES_DIR = TEST_DIR.joinpath("resources")
@@ -61,6 +63,20 @@ def _setup_train_object_huxley2(
     yield huxley2_train_object
 
 
+@pytest.fixture
+def _setup_huxley2_fake_data(
+    _setup_train_object_huxley2: TrainObject,
+) -> Generator[Huxley2, None, None]:
+    requests = FakeRequests()
+    with open(HUXLEY2_TRAIN_DATA, "r", encoding="utf-8") as file:
+        train_data = json.load(file)
+        requests.add_response(train_data, 200)
+
+    train_base = Huxley2()
+    train_base.retrieve_data(requests, _setup_train_object_huxley2)
+    yield train_base
+
+
 @pytest.mark.parametrize(
     "name, expected_abbreviation",
     [
@@ -77,6 +93,45 @@ def test_abbreviate_station_name(name: str, expected_abbreviation: str) -> None:
         expected_abbreviation (str): The expected abbreviation of the station
     """
     assert abbreviate_stn_name(name) == expected_abbreviation
+
+
+def test_format_train_string() -> None:
+    """Test for formatting train string"""
+    arrival_t = "12:00"
+    platform = "1"
+    dest_stn = "London Cannon Street"
+    status = "On time"
+    assert TrainBase.format_train_string(arrival_t, platform, dest_stn, status) == (
+        "12:00 | P1 to London Cannon St - On time"
+    )
+
+
+@pytest.mark.parametrize(
+    "error_msg, num, expected",
+    [
+        ("Error message", 1, "Error message"),
+        (
+            "There are no train services at this station",
+            1,
+            "There are no train services at this st",
+        ),
+        ("Error message", 2, ""),
+        (
+            "There are no train services at station London Bridge",
+            2,
+            "London Bridge",
+        ),
+    ],
+)
+def test_format_train_error_string(error_msg: str, num: int, expected: str) -> None:
+    """Test for formatting train error string
+
+    Args:
+        error_msg (str): The error message
+        num (int): The number of trains
+        expected (str): The expected string
+    """
+    assert TrainBase.format_error_msg(error_msg, num) == expected
 
 
 @patch("inky_pi.train.open_live.zeep.plugins.HistoryPlugin")
@@ -137,3 +192,42 @@ def test_instantiate_open_live_without_url_and_token_raises_error(
     with pytest.raises(ValueError):
         train_model_factory(train_object)
         sys_exit_mock.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    "num, expected",
+    [
+        (1, "18:11 | P2 to Slade Green - On time"),
+        (2, "18:14 | P1 to Luton - On time"),
+        (3, "18:21 | P2 to Slade Green - On time"),
+    ],
+)
+def test_can_successfully_fetch_train_string_huxley2(
+    num: int, expected: str, _setup_huxley2_fake_data: Huxley2
+) -> None:
+    """Test for fetching train string from Huxley2 fake data
+
+    Args:
+        num (int): The number of trains to be fetched
+        expected (str): The expected string
+        _setup_huxley2_fake_data (Huxley2): Huxley2 fake data
+    """
+    assert _setup_huxley2_fake_data.fetch_train(num) == expected
+
+
+@pytest.mark.parametrize(
+    "num",
+    [-1, 10],
+)
+def test_fetch_train_string_huxley2_invalid_num_raises_error(
+    num: int,
+    _setup_huxley2_fake_data: Huxley2,
+) -> None:
+    """Test invalid train number for Huxley2
+
+    Args:
+        num (int): The number of trains to be fetched
+        _setup_huxley2_fake_data (Huxley2): Huxley2 fake data
+    """
+    with pytest.raises(ValueError):
+        _setup_huxley2_fake_data.fetch_train(num)

@@ -38,7 +38,8 @@ class FakeRequests:
         """
         self.response = FakeResponse(json_data, status_code)
 
-    def get(self, url: str, params: dict) -> Optional[FakeResponse]:
+    # pylint: disable=unused-argument
+    def get(self, url: str, params: dict = None) -> Optional[FakeResponse]:
         """Fake get method
 
         Args:
@@ -46,6 +47,5 @@ class FakeRequests:
             params (dict): params
         """
         assert url is not None
-        assert params is not None
         assert self.response is not None
         return self.response

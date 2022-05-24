@@ -59,8 +59,8 @@ class TrainBase(ABC):
     def __init__(self):
         self._num: int = 0
         self._data: Optional[Any] = None
-        self._origin: str = ""
-        self._destination: str = ""
+        self.origin: str = ""
+        self.destination: str = ""
 
     @abstractmethod
     def retrieve_data(self, protocol: Any, train_object: TrainObject) -> None:
