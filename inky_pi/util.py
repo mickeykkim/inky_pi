@@ -76,6 +76,22 @@ def display_model_factory(display_object: DisplayObject) -> DisplayBase:
     return display_handler[display_object.model](display_object)
 
 
+def _check_open_live_params(train_object: TrainObject) -> None:
+    """Checks if the Open Live URL and API token have been provided
+
+    Args:
+        train_object (TrainObject): train object containing model
+
+    Raises:
+        ValueError: If the Open Live API token is invalid
+    """
+    if train_object.model == TrainModel.OPEN_LIVE:
+        if train_object.url is None or train_object.url == "":
+            raise ValueError("Open Live requires URL.")
+        if train_object.token is None or train_object.token == "":
+            raise ValueError("Open Live requires API token.")
+
+
 def train_model_factory(train_object: TrainObject) -> TrainBase:
     """Selects and instantiates the defined train model to use
 
@@ -85,14 +101,7 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
     Returns:
         TrainBase: TrainBase object
     """
-    if train_object.model == TrainModel.OPEN_LIVE and (
-        train_object.url is None
-        or train_object.token is None
-        or train_object.url == ""
-        or train_object.token == ""
-    ):
-        raise ValueError("Open Live requires URL and API token.")
-
+    _check_open_live_params(train_object)
     train_handler: Dict[TrainModel, Callable[[TrainObject], TrainBase]] = {
         TrainModel.OPEN_LIVE: instantiate_open_live,
         TrainModel.HUXLEY2: instantiate_huxley2,

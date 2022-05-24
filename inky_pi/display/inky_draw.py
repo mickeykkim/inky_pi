@@ -86,7 +86,7 @@ class InkyDraw(DisplayBase):
         x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
         # Closed eye icon
         line_width = 8
-        x_0, y_0 = x_mid - 75 - 50
+        x_0, y_0 = x_mid - 75, -50
         x_1, y_1 = x_mid + 75, y_mid - 75
         a_start, a_end = 20, 160
         self._img_draw.arc(

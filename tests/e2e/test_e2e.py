@@ -4,31 +4,25 @@ Actively retrieves data from both weather and train APIs for testing. Tests may 
 if API endpoints are down.
 """
 import re
-from typing import Generator, List
+from typing import List
+from unittest.mock import Mock, patch
 
 import pytest
 from click.testing import CliRunner, Result
 
 from inky_pi.cli import cli
-
-
-@pytest.fixture
-def _setup_result() -> Generator:
-    result: Result = CliRunner().invoke(cli, ["terminal"])
-    yield result
+from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
 
 
 @pytest.mark.e2e
-def test_running_terminal_ui_generates_expected_output(_setup_result: Result) -> None:
-    """Runs the full program and checks each test string is present in output
-
-    Args:
-        _setup_result (Result): fixture for cli runner
-    """
+def test_running_terminal_ui_generates_expected_output() -> None:
+    """Runs the full program and checks each test string is present in output"""
     time = r"(\d+(?:\:\d+))"
     temp = r"(\d+(?:\.\d+)?°(C|F))"
     station_abbr = r"\b[A-Z]{3}(?![A-Z])"
-    error_msg = r"(There\sare\sno\strain\sservices\sat\sthis\s)|(Error:\s\w+)"
+    error_msg = (
+        r"(There\sare\sno\strain\sservices\sat\sthis\s\w+)|(No\strains\sto\s\w+)"
+    )
 
     test_regex_list: List[str] = [
         # Time (HH:MM)
@@ -45,6 +39,77 @@ def test_running_terminal_ui_generates_expected_output(_setup_result: Result) ->
         rf"({time}\s\|\sP\d+\sto\s\w+\s\-\s(\w+\s|{time}))|({error_msg})",
     ]
 
-    assert _setup_result.exit_code == 0
+    result: Result = CliRunner().invoke(cli, ["terminal"])
+    assert result.exit_code == 0
     for test_regex in test_regex_list:
-        assert re.compile(test_regex).search(_setup_result.output) is not None
+        assert re.compile(test_regex).search(result.output) is not None
+
+
+@pytest.mark.e2e
+@patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
+def test_running_desktop_ui_generates_expected_output(image_show_mock: Mock) -> None:
+    """Runs the full program and checks image is drawn to desktop window
+
+    Args:
+        image_show_mock (Mock): Mock for image show method
+    """
+    result: Result = CliRunner().invoke(cli, ["desktop"])
+    image_show_mock.assert_called_once()
+    assert result.exit_code == 0
+
+
+@pytest.mark.e2e
+@patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
+@patch("inky_pi.util._import_inky_what")
+def test_running_inky_train_ui_generates_expected_output(
+    _import_inky_what_mock: Mock,
+    image_show_mock: Mock,
+) -> None:
+    """Runs the full program and checks image is drawn to desktop window
+
+    Args:
+        _import_inky_what_mock (Mock): Mock for import inky_what
+        image_show_mock (Mock): Mock for image show method
+    """
+    _import_inky_what_mock.return_value = DesktopDisplayDriver
+    result: Result = CliRunner().invoke(cli, ["train"])
+    image_show_mock.assert_called_once()
+    assert result.exit_code == 0
+
+
+@pytest.mark.e2e
+@patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
+@patch("inky_pi.util._import_inky_what")
+def test_running_inky_weather_ui_generates_expected_output(
+    _import_inky_what_mock: Mock,
+    image_show_mock: Mock,
+) -> None:
+    """Runs the full program and checks image is drawn to desktop window
+
+    Args:
+        _import_inky_what_mock (Mock): Mock for import inky_what
+        image_show_mock (Mock): Mock for image show method
+    """
+    _import_inky_what_mock.return_value = DesktopDisplayDriver
+    result: Result = CliRunner().invoke(cli, ["weather"])
+    image_show_mock.assert_called_once()
+    assert result.exit_code == 0
+
+
+@pytest.mark.e2e
+@patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
+@patch("inky_pi.util._import_inky_what")
+def test_running_inky_night_ui_generates_expected_output(
+    _import_inky_what_mock: Mock,
+    image_show_mock: Mock,
+) -> None:
+    """Runs the full program and checks image is drawn to desktop window
+
+    Args:
+        _import_inky_what_mock (Mock): Mock for import inky_what
+        image_show_mock (Mock): Mock for image show method
+    """
+    _import_inky_what_mock.return_value = DesktopDisplayDriver
+    result: Result = CliRunner().invoke(cli, ["night"])
+    image_show_mock.assert_called_once()
+    assert result.exit_code == 0
