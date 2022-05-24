@@ -23,7 +23,7 @@ from tests.unit.resources.fakes import FakeRequests
 TEST_DIR = Path(__file__).parent
 RESOURCES_DIR = TEST_DIR.joinpath("resources")
 WEATHER_DATA = RESOURCES_DIR.joinpath("weather_data.json")
-INVALID_WEATHER_DATA = RESOURCES_DIR.joinpath("cod401.json")
+INVALID_WEATHER_DATA = RESOURCES_DIR.joinpath("weather_cod401.json")
 
 
 # pylint: disable=possibly-unused-variable

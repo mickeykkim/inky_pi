@@ -1,0 +1,1233 @@
+{
+  "trainServices": [
+    {
+      "formation": {
+        "avgLoading": 69,
+        "avgLoadingSpecified": true,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A5"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B5"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "WpzedBpB8Z8x3w1TpRsrvg%3D%3D",
+      "serviceIdGuid": "74de9c5a-411a-9ff1-31df-0d53a51b2bbe",
+      "serviceIdUrlSafe": "WpzedBpB8Z8x3w1TpRsrvg",
+      "sta": null,
+      "eta": null,
+      "std": "18:11",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 10,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "WpzedBpB8Z8x3w1TpRsrvg==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 35,
+        "avgLoadingSpecified": true,
+        "coaches": null
+      },
+      "origin": [
+        {
+          "locationName": "Rainham (Kent)",
+          "crs": "RAI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Luton",
+          "crs": "LUT",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "TL370000",
+      "serviceIdPercentEncoded": "T3ihJlDp6grjumt52DbtsA%3D%3D",
+      "serviceIdGuid": "26a1784f-e950-0aea-e3ba-6b79d836edb0",
+      "serviceIdUrlSafe": "T3ihJlDp6grjumt52DbtsA",
+      "sta": null,
+      "eta": null,
+      "std": "18:14",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "Thameslink",
+      "operatorCode": "TL",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": "This train has been delayed by a safety inspection of the track earlier today",
+      "serviceID": "T3ihJlDp6grjumt52DbtsA==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "ZOcIo2ISRN6I6jveiCYzLw%3D%3D",
+      "serviceIdGuid": "a308e764-1262-de44-88ea-3bde8826332f",
+      "serviceIdUrlSafe": "ZOcIo2ISRN6I6jveiCYzLw",
+      "sta": null,
+      "eta": null,
+      "std": "18:21",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "ZOcIo2ISRN6I6jveiCYzLw==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "O9V4kvphlJ0lxhbYlb%2Be4g%3D%3D",
+      "serviceIdGuid": "9278d53b-61fa-9d94-25c6-16d895bf9ee2",
+      "serviceIdUrlSafe": "O9V4kvphlJ0lxhbYlb-e4g",
+      "sta": null,
+      "eta": null,
+      "std": "18:24",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "O9V4kvphlJ0lxhbYlb+e4g==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 19,
+        "avgLoadingSpecified": true,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A5"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B5"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "aJrPqfal128tv%2FQiu%2Bh%2BeA%3D%3D",
+      "serviceIdGuid": "a9cf9a68-a5f6-6fd7-2dbf-f422bbe87e78",
+      "serviceIdUrlSafe": "aJrPqfal128tv_Qiu-h-eA",
+      "sta": null,
+      "eta": null,
+      "std": "18:34",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 10,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "aJrPqfal128tv/Qiu+h+eA==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Standard"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "6Uu3%2BdlbSA0zV2%2BUjQVwhQ%3D%3D",
+      "serviceIdGuid": "f9b74be9-5bd9-0d48-3357-6f948d057085",
+      "serviceIdUrlSafe": "6Uu3-dlbSA0zV2-UjQVwhQ",
+      "sta": null,
+      "eta": null,
+      "std": "18:41",
+      "etd": "On time",
+      "platform": "2",
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 10,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "6Uu3+dlbSA0zV2+UjQVwhQ==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 14,
+        "avgLoadingSpecified": true,
+        "coaches": null
+      },
+      "origin": [
+        {
+          "locationName": "Rainham (Kent)",
+          "crs": "RAI",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Luton",
+          "crs": "LUT",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": "TL370200",
+      "serviceIdPercentEncoded": "UBzwuXs47GIWwqfJEXNNxA%3D%3D",
+      "serviceIdGuid": "b9f01c50-387b-62ec-16c2-a7c911734dc4",
+      "serviceIdUrlSafe": "UBzwuXs47GIWwqfJEXNNxA",
+      "sta": null,
+      "eta": null,
+      "std": "18:44",
+      "etd": "On time",
+      "platform": "1",
+      "operator": "Thameslink",
+      "operatorCode": "TL",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "UBzwuXs47GIWwqfJEXNNxA==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Standard"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "Slade Green",
+          "crs": "SGR",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "Cl93Aq7BgAI53ItdD%2B7Gvw%3D%3D",
+      "serviceIdGuid": "02775f0a-c1ae-0280-39dc-8b5d0feec6bf",
+      "serviceIdUrlSafe": "Cl93Aq7BgAI53ItdD-7Gvw",
+      "sta": null,
+      "eta": null,
+      "std": "18:51",
+      "etd": "On time",
+      "platform": null,
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 10,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "Cl93Aq7BgAI53ItdD+7Gvw==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Standard"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Standard"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "C4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "BRriOblikI8usdt%2FU9u%2F7g%3D%3D",
+      "serviceIdGuid": "39e21a05-62b9-8f90-2eb1-db7f53dbbfee",
+      "serviceIdUrlSafe": "BRriOblikI8usdt_U9u_7g",
+      "sta": null,
+      "eta": null,
+      "std": "18:54",
+      "etd": "On time",
+      "platform": null,
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "BRriOblikI8usdt/U9u/7g==",
+      "adhocAlerts": null
+    },
+    {
+      "formation": {
+        "avgLoading": 0,
+        "avgLoadingSpecified": false,
+        "coaches": [
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "A4"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B1"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B2"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 1,
+              "value": "Accessible"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B3"
+          },
+          {
+            "coachClass": "Standard",
+            "toilet": {
+              "status": 0,
+              "value": "None"
+            },
+            "loading": 0,
+            "loadingSpecified": false,
+            "number": "B4"
+          }
+        ]
+      },
+      "origin": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "destination": [
+        {
+          "locationName": "London Cannon Street",
+          "crs": "CST",
+          "via": null,
+          "futureChangeTo": null,
+          "assocIsCancelled": false
+        }
+      ],
+      "currentOrigins": null,
+      "currentDestinations": null,
+      "rsid": null,
+      "serviceIdPercentEncoded": "D%2B2GVqrIVdkiF1h1QrtrRQ%3D%3D",
+      "serviceIdGuid": "5686ed0f-c8aa-d955-2217-587542bb6b45",
+      "serviceIdUrlSafe": "D-2GVqrIVdkiF1h1QrtrRQ",
+      "sta": null,
+      "eta": null,
+      "std": "19:04",
+      "etd": "On time",
+      "platform": null,
+      "operator": "Southeastern",
+      "operatorCode": "SE",
+      "isCircularRoute": false,
+      "isCancelled": false,
+      "filterLocationCancelled": false,
+      "serviceType": 0,
+      "length": 8,
+      "detachFront": false,
+      "isReverseFormation": false,
+      "cancelReason": null,
+      "delayReason": null,
+      "serviceID": "D+2GVqrIVdkiF1h1QrtrRQ==",
+      "adhocAlerts": null
+    }
+  ],
+  "busServices": null,
+  "ferryServices": null,
+  "generatedAt": "2022-05-24T17:08:33.2406257+00:00",
+  "locationName": "Maze Hill",
+  "crs": "MZH",
+  "filterLocationName": "London Bridge",
+  "filtercrs": "LBG",
+  "filterType": 0,
+  "nrccMessages": null,
+  "platformAvailable": true,
+  "areServicesAvailable": true
+}
