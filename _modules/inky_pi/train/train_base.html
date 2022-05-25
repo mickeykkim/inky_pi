@@ -189,9 +189,9 @@
 <span class="sd">            str: Formatted error message if num is 1 else empty string</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">line_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">38</span>
-        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[(</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">line_length</span> <span class="p">:</span> <span class="n">num</span> <span class="o">*</span> <span class="n">line_length</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[</span><span class="n">num</span> <span class="o">*</span> <span class="n">line_length</span> <span class="p">:</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">line_length</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_validate_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if train number is valid</span>

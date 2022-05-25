@@ -132,7 +132,7 @@
 <span class="sd">            [hh:mm] | [Platform #] to [Final Destination Station] - [Status]</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            num (int): Next train departing number</span>
+<span class="sd">            num (int): Next train departing number starting from 0</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: Formatted string or error message</span>
@@ -142,7 +142,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No train data available.&quot;</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">service</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">trainServices</span><span class="o">.</span><span class="n">service</span><span class="p">[</span><span class="n">num</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">service</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">trainServices</span><span class="o">.</span><span class="n">service</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
             <span class="n">platform</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">platform</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">arrival_t</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">std</span>
             <span class="n">dest_stn</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">location</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">locationName</span>
