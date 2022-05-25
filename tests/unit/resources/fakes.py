@@ -5,7 +5,10 @@ from typing import Optional
 
 
 class FakeResponse:
-    """Fake response object"""
+    """Fake response object for use in returning fake json data
+
+    See FakeRequests class for more info
+    """
 
     def __init__(self, json_data: dict, status_code: int) -> None:
         """Initialize fake response object
@@ -23,7 +26,18 @@ class FakeResponse:
 
 
 class FakeRequests:
-    """Fake requests object"""
+    """Fake requests object. Used to mock requests.get() in tests.
+
+    Usage:
+    >>> import json
+    >>> file_name = "your_file.json"
+    >>> requests = FakeRequests()
+    >>> with open(file_name, "r", encoding="utf-8") as file:
+    >>>     test_data = json.load(file)
+    >>>     requests.add_response(test_data, 200)
+    >>> response = requests.get("https://www.example.com")
+    >>> assert response ...
+    """
 
     def __init__(self) -> None:
         """Initialize fake requests object"""

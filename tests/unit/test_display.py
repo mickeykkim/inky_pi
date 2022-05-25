@@ -10,8 +10,8 @@ from inky_pi.display.terminal_draw import TerminalDraw
 from inky_pi.util import display_model_factory, import_display
 
 
-@patch("inky_pi.util._import_inky_what")
-@patch("inky_pi.util.InkyDraw")
+@patch("inky_pi.display.inky_draw._import_inky_what")
+@patch("inky_pi.display.inky_draw.InkyDraw")
 def test_can_successfully_instantiate_inky_draw_object(
     mock_inky_draw: Mock, mock_inky_what: Mock
 ) -> None:

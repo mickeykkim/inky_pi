@@ -57,7 +57,7 @@ class OpenLive(TrainBase):
             [hh:mm] | [Platform #] to [Final Destination Station] - [Status]
 
         Args:
-            num (int): Next train departing number
+            num (int): Next train departing number starting from 0
 
         Returns:
             str: Formatted string or error message
@@ -67,7 +67,7 @@ class OpenLive(TrainBase):
             raise ValueError("No train data available.")
 
         try:
-            service: Any = self._data.trainServices.service[num - 1]
+            service: Any = self._data.trainServices.service[num]
             platform: str = service.platform[0:2]
             arrival_t: str = service.std
             dest_stn: str = service.destination.location[0].locationName

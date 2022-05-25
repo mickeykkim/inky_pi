@@ -114,9 +114,9 @@ class TrainBase(ABC):
             str: Formatted error message if num is 1 else empty string
         """
         line_length: int = 38
-        if num == 1:
+        if num == 0:
             logger.error(error_msg)
-        return (error_msg[(num - 1) * line_length : num * line_length]).lstrip(" ")
+        return (error_msg[num * line_length : (num + 1) * line_length]).lstrip(" ")
 
     def _validate_number(self, num: int) -> None:
         """Check if train number is valid

@@ -43,7 +43,7 @@ class Huxley2(TrainBase):
             [hh:mm] | [Platform #] to [Final Destination Station] - [Status]
 
         Args:
-            num (int): Next train departing number starting from 1
+            num (int): Next train departing number starting from 0
 
         Returns:
             str: Formatted string or error message
@@ -53,7 +53,7 @@ class Huxley2(TrainBase):
             raise ValueError("No train data available.")
 
         try:
-            service: Dict = self._data["trainServices"][num - 1]
+            service: Dict = self._data["trainServices"][num]
             platform: str = service["platform"][0:2]
             arrival_t: str = service["std"]
             dest_stn: str = service["destination"][0]["locationName"]

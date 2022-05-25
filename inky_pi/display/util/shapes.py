@@ -234,3 +234,22 @@ def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
         color,
         line_thickness,
     )
+
+
+def gen_closed_eye_icon(draw: ImageDraw, color: Any, x_y: Tuple[int, int]):
+    """Generate closed eye icon at center of x_y
+
+    Args:
+        draw: ImageDraw object
+        color: Color of the object
+        x_y: (x, y) coordinates of center point
+    """
+    line_width = 8
+    x_0, y_0 = x_y[0] - 75, -50
+    x_1, y_1 = x_y[0] + 75, x_y[1] - 75
+    a_start, a_end = 20, 160
+    draw.arc([(x_0, y_0), (x_1, y_1)], a_start, a_end, color, line_width)
+    draw.line([(x_0 + 9, y_0 + 131), (x_0 + 29, y_0 + 111)], color, line_width)
+    draw.line([(x_0 + 49, y_0 + 147), (x_0 + 59, y_0 + 122)], color, line_width)
+    draw.line([(x_0 + 104, y_0 + 147), (x_0 + 94, y_0 + 122)], color, line_width)
+    draw.line([(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)], color, line_width)

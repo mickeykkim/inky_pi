@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Tuple
 from rich.console import Console
 
 from inky_pi.configs import STATION_FROM, STATION_TO
-from inky_pi.display.display_base import DisplayBase
+from inky_pi.display.display_base import DisplayBase, DisplayObject
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
@@ -74,7 +74,7 @@ class TerminalDraw(DisplayBase):
         """
         self._output.append(f"train schedule from {STATION_FROM} to {STATION_TO}:")
         for i in range(0, num_trains):
-            train = data_t.fetch_train(i + 1)
+            train = data_t.fetch_train(i)
             self._output.append(train)
 
     def draw_weather_forecast(
@@ -170,3 +170,15 @@ class TerminalDraw(DisplayBase):
         temp = data_w.get_temp_range(1, scale)
         self._output.append(message)
         self._output.append(temp)
+
+
+def instantiate_terminal_display(display_object: DisplayObject) -> TerminalDraw:
+    """Terminal display object creator
+
+    Args:
+        display_object (DisplayObject): display object containing model
+
+    Returns:
+        TerminalDraw: TerminalDraw object
+    """
+    return TerminalDraw(display_object.base_color)

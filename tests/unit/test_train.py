@@ -109,16 +109,16 @@ def test_format_train_string() -> None:
 @pytest.mark.parametrize(
     "error_msg, num, expected",
     [
-        ("Error message", 1, "Error message"),
+        ("Error message", 0, "Error message"),
         (
             "There are no train services at this station",
-            1,
+            0,
             "There are no train services at this st",
         ),
-        ("Error message", 2, ""),
+        ("Error message", 1, ""),
         (
             "There are no train services at station London Bridge",
-            2,
+            1,
             "London Bridge",
         ),
     ],
@@ -197,9 +197,9 @@ def test_instantiate_open_live_without_url_and_token_raises_error(
 @pytest.mark.parametrize(
     "num, expected",
     [
-        (1, "18:11 | P2 to Slade Green - On time"),
-        (2, "18:14 | P1 to Luton - On time"),
-        (3, "18:21 | P2 to Slade Green - On time"),
+        (0, "18:11 | P2 to Slade Green - On time"),
+        (1, "18:14 | P1 to Luton - On time"),
+        (2, "18:21 | P2 to Slade Green - On time"),
     ],
 )
 def test_can_successfully_fetch_train_string_huxley2(

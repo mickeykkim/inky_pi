@@ -1,6 +1,7 @@
 """Inky_Pi drawing module.
 
 Draw strings and icons"""
+import platform
 from datetime import datetime, timedelta
 from time import strftime
 from typing import Any, Callable, Dict, Tuple
@@ -12,7 +13,8 @@ from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 # pylint: enable=no-name-in-module
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.display.display_base import DisplayBase
+from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
+from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
 from inky_pi.display.util.drawing import (
     draw_cloud_icon,
     draw_cloud_lightning_icon,
@@ -24,6 +26,7 @@ from inky_pi.display.util.drawing import (
     draw_sun_icon,
     draw_two_clouds_icon,
 )
+from inky_pi.display.util.shapes import gen_closed_eye_icon
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
@@ -41,14 +44,14 @@ FONT_GL = ImageFont.truetype(FredokaOne, 40)
 class InkyDraw(DisplayBase):
     """Draw text and shapes onto Inky e-ink display"""
 
-    def __init__(self, inky_model: Any) -> None:
+    def __init__(self, display_driver: Any) -> None:
         """Create display and image drawing objects
         inky_model can be an InkyWHAT model or a DesktopDisplayDriver object
 
         Args:
-            inky_model (Any): Inky display model (i.e. InkyWHAT('black'))
+            display_driver (Any): Display driver (InkyWHAT or DesktopDisplayDriver)
         """
-        self._display: Any = inky_model
+        self._display: Any = display_driver
         self._img: Image = Image.new(
             "P", (self._display.WIDTH, self._display.HEIGHT), color="white"
         )
@@ -79,36 +82,8 @@ class InkyDraw(DisplayBase):
             data_w (WeatherBase): Weather data object
             scale (ScaleType): Scale type
         """
-        self._draw_goodnight_icon()
-        self._draw_goodnight_text(data_w, scale)
-
-    def _draw_goodnight_icon(self):
         x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
-        # Closed eye icon
-        line_width = 8
-        x_0, y_0 = x_mid - 75, -50
-        x_1, y_1 = x_mid + 75, y_mid - 75
-        a_start, a_end = 20, 160
-        self._img_draw.arc(
-            [(x_0, y_0), (x_1, y_1)], a_start, a_end, self._color, line_width
-        )
-        self._img_draw.line(
-            [(x_0 + 9, y_0 + 131), (x_0 + 29, y_0 + 111)], self._color, line_width
-        )
-        self._img_draw.line(
-            [(x_0 + 49, y_0 + 147), (x_0 + 59, y_0 + 122)], self._color, line_width
-        )
-        self._img_draw.line(
-            [(x_0 + 104, y_0 + 147), (x_0 + 94, y_0 + 122)], self._color, line_width
-        )
-        self._img_draw.line(
-            [(x_0 + 144, y_0 + 131), (x_0 + 124, y_0 + 111)], self._color, line_width
-        )
-
-    def _draw_goodnight_text(
-        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
-    ):
-        x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
+        gen_closed_eye_icon(self._img_draw, self._color, (x_mid, y_mid))
         # Message text
         message_str = "Good Night ^^"
         width, height = FONT_GL.getsize(message_str)
@@ -157,7 +132,7 @@ class InkyDraw(DisplayBase):
         for i in range(0, num_trains):
             self._img_draw.text(
                 (x_y[0], x_y[1] + i * 30),
-                data_t.fetch_train(i + 1),
+                data_t.fetch_train(i),
                 self._black,
                 FONT_S,
             )
@@ -284,3 +259,34 @@ class InkyDraw(DisplayBase):
             self.draw_mini_forecast(
                 data_w, scale, (x_y[0] + (i * spacing), x_y[1]), i + 1
             )
+
+
+def _import_inky_what() -> Any:
+    """This is a wrapper that imports InkyWHAT to allow mocking it in tests.
+
+    Returns:
+        InkyWHAT: Raspberry pi InkyWHAT library
+    """
+    if platform.machine() == "armv7l":
+        # pylint: disable=import-outside-toplevel
+        from inky import InkyWHAT  # type: ignore
+
+        return InkyWHAT
+    raise ImportError("InkyWHAT library unavailable (are you on a Raspberry Pi?)")
+
+
+def instantiate_inky_display(display_object: DisplayObject) -> InkyDraw:
+    """Inky display object creator
+
+    Args:
+        display_object (DisplayObject): display object containing model
+
+    Returns:
+        InkyDraw: InkyDraw object
+    """
+    display_driver = (
+        _import_inky_what()
+        if display_object.model == DisplayModel.INKY_WHAT
+        else DesktopDisplayDriver
+    )
+    return InkyDraw(display_driver(f"{display_object.base_color}"))

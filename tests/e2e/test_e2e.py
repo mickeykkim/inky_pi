@@ -20,9 +20,9 @@ def test_running_terminal_ui_generates_expected_output() -> None:
     time = r"(\d+(?:\:\d+))"
     temp = r"(\d+(?:\.\d+)?°(C|F))"
     station_abbr = r"\b[A-Z]{3}(?![A-Z])"
-    error_msg = (
-        r"(There\sare\sno\strain\sservices\sat\sthis\s\w+)|(No\strains\sto\s\w+)"
-    )
+    error_type1 = r"There\sare\sno\strain\sservices\sat\sthis\s\w+"
+    error_type2 = r"No\strains\sto\s\w+"
+    any_error_msg = rf"({error_type1})|({error_type2})"
 
     test_regex_list: List[str] = [
         # Time (HH:MM)
@@ -36,7 +36,7 @@ def test_running_terminal_ui_generates_expected_output() -> None:
         # train schedule from <station> to <station>
         rf"train\sschedule\sfrom\s{station_abbr}\sto\s{station_abbr}:",
         # <HH:MM> | P<#> to <station> - <status> [OR] <error message>
-        rf"({time}\s\|\sP\d+\sto\s\w+\s\-\s(\w+\s|{time}))|({error_msg})",
+        rf"({time}\s\|\sP\d+\sto\s\w+\s\-\s(\w+\s|{time}))|({any_error_msg})",
     ]
 
     result: Result = CliRunner().invoke(cli, ["terminal"])
@@ -60,7 +60,7 @@ def test_running_desktop_ui_generates_expected_output(image_show_mock: Mock) -> 
 
 @pytest.mark.e2e
 @patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
-@patch("inky_pi.util._import_inky_what")
+@patch("inky_pi.display.inky_draw._import_inky_what")
 def test_running_inky_train_ui_generates_expected_output(
     _import_inky_what_mock: Mock,
     image_show_mock: Mock,
@@ -79,7 +79,7 @@ def test_running_inky_train_ui_generates_expected_output(
 
 @pytest.mark.e2e
 @patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
-@patch("inky_pi.util._import_inky_what")
+@patch("inky_pi.display.inky_draw._import_inky_what")
 def test_running_inky_weather_ui_generates_expected_output(
     _import_inky_what_mock: Mock,
     image_show_mock: Mock,
@@ -98,7 +98,7 @@ def test_running_inky_weather_ui_generates_expected_output(
 
 @pytest.mark.e2e
 @patch("inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show")
-@patch("inky_pi.util._import_inky_what")
+@patch("inky_pi.display.inky_draw._import_inky_what")
 def test_running_inky_night_ui_generates_expected_output(
     _import_inky_what_mock: Mock,
     image_show_mock: Mock,
