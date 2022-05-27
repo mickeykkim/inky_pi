@@ -81,14 +81,14 @@
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">strftime</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span>
 
+<span class="c1"># pylint: enable=no-name-in-module</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>  <span class="c1"># type: ignore</span>
+
 <span class="c1"># pylint: disable=no-name-in-module</span>
 <span class="kn">from</span> <span class="nn">font_fredoka_one</span> <span class="kn">import</span> <span class="n">FredokaOne</span>  <span class="c1"># type: ignore</span>
 <span class="kn">from</span> <span class="nn">font_hanken_grotesk</span> <span class="kn">import</span> <span class="n">HankenGroteskBold</span>  <span class="c1"># type: ignore</span>
 
-<span class="c1"># pylint: enable=no-name-in-module</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>  <span class="c1"># type: ignore</span>
-
-<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span><span class="p">,</span> <span class="n">DisplayObject</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span><span class="p">,</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayObject</span>
 <span class="kn">from</span> <span class="nn">inky_pi.display.util.desktop_driver</span> <span class="kn">import</span> <span class="n">DesktopDisplayDriver</span>
 <span class="kn">from</span> <span class="nn">inky_pi.display.util.drawing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">draw_cloud_icon</span><span class="p">,</span>
@@ -119,14 +119,14 @@
 <div class="viewcode-block" id="InkyDraw"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.InkyDraw">[docs]</a><span class="k">class</span> <span class="nc">InkyDraw</span><span class="p">(</span><span class="n">DisplayBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Draw text and shapes onto Inky e-ink display&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inky_model</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">display_driver</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create display and image drawing objects</span>
 <span class="sd">        inky_model can be an InkyWHAT model or a DesktopDisplayDriver object</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            inky_model (Any): Inky display model (i.e. InkyWHAT(&#39;black&#39;))</span>
+<span class="sd">            display_driver (Any): Display driver (InkyWHAT or DesktopDisplayDriver)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">inky_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">display_driver</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">Image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
             <span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">WIDTH</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">HEIGHT</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span>
         <span class="p">)</span>
@@ -359,20 +359,12 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        InkyDraw: InkyDraw object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">inky_what</span> <span class="o">=</span> <span class="n">_import_inky_what</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">inky_what</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">display_object</span><span class="o">.</span><span class="n">base_color</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span></div>
-
-
-<div class="viewcode-block" id="instantiate_desktop_display"><a class="viewcode-back" href="../../../source/inky_pi.display.html#inky_pi.display.inky_draw.instantiate_desktop_display">[docs]</a><span class="k">def</span> <span class="nf">instantiate_desktop_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">InkyDraw</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Desktop display object creator for testing purposes</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        display_object (DisplayObject): display object containing model</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        TerminalDraw: TerminalDraw object</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">DesktopDisplayDriver</span><span class="p">(</span><span class="n">display_object</span><span class="o">.</span><span class="n">base_color</span><span class="p">))</span></div>
+    <span class="n">display_driver</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">_import_inky_what</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">display_object</span><span class="o">.</span><span class="n">model</span> <span class="o">==</span> <span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span>
+        <span class="k">else</span> <span class="n">DesktopDisplayDriver</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">InkyDraw</span><span class="p">(</span><span class="n">display_driver</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">display_object</span><span class="o">.</span><span class="n">base_color</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

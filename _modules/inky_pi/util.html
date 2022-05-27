@@ -81,10 +81,7 @@
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span><span class="p">,</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayObject</span>
-<span class="kn">from</span> <span class="nn">inky_pi.display.inky_draw</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">instantiate_desktop_display</span><span class="p">,</span>
-    <span class="n">instantiate_inky_display</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.inky_draw</span> <span class="kn">import</span> <span class="n">instantiate_inky_display</span>
 <span class="kn">from</span> <span class="nn">inky_pi.display.terminal_draw</span> <span class="kn">import</span> <span class="n">instantiate_terminal_display</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.huxley2</span> <span class="kn">import</span> <span class="n">instantiate_huxley2</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.open_live</span> <span class="kn">import</span> <span class="n">instantiate_open_live</span>
@@ -136,7 +133,7 @@
     <span class="n">display_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">DisplayModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DisplayObject</span><span class="p">],</span> <span class="n">DisplayBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
         <span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">:</span> <span class="n">instantiate_terminal_display</span><span class="p">,</span>
-        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">:</span> <span class="n">instantiate_desktop_display</span><span class="p">,</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">display_handler</span><span class="p">[</span><span class="n">display_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">display_object</span><span class="p">)</span></div>
 
