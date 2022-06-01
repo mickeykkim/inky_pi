@@ -10,12 +10,12 @@ sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxle
 
 ![image 1](https://i.imgur.com/0CRIW9X.jpg)
 
-Example outputs (generated with `desktop` display option):
+Example outputs (generated with `desktop` output option):
 
 ![weather_train](https://i.imgur.com/dkTOQPH.jpg)
 ![weather_only](https://i.imgur.com/4PohWbR.jpg)
 
-Example terminal output (generated with `terminal` display option):
+Example terminal output (generated with `terminal` output option):
 
 ```bash
 Fri 20 May 2022
@@ -46,14 +46,14 @@ poetry install
 
 ```bash
 poetry shell
-inky_pi --help
+inky_pi display --help
 ```
 
-Alternatively, the program can be called with the main function.
+Alternatively, the program can be called via its main function.
 
 ```bash
 poetry shell
-python inky_pi/main.py --help
+python -m inky_pi --help
 ```
 
 The program can be configured by

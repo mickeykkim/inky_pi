@@ -2,14 +2,8 @@
 import pytest
 from click.testing import CliRunner
 
-from inky_pi.cli import (
-    DESKTOP_ECHO,
-    NIGHT_ECHO,
-    TERMINAL_ECHO,
-    TRAIN_ECHO,
-    WEATHER_ECHO,
-    cli,
-)
+from inky_pi.__init__ import __version__  # type: ignore
+from inky_pi.cli import OUTPUT_PREFIX, cli
 
 
 def test_cli_main() -> None:
@@ -23,11 +17,30 @@ def test_cli_main() -> None:
 @pytest.mark.parametrize(
     "command, expected_output",
     [
-        (["train", "--dry-run"], TRAIN_ECHO),
-        (["weather", "--dry-run"], WEATHER_ECHO),
-        (["night", "--dry-run"], NIGHT_ECHO),
-        (["terminal", "--dry-run"], TERMINAL_ECHO),
-        (["desktop", "--dry-run"], DESKTOP_ECHO),
+        (
+            ["display", "--option", "train", "--output", "terminal", "--dry-run"],
+            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.TERMINAL",
+        ),
+        (
+            ["display", "--option", "weather", "--output", "Terminal", "--dry-run"],
+            f"{OUTPUT_PREFIX} DisplayOption.WEATHER DisplayModel.TERMINAL",
+        ),
+        (
+            ["display", "--option", "night", "--output", "TERMINAL", "--dry-run"],
+            f"{OUTPUT_PREFIX} DisplayOption.NIGHT DisplayModel.TERMINAL",
+        ),
+        (
+            ["display", "--option", "Train", "--output", "inky", "--dry-run"],
+            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.INKY_WHAT",
+        ),
+        (
+            ["display", "--option", "TRAIN", "--output", "desktop", "--dry-run"],
+            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.DESKTOP",
+        ),
+        (
+            ["display", "--version"],
+            f"cli, version {__version__}",
+        ),
     ],
 )
 def test_cli_args(command, expected_output) -> None:
