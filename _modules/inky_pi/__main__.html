@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.__main__ &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">inky_pi</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>inky_pi.__main__</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for inky_pi.__main__</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Inky_Pi main module.</span>
+
+<span class="sd">Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span><span class="p">,</span> <span class="n">Namespace</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EXCLUDE_FLAGS</span><span class="p">,</span>
+    <span class="n">LATITUDE</span><span class="p">,</span>
+    <span class="n">LONGITUDE</span><span class="p">,</span>
+    <span class="n">STATION_FROM</span><span class="p">,</span>
+    <span class="n">STATION_TO</span><span class="p">,</span>
+    <span class="n">TRAIN_API_TOKEN</span><span class="p">,</span>
+    <span class="n">TRAIN_MODEL</span><span class="p">,</span>
+    <span class="n">TRAIN_MODEL_URL</span><span class="p">,</span>
+    <span class="n">TRAIN_NUMBER</span><span class="p">,</span>
+    <span class="n">WEATHER_API_TOKEN</span><span class="p">,</span>
+    <span class="n">WEATHER_MODEL</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayObject</span>
+<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainModel</span><span class="p">,</span> <span class="n">TrainObject</span>
+<span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">configure_logging</span><span class="p">,</span>
+    <span class="n">import_display</span><span class="p">,</span>
+    <span class="n">train_model_factory</span><span class="p">,</span>
+    <span class="n">weather_model_factory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ScaleType</span><span class="p">,</span>
+    <span class="n">WeatherBase</span><span class="p">,</span>
+    <span class="n">WeatherModel</span><span class="p">,</span>
+    <span class="n">WeatherObject</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Define objects to be used in fetching data</span>
+<span class="n">TRAIN_OBJECT</span> <span class="o">=</span> <span class="n">TrainObject</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">TrainModel</span><span class="p">[</span><span class="n">TRAIN_MODEL</span><span class="p">],</span>
+    <span class="n">station_from</span><span class="o">=</span><span class="n">STATION_FROM</span><span class="p">,</span>
+    <span class="n">station_to</span><span class="o">=</span><span class="n">STATION_TO</span><span class="p">,</span>
+    <span class="n">number</span><span class="o">=</span><span class="n">TRAIN_NUMBER</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="n">TRAIN_MODEL_URL</span><span class="p">,</span>
+    <span class="n">token</span><span class="o">=</span><span class="n">TRAIN_API_TOKEN</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">WEATHER_OBJECT</span> <span class="o">=</span> <span class="n">WeatherObject</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">WeatherModel</span><span class="p">[</span><span class="n">WEATHER_MODEL</span><span class="p">],</span>
+    <span class="n">latitude</span><span class="o">=</span><span class="n">LATITUDE</span><span class="p">,</span>
+    <span class="n">longitude</span><span class="o">=</span><span class="n">LONGITUDE</span><span class="p">,</span>
+    <span class="n">exclude_flags</span><span class="o">=</span><span class="n">EXCLUDE_FLAGS</span><span class="p">,</span>
+    <span class="n">weather_api_token</span><span class="o">=</span><span class="n">WEATHER_API_TOKEN</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="n">OUTPUT_HANDLER</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DisplayObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;inky&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;terminal&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">),</span>
+    <span class="s2">&quot;desktop&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="DisplayOption"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.DisplayOption">[docs]</a><span class="k">class</span> <span class="nc">DisplayOption</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Enum of display options&quot;&quot;&quot;</span>
+
+    <span class="n">TRAIN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">WEATHER</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">NIGHT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The entry point for the program. It parses the command line arguments and calls</span>
+<span class="sd">    the appropriate display function and output option based on the arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configure_logging</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi main initialized&quot;</span><span class="p">)</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span> <span class="o">=</span> <span class="n">_parse_args</span><span class="p">()</span>
+    <span class="n">_create_display</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_parse_args"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__._parse_args">[docs]</a><span class="k">def</span> <span class="nf">_parse_args</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Namespace</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Parses the command line arguments and returns the parsed arguments.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Namespace: Parsed command line arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Displays train and weather data to various outputs&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--option&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Display option (train, weather, night)&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output source (inky, terminal, desktop)&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;inky&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="_create_display"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__._create_display">[docs]</a><span class="k">def</span> <span class="nf">_create_display</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Takes a Namespace object and uses the display and output attributes</span>
+
+<span class="sd">    If the display or output attributes are not found in the dispatchers, the</span>
+<span class="sd">    program will log the error and exit.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (Namespace): Parsed command line arguments</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">display_data</span><span class="p">(</span>
+            <span class="n">DisplayOption</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Invalid display/output specified: &quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">display</span><span class="si">}</span><span class="s1">&quot;/&quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="display_data"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.display_data">[docs]</a><span class="k">def</span> <span class="nf">display_data</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;inky_pi weather with train function</span>
+
+<span class="sd">    Retrieves train and weather data from API endpoints, generates text and</span>
+<span class="sd">    weather icon, and draws to inkyWHAT screen.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        option (DisplayOption): Display option (train, weather, night)</span>
+<span class="sd">        output (DisplayObject): Display object (inkyWHAT, terminal, desktop)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">base_color</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span> <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">NIGHT</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span>
+
+    <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">NIGHT</span><span class="p">:</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">draw_goodnight</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_date</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_time</span><span class="p">()</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_icon</span><span class="p">(</span><span class="n">weather_data</span><span class="o">.</span><span class="n">get_icon</span><span class="p">())</span>
+        <span class="n">display</span><span class="o">.</span><span class="n">draw_weather_forecast</span><span class="p">(</span>
+            <span class="n">weather_data</span><span class="p">,</span>
+            <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">,</span>
+            <span class="n">disp_tomorrow</span><span class="o">=</span><span class="nb">bool</span><span class="p">(</span><span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+            <span class="n">train_data</span><span class="p">:</span> <span class="n">TrainBase</span> <span class="o">=</span> <span class="n">train_model_factory</span><span class="p">(</span><span class="n">TRAIN_OBJECT</span><span class="p">)</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">WEATHER</span><span class="p">:</span>
+            <span class="n">display</span><span class="o">.</span><span class="n">draw_forecast_icons</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>inky_pi &mdash; inky-pi 0.1.0 documentation</title>
+  <title>inky_pi.cli module &mdash; inky-pi 0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="inky_pi package" href="inky_pi.html" />
-    <link rel="prev" title="History" href="../history.html" /> 
+    <link rel="next" title="inky_pi.configs module" href="inky_pi.configs.html" />
+    <link rel="prev" title="inky_pi.__main__ module" href="inky_pi.__main__.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,8 +48,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">inky_pi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="inky_pi.html">inky_pi package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">inky_pi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inky_pi.html">inky_pi package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="inky_pi.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.__main__.html">inky_pi.__main__ module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">inky_pi.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.configs.html">inky_pi.configs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.util.html">inky_pi.util module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.html#module-inky_pi">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -68,9 +79,11 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>inky_pi</li>
+          <li><a href="modules.html">inky_pi</a> &raquo;</li>
+          <li><a href="inky_pi.html">inky_pi package</a> &raquo;</li>
+      <li>inky_pi.cli module</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/source/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/source/inky_pi.cli.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,50 +91,23 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="inky-pi">
-<h1>inky_pi<a class="headerlink" href="#inky-pi" title="Permalink to this headline"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.html">inky_pi package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="inky_pi.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.display.html">inky_pi.display package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.display.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.display.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.display.html#module-inky_pi.display">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.html">inky_pi.train package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.train.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.train.html#module-inky_pi.train">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.html">inky_pi.weather package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.weather.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="inky_pi.weather.html#module-inky_pi.weather">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="inky_pi.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.__main__.html">inky_pi.__main__ module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.cli.html">inky_pi.cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.configs.html">inky_pi.configs module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="inky_pi.util.html">inky_pi.util module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="inky_pi.html#module-inky_pi">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+  <section id="module-inky_pi.cli">
+<span id="inky-pi-cli-module"></span><h1>inky_pi.cli module<a class="headerlink" href="#module-inky_pi.cli" title="Permalink to this headline"></a></h1>
+<p>Console script for inky_pi.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.cli.main">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.cli.main" title="Permalink to this definition"></a></dt>
+<dd><p>CLI main method.</p>
+</dd></dl>
+
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../history.html" class="btn btn-neutral float-left" title="History" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="inky_pi.html" class="btn btn-neutral float-right" title="inky_pi package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="inky_pi.__main__.html" class="btn btn-neutral float-left" title="inky_pi.__main__ module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="inky_pi.configs.html" class="btn btn-neutral float-right" title="inky_pi.configs module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

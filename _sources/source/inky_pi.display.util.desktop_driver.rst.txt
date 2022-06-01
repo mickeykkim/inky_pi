@@ -1,0 +1,8 @@
+inky\_pi.display.util.desktop\_driver module
+============================================
+
+.. automodule:: inky_pi.display.util.desktop_driver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

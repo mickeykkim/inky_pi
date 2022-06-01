@@ -1,0 +1,8 @@
+inky\_pi.configs module
+=======================
+
+.. automodule:: inky_pi.configs
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

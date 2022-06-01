@@ -1,0 +1,8 @@
+inky\_pi.display.inky\_draw module
+==================================
+
+.. automodule:: inky_pi.display.inky_draw
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

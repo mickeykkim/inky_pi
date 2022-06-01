@@ -77,14 +77,10 @@
 <span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="kn">import</span> <span class="nn">inky_pi.main</span>
+<span class="kn">from</span> <span class="nn">inky_pi.__main__</span> <span class="kn">import</span> <span class="n">OUTPUT_HANDLER</span><span class="p">,</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">display_data</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="n">configure_logging</span>
 
-<span class="n">TRAIN_ECHO</span> <span class="o">=</span> <span class="s2">&quot;CLI inky_pi train&quot;</span>
-<span class="n">WEATHER_ECHO</span> <span class="o">=</span> <span class="s2">&quot;CLI inky_pi weather&quot;</span>
-<span class="n">NIGHT_ECHO</span> <span class="o">=</span> <span class="s2">&quot;CLI inky_pi night&quot;</span>
-<span class="n">TERMINAL_ECHO</span> <span class="o">=</span> <span class="s2">&quot;CLI inky_pi terminal&quot;</span>
-<span class="n">DESKTOP_ECHO</span> <span class="o">=</span> <span class="s2">&quot;CLI inky_pi desktop&quot;</span>
+<span class="n">OUTPUT_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;inky_pi cli&quot;</span>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
@@ -93,54 +89,28 @@
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--option&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Display option (train, weather, night)&quot;</span>
+<span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span>
+    <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;inky&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output source (inky, terminal, desktop)&quot;</span>
+<span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Console script for inky_pi train and weather.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">TRAIN_ECHO</span><span class="p">)</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OUTPUT_PREFIX</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+        <span class="n">display_data</span><span class="p">(</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
 
 
-<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">weather</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Console script for inky_pi weather extended forecast.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">WEATHER_ECHO</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">weather</span><span class="p">()</span>
-
-
-<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">night</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Console script for inky_pi night mode.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">NIGHT_ECHO</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">night</span><span class="p">()</span>
-
-
-<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">terminal</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Console script for terminal mode.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">TERMINAL_ECHO</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">terminal</span><span class="p">()</span>
-
-
-<span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">desktop</span><span class="p">(</span><span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Console script for desktop mode.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">DESKTOP_ECHO</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">inky_pi</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">desktop</span><span class="p">()</span>
-
-
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.html#inky_pi.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.cli.html#inky_pi.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;CLI main method.&quot;&quot;&quot;</span>
     <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi initialized&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi cli initialized&quot;</span><span class="p">)</span>
     <span class="n">cli</span><span class="p">()</span></div>
 
 

@@ -1,0 +1,8 @@
+inky\_pi.display.terminal\_draw module
+======================================
+
+.. automodule:: inky_pi.display.terminal_draw
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

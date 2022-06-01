@@ -1,0 +1,8 @@
+inky\_pi.weather.open\_weather\_map module
+==========================================
+
+.. automodule:: inky_pi.weather.open_weather_map
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

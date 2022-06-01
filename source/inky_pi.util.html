@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>inky_pi.util module &mdash; inky-pi 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="inky_pi.configs module" href="inky_pi.configs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> inky-pi
+          </a>
+              <div class="version">
+                0.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">inky-pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../history.html">History</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">inky_pi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="inky_pi.html">inky_pi package</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="inky_pi.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.__main__.html">inky_pi.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.cli.html">inky_pi.cli module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inky_pi.configs.html">inky_pi.configs module</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">inky_pi.util module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.html#module-inky_pi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">inky-pi</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">inky_pi</a> &raquo;</li>
+          <li><a href="inky_pi.html">inky_pi package</a> &raquo;</li>
+      <li>inky_pi.util module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/source/inky_pi.util.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-inky_pi.util">
+<span id="inky-pi-util-module"></span><h1>inky_pi.util module<a class="headerlink" href="#module-inky_pi.util" title="Permalink to this headline"></a></h1>
+<p>Utility functions for inky_pi.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util._check_open_live_params">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">_check_open_live_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#_check_open_live_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util._check_open_live_params" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the Open Live URL and API token have been provided</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the Open Live API token is invalid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.configure_logging">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">configure_logging</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#configure_logging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.configure_logging" title="Permalink to this definition"></a></dt>
+<dd><p>Configure logging options</p>
+<p>See: <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api.html">https://loguru.readthedocs.io/en/stable/api.html</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.display_model_factory">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">display_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><span class="pre">inky_pi.display.display_base.DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase"><span class="pre">inky_pi.display.display_base.DisplayBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#display_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.display_model_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Selects and instantiates the defined display model to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>display_object</strong> (<a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><em>DisplayObject</em></a>) – display object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DisplayBase object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase">DisplayBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.import_display">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">import_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><span class="pre">inky_pi.display.display_base.DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase"><span class="pre">inky_pi.display.display_base.DisplayBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#import_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.import_display" title="Permalink to this definition"></a></dt>
+<dd><p>Imports the display model from the given display object and returns it.
+On error, logs and exits program (typically if not running on RPi).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>display_object</strong> (<a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><em>DisplayObject</em></a>) – The display object to be imported.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The display model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase">DisplayBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.train_model_factory">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">train_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">inky_pi.train.train_base.TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">inky_pi.train.train_base.TrainBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#train_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.train_model_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Selects and instantiates the defined train model to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TrainBase object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase">TrainBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.weather_model_factory">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">weather_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><span class="pre">inky_pi.weather.weather_base.WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">inky_pi.weather.weather_base.WeatherBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#weather_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.weather_model_factory" title="Permalink to this definition"></a></dt>
+<dd><p>Selects and instantiates the defined weather model to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weather_object</strong> (<a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><em>WeatherObject</em></a>) – weather object containing model</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>WeatherBase object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase">WeatherBase</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="inky_pi.configs.html" class="btn btn-neutral float-left" title="inky_pi.configs module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Mickey Kim.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

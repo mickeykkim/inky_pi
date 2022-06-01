@@ -1,0 +1,8 @@
+inky\_pi.train.train\_base module
+=================================
+
+.. automodule:: inky_pi.train.train_base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

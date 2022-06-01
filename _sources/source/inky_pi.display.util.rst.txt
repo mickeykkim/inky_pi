@@ -4,29 +4,12 @@ inky\_pi.display.util package
 Submodules
 ----------
 
-inky\_pi.display.util.desktop\_driver module
---------------------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: inky_pi.display.util.desktop_driver
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.display.util.drawing module
-------------------------------------
-
-.. automodule:: inky_pi.display.util.drawing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.display.util.shapes module
------------------------------------
-
-.. automodule:: inky_pi.display.util.shapes
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   inky_pi.display.util.desktop_driver
+   inky_pi.display.util.drawing
+   inky_pi.display.util.shapes
 
 Module contents
 ---------------
@@ -35,3 +18,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

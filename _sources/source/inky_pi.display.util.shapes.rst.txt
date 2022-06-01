@@ -1,0 +1,8 @@
+inky\_pi.display.util.shapes module
+===================================
+
+.. automodule:: inky_pi.display.util.shapes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

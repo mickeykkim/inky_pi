@@ -12,29 +12,12 @@ Subpackages
 Submodules
 ----------
 
-inky\_pi.display.display\_base module
--------------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: inky_pi.display.display_base
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.display.inky\_draw module
-----------------------------------
-
-.. automodule:: inky_pi.display.inky_draw
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.display.terminal\_draw module
---------------------------------------
-
-.. automodule:: inky_pi.display.terminal_draw
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   inky_pi.display.display_base
+   inky_pi.display.inky_draw
+   inky_pi.display.terminal_draw
 
 Module contents
 ---------------
@@ -43,3 +26,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

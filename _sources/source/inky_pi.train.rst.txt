@@ -4,29 +4,12 @@ inky\_pi.train package
 Submodules
 ----------
 
-inky\_pi.train.huxley2 module
------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: inky_pi.train.huxley2
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.train.open\_live module
---------------------------------
-
-.. automodule:: inky_pi.train.open_live
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.train.train\_base module
----------------------------------
-
-.. automodule:: inky_pi.train.train_base
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   inky_pi.train.huxley2
+   inky_pi.train.open_live
+   inky_pi.train.train_base
 
 Module contents
 ---------------
@@ -35,3 +18,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

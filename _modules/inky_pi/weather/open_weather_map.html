@@ -95,22 +95,22 @@
 <span class="n">DEG_F</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\N{DEGREE SIGN}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;F&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_check_day_limit</span><span class="p">(</span><span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="_check_day_limit"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map._check_day_limit">[docs]</a><span class="k">def</span> <span class="nf">_check_day_limit</span><span class="p">(</span><span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">day</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">day</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid day requested&quot;</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;Weather data only available for 0 (today) or up to 7 days ahead.&quot;</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="OpenWeatherMap"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap">[docs]</a><span class="k">class</span> <span class="nc">OpenWeatherMap</span><span class="p">(</span><span class="n">WeatherBase</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenWeatherMap"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap">[docs]</a><span class="k">class</span> <span class="nc">OpenWeatherMap</span><span class="p">(</span><span class="n">WeatherBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fetch and manage weather data&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Initialize variables&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="OpenWeatherMap.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Retrieves weather data from OpenWeatherMap 7-day forecast API.</span>
 <span class="sd">        This must be called before any other data manipulation methods.</span>
 
@@ -136,7 +136,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Error in weather response&quot;</span><span class="p">,</span> <span class="n">err_message</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">err_message</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_icon"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_icon">[docs]</a>    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IconType</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_icon"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_icon">[docs]</a>    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IconType</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Retrieves weather type from current OpenWeatherMap weather icon</span>
 
 <span class="sd">        Full list of icons/codes: https://openweathermap.org/weather-conditions</span>
@@ -168,7 +168,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">weather_type_dict</span><span class="p">[</span><span class="n">icon_code</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_current_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_weather">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_current_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_weather">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate current weather string</span>
 
 <span class="sd">        String is returned in format:</span>
@@ -182,7 +182,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_current_temperature</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_current_condition</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_current_temperature"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_temperature">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_current_temperature"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_temperature">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate current temperature</span>
 
 <span class="sd">        Args:</span>
@@ -205,7 +205,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid get_current_weather data&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving temperature. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_current_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_condition">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_current_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_condition">[docs]</a>    <span class="k">def</span> <span class="nf">get_current_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate current weather condition</span>
 
 <span class="sd">        Returns:</span>
@@ -218,7 +218,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid get_current_weather data&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving condition. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_temp_range"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_temp_range">[docs]</a>    <span class="k">def</span> <span class="nf">get_temp_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_temp_range"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_temp_range">[docs]</a>    <span class="k">def</span> <span class="nf">get_temp_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate temperature range string</span>
 
 <span class="sd">        String is returned in format:</span>
@@ -254,7 +254,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid get_temp_range data&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving range. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_condition">[docs]</a>    <span class="k">def</span> <span class="nf">get_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_condition">[docs]</a>    <span class="k">def</span> <span class="nf">get_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate weather condition string</span>
 
 <span class="sd">        Args:</span>
@@ -271,7 +271,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid fetch_condition data&quot;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">ex</span><span class="p">))</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving condition. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div>
 
-<div class="viewcode-block" id="OpenWeatherMap.get_future_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_future_weather">[docs]</a>    <span class="k">def</span> <span class="nf">get_future_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenWeatherMap.get_future_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_future_weather">[docs]</a>    <span class="k">def</span> <span class="nf">get_future_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Generate weather string for given day</span>
 
 <span class="sd">        String is returned in format:</span>
@@ -300,7 +300,7 @@
             <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error retrieving weather. </span><span class="si">{</span><span class="n">ex</span><span class="si">!r}</span><span class="s2">&quot;</span></div></div>
 
 
-<div class="viewcode-block" id="instantiate_open_weather_map"><a class="viewcode-back" href="../../../source/inky_pi.weather.html#inky_pi.weather.open_weather_map.instantiate_open_weather_map">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_weather_map</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenWeatherMap</span><span class="p">:</span>
+<div class="viewcode-block" id="instantiate_open_weather_map"><a class="viewcode-back" href="../../../source/inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.instantiate_open_weather_map">[docs]</a><span class="k">def</span> <span class="nf">instantiate_open_weather_map</span><span class="p">(</span><span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OpenWeatherMap</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Open Weather Map object creator</span>
 
 <span class="sd">    Args:</span>

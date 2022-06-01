@@ -14,37 +14,13 @@ Subpackages
 Submodules
 ----------
 
-inky\_pi.cli module
--------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: inky_pi.cli
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.configs module
------------------------
-
-.. automodule:: inky_pi.configs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.main module
---------------------
-
-.. automodule:: inky_pi.main
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-inky\_pi.util module
---------------------
-
-.. automodule:: inky_pi.util
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   inky_pi.__main__
+   inky_pi.cli
+   inky_pi.configs
+   inky_pi.util
 
 Module contents
 ---------------
@@ -53,3 +29,4 @@ Module contents
    :members:
    :undoc-members:
    :show-inheritance:
+   :private-members:

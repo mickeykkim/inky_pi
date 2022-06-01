@@ -1,0 +1,8 @@
+inky\_pi.cli module
+===================
+
+.. automodule:: inky_pi.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
