@@ -1,6 +1,9 @@
 # Inky Pi
 
+[![pypi](https://img.shields.io/pypi/v/inky-pi)](https://pypi.org/project/inky-pi/)
+[![python](https://img.shields.io/pypi/pyversions/inky-pi.svg)](https://pypi.org/project/inky-pi/)
 [![build](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml/badge.svg)](https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml)
+[![docs](https://readthedocs.org/projects/inky-pi/badge/?version=latest)](https://inky-pi.readthedocs.io/en/latest/?badge=latest)
 [![codecov](https://codecov.io/gh/mickeykkim/inky_pi/branch/main/graph/badge.svg?token=0RT5PRPRTZ)](https://codecov.io/gh/mickeykkim/inky_pi)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b0f2104a75145d097108/maintainability)](https://codeclimate.com/github/mickeykkim/inky_pi/maintainability)
 
@@ -10,12 +13,12 @@ sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxle
 
 ![image 1](https://i.imgur.com/0CRIW9X.jpg)
 
-Example outputs (generated with `desktop` display option):
+Example outputs (generated with `desktop` output option):
 
 ![weather_train](https://i.imgur.com/dkTOQPH.jpg)
 ![weather_only](https://i.imgur.com/4PohWbR.jpg)
 
-Example terminal output (generated with `terminal` display option):
+Example terminal output (generated with `terminal` output option):
 
 ```bash
 Fri 20 May 2022
@@ -46,14 +49,14 @@ poetry install
 
 ```bash
 poetry shell
-inky_pi --help
+inky_pi display --help
 ```
 
-Alternatively, the program can be called with the main function.
+Alternatively, the program can be called via its main function.
 
 ```bash
 poetry shell
-python inky_pi/main.py --help
+python -m inky_pi --help
 ```
 
 The program can be configured by

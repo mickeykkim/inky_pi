@@ -15,7 +15,7 @@ def gen_large_sun(
         color_neg: Color of the negative space
         x_y: (x, y) coordinates
     """
-    line_thickness: int = 5
+    line_width: int = 5
     # Protruding rays
     draw.polygon(
         (
@@ -25,47 +25,47 @@ def gen_large_sun(
             (x_y[0] + 29, x_y[1]),
         ),
         color,
-        line_thickness,
+        line_width,
     )  # Top
     draw.polygon(
         (
             (x_y[0] + 29, x_y[1] + 56),
-            (x_y[0] + 34, x_y[1] + 46),
-            (x_y[0] + 24, x_y[1] + 46),
+            (x_y[0] + 34, x_y[1] + 40),
+            (x_y[0] + 24, x_y[1] + 40),
             (x_y[0] + 29, x_y[1] + 56),
         ),
         color,
-        line_thickness,
+        line_width,
     )  # Bottom
     draw.polygon(
         (
             (x_y[0], x_y[1] + 28),
             (x_y[0] + 17, x_y[1] + 23),
             (x_y[0] + 17, x_y[1] + 33),
-            (x_y[0] + 1, x_y[1] + 28),
+            (x_y[0], x_y[1] + 28),
         ),
         color,
-        line_thickness,
+        line_width,
     )  # Left
     draw.polygon(
         (
             (x_y[0] + 57, x_y[1] + 28),
-            (x_y[0] + 41, x_y[1] + 23),
-            (x_y[0] + 41, x_y[1] + 33),
+            (x_y[0] + 40, x_y[1] + 23),
+            (x_y[0] + 40, x_y[1] + 33),
             (x_y[0] + 57, x_y[1] + 28),
         ),
         color,
-        5,
+        line_width,
     )  # Right
     draw.line(
         (x_y[0] + 10, x_y[1] + 10, x_y[0] + 47, x_y[1] + 47),
         color,
-        line_thickness,
+        line_width,
     )
     draw.line(
         (x_y[0] + 10, x_y[1] + 47, x_y[0] + 47, x_y[1] + 10),
         color,
-        line_thickness,
+        line_width,
     )
     # Sun circle
     draw.ellipse((x_y[0] + 12, x_y[1] + 12, x_y[0] + 45, x_y[1] + 45), color_neg)
@@ -83,22 +83,46 @@ def gen_small_sun(
         color_neg: Color of the negative space
         x_y: (x, y) coordinates
     """
-    line_thickness: int = 5
+    line_width: int = 5
     # Protruding rays
-    draw.line((x_y[0] + 5, x_y[1] + 5, x_y[0] + 25, x_y[1] + 25), color, line_thickness)
-    draw.line((x_y[0] + 5, x_y[1] + 25, x_y[0] + 25, x_y[1] + 5), color, line_thickness)
+    draw.line((x_y[0] + 5, x_y[1] + 5, x_y[0] + 25, x_y[1] + 25), color, line_width)
+    draw.line((x_y[0] + 5, x_y[1] + 25, x_y[0] + 25, x_y[1] + 5), color, line_width)
     draw.polygon(
-        (x_y[0] + 11, x_y[1] + 10, x_y[0], x_y[1] + 15, x_y[0] + 20, x_y[1] + 19),
+        (
+            (x_y[0] + 15, x_y[1]),
+            (x_y[0] + 10, x_y[1] + 10),
+            (x_y[0] + 20, x_y[1] + 10),
+        ),
         color,
-    )
+        line_width,
+    )  # top
     draw.polygon(
-        (x_y[0] + 15, x_y[1], x_y[0] + 10, x_y[1] + 10, x_y[0] + 20, x_y[1] + 10),
+        (
+            (x_y[0] + 15, x_y[1] + 30),
+            (x_y[0] + 10, x_y[1] + 20),
+            (x_y[0] + 20, x_y[1] + 20),
+        ),
         color,
-    )
+        line_width,
+    )  # bottom
     draw.polygon(
-        (x_y[0] + 20, x_y[1] + 10, x_y[0] + 30, x_y[1] + 15, x_y[0] + 20, x_y[1] + 20),
+        (
+            (x_y[0] + 10, x_y[1] + 10),
+            (x_y[0], x_y[1] + 15),
+            (x_y[0] + 20, x_y[1] + 20),
+        ),
         color,
-    )
+        line_width,
+    )  # left
+    draw.polygon(
+        (
+            (x_y[0] + 20, x_y[1] + 10),
+            (x_y[0] + 30, x_y[1] + 15),
+            (x_y[0] + 20, x_y[1] + 20),
+        ),
+        color,
+        line_width,
+    )  # right
     # Sun circle
     draw.ellipse((x_y[0] + 5, x_y[1] + 5, x_y[0] + 25, x_y[1] + 25), color)
     draw.ellipse((x_y[0] + 10, x_y[1] + 10, x_y[0] + 20, x_y[1] + 20), color_neg)
@@ -203,10 +227,10 @@ def gen_snowflake(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
         color: Color of the object
         x_y: (x, y) coordinates
     """
-    line_thickness: int = 2
-    draw.line((x_y[0] + 5, x_y[1], x_y[0] + 5, x_y[1] + 8), color, line_thickness)
-    draw.line((x_y[0] + 1, x_y[1] + 1, x_y[0] + 10, x_y[1] + 6), color, line_thickness)
-    draw.line((x_y[0] + 1, x_y[1] + 6, x_y[0] + 10, x_y[1] + 1), color, line_thickness)
+    line_width: int = 2
+    draw.line((x_y[0] + 5, x_y[1], x_y[0] + 5, x_y[1] + 8), color, line_width)
+    draw.line((x_y[0] + 1, x_y[1] + 1, x_y[0] + 10, x_y[1] + 6), color, line_width)
+    draw.line((x_y[0] + 1, x_y[1] + 6, x_y[0] + 10, x_y[1] + 1), color, line_width)
 
 
 def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
@@ -217,22 +241,20 @@ def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
         color: Color of the object
         x_y: (x, y) coordinates
     """
-    line_thickness: int = 4
-    draw.line((x_y[0] + 22, x_y[1], x_y[0] + 40, x_y[1]), color, line_thickness)
-    draw.line((x_y[0] + 4, x_y[1] + 8, x_y[0] + 47, x_y[1] + 8), color, line_thickness)
+    line_width: int = 4
+    draw.line((x_y[0] + 22, x_y[1], x_y[0] + 40, x_y[1]), color, line_width)
+    draw.line((x_y[0] + 4, x_y[1] + 8, x_y[0] + 47, x_y[1] + 8), color, line_width)
     draw.line(
         (x_y[0] + 15, x_y[1] + 16, x_y[0] + 60, x_y[1] + 16),
         color,
-        line_thickness,
+        line_width,
     )
-    draw.line((x_y[0], x_y[1] + 24, x_y[0] + 55, x_y[1] + 24), color, line_thickness)
-    draw.line(
-        (x_y[0] + 9, x_y[1] + 32, x_y[0] + 51, x_y[1] + 32), color, line_thickness
-    )
+    draw.line((x_y[0], x_y[1] + 24, x_y[0] + 55, x_y[1] + 24), color, line_width)
+    draw.line((x_y[0] + 9, x_y[1] + 32, x_y[0] + 51, x_y[1] + 32), color, line_width)
     draw.line(
         (x_y[0] + 20, x_y[1] + 40, x_y[0] + 40, x_y[1] + 40),
         color,
-        line_thickness,
+        line_width,
     )
 
 
@@ -244,7 +266,7 @@ def gen_closed_eye_icon(draw: ImageDraw, color: Any, x_y: Tuple[int, int]):
         color: Color of the object
         x_y: (x, y) coordinates of center point
     """
-    line_width = 8
+    line_width: int = 8
     x_0, y_0 = x_y[0] - 75, -50
     x_1, y_1 = x_y[0] + 75, x_y[1] - 75
     a_start, a_end = 20, 160

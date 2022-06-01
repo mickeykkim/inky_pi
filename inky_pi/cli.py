@@ -2,14 +2,11 @@
 import click
 from loguru import logger
 
-import inky_pi.main
+from inky_pi.__init__ import __version__  # type: ignore
+from inky_pi.__main__ import OUTPUT_HANDLER, DisplayOption, display_data
 from inky_pi.util import configure_logging
 
-TRAIN_ECHO = "CLI inky_pi train"
-WEATHER_ECHO = "CLI inky_pi weather"
-NIGHT_ECHO = "CLI inky_pi night"
-TERMINAL_ECHO = "CLI inky_pi terminal"
-DESKTOP_ECHO = "CLI inky_pi desktop"
+OUTPUT_PREFIX = "inky_pi cli"
 
 
 @click.group()
@@ -18,54 +15,29 @@ def cli():
 
 
 @cli.command()
+@click.version_option(version=__version__)
+@click.option(
+    "-o", "--option", default="train", help="Display option (train, weather, night)"
+)
+@click.option(
+    "-m", "--output", default="inky", help="Output source (inky, terminal, desktop)"
+)
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def train(dry_run: bool):
+def display(option: str, output: str, dry_run: bool):
     """Console script for inky_pi train and weather."""
-    click.echo(TRAIN_ECHO)
+    click.echo(
+        f"{OUTPUT_PREFIX}"
+        f" {DisplayOption[option.upper()]}"
+        f" {OUTPUT_HANDLER[output.lower()].model}"
+    )
     if not dry_run:
-        inky_pi.main.main()
-
-
-@cli.command()
-@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def weather(dry_run: bool):
-    """Console script for inky_pi weather extended forecast."""
-    click.echo(WEATHER_ECHO)
-    if not dry_run:
-        inky_pi.main.weather()
-
-
-@cli.command()
-@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def night(dry_run: bool):
-    """Console script for inky_pi night mode."""
-    click.echo(NIGHT_ECHO)
-    if not dry_run:
-        inky_pi.main.night()
-
-
-@cli.command()
-@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def terminal(dry_run: bool):
-    """Console script for terminal mode."""
-    click.echo(TERMINAL_ECHO)
-    if not dry_run:
-        inky_pi.main.terminal()
-
-
-@cli.command()
-@click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def desktop(dry_run: bool):
-    """Console script for desktop mode."""
-    click.echo(DESKTOP_ECHO)
-    if not dry_run:
-        inky_pi.main.desktop()
+        display_data(DisplayOption[option.upper()], OUTPUT_HANDLER[output.lower()])
 
 
 def main():
     """CLI main method."""
     configure_logging()
-    logger.debug("InkyPi initialized")
+    logger.debug("InkyPi cli initialized")
     cli()
 
 

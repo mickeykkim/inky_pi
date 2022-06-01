@@ -6,17 +6,15 @@ inky-pi
 .. image:: https://img.shields.io/pypi/v/inky_pi.svg
         :target: https://pypi.python.org/pypi/inky_pi
 
-.. image:: https://img.shields.io/travis/mickeykkim/inky_pi.svg
-        :target: https://travis-ci.com/mickeykkim/inky_pi
+.. image:: https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml/badge.svg
+        :target: https://github.com/mickeykkim/inky_pi/actions/workflows/main.yml
 
 .. image:: https://readthedocs.org/projects/inky-pi/badge/?version=latest
         :target: https://inky-pi.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 
-
-
-script for raspberry pi with inkywhat
+This program generates weather and UK train data for output to various displays (inkyWHAT e-ink display, terminal, desktop png).
 
 
 * Free software: MIT
@@ -26,7 +24,8 @@ script for raspberry pi with inkywhat
 Features
 --------
 
-* TODO
+* Displays weather data using Weather Underground API
+* Displays UK train data using National Rail API
 
 Credits
 -------

@@ -130,7 +130,7 @@ def docs(_c, launch=True):
     Generate documentation
     """
     # Generate autodoc stub files
-    _run(_c, f"sphinx-apidoc -o {DOCS_SOURCE_DIR} {SOURCE_DIR}")
+    _run(_c, f"sphinx-apidoc -e -P -o {DOCS_SOURCE_DIR} {SOURCE_DIR}")
     # Generate docs
     _run(_c, f"sphinx-build -b html {DOCS_DIR} {DOCS_BUILD_DIR}")
     if launch:

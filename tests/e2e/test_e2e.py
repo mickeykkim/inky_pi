@@ -39,7 +39,9 @@ def test_running_terminal_ui_generates_expected_output() -> None:
         rf"({time}\s\|\sP\d+\sto\s\w+\s\-\s(\w+\s|{time}))|({any_error_msg})",
     ]
 
-    result: Result = CliRunner().invoke(cli, ["terminal"])
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "train", "--output", "terminal"]
+    )
     assert result.exit_code == 0
     for test_regex in test_regex_list:
         assert re.compile(test_regex).search(result.output) is not None
@@ -53,7 +55,7 @@ def test_running_desktop_ui_generates_expected_output(image_show_mock: Mock) -> 
     Args:
         image_show_mock (Mock): Mock for image show method
     """
-    result: Result = CliRunner().invoke(cli, ["desktop"])
+    result: Result = CliRunner().invoke(cli, ["display", "--output", "desktop"])
     image_show_mock.assert_called_once()
     assert result.exit_code == 0
 
@@ -72,7 +74,9 @@ def test_running_inky_train_ui_generates_expected_output(
         image_show_mock (Mock): Mock for image show method
     """
     _import_inky_what_mock.return_value = DesktopDisplayDriver
-    result: Result = CliRunner().invoke(cli, ["train"])
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "train", "--output", "desktop"]
+    )
     image_show_mock.assert_called_once()
     assert result.exit_code == 0
 
@@ -91,7 +95,9 @@ def test_running_inky_weather_ui_generates_expected_output(
         image_show_mock (Mock): Mock for image show method
     """
     _import_inky_what_mock.return_value = DesktopDisplayDriver
-    result: Result = CliRunner().invoke(cli, ["weather"])
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "weather", "--output", "desktop"]
+    )
     image_show_mock.assert_called_once()
     assert result.exit_code == 0
 
@@ -110,6 +116,8 @@ def test_running_inky_night_ui_generates_expected_output(
         image_show_mock (Mock): Mock for image show method
     """
     _import_inky_what_mock.return_value = DesktopDisplayDriver
-    result: Result = CliRunner().invoke(cli, ["night"])
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "night", "--output", "desktop"]
+    )
     image_show_mock.assert_called_once()
     assert result.exit_code == 0
