@@ -269,7 +269,9 @@ def _import_inky_what() -> Any:
     """
     if platform.machine() == "armv7l":
         # pylint: disable=import-outside-toplevel
-        from inky import InkyWHAT  # type: ignore
+        from inky import (  # type: ignore # noqa: E0401 # pylint: disable=import-error
+            InkyWHAT,
+        )
 
         return InkyWHAT
     raise ImportError("InkyWHAT library unavailable (are you on a Raspberry Pi?)")
