@@ -36,8 +36,8 @@ font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
 inky = {version = "^1.2.0", markers = "platform_machine == 'armv7l'"}
 loguru = "^0.5.3"
-numpy = "1.21.1"
-python = ">=3.7,<3.10"
+numpy = "~1.22"
+python = ">=3.8,<4"
 rich = "^12.4.1"
 urllib3 = "^1.26.8"
 zeep = "^4.0.0"
@@ -57,6 +57,9 @@ sphinx = "^4.3.2"
 sphinx-rtd-theme = "^1.0.0"
 tox = "^3.24.4"
 types-requests = "^2.25.8"
+safety = "^2.1.1"
+bandit = "^1.7.4"
+poetry-plugin-export = "^1.0.6"
 
 [tool.poetry.scripts]
 inky_pi = "inky_pi.cli:main"
@@ -76,11 +79,15 @@ profile = "black"
 exclude_lines = ["if __name__ == .__main__.:"]
 skip_empty = true
 
+[tool.bandit]
+exclude_dirs = ["tests"]
+skips = ["B101"]
+
 [tool.tox]
 legacy_tox_ini = """
 [tox]
 isolated_build = true
-envlist = py3.7, py3.8, py3.9
+envlist = py3.8, py3.9
 
 [testenv]
 description = Run compliance tests
@@ -93,6 +100,7 @@ commands =
     poetry run invoke format --check
     poetry run invoke lint
     poetry run invoke test
+    poetry run invoke security
 """
 
 [build-system]

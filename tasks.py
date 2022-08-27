@@ -11,6 +11,7 @@ from pathlib import Path
 from invoke import task  # type: ignore
 
 ROOT_DIR = Path(__file__).parent
+BIN_DIR = ROOT_DIR.joinpath("bin")
 SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("inky_pi")
@@ -22,6 +23,7 @@ DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
+SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
 
 
@@ -191,3 +193,35 @@ def release(_c):
     Make a release of the python package to pypi
     """
     _run(_c, "poetry publish")
+
+
+@task
+def security_bandit(_c):
+    """
+    It runs bandit security checks on the source directory
+
+    :param _c: The command to run
+    """
+    _run(_c, f"bandit -c pyproject.toml -r {SOURCE_DIR}")
+
+
+@task
+def security_safety(_c):
+    """
+    It runs security checks on package dependencies
+
+    :param _c: The context object that is passed to the task
+    """
+    Path(BIN_DIR).mkdir(parents=True, exist_ok=True)
+    _run(
+        _c,
+        f"poetry export --with dev --format=requirements.txt --without-hashes --output={SAFETY_REQUIREMENTS_FILE}",
+    )
+    _run(_c, f"safety check --file={SAFETY_REQUIREMENTS_FILE} --full-report")
+
+
+@task(security_bandit, security_safety)
+def security(_):
+    """
+    It runs all security checks
+    """
