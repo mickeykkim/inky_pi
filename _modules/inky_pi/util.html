@@ -149,7 +149,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">model</span> <span class="o">!=</span> <span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">train_object</span><span class="o">.</span><span class="n">url</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">train_object</span><span class="o">.</span><span class="n">token</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>  <span class="c1"># nosec B105</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Open Live requires URL and API token.&quot;</span><span class="p">)</span></div>
 
 
