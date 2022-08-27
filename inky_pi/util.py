@@ -74,7 +74,7 @@ def _check_open_live_params(train_object: TrainObject) -> None:
     """
     if train_object.model != TrainModel.OPEN_LIVE:
         return
-    if train_object.url == "" or train_object.token == "":
+    if train_object.url == "" or train_object.token == "":  # nosec B105
         raise ValueError("Open Live requires URL and API token.")
 
 

@@ -108,3 +108,6 @@ ENV/
 
 # Mac Stuff
 .DS_Store
+
+# Generated files
+bin/
