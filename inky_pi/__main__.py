@@ -10,6 +10,7 @@ from loguru import logger
 from inky_pi.__init__ import __version__  # type: ignore
 from inky_pi.configs import (
     EXCLUDE_FLAGS,
+    INKY_COLOR,
     LATITUDE,
     LONGITUDE,
     STATION_FROM,
@@ -144,7 +145,7 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
         option (DisplayOption): Display option (train, weather, night)
         output (DisplayObject): Display object (inkyWHAT, terminal, desktop)
     """
-    output.base_color = "yellow" if option == DisplayOption.NIGHT else "black"
+    output.base_color = INKY_COLOR if option == DisplayOption.NIGHT else "black"
 
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(output) as display:

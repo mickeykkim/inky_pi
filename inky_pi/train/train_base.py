@@ -102,6 +102,7 @@ class TrainBase(ABC):
             f"{arrival_t} | P{platform} to {abbreviate_stn_name(dest_stn)} - {status}"
         )
 
+    # TODO: Change this to a generator implementation, update types, update tests
     @staticmethod
     def format_error_msg(error_msg: str, num: int) -> str:
         """Format error message by line wrapping over each line

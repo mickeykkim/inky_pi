@@ -4,6 +4,9 @@ from environs import Env
 _env: Env = Env()
 _env.read_env()
 
+INKY_COLOR: str = _env.str("INKY_COLOR", default="yellow")
+"""Inky color model (yellow, red, black)"""
+
 TRAIN_MODEL: str = _env.str("TRAIN_MODEL", default="OPEN_LIVE")
 """Train model to use (OPEN_LIVE or HUXLEY2)"""
 

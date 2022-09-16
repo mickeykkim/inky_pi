@@ -36,7 +36,7 @@ def test_running_terminal_ui_generates_expected_output() -> None:
         # train schedule from <station> to <station>
         rf"train\sschedule\sfrom\s{station_abbr}\sto\s{station_abbr}:",
         # <HH:MM> | P<#> to <station> - <status> [OR] <error message>
-        rf"({time}\s\|\sP\d+\sto\s\w+\s\-\s(\w+\s|{time}))|({any_error_msg})",
+        rf"({time}\s\|\sP\d+\sto\s(\w+\s)+\s\-\s(\w+\s|{time}))|({any_error_msg})",
     ]
 
     result: Result = CliRunner().invoke(
