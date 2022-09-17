@@ -56,19 +56,19 @@ WEATHER_OBJECT = WeatherObject(
 )
 
 
-OUTPUT_HANDLER: Dict[str, DisplayObject] = {
-    "inky": DisplayObject(model=DisplayModel.INKY_WHAT, base_color="black"),
-    "terminal": DisplayObject(model=DisplayModel.TERMINAL),
-    "desktop": DisplayObject(model=DisplayModel.DESKTOP),
-}
-
-
 class DisplayOption(Enum):
     """Enum of display options"""
 
     TRAIN = auto()
     WEATHER = auto()
     NIGHT = auto()
+
+
+OUTPUT_HANDLER: Dict[str, DisplayObject] = {
+    "inky": DisplayObject(model=DisplayModel.INKY_WHAT, base_color="black"),
+    "terminal": DisplayObject(model=DisplayModel.TERMINAL),
+    "desktop": DisplayObject(model=DisplayModel.DESKTOP),
+}
 
 
 def main() -> None:
@@ -78,7 +78,16 @@ def main() -> None:
     configure_logging()
     logger.debug("InkyPi main initialized")
     args: Namespace = _parse_args()
-    _create_display(args)
+    try:
+        display_data(
+            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
+        )
+    except KeyError:
+        logger.error(
+            f'Invalid display/output specified: "{args.display}"/"{args.output}"'
+        )
+    except Exception as exc:  # pylint: disable=broad-except
+        logger.exception(exc)
 
 
 def _parse_args() -> Namespace:
@@ -112,27 +121,6 @@ def _parse_args() -> Namespace:
         version="%(prog)s " + __version__,
     )
     return parser.parse_args()
-
-
-def _create_display(args: Namespace) -> None:
-    """Takes a Namespace object and uses the display and output attributes
-
-    If the display or output attributes are not found in the dispatchers, the
-    program will log the error and exit.
-
-    Args:
-        args (Namespace): Parsed command line arguments
-    """
-    try:
-        display_data(
-            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
-        )
-    except KeyError:
-        logger.error(
-            f'Invalid display/output specified: "{args.display}"/"{args.output}"'
-        )
-    except Exception as exc:  # pylint: disable=broad-except
-        logger.exception(exc)
 
 
 def display_data(option: DisplayOption, output: DisplayObject) -> None:

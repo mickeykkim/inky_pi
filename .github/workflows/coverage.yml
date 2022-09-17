@@ -52,13 +52,13 @@ jobs:
         run: |
           echo TRAIN_API_TOKEN=${{ secrets.TRAIN_API_TOKEN }} > .env
           echo WEATHER_API_TOKEN=${{ secrets.WEATHER_API_TOKEN }} >> .env
-          poetry run invoke coverage --xml
+          poetry run invoke test --junit --coverage="xml"
       # Upload coverage report to Codecov
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          files: ./coverage.xml
+          files: ./bin/coverage.xml
           name: codecov-umbrella # optional
           verbose: true # optional (default = false)
       # Upload coverage report to Codeclimate
@@ -67,4 +67,4 @@ jobs:
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
         with:
-          coverageLocations: ./coverage.xml:coverage.py
+          coverageLocations: ./bin/coverage.xml:coverage.py

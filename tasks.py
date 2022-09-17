@@ -8,7 +8,8 @@ import shutil
 import webbrowser
 from pathlib import Path
 
-from invoke import task  # type: ignore
+import pytest
+from invoke import task, exceptions  # type: ignore
 
 ROOT_DIR = Path(__file__).parent
 BIN_DIR = ROOT_DIR.joinpath("bin")
@@ -87,34 +88,40 @@ def lint(_):
     """
 
 
-@task
-def test(_c):
-    """
-    Run tests
-    """
-    _run(_c, "pytest")
-
-
 @task(
+    optional=["coverage"],
     help={
-        "html": 'Set to "True" for html output',
-        "xml": 'Set to "True" for junit xml output',
+        "coverage": 'Add coverage, ="html" for html output or ="xml" for xml output',
+        "junit": "Output a junit xml report",
     },
 )
-def coverage(_c, html=False, xml=False):
+def test(_, coverage=None, junit=False):
     """
-    Create coverage report
+    It runs the tests in the current directory, with coverage and junit xml output
     """
-    _run(_c, f"coverage run --source {SOURCE_DIR} -m pytest")
-    if html:
-        # Build a local report
-        _run(_c, "coverage html")
+    pytest_args = ["-v"]
+
+    if junit:
+        junit_file = BIN_DIR / "report.xml"
+        pytest_args.append(f"--junitxml={junit_file}")
+
+    if coverage is not None:
+        pytest_args.append(f"--cov={SOURCE_DIR}")
+
+    if coverage == "html":
+        pytest_args.append("--cov-report=html")
+    elif coverage == "xml":
+        xml_file = BIN_DIR / "coverage.xml"
+        pytest_args.append(f"--cov-report=xml:{xml_file}")
+
+    pytest_args.append(str(TEST_DIR))
+    return_code = pytest.main(pytest_args)
+
+    if coverage == "html":
         webbrowser.open(COVERAGE_REPORT.as_uri())
-    elif xml:
-        # Build a local xml for CI
-        _run(_c, "coverage xml")
-    else:
-        _run(_c, "coverage report")
+
+    if return_code:
+        raise exceptions.Exit("Tests failed", code=return_code)
 
 
 @task
@@ -199,8 +206,6 @@ def release(_c):
 def security_bandit(_c):
     """
     It runs bandit security checks on the source directory
-
-    :param _c: The command to run
     """
     _run(_c, f"bandit -c pyproject.toml -r {SOURCE_DIR}")
 
@@ -209,8 +214,6 @@ def security_bandit(_c):
 def security_safety(_c):
     """
     It runs security checks on package dependencies
-
-    :param _c: The context object that is passed to the task
     """
     Path(BIN_DIR).mkdir(parents=True, exist_ok=True)
     _run(
