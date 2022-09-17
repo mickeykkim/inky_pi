@@ -1,5 +1,6 @@
 """Console script for inky_pi."""
 import click
+from click import BaseCommand
 from loguru import logger
 
 from inky_pi.__init__ import __version__  # type: ignore
@@ -10,7 +11,7 @@ OUTPUT_PREFIX = "inky_pi cli"
 
 
 @click.group()
-def cli():
+def cli() -> BaseCommand:
     """CLI group for inky_pi."""
 
 
@@ -34,7 +35,7 @@ def display(option: str, output: str, dry_run: bool):
         display_data(DisplayOption[option.upper()], OUTPUT_HANDLER[output.lower()])
 
 
-def main():
+def main() -> None:
     """CLI main method."""
     configure_logging()
     logger.debug("InkyPi cli initialized")
