@@ -17,9 +17,10 @@ SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("inky_pi")
 TOX_DIR = ROOT_DIR.joinpath(".tox")
-COVERAGE_FILE = ROOT_DIR.joinpath(".coverage")
-COVERAGE_DIR = ROOT_DIR.joinpath("htmlcov")
-COVERAGE_REPORT = COVERAGE_DIR.joinpath("index.html")
+JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
+COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
+COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
+COVERAGE_HTML_FILE = COVERAGE_HTML_DIR.joinpath("index.html")
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
@@ -97,28 +98,30 @@ def lint(_):
 )
 def test(_, coverage=None, junit=False):
     """
-    It runs the tests in the current directory, with coverage and junit xml output
+    It runs the tests in the current directory
+
+    :param _: The context object that is passed to invoke tasks
+    :param coverage: Generates coverage report, "html" for html output or "xml" for xml output (optional)
+    :param junit: If True, the test results will be written to a JUnit XML file, defaults to False (optional)
     """
     pytest_args = ["-v"]
 
     if junit:
-        junit_file = BIN_DIR / "report.xml"
-        pytest_args.append(f"--junitxml={junit_file}")
+        pytest_args.append(f"--junitxml={JUNIT_XML_FILE}")
 
     if coverage is not None:
         pytest_args.append(f"--cov={SOURCE_DIR}")
 
     if coverage == "html":
-        pytest_args.append("--cov-report=html")
+        pytest_args.append(f"--cov-report=html:{COVERAGE_HTML_DIR}")
     elif coverage == "xml":
-        xml_file = BIN_DIR / "coverage.xml"
-        pytest_args.append(f"--cov-report=xml:{xml_file}")
+        pytest_args.append(f"--cov-report=xml:{COVERAGE_XML_FILE}")
 
     pytest_args.append(str(TEST_DIR))
     return_code = pytest.main(pytest_args)
 
     if coverage == "html":
-        webbrowser.open(COVERAGE_REPORT.as_uri())
+        webbrowser.open(COVERAGE_HTML_FILE.as_uri())
 
     if return_code:
         raise exceptions.Exit("Tests failed", code=return_code)
@@ -170,13 +173,17 @@ def clean_python(_c):
 
 
 @task
-def clean_tests(_c):
+def clean_tests(_):
     """
-    Clean up files from testing
+    It deletes all the test artifacts
+
+    :param _: The context object that is passed to invoke tasks
     """
-    _delete_file(COVERAGE_FILE)
+    _delete_file(JUNIT_XML_FILE)
+    _delete_file(COVERAGE_XML_FILE)
+    shutil.rmtree(COVERAGE_HTML_DIR, ignore_errors=True)
+    shutil.rmtree(BIN_DIR, ignore_errors=True)
     shutil.rmtree(TOX_DIR, ignore_errors=True)
-    shutil.rmtree(COVERAGE_DIR, ignore_errors=True)
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])

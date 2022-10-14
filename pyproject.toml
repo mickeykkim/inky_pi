@@ -101,7 +101,7 @@ commands =
     poetry run invoke format --check
     poetry run invoke lint
     poetry run invoke security
-    poetry run invoke test
+    poetry run invoke test --junit --coverage="xml"
 """
 
 [build-system]
