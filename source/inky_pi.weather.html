@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -91,18 +93,79 @@
            <div itemprop="articleBody">
              
   <section id="inky-pi-weather-package">
-<h1>inky_pi.weather package<a class="headerlink" href="#inky-pi-weather-package" title="Permalink to this headline"></a></h1>
+<h1>inky_pi.weather package<a class="headerlink" href="#inky-pi-weather-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.weather.open_weather_map.html">inky_pi.weather.open_weather_map module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.weather.weather_base.html">inky_pi.weather.weather_base module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inky_pi.weather.open_weather_map.html">inky_pi.weather.open_weather_map module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap._abc_impl"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap._abc_impl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_condition"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_condition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_condition"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_current_condition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_temperature"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_current_temperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_current_weather"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_current_weather()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_future_weather"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_future_weather()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_icon"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.get_temp_range"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.get_temp_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.OpenWeatherMap.retrieve_data"><code class="docutils literal notranslate"><span class="pre">OpenWeatherMap.retrieve_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map._check_day_limit"><code class="docutils literal notranslate"><span class="pre">_check_day_limit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.open_weather_map.html#inky_pi.weather.open_weather_map.instantiate_open_weather_map"><code class="docutils literal notranslate"><span class="pre">instantiate_open_weather_map()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inky_pi.weather.weather_base.html">inky_pi.weather.weather_base module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType"><code class="docutils literal notranslate"><span class="pre">IconType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.BROKEN_CLOUDS"><code class="docutils literal notranslate"><span class="pre">IconType.BROKEN_CLOUDS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.CLEAR_SKY"><code class="docutils literal notranslate"><span class="pre">IconType.CLEAR_SKY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.FEW_CLOUDS"><code class="docutils literal notranslate"><span class="pre">IconType.FEW_CLOUDS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.MIST"><code class="docutils literal notranslate"><span class="pre">IconType.MIST</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.RAIN"><code class="docutils literal notranslate"><span class="pre">IconType.RAIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.SCATTERED_CLOUDS"><code class="docutils literal notranslate"><span class="pre">IconType.SCATTERED_CLOUDS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.SHOWER_RAIN"><code class="docutils literal notranslate"><span class="pre">IconType.SHOWER_RAIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.SNOW"><code class="docutils literal notranslate"><span class="pre">IconType.SNOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType.THUNDERSTORM"><code class="docutils literal notranslate"><span class="pre">IconType.THUNDERSTORM</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.ScaleType"><code class="docutils literal notranslate"><span class="pre">ScaleType</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.ScaleType.CELSIUS"><code class="docutils literal notranslate"><span class="pre">ScaleType.CELSIUS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.ScaleType.FAHRENHEIT"><code class="docutils literal notranslate"><span class="pre">ScaleType.FAHRENHEIT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase"><code class="docutils literal notranslate"><span class="pre">WeatherBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase._abc_impl"><code class="docutils literal notranslate"><span class="pre">WeatherBase._abc_impl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_condition"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_condition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_condition"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_current_condition()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_temperature"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_current_temperature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_weather"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_current_weather()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_future_weather"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_future_weather()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_icon"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_icon()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_temp_range"><code class="docutils literal notranslate"><span class="pre">WeatherBase.get_temp_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.retrieve_data"><code class="docutils literal notranslate"><span class="pre">WeatherBase.retrieve_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherModel"><code class="docutils literal notranslate"><span class="pre">WeatherModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherModel.OPEN_WEATHER_MAP"><code class="docutils literal notranslate"><span class="pre">WeatherModel.OPEN_WEATHER_MAP</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject"><code class="docutils literal notranslate"><span class="pre">WeatherObject</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject.exclude_flags"><code class="docutils literal notranslate"><span class="pre">WeatherObject.exclude_flags</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject.latitude"><code class="docutils literal notranslate"><span class="pre">WeatherObject.latitude</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject.longitude"><code class="docutils literal notranslate"><span class="pre">WeatherObject.longitude</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject.model"><code class="docutils literal notranslate"><span class="pre">WeatherObject.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject.weather_api_token"><code class="docutils literal notranslate"><span class="pre">WeatherObject.weather_api_token</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.celsius_to_fahrenheit"><code class="docutils literal notranslate"><span class="pre">celsius_to_fahrenheit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.kelvin_to_celsius"><code class="docutils literal notranslate"><span class="pre">kelvin_to_celsius()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="module-inky_pi.weather">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-inky_pi.weather" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-inky_pi.weather" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

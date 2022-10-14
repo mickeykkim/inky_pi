@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -91,19 +93,65 @@
            <div itemprop="articleBody">
              
   <section id="inky-pi-train-package">
-<h1>inky_pi.train package<a class="headerlink" href="#inky-pi-train-package" title="Permalink to this headline"></a></h1>
+<h1>inky_pi.train package<a class="headerlink" href="#inky-pi-train-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.huxley2.html">inky_pi.train.huxley2 module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.open_live.html">inky_pi.train.open_live module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.train_base.html">inky_pi.train.train_base module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.huxley2.html">inky_pi.train.huxley2 module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2"><code class="docutils literal notranslate"><span class="pre">Huxley2</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2._abc_impl"><code class="docutils literal notranslate"><span class="pre">Huxley2._abc_impl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2._handle_error"><code class="docutils literal notranslate"><span class="pre">Huxley2._handle_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.fetch_train"><code class="docutils literal notranslate"><span class="pre">Huxley2.fetch_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.retrieve_data"><code class="docutils literal notranslate"><span class="pre">Huxley2.retrieve_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.huxley2.html#inky_pi.train.huxley2.instantiate_huxley2"><code class="docutils literal notranslate"><span class="pre">instantiate_huxley2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.open_live.html">inky_pi.train.open_live module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.OpenLive"><code class="docutils literal notranslate"><span class="pre">OpenLive</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.OpenLive._abc_impl"><code class="docutils literal notranslate"><span class="pre">OpenLive._abc_impl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.OpenLive._handle_error"><code class="docutils literal notranslate"><span class="pre">OpenLive._handle_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.OpenLive.fetch_train"><code class="docutils literal notranslate"><span class="pre">OpenLive.fetch_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.OpenLive.retrieve_data"><code class="docutils literal notranslate"><span class="pre">OpenLive.retrieve_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.open_live.html#inky_pi.train.open_live.instantiate_open_live"><code class="docutils literal notranslate"><span class="pre">instantiate_open_live()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="inky_pi.train.train_base.html">inky_pi.train.train_base module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase"><code class="docutils literal notranslate"><span class="pre">TrainBase</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase._abc_impl"><code class="docutils literal notranslate"><span class="pre">TrainBase._abc_impl</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase._validate_number"><code class="docutils literal notranslate"><span class="pre">TrainBase._validate_number()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.fetch_train"><code class="docutils literal notranslate"><span class="pre">TrainBase.fetch_train()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.format_error_msg"><code class="docutils literal notranslate"><span class="pre">TrainBase.format_error_msg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.format_train_string"><code class="docutils literal notranslate"><span class="pre">TrainBase.format_train_string()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.retrieve_data"><code class="docutils literal notranslate"><span class="pre">TrainBase.retrieve_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainModel"><code class="docutils literal notranslate"><span class="pre">TrainModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainModel.HUXLEY2"><code class="docutils literal notranslate"><span class="pre">TrainModel.HUXLEY2</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainModel.OPEN_LIVE"><code class="docutils literal notranslate"><span class="pre">TrainModel.OPEN_LIVE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject"><code class="docutils literal notranslate"><span class="pre">TrainObject</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.model"><code class="docutils literal notranslate"><span class="pre">TrainObject.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.number"><code class="docutils literal notranslate"><span class="pre">TrainObject.number</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.station_from"><code class="docutils literal notranslate"><span class="pre">TrainObject.station_from</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.station_to"><code class="docutils literal notranslate"><span class="pre">TrainObject.station_to</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.token"><code class="docutils literal notranslate"><span class="pre">TrainObject.token</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject.url"><code class="docutils literal notranslate"><span class="pre">TrainObject.url</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.abbreviate_stn_name"><code class="docutils literal notranslate"><span class="pre">abbreviate_stn_name()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="module-inky_pi.train">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-inky_pi.train" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-inky_pi.train" title="Permalink to this heading"></a></h2>
 </section>
 </section>
 

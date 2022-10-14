@@ -14,7 +14,9 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -92,13 +94,13 @@
            <div itemprop="articleBody">
              
   <section id="module-inky_pi.__main__">
-<span id="inky-pi-main-module"></span><h1>inky_pi.__main__ module<a class="headerlink" href="#module-inky_pi.__main__" title="Permalink to this headline"></a></h1>
+<span id="inky-pi-main-module"></span><h1>inky_pi.__main__ module<a class="headerlink" href="#module-inky_pi.__main__" title="Permalink to this heading"></a></h1>
 <p>Inky_Pi main module.</p>
 <p>Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.__main__.DisplayOption">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.__main__.</span></span><span class="sig-name descname"><span class="pre">DisplayOption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/inky_pi/__main__.html#DisplayOption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.__main__.DisplayOption" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Enum of display options</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="inky_pi.__main__.DisplayOption.NIGHT">
@@ -119,7 +121,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="inky_pi.__main__._parse_args">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.__main__.</span></span><span class="sig-name descname"><span class="pre">_parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">argparse.Namespace</span></span></span><a class="reference internal" href="../_modules/inky_pi/__main__.html#_parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.__main__._parse_args" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">inky_pi.__main__.</span></span><span class="sig-name descname"><span class="pre">_parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Namespace</span></span></span><a class="reference internal" href="../_modules/inky_pi/__main__.html#_parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.__main__._parse_args" title="Permalink to this definition"></a></dt>
 <dd><p>Parses the command line arguments and returns the parsed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -133,7 +135,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="inky_pi.__main__.display_data">
-<span class="sig-prename descclassname"><span class="pre">inky_pi.__main__.</span></span><span class="sig-name descname"><span class="pre">display_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.__main__.DisplayOption" title="inky_pi.__main__.DisplayOption"><span class="pre">inky_pi.__main__.DisplayOption</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><span class="pre">inky_pi.display.display_base.DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/__main__.html#display_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.__main__.display_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">inky_pi.__main__.</span></span><span class="sig-name descname"><span class="pre">display_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#inky_pi.__main__.DisplayOption" title="inky_pi.__main__.DisplayOption"><span class="pre">DisplayOption</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><span class="pre">DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/__main__.html#display_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.__main__.display_data" title="Permalink to this definition"></a></dt>
 <dd><p>inky_pi weather with train function</p>
 <p>Retrieves train and weather data from API endpoints, generates text and
 weather icon, and draws to inkyWHAT screen.</p>
