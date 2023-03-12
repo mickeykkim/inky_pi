@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.weather.weather_base</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.weather.weather_base</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -84,28 +88,28 @@
 
 
 <div class="viewcode-block" id="kelvin_to_celsius"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.kelvin_to_celsius">[docs]</a><span class="k">def</span> <span class="nf">kelvin_to_celsius</span><span class="p">(</span><span class="n">kelvin_temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Helper function to convert Kelvin to Celsius to one decimal place&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to convert Kelvin to Celsius to one decimal place&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">kelvin_temp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Kelvin temperature cannot be less than 0.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">kelvin_temp</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="celsius_to_fahrenheit"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.celsius_to_fahrenheit">[docs]</a><span class="k">def</span> <span class="nf">celsius_to_fahrenheit</span><span class="p">(</span><span class="n">celsius_temp</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Helper function to convert Celsius to Fahrenheit to one decimal place&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to convert Celsius to Fahrenheit to one decimal place&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">celsius_temp</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">273.15</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Celsius temperature cannot be less than -273.15.&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">round</span><span class="p">((</span><span class="n">celsius_temp</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="WeatherModel"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherModel">[docs]</a><span class="k">class</span> <span class="nc">WeatherModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
 
     <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="WeatherObject"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">WeatherObject</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Weather object&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Weather object&quot;&quot;&quot;</span>
 
     <span class="n">model</span><span class="p">:</span> <span class="n">WeatherModel</span>
     <span class="n">latitude</span><span class="p">:</span> <span class="nb">float</span>
@@ -115,7 +119,7 @@
 
 
 <div class="viewcode-block" id="IconType"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.IconType">[docs]</a><span class="k">class</span> <span class="nc">IconType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum for Weather Icon types&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for Weather Icon types&quot;&quot;&quot;</span>
 
     <span class="n">CLEAR_SKY</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">FEW_CLOUDS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -129,18 +133,18 @@
 
 
 <div class="viewcode-block" id="ScaleType"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.ScaleType">[docs]</a><span class="k">class</span> <span class="nc">ScaleType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum for Weather Scale types&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum for Weather Scale types&quot;&quot;&quot;</span>
 
     <span class="n">CELSIUS</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">FAHRENHEIT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="WeatherBase"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase">[docs]</a><span class="k">class</span> <span class="nc">WeatherBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Abstract base class for all weather models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for all weather models&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="WeatherBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">weather_object</span><span class="p">:</span> <span class="n">WeatherObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Retrieves weather data from API; must be called after constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves weather data from API; must be called after constructor</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            protocol: HTTP data protocol (e.g. requests)</span>
@@ -149,7 +153,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_icon"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_icon">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IconType</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested weather icon</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return requested weather icon</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            day (int): Desired day number (0/today or 1..7)</span>
@@ -160,7 +164,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_current_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_weather">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_current_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested weather data</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return requested weather data</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            scale (ScaleType): Celsius or Fahrenheit for formatting</span>
@@ -171,7 +175,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_current_temperature"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_temperature">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_current_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested current temperature</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return requested current temperature</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            scale (ScaleType): Celsius or Fahrenheit for formatting</span>
@@ -182,7 +186,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_current_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_current_condition">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_current_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested current condition</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return requested current condition</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            str: Formatted string or error message</span>
@@ -190,7 +194,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_temp_range"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_temp_range">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_temp_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return temperature range string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return temperature range string</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            day (int): Desired day number (0/today or 1..7)</span>
@@ -202,7 +206,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_condition"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_condition">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return weather condition string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return weather condition string</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            day (int): Desired day number (0/today or 1/tomorrow)</span>
@@ -213,7 +217,7 @@
 
 <div class="viewcode-block" id="WeatherBase.get_future_weather"><a class="viewcode-back" href="../../../source/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase.get_future_weather">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_future_weather</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return weather string for given day</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return weather string for given day</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            day (int): Desired day number (0/today or 1..7)</span>

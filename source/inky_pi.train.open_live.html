@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>inky_pi.train.open_live module &mdash; inky-pi 0.1.0 documentation</title>
@@ -29,14 +29,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,11 +83,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">inky_pi</a> &raquo;</li>
-          <li><a href="inky_pi.html">inky_pi package</a> &raquo;</li>
-          <li><a href="inky_pi.train.html">inky_pi.train package</a> &raquo;</li>
-      <li>inky_pi.train.open_live module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">inky_pi</a></li>
+          <li class="breadcrumb-item"><a href="inky_pi.html">inky_pi package</a></li>
+          <li class="breadcrumb-item"><a href="inky_pi.train.html">inky_pi.train package</a></li>
+      <li class="breadcrumb-item active">inky_pi.train.open_live module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/inky_pi.train.open_live.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -111,10 +115,10 @@
 <span class="sig-name descname"><span class="pre">_handle_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#OpenLive._handle_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.OpenLive._handle_error" title="Permalink to this definition"></a></dt>
 <dd><p>Log error and raise exception</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – Train number</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>Exception</strong> – Exception to raise</p>
 </dd>
 </dl>
@@ -129,13 +133,13 @@
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>num</strong> (<em>int</em>) – Next train departing number starting from 0</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Formatted string or error message</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -147,7 +151,7 @@
 <dd><p>Requests train data from OpenLDBWS train arrivals API endpoint</p>
 <p>API description: <a class="reference external" href="http://lite.realtime.nationalrail.co.uk/openldbws/">http://lite.realtime.nationalrail.co.uk/openldbws/</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>protocol</strong> (<em>Any</em>) – Zeep object for SOAP requests</p></li>
 <li><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – Train object</p></li>
@@ -163,13 +167,13 @@
 <span class="sig-prename descclassname"><span class="pre">inky_pi.train.open_live.</span></span><span class="sig-name descname"><span class="pre">instantiate_open_live</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive"><span class="pre">OpenLive</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/train/open_live.html#instantiate_open_live"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.open_live.instantiate_open_live" title="Permalink to this definition"></a></dt>
 <dd><p>Open Live object creator</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>OpenLive object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#inky_pi.train.open_live.OpenLive" title="inky_pi.train.open_live.OpenLive">OpenLive</a></p>
 </dd>
 </dl>

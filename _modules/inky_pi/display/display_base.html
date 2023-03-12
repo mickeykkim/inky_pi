@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.display.display_base</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.display.display_base</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -88,7 +92,7 @@
 
 
 <div class="viewcode-block" id="DisplayModel"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayModel">[docs]</a><span class="k">class</span> <span class="nc">DisplayModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum of display models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of display models&quot;&quot;&quot;</span>
 
     <span class="n">INKY_WHAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">TERMINAL</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -97,18 +101,18 @@
 
 <div class="viewcode-block" id="DisplayObject"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">DisplayObject</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Display object&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display object&quot;&quot;&quot;</span>
 
     <span class="n">model</span><span class="p">:</span> <span class="n">DisplayModel</span>
     <span class="n">base_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="DisplayBase"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase">[docs]</a><span class="k">class</span> <span class="nc">DisplayBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Abstract base class for all display models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for all display models&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="DisplayBase.draw_date"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase.draw_date">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">draw_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display date</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display date</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            x_y: (x, y) coordinates</span>
@@ -116,7 +120,7 @@
 
 <div class="viewcode-block" id="DisplayBase.draw_time"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase.draw_time">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">draw_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display time</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display time</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            x_y: (x, y) coordinates</span>
@@ -126,7 +130,7 @@
     <span class="k">def</span> <span class="nf">draw_train_times</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data_t</span><span class="p">:</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">num_trains</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display train data</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display train data</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data_t: train data</span>
@@ -142,7 +146,7 @@
         <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="n">disp_tomorrow</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display weather forecast</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display weather forecast</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data_w: weather data</span>
@@ -159,7 +163,7 @@
         <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="n">day</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display mini weather forecast</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display mini weather forecast</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data_w: weather data</span>
@@ -170,7 +174,7 @@
 
 <div class="viewcode-block" id="DisplayBase.draw_weather_icon"><a class="viewcode-back" href="../../../source/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase.draw_weather_icon">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">draw_weather_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon</span><span class="p">:</span> <span class="n">IconType</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display weather icon</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display weather icon</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            icon: icon type</span>
@@ -184,7 +188,7 @@
         <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span><span class="p">,</span>
         <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display extended forecast icons</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display extended forecast icons</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data_w: weather data</span>
@@ -196,7 +200,7 @@
     <span class="k">def</span> <span class="nf">draw_goodnight</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data_w</span><span class="p">:</span> <span class="n">WeatherBase</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Display goodnight message</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Display goodnight message</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            data_w: weather data</span>
@@ -205,7 +209,7 @@
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DisplayBase&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Enter context manager</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Enter context manager</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            self</span>
@@ -213,7 +217,7 @@
 
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Exit context manager&quot;&quot;&quot;</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exit context manager&quot;&quot;&quot;</span></div>
 </pre></div>
 
            </div>

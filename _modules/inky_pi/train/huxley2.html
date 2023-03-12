@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.train.huxley2</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.train.huxley2</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,10 +91,10 @@
 
 
 <div class="viewcode-block" id="Huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2">[docs]</a><span class="k">class</span> <span class="nc">Huxley2</span><span class="p">(</span><span class="n">TrainBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Fetch and manage train data&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch and manage train data&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Huxley2.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Requests train data from OpenLDBWS train arrivals API endpoint</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Requests train data from OpenLDBWS train arrivals API endpoint</span>
 
 <span class="sd">        More info here: https://huxley2.azurewebsites.net/</span>
 
@@ -114,7 +118,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid train data request: </span><span class="si">{</span><span class="n">train_object</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div>
 
 <div class="viewcode-block" id="Huxley2._handle_error"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2._handle_error">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Log error and raise exception</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log error and raise exception</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            num (int): Train number</span>
@@ -133,7 +137,7 @@
             <span class="k">return</span> <span class="n">TrainBase</span><span class="o">.</span><span class="n">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Huxley2.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.fetch_train">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Generate next train string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate next train string</span>
 
 <span class="sd">        String is returned in format:</span>
 <span class="sd">            [hh:mm] | [Platform #] to [Final Destination Station] - [Status]</span>
@@ -160,7 +164,7 @@
 
 
 <div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Huxley2 object creator</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Huxley2 object creator</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        train_object (TrainObject): train object containing model</span>

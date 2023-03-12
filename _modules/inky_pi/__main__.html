@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.__main__</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.__main__</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -135,7 +139,7 @@
 
 
 <div class="viewcode-block" id="DisplayOption"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.DisplayOption">[docs]</a><span class="k">class</span> <span class="nc">DisplayOption</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum of display options&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of display options&quot;&quot;&quot;</span>
 
     <span class="n">TRAIN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">WEATHER</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
@@ -150,7 +154,7 @@
 
 
 <div class="viewcode-block" id="_parse_args"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__._parse_args">[docs]</a><span class="k">def</span> <span class="nf">_parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Namespace</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Parses the command line arguments and returns the parsed arguments.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parses the command line arguments and returns the parsed arguments.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Namespace: Parsed command line arguments.</span>
@@ -183,7 +187,7 @@
 
 
 <div class="viewcode-block" id="display_data"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.display_data">[docs]</a><span class="k">def</span> <span class="nf">display_data</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;inky_pi weather with train function</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;inky_pi weather with train function</span>
 
 <span class="sd">    Retrieves train and weather data from API endpoints, generates text and</span>
 <span class="sd">    weather icon, and draws to inkyWHAT screen.</span>
@@ -216,7 +220,7 @@
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;The entry point for the program. It parses the command line arguments and calls</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The entry point for the program. It parses the command line arguments and calls</span>
 <span class="sd">    the appropriate display function and output option based on the arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">configure_logging</span><span class="p">()</span>

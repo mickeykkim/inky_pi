@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.display.util.desktop_driver</li>
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.display.util.desktop_driver</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -87,7 +91,7 @@
 
 
 <div class="viewcode-block" id="DesktopDisplayDriver"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver">[docs]</a><span class="k">class</span> <span class="nc">DesktopDisplayDriver</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Desktop Display Driver.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Desktop Display Driver.&quot;&quot;&quot;</span>
 
     <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">400</span>
     <span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">300</span>
@@ -99,7 +103,7 @@
     <span class="n">YELLOW</span> <span class="o">=</span> <span class="p">(</span><span class="n">MAX_VAL</span><span class="p">,</span> <span class="n">MAX_VAL</span><span class="p">,</span> <span class="n">MAX_VAL</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="n">MAX_VAL</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Initialize display driver.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize display driver.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            base_color: base color</span>
@@ -120,7 +124,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ImageDraw</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="DesktopDisplayDriver.set_image"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Set image</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set image</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            PIL image: image</span>
@@ -128,7 +132,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_img</span> <span class="o">=</span> <span class="n">image</span></div>
 
 <div class="viewcode-block" id="DesktopDisplayDriver.set_border"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_border">[docs]</a>    <span class="k">def</span> <span class="nf">set_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Draw border around the edge (1/2 self.BORDER_SIZE + 1)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw border around the edge (1/2 self.BORDER_SIZE + 1)</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            border_color: border color (one of self.&lt;COLOR&gt;)</span>
@@ -161,7 +165,7 @@
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="DesktopDisplayDriver.show"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Show image</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Show image</span>
 
 <span class="sd">        Uses Pillow to display image on desktop.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

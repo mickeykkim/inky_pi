@@ -26,14 +26,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -63,9 +67,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>inky_pi.train.train_base</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">inky_pi.train.train_base</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +89,7 @@
 
 
 <div class="viewcode-block" id="abbreviate_stn_name"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.abbreviate_stn_name">[docs]</a><span class="k">def</span> <span class="nf">abbreviate_stn_name</span><span class="p">(</span><span class="n">station_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Helper function to abbreviate station name by shortening words</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper function to abbreviate station name by shortening words</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        station_name (str): Station name</span>
@@ -112,7 +116,7 @@
 
 
 <div class="viewcode-block" id="TrainModel"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainModel">[docs]</a><span class="k">class</span> <span class="nc">TrainModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum of train models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of train models&quot;&quot;&quot;</span>
 
     <span class="n">HUXLEY2</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">OPEN_LIVE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
@@ -120,7 +124,7 @@
 
 <div class="viewcode-block" id="TrainObject"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">TrainObject</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Train object&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Train object&quot;&quot;&quot;</span>
 
     <span class="n">model</span><span class="p">:</span> <span class="n">TrainModel</span>
     <span class="n">station_from</span><span class="p">:</span> <span class="nb">str</span>
@@ -131,7 +135,7 @@
 
 
 <div class="viewcode-block" id="TrainBase"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase">[docs]</a><span class="k">class</span> <span class="nc">TrainBase</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Abstract base class for all train models&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for all train models&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
@@ -141,7 +145,7 @@
 
 <div class="viewcode-block" id="TrainBase.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.retrieve_data">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Retrieves train data from API; must be called after constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Retrieves train data from API; must be called after constructor</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            protocol: HTTP data protocol (e.g. requests or zeep)</span>
@@ -150,7 +154,7 @@
 
 <div class="viewcode-block" id="TrainBase.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.fetch_train">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return requested train data</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return requested train data</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            num (int): Desired train number</span>
@@ -163,7 +167,7 @@
     <span class="k">def</span> <span class="nf">format_train_string</span><span class="p">(</span>
         <span class="n">arrival_t</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">platform</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dest_stn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Takes in a train&#39;s arrival time, platform, destination station, and status,</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Takes in a train&#39;s arrival time, platform, destination station, and status,</span>
 <span class="sd">        and returns a string with the train&#39;s information in a display format.</span>
 
 <span class="sd">        Args:</span>
@@ -182,7 +186,7 @@
     <span class="c1"># TODO: Change this to a generator implementation, update types, update tests</span>
 <div class="viewcode-block" id="TrainBase.format_error_msg"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase.format_error_msg">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Format error message by line wrapping over each line</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Format error message by line wrapping over each line</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            error_msg (str): Error message</span>
@@ -197,7 +201,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">error_msg</span><span class="p">[</span><span class="n">num</span> <span class="o">*</span> <span class="n">line_length</span> <span class="p">:</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">line_length</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TrainBase._validate_number"><a class="viewcode-back" href="../../../source/inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase._validate_number">[docs]</a>    <span class="k">def</span> <span class="nf">_validate_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Check if train number is valid</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if train number is valid</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            num (int): Train number to check</span>

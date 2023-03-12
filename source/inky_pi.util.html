@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>inky_pi.util module &mdash; inky-pi 0.1.0 documentation</title>
@@ -28,14 +28,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> inky-pi
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            inky-pi
           </a>
               <div class="version">
                 0.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -79,10 +83,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">inky_pi</a> &raquo;</li>
-          <li><a href="inky_pi.html">inky_pi package</a> &raquo;</li>
-      <li>inky_pi.util module</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">inky_pi</a></li>
+          <li class="breadcrumb-item"><a href="inky_pi.html">inky_pi package</a></li>
+      <li class="breadcrumb-item active">inky_pi.util module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/source/inky_pi.util.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -100,10 +104,10 @@
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">_check_open_live_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#_check_open_live_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util._check_open_live_params" title="Permalink to this definition"></a></dt>
 <dd><p>Checks if the Open Live URL and API token have been provided</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>ValueError</strong> – If the Open Live API token is invalid</p>
 </dd>
 </dl>
@@ -121,13 +125,13 @@
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">display_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><span class="pre">DisplayObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase"><span class="pre">DisplayBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#display_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.display_model_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Selects and instantiates the defined display model to use</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>display_object</strong> (<a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><em>DisplayObject</em></a>) – display object containing model</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>DisplayBase object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase">DisplayBase</a></p>
 </dd>
 </dl>
@@ -139,13 +143,13 @@
 <dd><p>Imports the display model from the given display object and returns it.
 On error, logs and exits program (typically if not running on RPi).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>display_object</strong> (<a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject" title="inky_pi.display.display_base.DisplayObject"><em>DisplayObject</em></a>) – The display object to be imported.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The display model.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayBase" title="inky_pi.display.display_base.DisplayBase">DisplayBase</a></p>
 </dd>
 </dl>
@@ -156,13 +160,13 @@ On error, logs and exits program (typically if not running on RPi).</p>
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">train_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">TrainBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#train_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.train_model_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Selects and instantiates the defined train model to use</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>train_object</strong> (<a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><em>TrainObject</em></a>) – train object containing model</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>TrainBase object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase">TrainBase</a></p>
 </dd>
 </dl>
@@ -173,13 +177,13 @@ On error, logs and exits program (typically if not running on RPi).</p>
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">weather_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><span class="pre">WeatherObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase"><span class="pre">WeatherBase</span></a></span></span><a class="reference internal" href="../_modules/inky_pi/util.html#weather_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.weather_model_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Selects and instantiates the defined weather model to use</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>weather_object</strong> (<a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject" title="inky_pi.weather.weather_base.WeatherObject"><em>WeatherObject</em></a>) – weather object containing model</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>WeatherBase object</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherBase" title="inky_pi.weather.weather_base.WeatherBase">WeatherBase</a></p>
 </dd>
 </dl>
