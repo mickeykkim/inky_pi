@@ -60,6 +60,7 @@ def format(_c: Context, check: bool = False):  # pylint: disable=redefined-built
     # Run isort
     isort_options = "--check-only --diff" if check else ""
     _run(_c, f"isort {isort_options} {python_dirs_string}")
+    _run(_c, f"ssort {python_dirs_string}")
 
 
 @task
