@@ -137,13 +137,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_white</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">WHITE</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">YELLOW</span>
 
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InkyDraw&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Exit context manager; render the drawn screen&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">render_screen</span><span class="p">()</span>
-
 <div class="viewcode-block" id="InkyDraw.render_screen"><a class="viewcode-back" href="../../../source/inky_pi.display.inky_draw.html#inky_pi.display.inky_draw.InkyDraw.render_screen">[docs]</a>    <span class="k">def</span> <span class="nf">render_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Render border, images (w/text) on inky screen and show on display&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_display</span><span class="o">.</span><span class="n">set_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">)</span>
@@ -335,7 +328,14 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">draw_mini_forecast</span><span class="p">(</span>
                 <span class="n">data_w</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">),</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="p">)</span></div></div>
+            <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;InkyDraw&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Exit context manager; render the drawn screen&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">render_screen</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="_import_inky_what"><a class="viewcode-back" href="../../../source/inky_pi.display.inky_draw.html#inky_pi.display.inky_draw._import_inky_what">[docs]</a><span class="k">def</span> <span class="nf">_import_inky_what</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>

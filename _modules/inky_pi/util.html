@@ -105,6 +105,23 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="n">LOG_ROTATION</span><span class="p">,</span> <span class="n">serialize</span><span class="o">=</span><span class="n">LOG_SERIALIZE</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="display_model_factory"><a class="viewcode-back" href="../../source/inky_pi.util.html#inky_pi.util.display_model_factory">[docs]</a><span class="k">def</span> <span class="nf">display_model_factory</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined display model to use</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        display_object (DisplayObject): display object containing model</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        DisplayBase: DisplayBase object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">display_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">DisplayModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DisplayObject</span><span class="p">],</span> <span class="n">DisplayBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">:</span> <span class="n">instantiate_terminal_display</span><span class="p">,</span>
+        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">display_handler</span><span class="p">[</span><span class="n">display_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">display_object</span><span class="p">)</span></div>
+
+
 <div class="viewcode-block" id="import_display"><a class="viewcode-back" href="../../source/inky_pi.util.html#inky_pi.util.import_display">[docs]</a><span class="k">def</span> <span class="nf">import_display</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Imports the display model from the given display object and returns it.</span>
@@ -121,23 +138,6 @@
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="display_model_factory"><a class="viewcode-back" href="../../source/inky_pi.util.html#inky_pi.util.display_model_factory">[docs]</a><span class="k">def</span> <span class="nf">display_model_factory</span><span class="p">(</span><span class="n">display_object</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DisplayBase</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Selects and instantiates the defined display model to use</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        display_object (DisplayObject): display object containing model</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        DisplayBase: DisplayBase object</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">display_handler</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">DisplayModel</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DisplayObject</span><span class="p">],</span> <span class="n">DisplayBase</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
-        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">:</span> <span class="n">instantiate_terminal_display</span><span class="p">,</span>
-        <span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">:</span> <span class="n">instantiate_inky_display</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">display_handler</span><span class="p">[</span><span class="n">display_object</span><span class="o">.</span><span class="n">model</span><span class="p">](</span><span class="n">display_object</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="_check_open_live_params"><a class="viewcode-back" href="../../source/inky_pi.util.html#inky_pi.util._check_open_live_params">[docs]</a><span class="k">def</span> <span class="nf">_check_open_live_params</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

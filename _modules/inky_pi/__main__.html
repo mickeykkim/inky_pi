@@ -149,27 +149,6 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;The entry point for the program. It parses the command line arguments and calls</span>
-<span class="sd">    the appropriate display function and output option based on the arguments.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">configure_logging</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi main initialized&quot;</span><span class="p">)</span>
-    <span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span> <span class="o">=</span> <span class="n">_parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">display_data</span><span class="p">(</span>
-            <span class="n">DisplayOption</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-        <span class="p">)</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;Invalid display/output specified: &quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">display</span><span class="si">}</span><span class="s1">&quot;/&quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
-        <span class="p">)</span>
-        <span class="k">raise</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
-        <span class="k">raise</span></div>
-
-
 <div class="viewcode-block" id="_parse_args"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__._parse_args">[docs]</a><span class="k">def</span> <span class="nf">_parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Namespace</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Parses the command line arguments and returns the parsed arguments.</span>
 
@@ -234,6 +213,27 @@
             <span class="n">display</span><span class="o">.</span><span class="n">draw_train_times</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">TRAIN_NUMBER</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">WEATHER</span><span class="p">:</span>
             <span class="n">display</span><span class="o">.</span><span class="n">draw_forecast_icons</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi.__main__.html#inky_pi.__main__.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;The entry point for the program. It parses the command line arguments and calls</span>
+<span class="sd">    the appropriate display function and output option based on the arguments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">configure_logging</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi main initialized&quot;</span><span class="p">)</span>
+    <span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span> <span class="o">=</span> <span class="n">_parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">display_data</span><span class="p">(</span>
+            <span class="n">DisplayOption</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;Invalid display/output specified: &quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">display</span><span class="si">}</span><span class="s1">&quot;/&quot;</span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+        <span class="k">raise</span></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
