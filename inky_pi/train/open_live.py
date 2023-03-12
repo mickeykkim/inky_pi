@@ -50,6 +50,26 @@ class OpenLive(TrainBase):
             logger.error("Error retrieving train data (check stations?).")
             raise ValueError(f"Invalid train data request: {train_object}") from exc
 
+    def _handle_error(self, num: int) -> str:
+        """Log error and raise exception
+
+        Args:
+            num (int): Train number
+
+        Raises:
+            Exception: Exception to raise
+        """
+        if not self._data:
+            raise ValueError("No train data available.")
+
+        try:
+            # pylint: disable=protected-access
+            error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
+            return TrainBase.format_error_msg(error_msg, num)
+        except (AttributeError, TypeError, KeyError, IndexError):
+            error_msg = f"No trains to {self.destination} from {self.origin}."
+            return TrainBase.format_error_msg(error_msg, num)
+
     def fetch_train(self, num: int) -> str:
         """Generate next train string
 
@@ -75,26 +95,6 @@ class OpenLive(TrainBase):
             return TrainBase.format_train_string(arrival_t, platform, dest_stn, status)
         except (AttributeError, TypeError, KeyError, IndexError):
             return self._handle_error(num)
-
-    def _handle_error(self, num: int) -> str:
-        """Log error and raise exception
-
-        Args:
-            num (int): Train number
-
-        Raises:
-            Exception: Exception to raise
-        """
-        if not self._data:
-            raise ValueError("No train data available.")
-
-        try:
-            # pylint: disable=protected-access
-            error_msg = str(self._data.nrccMessages.message[0]._value_1)[1:]
-            return TrainBase.format_error_msg(error_msg, num)
-        except (AttributeError, TypeError, KeyError, IndexError):
-            error_msg = f"No trains to {self.destination} from {self.origin}."
-            return TrainBase.format_error_msg(error_msg, num)
 
 
 def instantiate_open_live(train_object: TrainObject) -> OpenLive:

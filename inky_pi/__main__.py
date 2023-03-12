@@ -72,27 +72,6 @@ OUTPUT_HANDLER: Dict[str, DisplayObject] = {
 }
 
 
-def main() -> None:
-    """The entry point for the program. It parses the command line arguments and calls
-    the appropriate display function and output option based on the arguments.
-    """
-    configure_logging()
-    logger.debug("InkyPi main initialized")
-    args: Namespace = _parse_args(sys.argv[1:])
-    try:
-        display_data(
-            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
-        )
-    except KeyError:
-        logger.error(
-            f'Invalid display/output specified: "{args.display}"/"{args.output}"'
-        )
-        raise
-    except Exception as exc:  # pylint: disable=broad-except
-        logger.exception(exc)
-        raise
-
-
 def _parse_args(args) -> Namespace:
     """Parses the command line arguments and returns the parsed arguments.
 
@@ -157,6 +136,27 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
             display.draw_train_times(train_data, TRAIN_NUMBER)
         elif option == DisplayOption.WEATHER:
             display.draw_forecast_icons(weather_data)
+
+
+def main() -> None:
+    """The entry point for the program. It parses the command line arguments and calls
+    the appropriate display function and output option based on the arguments.
+    """
+    configure_logging()
+    logger.debug("InkyPi main initialized")
+    args: Namespace = _parse_args(sys.argv[1:])
+    try:
+        display_data(
+            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
+        )
+    except KeyError:
+        logger.error(
+            f'Invalid display/output specified: "{args.display}"/"{args.output}"'
+        )
+        raise
+    except Exception as exc:  # pylint: disable=broad-except
+        logger.exception(exc)
+        raise
 
 
 if __name__ == "__main__":

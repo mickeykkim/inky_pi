@@ -28,6 +28,23 @@ def configure_logging() -> None:
     logger.add(LOG_FILE, rotation=LOG_ROTATION, serialize=LOG_SERIALIZE)
 
 
+def display_model_factory(display_object: DisplayObject) -> DisplayBase:
+    """Selects and instantiates the defined display model to use
+
+    Args:
+        display_object (DisplayObject): display object containing model
+
+    Returns:
+        DisplayBase: DisplayBase object
+    """
+    display_handler: Dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
+        DisplayModel.INKY_WHAT: instantiate_inky_display,
+        DisplayModel.TERMINAL: instantiate_terminal_display,
+        DisplayModel.DESKTOP: instantiate_inky_display,
+    }
+    return display_handler[display_object.model](display_object)
+
+
 def import_display(display_object: DisplayObject) -> DisplayBase:
     """
     Imports the display model from the given display object and returns it.
@@ -44,23 +61,6 @@ def import_display(display_object: DisplayObject) -> DisplayBase:
     except ImportError as exc:
         logger.error(exc)
         sys.exit(1)
-
-
-def display_model_factory(display_object: DisplayObject) -> DisplayBase:
-    """Selects and instantiates the defined display model to use
-
-    Args:
-        display_object (DisplayObject): display object containing model
-
-    Returns:
-        DisplayBase: DisplayBase object
-    """
-    display_handler: Dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
-        DisplayModel.INKY_WHAT: instantiate_inky_display,
-        DisplayModel.TERMINAL: instantiate_terminal_display,
-        DisplayModel.DESKTOP: instantiate_inky_display,
-    }
-    return display_handler[display_object.model](display_object)
 
 
 def _check_open_live_params(train_object: TrainObject) -> None:

@@ -30,18 +30,6 @@ class DisplayBase(ABC):
     """Abstract base class for all display models"""
 
     @abstractmethod
-    def __enter__(self) -> "DisplayBase":
-        """Enter context manager
-
-        Returns:
-            self
-        """
-
-    @abstractmethod
-    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
-        """Exit context manager"""
-
-    @abstractmethod
     def draw_date(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Display date
 
@@ -137,3 +125,15 @@ class DisplayBase(ABC):
             data_w: weather data
             scale: scale type
         """
+
+    @abstractmethod
+    def __enter__(self) -> "DisplayBase":
+        """Enter context manager
+
+        Returns:
+            self
+        """
+
+    @abstractmethod
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context manager"""

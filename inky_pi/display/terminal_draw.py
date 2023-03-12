@@ -28,18 +28,6 @@ class TerminalDraw(DisplayBase):
         self._console = Console()
         self._output: List[str] = []
 
-    def __enter__(self) -> "TerminalDraw":
-        """Enter context manager
-
-        Returns:
-            self
-        """
-        return self
-
-    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
-        """Exit context manager"""
-        self.render_text()
-
     def render_text(self) -> None:
         """Render collected text onto the terminal"""
         self._console.print("\n".join(self._output))
@@ -170,6 +158,18 @@ class TerminalDraw(DisplayBase):
         temp = data_w.get_temp_range(1, scale)
         self._output.append(message)
         self._output.append(temp)
+
+    def __enter__(self) -> "TerminalDraw":
+        """Enter context manager
+
+        Returns:
+            self
+        """
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context manager"""
+        self.render_text()
 
 
 def instantiate_terminal_display(display_object: DisplayObject) -> TerminalDraw:

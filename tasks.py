@@ -9,7 +9,7 @@ import webbrowser
 from pathlib import Path
 
 import pytest
-from invoke import task, exceptions  # type: ignore
+from invoke import task, exceptions, Context  # type: ignore
 
 ROOT_DIR = Path(__file__).parent
 BIN_DIR = ROOT_DIR.joinpath("bin")
@@ -21,6 +21,7 @@ JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
 COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
 COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
 COVERAGE_HTML_FILE = COVERAGE_HTML_DIR.joinpath("index.html")
+COV_ALL_THRESHOLD = 85
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
@@ -50,6 +51,9 @@ def format(_c, check=False):  # pylint: disable=redefined-builtin
     Format code
     """
     python_dirs_string = " ".join(PYTHON_DIRS)
+    # Run ssort
+    ssort_options = "--check --diff" if check else ""
+    _run(_c, f"ssort {ssort_options} {python_dirs_string}")
     # Run black
     black_options = "--check" if check else ""
     _run(_c, f"black {black_options} {python_dirs_string}")
@@ -99,7 +103,6 @@ def lint(_):
 def test(_, coverage=None, junit=False):
     """
     It runs the tests in the current directory
-
     :param _: The context object that is passed to invoke tasks
     :param coverage: Generates coverage report, "html" for html output or "xml" for xml output (optional)
     :param junit: If True, the test results will be written to a JUnit XML file, defaults to False (optional)
@@ -120,11 +123,11 @@ def test(_, coverage=None, junit=False):
     pytest_args.append(str(TEST_DIR))
     return_code = pytest.main(pytest_args)
 
-    if coverage == "html":
-        webbrowser.open(COVERAGE_HTML_FILE.as_uri())
-
     if return_code:
         raise exceptions.Exit("Tests failed", code=return_code)
+
+    if coverage == "html":
+        webbrowser.open(COVERAGE_HTML_FILE.as_uri())
 
 
 @task

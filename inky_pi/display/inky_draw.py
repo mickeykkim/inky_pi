@@ -60,13 +60,6 @@ class InkyDraw(DisplayBase):
         self._white: Any = self._display.WHITE
         self._color: Any = self._display.YELLOW
 
-    def __enter__(self) -> "InkyDraw":
-        return self
-
-    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
-        """Exit context manager; render the drawn screen"""
-        self.render_screen()
-
     def render_screen(self) -> None:
         """Render border, images (w/text) on inky screen and show on display"""
         self._display.set_image(self._img)
@@ -259,6 +252,13 @@ class InkyDraw(DisplayBase):
             self.draw_mini_forecast(
                 data_w, scale, (x_y[0] + (i * spacing), x_y[1]), i + 1
             )
+
+    def __enter__(self) -> "InkyDraw":
+        return self
+
+    def __exit__(self, exc_type: Any, exc_val: Any, exc_tb: Any) -> None:
+        """Exit context manager; render the drawn screen"""
+        self.render_screen()
 
 
 def _import_inky_what() -> Any:
