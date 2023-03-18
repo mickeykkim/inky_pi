@@ -94,6 +94,7 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">cli</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">BaseCommand</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CLI group for inky_pi.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cli</span>
 
 
 <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
@@ -105,7 +106,7 @@
     <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;inky&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output source (inky, terminal, desktop)&quot;</span>
 <span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Console script for inky_pi train and weather.&quot;&quot;&quot;</span>
     <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OUTPUT_PREFIX</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span>

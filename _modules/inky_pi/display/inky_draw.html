@@ -271,7 +271,7 @@
 <span class="sd">            icon (IconType): Weather IconType to draw</span>
 <span class="sd">            x_y: (x, y) coordinates</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">draw_icon_dispatcher</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">IconType</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">draw_icon_dispatcher</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">IconType</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">CLEAR_SKY</span><span class="p">:</span> <span class="n">draw_sun_icon</span><span class="p">,</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">FEW_CLOUDS</span><span class="p">:</span> <span class="n">draw_sun_cloud_icon</span><span class="p">,</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">SCATTERED_CLOUDS</span><span class="p">:</span> <span class="n">draw_cloud_icon</span><span class="p">,</span>
