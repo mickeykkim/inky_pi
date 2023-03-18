@@ -237,8 +237,8 @@ def test_can_successfully_retrieve_current_weather(
         f"{kelvin_to_celsius(current_temp_k)}{DEG_C} - {current_condition}"
     )
     expected_string_f = (
-        f"{celsius_to_fahrenheit(kelvin_to_celsius(current_temp_k))}"
-        f"{DEG_F} - {current_condition}"
+        f"{celsius_to_fahrenheit(kelvin_to_celsius(current_temp_k))}{DEG_F} -"
+        f" {current_condition}"
     )
     assert weather_obj.get_current_weather() == expected_string_c
     assert weather_obj.get_current_weather(ScaleType.FAHRENHEIT) == expected_string_f

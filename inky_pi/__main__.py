@@ -1,6 +1,8 @@
 """Inky_Pi main module.
 
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
+from __future__ import annotations
+
 import sys
 from argparse import ArgumentParser, Namespace
 from enum import Enum, auto
@@ -72,7 +74,7 @@ OUTPUT_HANDLER: Dict[str, DisplayObject] = {
 }
 
 
-def _parse_args(args) -> Namespace:
+def _parse_args(args: list[str]) -> Namespace:
     """Parses the command line arguments and returns the parsed arguments.
 
     Returns:
@@ -151,7 +153,7 @@ def main() -> None:
         )
     except KeyError:
         logger.error(
-            f'Invalid display/output specified: "{args.display}"/"{args.output}"'
+            "Invalid display/output specified: %s/%s", args.display, args.output
         )
         raise
     except Exception as exc:  # pylint: disable=broad-except

@@ -190,7 +190,7 @@ class InkyDraw(DisplayBase):
             icon (IconType): Weather IconType to draw
             x_y: (x, y) coordinates
         """
-        draw_icon_dispatcher: Dict[IconType, Callable] = {
+        draw_icon_dispatcher: Dict[IconType, Callable[..., None]] = {
             IconType.CLEAR_SKY: draw_sun_icon,
             IconType.FEW_CLOUDS: draw_sun_cloud_icon,
             IconType.SCATTERED_CLOUDS: draw_cloud_icon,

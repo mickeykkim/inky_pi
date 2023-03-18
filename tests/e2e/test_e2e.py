@@ -15,7 +15,7 @@ from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
 
 
 @pytest.mark.e2e
-def test_running_terminal_ui_generates_expected_output() -> None:
+def test_running_train_option_in_terminal_ui_generates_expected_output() -> None:
     """Runs the full program and checks each test string is present in output"""
     time = r"(\d+(?:\:\d+))"
     temp = r"(\d+(?:\.\d+)?°(C|F))"
@@ -41,6 +41,49 @@ def test_running_terminal_ui_generates_expected_output() -> None:
 
     result: Result = CliRunner().invoke(
         cli, ["display", "--option", "train", "--output", "terminal"]
+    )
+    assert result.exit_code == 0
+    for test_regex in test_regex_list:
+        assert re.compile(test_regex).search(result.output) is not None
+
+
+@pytest.mark.e2e
+def test_running_weather_option_in_terminal_ui_generates_expected_output() -> None:
+    """Runs the full program and checks each test string is present in output"""
+    time = r"(\d+(?:\:\d+))"
+    temp = r"(\d+(?:\.\d+)?°(C|F))"
+
+    test_regex_list: List[str] = [
+        # Time (HH:MM)
+        rf"{time}",
+        # Date (Day dd MMM yyyy)
+        r"[A-Z][a-z]{2}\s\d*\s[A-Z][a-z]*\s\d{4}",
+        # now: <current>°C/F
+        rf"now:\s{temp}",
+        # today: <low>°C/F – <high>°C/F
+        rf"today:\s{temp}\s–\s{temp}",
+    ]
+
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "weather", "--output", "terminal"]
+    )
+    assert result.exit_code == 0
+    for test_regex in test_regex_list:
+        assert re.compile(test_regex).search(result.output) is not None
+
+
+@pytest.mark.e2e
+def test_running_night_option_in_terminal_ui_generates_expected_output() -> None:
+    """Runs the full program and checks each test string is present in output"""
+    temp = r"(\d+(?:\.\d+)?°(C|F))"
+
+    test_regex_list: List[str] = [
+        r"Good\sNight\s\^\^",
+        rf"{temp}\s–\s{temp}",
+    ]
+
+    result: Result = CliRunner().invoke(
+        cli, ["display", "--option", "night", "--output", "terminal"]
     )
     assert result.exit_code == 0
     for test_regex in test_regex_list:

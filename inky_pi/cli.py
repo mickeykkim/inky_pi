@@ -13,6 +13,7 @@ OUTPUT_PREFIX = "inky_pi cli"
 @click.group()
 def cli() -> BaseCommand:
     """CLI group for inky_pi."""
+    return cli
 
 
 @cli.command()
@@ -24,11 +25,10 @@ def cli() -> BaseCommand:
     "-m", "--output", default="inky", help="Output source (inky, terminal, desktop)"
 )
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
-def display(option: str, output: str, dry_run: bool):
+def display(option: str, output: str, dry_run: bool) -> None:
     """Console script for inky_pi train and weather."""
     click.echo(
-        f"{OUTPUT_PREFIX}"
-        f" {DisplayOption[option.upper()]}"
+        f"{OUTPUT_PREFIX} {DisplayOption[option.upper()]}"
         f" {OUTPUT_HANDLER[output.lower()].model}"
     )
     if not dry_run:

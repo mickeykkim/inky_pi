@@ -1,9 +1,13 @@
 """Test cli commands"""
+from __future__ import annotations
+
+from unittest.mock import patch
+
 import pytest
 from click.testing import CliRunner
 
 from inky_pi.__init__ import __version__  # type: ignore
-from inky_pi.cli import OUTPUT_PREFIX, cli
+from inky_pi.cli import OUTPUT_PREFIX, cli, main
 
 
 def test_cli_main() -> None:
@@ -43,7 +47,7 @@ def test_cli_main() -> None:
         ),
     ],
 )
-def test_cli_args(command, expected_output) -> None:
+def test_cli_args(command: list[str], expected_output: str) -> None:
     """Tests inky_pi command with various args outputs expected result
 
     Args:
@@ -54,3 +58,13 @@ def test_cli_args(command, expected_output) -> None:
     result = runner.invoke(cli, command)
     assert result.exit_code == 0
     assert result.output == f"{expected_output}\n"
+
+
+def test_that_main_runs_successfully() -> None:
+    """Test that cli.main() runs"""
+    with patch(
+        "inky_pi.cli.cli",
+        return_value=None,
+    ) as mock_cli:
+        main()
+    mock_cli.assert_called_with()

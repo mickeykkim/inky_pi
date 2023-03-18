@@ -258,7 +258,7 @@ def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     )
 
 
-def gen_closed_eye_icon(draw: ImageDraw, color: Any, x_y: Tuple[int, int]):
+def gen_closed_eye_icon(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     """Generate closed eye icon at center of x_y
 
     Args:

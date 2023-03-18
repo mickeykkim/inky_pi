@@ -1,7 +1,7 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
-from typing import Any, Dict
+from typing import Any
 
 import requests
 from loguru import logger
@@ -72,7 +72,7 @@ class Huxley2(TrainBase):
             raise ValueError("No train data available.")
 
         try:
-            service: Dict = self._data["trainServices"][num]
+            service: dict[str, Any] = self._data["trainServices"][num]
             platform: str = service["platform"][0:2]
             arrival_t: str = service["std"]
             dest_stn: str = service["destination"][0]["locationName"]

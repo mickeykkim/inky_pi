@@ -56,7 +56,7 @@ class TrainObject:
 class TrainBase(ABC):
     """Abstract base class for all train models"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._num: int = 0
         self._data: Optional[Any] = None
         self.origin: str = ""

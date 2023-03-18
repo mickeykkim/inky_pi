@@ -50,8 +50,8 @@ jobs:
         run: |
           mkdir gh-pages
           touch gh-pages/.nojekyll
-          poetry run invoke docs      
-          cp -r docs/_build/* gh-pages/ 
+          poetry run invoke docs --no-launch
+          cp -r docs/_build/* gh-pages/
       - name: Deploy documentation
         if: ${{ github.event_name == 'push' }}
         uses: JamesIves/github-pages-deploy-action@4.1.4

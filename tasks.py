@@ -83,7 +83,7 @@ def lint_mypy(_c: Context):
     """
     Lint code with mypy
     """
-    _run(_c, f"mypy {' '.join(PYTHON_DIRS)}")
+    _run(_c, f"mypy --no-namespace-packages {' '.join(PYTHON_DIRS)}")
 
 
 @task

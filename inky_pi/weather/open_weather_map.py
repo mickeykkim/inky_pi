@@ -1,7 +1,9 @@
 """Inky_Pi weather model module.
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
-from typing import Any, Dict, Union
+from __future__ import annotations
+
+from typing import Any
 
 import requests
 from loguru import logger
@@ -33,7 +35,7 @@ class OpenWeatherMap(WeatherBase):
 
     def __init__(self) -> None:
         """Initialize variables"""
-        self._data: dict = {}
+        self._data: dict[str, Any] = {}
 
     def retrieve_data(self, protocol: Any, weather_object: WeatherObject) -> None:
         """Retrieves weather data from OpenWeatherMap 7-day forecast API.
@@ -43,7 +45,7 @@ class OpenWeatherMap(WeatherBase):
             protocol (Any): Requests object
             weather_object: WeatherObject object
         """
-        payload: Dict[str, Union[float, str]] = {
+        payload: dict[str, float | str] = {
             "lat": weather_object.latitude,
             "lon": weather_object.longitude,
             "exclude": weather_object.exclude_flags,
@@ -80,7 +82,7 @@ class OpenWeatherMap(WeatherBase):
         else:
             icon_code = str(self._data["daily"][day]["weather"][0]["icon"])[0:2]
 
-        weather_type_dict: Dict[str, IconType] = {
+        weather_type_dict: dict[str, IconType] = {
             "01": IconType.CLEAR_SKY,
             "02": IconType.FEW_CLOUDS,
             "03": IconType.SCATTERED_CLOUDS,

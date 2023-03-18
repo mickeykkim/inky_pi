@@ -27,16 +27,16 @@ class DesktopDisplayDriver:
         Args:
             base_color: base color
         """
-        color_matcher: Dict[str, tuple] = {
+        color_matcher: Dict[str, tuple[int, int, int, int]] = {
             "black": self.BLACK,
             "white": self.WHITE,
             "red": self.RED,
             "yellow": self.YELLOW,
         }
 
-        self._black: tuple = self.BLACK
-        self._white: tuple = self.WHITE
-        self._color: tuple = (
+        self._black: tuple[int, int, int, int] = self.BLACK
+        self._white: tuple[int, int, int, int] = self.WHITE
+        self._color: tuple[int, int, int, int] = (
             self.BLACK if base_color == "" else color_matcher[base_color]
         )
         self._img: Optional[Image] = None

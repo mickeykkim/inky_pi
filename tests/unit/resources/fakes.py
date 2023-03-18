@@ -1,6 +1,8 @@
 """
 Test double fake classes
 """
+from __future__ import annotations
+
 from typing import Optional
 
 
@@ -10,17 +12,17 @@ class FakeResponse:
     See FakeRequests class for more info
     """
 
-    def __init__(self, json_data: dict, status_code: int) -> None:
+    def __init__(self, json_data: dict[str, str], status_code: int) -> None:
         """Initialize fake response object
 
         Args:
             json_data (dict): json data to return
             status_code (str): status code to return
         """
-        self.json_data: dict = json_data
+        self.json_data: dict[str, str] = json_data
         self.status_code: int = status_code
 
-    def json(self) -> dict:
+    def json(self) -> dict[str, str]:
         """Return json data as a dictionary"""
         return self.json_data
 
@@ -43,7 +45,7 @@ class FakeRequests:
         """Initialize fake requests object"""
         self.response: Optional[FakeResponse] = None
 
-    def add_response(self, json_data: dict, status_code: int) -> None:
+    def add_response(self, json_data: dict[str, str], status_code: int) -> None:
         """Set fake response
 
         Args:
@@ -53,7 +55,9 @@ class FakeRequests:
         self.response = FakeResponse(json_data, status_code)
 
     # pylint: disable=unused-argument
-    def get(self, url: str, params: dict = None) -> Optional[FakeResponse]:
+    def get(
+        self, url: str, params: Optional[dict[str, str]] = None
+    ) -> Optional[FakeResponse]:
         """Fake get method
 
         Args:

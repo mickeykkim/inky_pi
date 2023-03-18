@@ -1,6 +1,8 @@
 """Inky Pi base display module.
 
 Abstract class for all display models"""
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum, auto
