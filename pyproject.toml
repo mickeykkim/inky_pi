@@ -17,7 +17,7 @@ license = "MIT"
 name = "inky_pi"
 packages = [{include = "inky_pi"}, {include = "tests", format = "sdist"}]
 readme = "README.rst"
-version = "0.1.1"
+version = "0.1.2"
 
 [[tool.poetry.source]]
 default = true
