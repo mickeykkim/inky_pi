@@ -82,13 +82,13 @@ A Poetry virtual environment must be created before running any dev tools:
 poetry shell
 ```
 
-#### Linting and Type Analysis: [Pylint](https://www.pylint.org/), [Flake8](https://flake8.pycqa.org/en/latest/), and [mypy](http://mypy-lang.org/)
+#### Linting and Type Analysis: [Pylint](https://www.pylint.org/), [Flake8](https://flake8.pycqa.org/en/latest/), [ruff](https://pypi.org/project/ruff/), and [mypy](http://mypy-lang.org/)
 
 ```bash
 invoke lint
 ```
 
-#### Formatting: [Black](https://pypi.org/project/black/), [isort](https://pycqa.github.io/isort/)
+#### Formatting: [Black](https://pypi.org/project/black/), [isort](https://pycqa.github.io/isort/), and [ssort](https://pypi.org/project/ssort/).
 
 ```bash
 invoke format

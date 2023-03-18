@@ -30,7 +30,7 @@ SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
 
 
-def _delete_file(file):
+def _delete_file(file: Path):
     try:
         file.unlink(missing_ok=True)
     except TypeError:
@@ -41,12 +41,12 @@ def _delete_file(file):
             pass
 
 
-def _run(_c, command):
+def _run(_c: Context, command: str):
     return _c.run(command, pty=platform.system() != "Windows")
 
 
 @task(help={"check": "Checks if source is formatted without applying changes"})
-def format(_c, check=False):  # pylint: disable=redefined-builtin
+def format(_c: Context, check: bool = False):  # pylint: disable=redefined-builtin
     """
     Format code
     """
@@ -63,7 +63,7 @@ def format(_c, check=False):  # pylint: disable=redefined-builtin
 
 
 @task
-def lint_flake8(_c):
+def lint_flake8(_c: Context):
     """
     Lint code with flake8
     """
@@ -71,7 +71,7 @@ def lint_flake8(_c):
 
 
 @task
-def lint_pylint(_c):
+def lint_pylint(_c: Context):
     """
     Lint code with pylint
     """
@@ -79,15 +79,23 @@ def lint_pylint(_c):
 
 
 @task
-def lint_mypy(_c):
+def lint_mypy(_c: Context):
     """
     Lint code with mypy
     """
     _run(_c, f"mypy {' '.join(PYTHON_DIRS)}")
 
 
-@task(lint_flake8, lint_pylint, lint_mypy)
-def lint(_):
+@task
+def lint_ruff(_c: Context):
+    """
+    Lint code with mypy
+    """
+    _run(_c, f"ruff check {' '.join(PYTHON_DIRS)}")
+
+
+@task(lint_flake8, lint_pylint, lint_ruff, lint_mypy)
+def lint(_: Context):
     """
     Run all linting
     """
@@ -100,12 +108,14 @@ def lint(_):
         "junit": "Output a junit xml report",
     },
 )
-def test(_, coverage=None, junit=False):
+def test(_: Context, coverage: str = None, junit: bool = False):
     """
     It runs the tests in the current directory
     :param _: The context object that is passed to invoke tasks
-    :param coverage: Generates coverage report, "html" for html output or "xml" for xml output (optional)
-    :param junit: If True, the test results will be written to a JUnit XML file, defaults to False (optional)
+    :param coverage: Generates coverage report, "html" for html output
+    or "xml" for xml output (optional)
+    :param junit: If True, the test results will be written to a JUnit
+    XML file, defaults to False (optional)
     """
     pytest_args = ["-v"]
 
@@ -131,7 +141,7 @@ def test(_, coverage=None, junit=False):
 
 
 @task
-def clean_docs(_c):
+def clean_docs(_c: Context):
     """
     Clean up files from documentation builds
     """
@@ -140,7 +150,7 @@ def clean_docs(_c):
 
 
 @task(pre=[clean_docs], help={"launch": "Launch documentation in the web browser"})
-def docs(_c, launch=True):
+def docs(_c: Context, launch: bool = True):
     """
     Generate documentation
     """
@@ -153,7 +163,7 @@ def docs(_c, launch=True):
 
 
 @task
-def clean_build(_c):
+def clean_build(_c: Context):
     """
     Clean up files from package building
     """
@@ -165,7 +175,7 @@ def clean_build(_c):
 
 
 @task
-def clean_python(_c):
+def clean_python(_c: Context):
     """
     Clean up python file artifacts
     """
@@ -176,7 +186,7 @@ def clean_python(_c):
 
 
 @task
-def clean_tests(_):
+def clean_tests(_: Context):
     """
     It deletes all the test artifacts
 
@@ -190,14 +200,14 @@ def clean_tests(_):
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])
-def clean(_):
+def clean(_: Context):
     """
     Runs all clean sub-tasks
     """
 
 
 @task(clean)
-def dist(_c):
+def dist(_c: Context):
     """
     Build source and wheel packages
     """
@@ -205,7 +215,7 @@ def dist(_c):
 
 
 @task(pre=[clean, dist])
-def release(_c):
+def release(_c: Context):
     """
     Make a release of the python package to pypi
     """
@@ -213,7 +223,7 @@ def release(_c):
 
 
 @task
-def security_bandit(_c):
+def security_bandit(_c: Context):
     """
     It runs bandit security checks on the source directory
     """
@@ -221,20 +231,21 @@ def security_bandit(_c):
 
 
 @task
-def security_safety(_c):
+def security_safety(_c: Context):
     """
     It runs security checks on package dependencies
     """
     Path(BIN_DIR).mkdir(parents=True, exist_ok=True)
     _run(
         _c,
-        f"poetry export --with dev --format=requirements.txt --without-hashes --output={SAFETY_REQUIREMENTS_FILE}",
+        "poetry export --with dev --format=requirements.txt"
+        f" --without-hashes --output={SAFETY_REQUIREMENTS_FILE}",
     )
     _run(_c, f"safety check --file={SAFETY_REQUIREMENTS_FILE} --full-report")
 
 
 @task(security_bandit, security_safety)
-def security(_):
+def security(_: Context):
     """
     It runs all security checks
     """

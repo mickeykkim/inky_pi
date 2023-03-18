@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../inky_pi"))
 
 # pylint: disable=wrong-import-position
-import inky_pi
+import inky_pi  # noqa: E402
 
 # -- General configuration ---------------------------------------------
 
