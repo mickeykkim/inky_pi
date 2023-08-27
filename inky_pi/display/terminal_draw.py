@@ -145,9 +145,7 @@ class TerminalDraw(DisplayBase):
         """
         self._output.append(f"{self.todo}: draw_forecast_icons")
 
-    def draw_goodnight(
-        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
-    ) -> None:
+    def draw_goodnight(self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS) -> None:
         """Append goodnight message to terminal text
 
         Args:

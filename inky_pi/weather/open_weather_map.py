@@ -25,9 +25,7 @@ DEG_F: str = "\N{DEGREE SIGN}" + "F"
 def _check_day_limit(day: int) -> None:
     if day < 0 or day >= 8:
         logger.error("Invalid day requested", day)
-        raise ValueError(
-            "Weather data only available for 0 (today) or up to 7 days ahead."
-        )
+        raise ValueError("Weather data only available for 0 (today) or up to 7 days ahead.")
 
 
 class OpenWeatherMap(WeatherBase):
@@ -75,7 +73,6 @@ class OpenWeatherMap(WeatherBase):
             IconType: Weather IconType
         """
         _check_day_limit(day)
-        icon_code: str = ""
         # Get first 2 code characters; 3rd character is 'd/n' for day/night (ignored)
         if day == 0:
             icon_code = str(self._data["current"]["weather"][0]["icon"])[0:2]
@@ -119,9 +116,7 @@ class OpenWeatherMap(WeatherBase):
             str: Formatted temperature string or error message
         """
         try:
-            celsius_temp: float = kelvin_to_celsius(
-                float(self._data["current"]["temp"])
-            )
+            celsius_temp: float = kelvin_to_celsius(float(self._data["current"]["temp"]))
             formatted_temp: str = (
                 str(celsius_temp) + DEG_C
                 if scale == ScaleType.CELSIUS
@@ -213,9 +208,7 @@ class OpenWeatherMap(WeatherBase):
         """
         _check_day_limit(day)
         try:
-            celsius_temp: float = kelvin_to_celsius(
-                float(self._data["daily"][day]["temp"]["day"])
-            )
+            celsius_temp: float = kelvin_to_celsius(float(self._data["daily"][day]["temp"]["day"]))
             str_temp: str = (
                 str(celsius_temp) + DEG_C
                 if scale == ScaleType.CELSIUS

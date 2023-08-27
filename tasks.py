@@ -3,13 +3,16 @@ Tasks for maintaining the project.
 
 Execute 'invoke --list' for guidance on using Invoke
 """
+from __future__ import annotations
+
 import platform
 import shutil
 import webbrowser
 from pathlib import Path
+from typing import Any
 
 import pytest
-from invoke import task, exceptions, Context  # type: ignore
+from invoke import Context, exceptions, task  # type: ignore
 
 ROOT_DIR = Path(__file__).parent
 BIN_DIR = ROOT_DIR.joinpath("bin")
@@ -17,6 +20,10 @@ SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("inky_pi")
 TOX_DIR = ROOT_DIR.joinpath(".tox")
+PYTHON_ROOT_FILES = ["run_flask.py"]
+PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
+PYTHON_DIRS_STRING = " ".join(PYTHON_DIRS)
+PYTHON_FILES_STRING = " ".join(PYTHON_ROOT_FILES)
 JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
 COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
 COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
@@ -27,10 +34,9 @@ DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
-PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
 
 
-def _delete_file(file: Path):
+def _delete_file(file: Path) -> None:
     try:
         file.unlink(missing_ok=True)
     except TypeError:
@@ -41,62 +47,52 @@ def _delete_file(file: Path):
             pass
 
 
-def _run(_c: Context, command: str):
+def _run(_c: Context, command: str) -> Any:
     return _c.run(command, pty=platform.system() != "Windows")
 
 
 @task(help={"check": "Checks if source is formatted without applying changes"})
-def format(_c: Context, check: bool = False):  # pylint: disable=redefined-builtin
+def format(_c: Context, check: bool = False) -> None:  # pylint: disable=redefined-builtin
     """
     Format code
     """
-    python_dirs_string = " ".join(PYTHON_DIRS)
     # Run ssort
     ssort_options = "--check --diff" if check else ""
-    _run(_c, f"ssort {ssort_options} {python_dirs_string}")
+    _run(_c, f"ssort {ssort_options} {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
     # Run black
     black_options = "--check" if check else ""
-    _run(_c, f"black {black_options} {python_dirs_string}")
+    _run(_c, f"black {black_options} {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
     # Run isort
     isort_options = "--check-only --diff" if check else ""
-    _run(_c, f"isort {isort_options} {python_dirs_string}")
-    _run(_c, f"ssort {python_dirs_string}")
+    _run(_c, f"isort {isort_options} {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
 
 
 @task
-def lint_flake8(_c: Context):
+def lint_flake8(_c: Context) -> None:
     """
     Lint code with flake8
     """
-    _run(_c, f"flake8 {' '.join(PYTHON_DIRS)}")
+    _run(_c, f"flake8 {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
 
 
 @task
-def lint_pylint(_c: Context):
+def lint_pylint(_c: Context) -> None:
     """
     Lint code with pylint
     """
-    _run(_c, f"pylint {' '.join(PYTHON_DIRS)}")
+    _run(_c, f"pylint {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
 
 
 @task
-def lint_mypy(_c: Context):
+def lint_mypy(_c: Context) -> None:
     """
     Lint code with mypy
     """
-    _run(_c, f"mypy --no-namespace-packages {' '.join(PYTHON_DIRS)}")
+    _run(_c, f"mypy {PYTHON_DIRS_STRING} {PYTHON_FILES_STRING}")
 
 
-@task
-def lint_ruff(_c: Context):
-    """
-    Lint code with mypy
-    """
-    _run(_c, f"ruff check {' '.join(PYTHON_DIRS)}")
-
-
-@task(lint_flake8, lint_pylint, lint_ruff, lint_mypy)
-def lint(_: Context):
+@task(lint_flake8, lint_pylint, lint_mypy)
+def lint(_: Context) -> None:
     """
     Run all linting
     """
@@ -109,14 +105,14 @@ def lint(_: Context):
         "junit": "Output a junit xml report",
     },
 )
-def test(_: Context, coverage: str = None, junit: bool = False):
+def test(_: Context, coverage: str | None = None, junit: bool = False) -> None:
     """
     It runs the tests in the current directory
     :param _: The context object that is passed to invoke tasks
-    :param coverage: Generates coverage report, "html" for html output
-    or "xml" for xml output (optional)
-    :param junit: If True, the test results will be written to a JUnit
-    XML file, defaults to False (optional)
+    :param coverage: Generates coverage report, "html" for html output or "xml"
+    for xml output (optional)
+    :param junit: If True, the test results will be written to a JUnit XML file,
+    defaults to False (optional)
     """
     pytest_args = ["-v"]
 
@@ -142,7 +138,7 @@ def test(_: Context, coverage: str = None, junit: bool = False):
 
 
 @task
-def clean_docs(_c: Context):
+def clean_docs(_c: Context) -> None:
     """
     Clean up files from documentation builds
     """
@@ -151,7 +147,7 @@ def clean_docs(_c: Context):
 
 
 @task(pre=[clean_docs], help={"launch": "Launch documentation in the web browser"})
-def docs(_c: Context, launch: bool = True):
+def docs(_c: Context, launch: bool = True) -> None:
     """
     Generate documentation
     """
@@ -164,7 +160,7 @@ def docs(_c: Context, launch: bool = True):
 
 
 @task
-def clean_build(_c: Context):
+def clean_build(_c: Context) -> None:
     """
     Clean up files from package building
     """
@@ -176,7 +172,7 @@ def clean_build(_c: Context):
 
 
 @task
-def clean_python(_c: Context):
+def clean_python(_c: Context) -> None:
     """
     Clean up python file artifacts
     """
@@ -184,10 +180,12 @@ def clean_python(_c: Context):
     _run(_c, "find . -name '*.pyo' -exec rm -f {} +")
     _run(_c, "find . -name '*~' -exec rm -f {} +")
     _run(_c, "find . -name '__pycache__' -exec rm -fr {} +")
+    _run(_c, "find . -name '.mypy_cache' -exec rm -fr {} +")
+    _run(_c, "find . -name '.pytest_cache' -exec rm -fr {} +")
 
 
 @task
-def clean_tests(_: Context):
+def clean_tests(_: Context) -> None:
     """
     It deletes all the test artifacts
 
@@ -201,14 +199,14 @@ def clean_tests(_: Context):
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])
-def clean(_: Context):
+def clean(_: Context) -> None:
     """
     Runs all clean sub-tasks
     """
 
 
 @task(clean)
-def dist(_c: Context):
+def dist(_c: Context) -> None:
     """
     Build source and wheel packages
     """
@@ -216,7 +214,7 @@ def dist(_c: Context):
 
 
 @task(pre=[clean, dist])
-def release(_c: Context):
+def release(_c: Context) -> None:
     """
     Make a release of the python package to pypi
     """
@@ -224,7 +222,7 @@ def release(_c: Context):
 
 
 @task
-def security_bandit(_c: Context):
+def security_bandit(_c: Context) -> None:
     """
     It runs bandit security checks on the source directory
     """
@@ -232,7 +230,7 @@ def security_bandit(_c: Context):
 
 
 @task
-def security_safety(_c: Context):
+def security_safety(_c: Context) -> None:
     """
     It runs security checks on package dependencies
     """
@@ -246,7 +244,7 @@ def security_safety(_c: Context):
 
 
 @task(security_bandit, security_safety)
-def security(_: Context):
+def security(_: Context) -> None:
     """
     It runs all security checks
     """

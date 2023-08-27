@@ -1,8 +1,6 @@
 """
 Test double fake classes
 """
-from __future__ import annotations
-
 from typing import Optional
 
 
@@ -55,9 +53,7 @@ class FakeRequests:
         self.response = FakeResponse(json_data, status_code)
 
     # pylint: disable=unused-argument
-    def get(
-        self, url: str, params: Optional[dict[str, str]] = None
-    ) -> Optional[FakeResponse]:
+    def get(self, url: str, params: dict[str, str] | None = None) -> Optional[FakeResponse]:
         """Fake get method
 
         Args:

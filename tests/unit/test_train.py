@@ -1,7 +1,9 @@
 """Tests for train module"""
+from __future__ import annotations
+
 import json
 from pathlib import Path
-from typing import Any, Generator, Mapping
+from typing import Generator, Mapping
 from unittest.mock import Mock, patch
 
 import pytest
@@ -26,7 +28,7 @@ INVALID_OPEN_LIVE_DATA = RESOURCES_DIR.joinpath("trains_unavailable_zeep.pickle"
 
 # pylint: disable=possibly-unused-variable
 @pytest.fixture
-def _setup_train_vars() -> Generator[Mapping[str, Any], None, None]:
+def _setup_train_vars() -> Generator[Mapping[str, str | int], None, None]:
     station_from: str = "MZH"
     station_to: str = "LBG"
     number: int = 3
@@ -37,28 +39,28 @@ def _setup_train_vars() -> Generator[Mapping[str, Any], None, None]:
 
 @pytest.fixture
 def _setup_train_object_open_live(
-    _setup_train_vars: Mapping[str, Any],
+    _setup_train_vars: Mapping[str, str | int],
 ) -> Generator[TrainObject, None, None]:
     open_live_train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
-        station_from=_setup_train_vars["station_from"],
-        station_to=_setup_train_vars["station_to"],
-        number=_setup_train_vars["number"],
-        url=_setup_train_vars["url"],
-        token=_setup_train_vars["token"],
+        station_from=str(_setup_train_vars["station_from"]),
+        station_to=str(_setup_train_vars["station_to"]),
+        number=int(_setup_train_vars["number"]),
+        url=str(_setup_train_vars["url"]),
+        token=str(_setup_train_vars["token"]),
     )
     yield open_live_train_object
 
 
 @pytest.fixture
 def _setup_train_object_huxley2(
-    _setup_train_vars: Mapping[str, Any],
+    _setup_train_vars: Mapping[str, str | int],
 ) -> Generator[TrainObject, None, None]:
     huxley2_train_object = TrainObject(
         model=TrainModel.HUXLEY2,
-        station_from=_setup_train_vars["station_from"],
-        station_to=_setup_train_vars["station_to"],
-        number=_setup_train_vars["number"],
+        station_from=str(_setup_train_vars["station_from"]),
+        station_to=str(_setup_train_vars["station_to"]),
+        number=int(_setup_train_vars["number"]),
     )
     yield huxley2_train_object
 
@@ -101,9 +103,8 @@ def test_format_train_string() -> None:
     platform = "1"
     dest_stn = "London Cannon Street"
     status = "On time"
-    assert (
-        TrainBase.format_train_string(arrival_t, platform, dest_stn, status)
-        == "12:00 | P1 to London Cannon St - On time"
+    assert TrainBase.format_train_string(arrival_t, platform, dest_stn, status) == (
+        "12:00 | P1 to London Cannon St - On time"
     )
 
 
@@ -176,7 +177,7 @@ def test_can_successfully_instantiate_train_huxley2(
 
 @patch("inky_pi.util.sys.exit")
 def test_instantiate_open_live_without_url_and_token_raises_error(
-    sys_exit_mock: Mock, _setup_train_vars: Mapping[str, Any]
+    sys_exit_mock: Mock, _setup_train_vars: Mapping[str, str | int]
 ) -> None:
     """Test for invalid OpenLDBWS object creation
     Due to the fact OpenLDBWS requires URL and token, test will trigger error
@@ -186,9 +187,9 @@ def test_instantiate_open_live_without_url_and_token_raises_error(
     """
     train_object = TrainObject(
         model=TrainModel.OPEN_LIVE,
-        station_from=_setup_train_vars["station_from"],
-        station_to=_setup_train_vars["station_to"],
-        number=_setup_train_vars["number"],
+        station_from=str(_setup_train_vars["station_from"]),
+        station_to=str(_setup_train_vars["station_to"]),
+        number=int(_setup_train_vars["number"]),
     )
     with pytest.raises(ValueError):
         train_model_factory(train_object)

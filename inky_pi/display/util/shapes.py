@@ -4,9 +4,7 @@ from typing import Any, Tuple
 from PIL import ImageDraw  # type: ignore
 
 
-def gen_large_sun(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
-) -> None:
+def gen_large_sun(draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]) -> None:
     """Generate large sun icon
 
     Args:
@@ -72,9 +70,7 @@ def gen_large_sun(
     draw.ellipse((x_y[0] + 17, x_y[1] + 17, x_y[0] + 40, x_y[1] + 40), color)
 
 
-def gen_small_sun(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
-) -> None:
+def gen_small_sun(draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]) -> None:
     """Generate small sun icon
 
     Args:
@@ -128,9 +124,7 @@ def gen_small_sun(
     draw.ellipse((x_y[0] + 10, x_y[1] + 10, x_y[0] + 20, x_y[1] + 20), color_neg)
 
 
-def gen_large_cloud(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
-) -> None:
+def gen_large_cloud(draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]) -> None:
     """Generate large cloud icon
 
     Args:
@@ -151,9 +145,7 @@ def gen_large_cloud(
     draw.ellipse((x_y[0] + 40, x_y[1] + 15, x_y[0] + 60, x_y[1] + 35), color_neg)
 
 
-def gen_small_cloud(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
-) -> None:
+def gen_small_cloud(draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]) -> None:
     """Generate small cloud icon
 
     Args:

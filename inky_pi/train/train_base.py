@@ -83,9 +83,7 @@ class TrainBase(ABC):
         """
 
     @staticmethod
-    def format_train_string(
-        arrival_t: str, platform: str, dest_stn: str, status: str
-    ) -> str:
+    def format_train_string(arrival_t: str, platform: str, dest_stn: str, status: str) -> str:
         """Takes in a train's arrival time, platform, destination station, and status,
         and returns a string with the train's information in a display format.
 
@@ -98,9 +96,7 @@ class TrainBase(ABC):
         Returns:
             str: Formatted string
         """
-        return (
-            f"{arrival_t} | P{platform} to {abbreviate_stn_name(dest_stn)} - {status}"
-        )
+        return f"{arrival_t} | P{platform} to {abbreviate_stn_name(dest_stn)} - {status}"
 
     # TODO: Change this to a generator implementation, update types, update tests
     @staticmethod
@@ -129,6 +125,4 @@ class TrainBase(ABC):
             ValueError: Invalid train number
         """
         if num < 0 or num > self._num:
-            raise ValueError(
-                f"{num} is an invalid train request number (max: {self._num})"
-            )
+            raise ValueError(f"{num} is an invalid train request number (max: {self._num})")

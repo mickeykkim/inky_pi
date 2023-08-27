@@ -27,8 +27,7 @@ class OpenLive(TrainBase):
             protocol.xsd.ComplexType(
                 [
                     protocol.xsd.Element(
-                        "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}"
-                        + "TokenValue",
+                        "{http://thalesgroup.com/RTTI/2013-11-28/Token/types}TokenValue",
                         protocol.xsd.String(),
                     ),
                 ]

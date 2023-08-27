@@ -233,9 +233,7 @@ def test_can_successfully_retrieve_current_weather(
     weather_obj = _setup_weather_fake_data
     current_temp_k = 289.46
     current_condition = "Clouds"
-    expected_string_c = (
-        f"{kelvin_to_celsius(current_temp_k)}{DEG_C} - {current_condition}"
-    )
+    expected_string_c = f"{kelvin_to_celsius(current_temp_k)}{DEG_C} - {current_condition}"
     expected_string_f = (
         f"{celsius_to_fahrenheit(kelvin_to_celsius(current_temp_k))}{DEG_F} -"
         f" {current_condition}"

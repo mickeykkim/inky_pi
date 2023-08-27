@@ -118,9 +118,7 @@ class DisplayBase(ABC):
         """
 
     @abstractmethod
-    def draw_goodnight(
-        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
-    ) -> None:
+    def draw_goodnight(self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS) -> None:
         """Display goodnight message
 
         Args:

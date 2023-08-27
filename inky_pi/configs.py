@@ -27,8 +27,7 @@ Keep this in a .env file in project root dir i.e.: TRAIN_API_TOKEN=keyvalue
 
 TRAIN_MODEL_URL: str = _env.str(
     "TRAIN_MODEL_URL",
-    default="http://lite.realtime.nationalrail.co.uk/"
-    + "OpenLDBWS/wsdl.aspx?ver=2017-10-01",
+    default="http://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2017-10-01",
 )
 """OpenLDBWS API Endpoint"""
 

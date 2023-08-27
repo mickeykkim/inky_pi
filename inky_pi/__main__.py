@@ -10,7 +10,7 @@ from typing import Dict
 
 from loguru import logger
 
-from inky_pi.__init__ import __version__  # type: ignore
+from inky_pi import __version__
 from inky_pi.configs import (
     EXCLUDE_FLAGS,
     INKY_COLOR,
@@ -148,13 +148,9 @@ def main() -> None:
     logger.debug("InkyPi main initialized")
     args: Namespace = _parse_args(sys.argv[1:])
     try:
-        display_data(
-            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
-        )
+        display_data(DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()])
     except KeyError:
-        logger.error(
-            "Invalid display/output specified: %s/%s", args.display, args.output
-        )
+        logger.error(f'Invalid display/output specified: "{args.display}"/"{args.output}"')
         raise
     except Exception as exc:  # pylint: disable=broad-except
         logger.exception(exc)

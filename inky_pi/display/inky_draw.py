@@ -1,10 +1,12 @@
 """Inky_Pi drawing module.
 
 Draw strings and icons"""
+from __future__ import annotations
+
 import platform
 from datetime import datetime, timedelta
 from time import strftime
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable
 
 # pylint: disable=no-name-in-module
 from font_fredoka_one import FredokaOne  # type: ignore
@@ -66,9 +68,7 @@ class InkyDraw(DisplayBase):
         self._display.set_border(self._black)
         self._display.show()
 
-    def draw_goodnight(
-        self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
-    ) -> None:
+    def draw_goodnight(self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS) -> None:
         """Render goodnight screen
 
         Args:
@@ -94,7 +94,7 @@ class InkyDraw(DisplayBase):
             (x_weather, y_weather + 40), data_w.get_condition(1), self._color, FONT_GS
         )
 
-    def draw_date(self, x_y: Tuple[int, int] = (10, 5)) -> None:
+    def draw_date(self, x_y: tuple[int, int] = (10, 5)) -> None:
         """Draw date text
 
         Args:
@@ -102,7 +102,7 @@ class InkyDraw(DisplayBase):
         """
         self._img_draw.text(x_y, strftime("%a %d %b %Y"), self._black, FONT_S)
 
-    def draw_time(self, x_y: Tuple[int, int] = (257, 5)) -> None:
+    def draw_time(self, x_y: tuple[int, int] = (257, 5)) -> None:
         """Draw time text
 
         Args:
@@ -111,7 +111,7 @@ class InkyDraw(DisplayBase):
         self._img_draw.text(x_y, f"Updated {strftime('%H:%M')}", self._black, FONT_S)
 
     def draw_train_times(
-        self, data_t: TrainBase, num_trains: int = 3, x_y: Tuple[int, int] = (10, 205)
+        self, data_t: TrainBase, num_trains: int = 3, x_y: tuple[int, int] = (10, 205)
     ) -> None:
         """Draw all train times text
 
@@ -134,7 +134,7 @@ class InkyDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_y: Tuple[int, int] = (135, 50),
+        x_y: tuple[int, int] = (135, 50),
         disp_tomorrow: bool = False,
     ) -> None:
         """Draw all weather forecast text
@@ -168,9 +168,7 @@ class InkyDraw(DisplayBase):
             self._black,
             FONT_M,
         )
-        self._img_draw.text(
-            (x_y[0], x_y[1] + 80), data_w.get_condition(0), self._black, FONT_M
-        )
+        self._img_draw.text((x_y[0], x_y[1] + 80), data_w.get_condition(0), self._black, FONT_M)
         if disp_tomorrow:
             self._img_draw.text(
                 (x_y[0], x_y[1] + 110),
@@ -182,7 +180,7 @@ class InkyDraw(DisplayBase):
     def draw_weather_icon(
         self,
         icon: IconType,
-        x_y: Tuple[int, int] = (30, 90),
+        x_y: tuple[int, int] = (30, 90),
     ) -> None:
         """Draws specified icon
 
@@ -190,7 +188,9 @@ class InkyDraw(DisplayBase):
             icon (IconType): Weather IconType to draw
             x_y: (x, y) coordinates
         """
-        draw_icon_dispatcher: Dict[IconType, Callable[..., None]] = {
+        draw_icon_dispatcher: dict[
+            IconType, Callable[[ImageDraw, Any, Any, tuple[int, int]], None]
+        ] = {
             IconType.CLEAR_SKY: draw_sun_icon,
             IconType.FEW_CLOUDS: draw_sun_cloud_icon,
             IconType.SCATTERED_CLOUDS: draw_cloud_icon,
@@ -207,7 +207,7 @@ class InkyDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_y: Tuple[int, int] = (30, 40),
+        x_y: tuple[int, int] = (30, 40),
         day: int = 0,
     ) -> None:
         """Draws weather forecast icons and text future day
@@ -238,7 +238,7 @@ class InkyDraw(DisplayBase):
         self,
         data_w: WeatherBase,
         scale: ScaleType = ScaleType.CELSIUS,
-        x_y: Tuple[int, int] = (10, 180),
+        x_y: tuple[int, int] = (10, 180),
     ) -> None:
         """Draws weather forecast icons and text for next 5 days
 
@@ -249,9 +249,7 @@ class InkyDraw(DisplayBase):
         """
         spacing: int = 78
         for i in range(0, 5):
-            self.draw_mini_forecast(
-                data_w, scale, (x_y[0] + (i * spacing), x_y[1]), i + 1
-            )
+            self.draw_mini_forecast(data_w, scale, (x_y[0] + (i * spacing), x_y[1]), i + 1)
 
     def __enter__(self) -> "InkyDraw":
         return self

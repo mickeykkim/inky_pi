@@ -18,12 +18,8 @@ def cli() -> BaseCommand:
 
 @cli.command()
 @click.version_option(version=__version__)
-@click.option(
-    "-o", "--option", default="train", help="Display option (train, weather, night)"
-)
-@click.option(
-    "-m", "--output", default="inky", help="Output source (inky, terminal, desktop)"
-)
+@click.option("-o", "--option", default="train", help="Display option (train, weather, night)")
+@click.option("-m", "--output", default="inky", help="Output source (inky, terminal, desktop)")
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def display(option: str, output: str, dry_run: bool) -> None:
     """Console script for inky_pi train and weather."""
