@@ -8,6 +8,9 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    <a href="{{ url_for('main.index') }}">Homepage</a>
+    <a href="{{ url_for('display_env.display') }}">Display Environment Variables</a>
+    <a href="{{ url_for('edit_env.edit_env') }}">Edit Environment Variables</a>
     {% block body %}{% endblock %}
 </body>
 </html>

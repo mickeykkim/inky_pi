@@ -878,18 +878,21 @@ reference = "pypi-public"
 
 [[package]]
 name = "filelock"
-version = "3.12.2"
+version = "3.12.3"
 description = "A platform independent file lock."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "filelock-3.12.2-py3-none-any.whl", hash = "sha256:cbb791cdea2a72f23da6ac5b5269ab0a0d161e9ef0100e653b69049a7706d1ec"},
-    {file = "filelock-3.12.2.tar.gz", hash = "sha256:002740518d8aa59a26b0c76e10fb8c6e15eae825d34b6fdf670333fd7b938d81"},
+    {file = "filelock-3.12.3-py3-none-any.whl", hash = "sha256:f067e40ccc40f2b48395a80fcbd4728262fab54e232e090a4063ab804179efeb"},
+    {file = "filelock-3.12.3.tar.gz", hash = "sha256:0ecc1dd2ec4672a10c8550a8182f1bd0c0a5088470ecd5a125e45f49472fac3d"},
 ]
 
+[package.dependencies]
+typing-extensions = {version = ">=4.7.1", markers = "python_version < \"3.11\""}
+
 [package.extras]
-docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
-testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
+docs = ["furo (>=2023.7.26)", "sphinx (>=7.1.2)", "sphinx-autodoc-typehints (>=1.24)"]
+testing = ["covdefaults (>=2.3)", "coverage (>=7.3)", "diff-cover (>=7.7)", "pytest (>=7.4)", "pytest-cov (>=4.1)", "pytest-mock (>=3.11.1)", "pytest-timeout (>=2.1)"]
 
 [package.source]
 type = "legacy"
@@ -984,6 +987,30 @@ Werkzeug = ">=2.3.7"
 [package.extras]
 async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.org/simple"
+reference = "pypi-public"
+
+[[package]]
+name = "flask-wtf"
+version = "1.1.1"
+description = "Form rendering, validation, and CSRF protection for Flask with WTForms."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Flask-WTF-1.1.1.tar.gz", hash = "sha256:41c4244e9ae626d63bed42ae4785b90667b885b1535d5a4095e1f63060d12aa9"},
+    {file = "Flask_WTF-1.1.1-py3-none-any.whl", hash = "sha256:7887d6f1ebb3e17bf648647422f0944c9a469d0fcf63e3b66fb9a83037e38b2c"},
+]
+
+[package.dependencies]
+Flask = "*"
+itsdangerous = "*"
+WTForms = "*"
+
+[package.extras]
+email = ["email-validator"]
 
 [package.source]
 type = "legacy"
@@ -3657,6 +3684,28 @@ url = "https://pypi.org/simple"
 reference = "pypi-public"
 
 [[package]]
+name = "wtforms"
+version = "3.0.1"
+description = "Form validation and rendering for Python web development."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "WTForms-3.0.1-py3-none-any.whl", hash = "sha256:837f2f0e0ca79481b92884962b914eba4e72b7a2daaf1f939c890ed0124b834b"},
+    {file = "WTForms-3.0.1.tar.gz", hash = "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc"},
+]
+
+[package.dependencies]
+MarkupSafe = "*"
+
+[package.extras]
+email = ["email-validator"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.org/simple"
+reference = "pypi-public"
+
+[[package]]
 name = "xattr"
 version = "0.10.1"
 description = "Python wrapper for extended filesystem attributes"
@@ -3800,4 +3849,4 @@ reference = "pypi-public"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "2757354a8539d690a54041d0f3ef1f6b7cac2885b04ea85c37b65e21d0a84326"
+content-hash = "5e661df4e2d5606896f96859173e30724c1860d42a7f1dc769c42eb9fa360988"

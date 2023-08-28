@@ -3,11 +3,11 @@ This is the Flask frontend for the application. It is responsible for changing
 configuration, environment variables, and running the application.
 
 Usage:
-    python run_flask_app.py
+    python run.py
 """
+import sys
 
-from flask_app import app
+from flask_app.app import main
 
 if __name__ == "__main__":
-    flask_app = app.create_app()
-    flask_app.run()
+    main(sys.argv[1:])

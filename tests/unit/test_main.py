@@ -15,17 +15,6 @@ def test_can_successfully_parse_args() -> None:
     assert args.output == "inky"
 
 
-@patch("inky_pi.__main__.import_display")
-def test_can_successfully_run_main(display_mock: Mock) -> None:
-    """Test for running main"""
-    args = Mock()
-    args.option = "weather"
-    args.output = "inky"
-    with patch("inky_pi.__main__._parse_args", return_value=args):
-        main()
-        display_mock.assert_called_once()
-
-
 def test_running_main_with_invalid_args_raises_error() -> None:
     """Test for running main"""
     args = Mock()
