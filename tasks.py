@@ -18,19 +18,22 @@ BIN_DIR = ROOT_DIR.joinpath("bin")
 SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("inky_pi")
+FLASK_DIR = ROOT_DIR.joinpath("flask_app")
 TOX_DIR = ROOT_DIR.joinpath(".tox")
 JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
 COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
 COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
 COVERAGE_HTML_FILE = COVERAGE_HTML_DIR.joinpath("index.html")
-COV_ALL_THRESHOLD = 85
+COV_ALL_THRESHOLD = 80
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
+DOCS_INKY_PI_DIR = DOCS_SOURCE_DIR.joinpath("inky_pi")
+DOCS_FLASK_APP_DIR = DOCS_SOURCE_DIR.joinpath("flask_app")
 DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
-PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
-PYTHON_ROOT_FILES = ["tasks.py"]
+PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, FLASK_DIR, TEST_DIR]]
+PYTHON_ROOT_FILES = ["tasks.py", "run_flask_app.py"]
 PYTHON_DIRS_STRING = " ".join(PYTHON_DIRS)
 PYTHON_ROOT_FILES_STRING = " ".join(PYTHON_ROOT_FILES)
 
@@ -111,13 +114,21 @@ def lint(_: Context) -> None:
 
 
 @task(
-    optional=["coverage"],
+    optional=["args", "coverage", "junit", "open_browser"],
     help={
-        "coverage": 'Add coverage, ="html" for html output or ="xml" for xml output',
+        "args": "Arguments to pass to pytest",
+        "coverage": "Add coverage",
         "junit": "Output a junit xml report",
+        "open_browser": "Open the coverage report in the web browser",
     },
 )
-def test(_: Context, coverage: str | None = None, junit: bool = False) -> None:
+def test(
+    _: Context,
+    args: str | None = None,
+    coverage: bool = False,
+    junit: bool = False,
+    open_browser: bool = False,
+) -> None:
     """
     It runs the tests in the current directory
     :param _: The context object that is passed to invoke tasks
@@ -125,19 +136,23 @@ def test(_: Context, coverage: str | None = None, junit: bool = False) -> None:
     or "xml" for xml output (optional)
     :param junit: If True, the test results will be written to a JUnit
     XML file, defaults to False (optional)
+    :param open_browser: If True, the coverage report will be opened in
+    the web browser, defaults to False (optional)
     """
-    pytest_args = ["-v"]
+    pytest_args = [""]
 
+    if args:
+        for arg in args.split():
+            pytest_args.append(arg)
+    if coverage:
+        pytest_args.append(f"--cov={SOURCE_DIR}")
+        pytest_args.append(f"--cov={FLASK_DIR}")
+        pytest_args.append("--cov-report=term-missing")
+        pytest_args.append(f"--cov-fail-under={COV_ALL_THRESHOLD}")
+        pytest_args.append(f"--cov-report=html:{COVERAGE_HTML_DIR}")
+        pytest_args.append(f"--cov-report=xml:{COVERAGE_XML_FILE}")
     if junit:
         pytest_args.append(f"--junitxml={JUNIT_XML_FILE}")
-
-    if coverage is not None:
-        pytest_args.append(f"--cov={SOURCE_DIR}")
-
-    if coverage == "html":
-        pytest_args.append(f"--cov-report=html:{COVERAGE_HTML_DIR}")
-    elif coverage == "xml":
-        pytest_args.append(f"--cov-report=xml:{COVERAGE_XML_FILE}")
 
     pytest_args.append(str(TEST_DIR))
     return_code = pytest.main(pytest_args)
@@ -145,8 +160,23 @@ def test(_: Context, coverage: str | None = None, junit: bool = False) -> None:
     if return_code:
         raise exceptions.Exit("Tests failed", code=return_code)
 
-    if coverage == "html":
+    if coverage and open_browser:
         webbrowser.open(COVERAGE_HTML_FILE.as_uri())
+
+
+@task
+def test_ci(
+    _: Context,
+) -> None:
+    """
+    It runs the tests as configured for CI
+    """
+    test(
+        _,
+        args="-vv",
+        coverage=True,
+        junit=True,
+    )
 
 
 @task
@@ -163,8 +193,9 @@ def docs(_c: Context, launch: bool = True) -> None:
     """
     Generate documentation
     """
-    # Generate autodoc stub files
-    _run(_c, f"sphinx-apidoc -e -P -o {DOCS_SOURCE_DIR} {SOURCE_DIR}")
+    # Generate autodoc stub files for both SOURCE_DIR and FLASK_DIR
+    _run(_c, f"sphinx-apidoc -eP -o {DOCS_INKY_PI_DIR} {SOURCE_DIR}")
+    _run(_c, f"sphinx-apidoc -eP -o {DOCS_FLASK_APP_DIR} {FLASK_DIR}")
     # Generate docs
     _run(_c, f"sphinx-build -b html {DOCS_DIR} {DOCS_BUILD_DIR}")
     if launch:

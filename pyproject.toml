@@ -33,12 +33,14 @@ Pillow = "^9.3.0"
 "RPi.GPIO" = {version = "^0.7.0", markers = "platform_machine == 'armv7l'"}
 click = "^8.1.7"
 environs = "^9.3.2"
+flask = "^2.3.3"
 font-fredoka-one = "^0.0.4"
 font-hanken-grotesk = "^0.0.2"
 inky = {version = "^1.2.0", markers = "platform_machine == 'armv7l'"}
 loguru = "^0.7.0"
 numpy = "~1.22"
 python = ">=3.9,<4"
+python-dotenv = "^1.0.0"
 rich = "^13.5.2"
 urllib3 = "^2.0.4"
 zeep = "^4.2.1"
@@ -108,7 +110,8 @@ norecursedirs = [
 
 [tool.coverage.run]
 branch = true
-source = ["inky_pi"]
+source = ["inky_pi", "flask_app"]
+omit = ["tasks.py", "run_flask_app.py", "tests/*"]
 
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
@@ -128,8 +131,6 @@ exclude_lines = [
     "@abstractmethod",
     "@abc.abstractmethod",
 ]
-ignore_errors = true
-skip_empty = true
 omit = [
     "tests/*",
     "venv/*",
@@ -143,6 +144,8 @@ omit = [
     ".*/*",
     "*.egg-info/*",
 ]
+ignore_errors = true
+skip_empty = true
 precision = 2
 
 [tool.coverage.html]

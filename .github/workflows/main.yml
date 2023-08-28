@@ -60,4 +60,3 @@ jobs:
       # Run tox
       - name: Run Tox
         run: poetry run tox -e py
-

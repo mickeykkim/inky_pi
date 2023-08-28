@@ -52,7 +52,7 @@ jobs:
         run: |
           echo TRAIN_API_TOKEN=${{ secrets.TRAIN_API_TOKEN }} > .env
           echo WEATHER_API_TOKEN=${{ secrets.WEATHER_API_TOKEN }} >> .env
-          poetry run invoke test --junit --coverage="xml"
+          poetry run invoke test-ci
       # Upload coverage report to Codecov
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v2

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Env Variables</title>
+{% endblock %}
+
+{% block body %}
+<h1>Environmental Variables</h1>
+<ul>
+    <li>LATITUDE: {{ latitude }}</li>
+    <li>LONGITUDE: {{ longitude }}</li>
+    <li>WEATHER_API_TOKEN: {{ weather_api_token }}</li>
+    <li>TRAIN_API_TOKEN: {{ train_api_token }}</li>
+</ul>
+{% endblock %}
