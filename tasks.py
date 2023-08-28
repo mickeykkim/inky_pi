@@ -25,6 +25,7 @@ COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
 COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
 COVERAGE_HTML_FILE = COVERAGE_HTML_DIR.joinpath("index.html")
 COV_ALL_THRESHOLD = 80
+COV_UNIT_THRESHOLD = 60
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_INKY_PI_DIR = DOCS_SOURCE_DIR.joinpath("inky_pi")
@@ -33,7 +34,7 @@ DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, FLASK_DIR, TEST_DIR]]
-PYTHON_ROOT_FILES = ["tasks.py", "run_flask_app.py"]
+PYTHON_ROOT_FILES = ["tasks.py", "run.py"]
 PYTHON_DIRS_STRING = " ".join(PYTHON_DIRS)
 PYTHON_ROOT_FILES_STRING = " ".join(PYTHON_ROOT_FILES)
 
@@ -114,9 +115,10 @@ def lint(_: Context) -> None:
 
 
 @task(
-    optional=["args", "coverage", "junit", "open_browser"],
+    optional=["args", "mark", "coverage", "junit", "open_browser"],
     help={
         "args": "Arguments to pass to pytest",
+        "mark": "Run tests with the given pytest marker",
         "coverage": "Add coverage",
         "junit": "Output a junit xml report",
         "open_browser": "Open the coverage report in the web browser",
@@ -125,8 +127,10 @@ def lint(_: Context) -> None:
 def test(
     _: Context,
     args: str | None = None,
+    mark: str | None = None,
     coverage: bool = False,
     junit: bool = False,
+    fail_under: int = COV_ALL_THRESHOLD,
     open_browser: bool = False,
 ) -> None:
     """
@@ -144,11 +148,13 @@ def test(
     if args:
         for arg in args.split():
             pytest_args.append(arg)
+    if mark:
+        pytest_args.append(f"-m={mark}")
     if coverage:
         pytest_args.append(f"--cov={SOURCE_DIR}")
         pytest_args.append(f"--cov={FLASK_DIR}")
         pytest_args.append("--cov-report=term-missing")
-        pytest_args.append(f"--cov-fail-under={COV_ALL_THRESHOLD}")
+        pytest_args.append(f"--cov-fail-under={fail_under}")
         pytest_args.append(f"--cov-report=html:{COVERAGE_HTML_DIR}")
         pytest_args.append(f"--cov-report=xml:{COVERAGE_XML_FILE}")
     if junit:
@@ -176,6 +182,23 @@ def test_ci(
         args="-vv",
         coverage=True,
         junit=True,
+    )
+
+
+@task
+def test_unit(
+    _: Context,
+) -> None:
+    """
+    It runs the tests as configured for CI
+    """
+    test(
+        _,
+        args="-vv",
+        mark="not (integration or e2e)",
+        coverage=True,
+        junit=True,
+        fail_under=COV_UNIT_THRESHOLD,
     )
 
 

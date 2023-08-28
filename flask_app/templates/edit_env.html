@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Env Variables</title>
+{% endblock %}
+
+{% block body %}
+<h1>Update Environmental Variables</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.latitude.label }}
+        {{ form.latitude }}
+    </div>
+    <div class="form-group">
+        {{ form.longitude.label }}
+        {{ form.longitude }}
+    </div>
+    <div class="form-group">
+        {{ form.weather_api_token.label }}
+        {{ form.weather_api_token }}
+    </div>
+    <div class="form-group">
+        {{ form.train_api_token.label }}
+        {{ form.train_api_token }}
+    </div>
+    <div class="form-group">
+        {{ form.submit }}
+    </div>
+</form>
+{% endblock %}

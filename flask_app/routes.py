@@ -1,16 +1,17 @@
 """
 Routes for flask app
 """
-import os
+from __future__ import annotations
 
-from dotenv import load_dotenv
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template, url_for
+from werkzeug import Response
+
+from flask_app.forms import EnvVariableForm
+from flask_app.util import get_dot_env, set_dot_env
 
 main_bp = Blueprint("main", __name__)
-config_bp = Blueprint("config", __name__)
-
-
-load_dotenv()
+display_env_bp = Blueprint("display_env", __name__)
+edit_env_bp = Blueprint("edit_env", __name__)
 
 
 @main_bp.route("/")
@@ -24,23 +25,61 @@ def index() -> str:
     return render_template("index.html")
 
 
-@config_bp.route("/display")
-def display_env() -> str:
+@display_env_bp.route("/display")
+def display() -> str:
     """
     Display environment variables
 
     Returns:
-        str: Environment variables
+        str: Display environment variables page
     """
-    latitude = os.getenv("LATITUDE")
-    longitude = os.getenv("LONGITUDE")
-    weather_api_token = os.getenv("WEATHER_API_TOKEN")
-    train_api_token = os.getenv("TRAIN_API_TOKEN")
+    latitude, longitude, weather_api_token, train_api_token = get_dot_env()
 
     return render_template(
-        "env_load.html",
+        "display_env.html",
         latitude=latitude,
         longitude=longitude,
         weather_api_token=weather_api_token,
         train_api_token=train_api_token,
     )
+
+
+@edit_env_bp.route("/edit_env", methods=["GET", "POST"])
+def edit_env() -> Response | str:
+    """
+    Edit environment variables
+
+    Returns:
+        Response: Redirect to same page
+        str: Edit environment variables page
+    """
+
+    form = EnvVariableForm()
+
+    if form.validate_on_submit():
+        # Update the values based on the form data
+        latitude = form.latitude.data
+        longitude = form.longitude.data
+        weather_api_token = form.weather_api_token.data
+        train_api_token = form.train_api_token.data
+
+        # Update the .env file with the new values
+        set_dot_env(
+            latitude=latitude,
+            longitude=longitude,
+            weather_api_token=weather_api_token,
+            train_api_token=train_api_token,
+        )
+
+        # Redirect to display page
+        return redirect(url_for("display_env.display"))
+
+    latitude, longitude, weather_api_token, train_api_token = get_dot_env()
+
+    # Populate the form fields with current environment variables
+    form.latitude.data = latitude
+    form.longitude.data = longitude
+    form.weather_api_token.data = weather_api_token
+    form.train_api_token.data = train_api_token
+
+    return render_template("edit_env.html", form=form)
