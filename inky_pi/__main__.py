@@ -10,7 +10,7 @@ from typing import Dict
 
 from loguru import logger
 
-from inky_pi.__init__ import __version__  # type: ignore
+from inky_pi import __version__
 from inky_pi.configs import (
     EXCLUDE_FLAGS,
     INKY_COLOR,
@@ -98,7 +98,7 @@ def _parse_args(args: list[str]) -> Namespace:
         default="inky",
     )
     parser.add_argument(
-        "-v",
+        "-V",
         "--version",
         help="Inky_Pi version",
         action="version",

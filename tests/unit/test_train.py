@@ -176,7 +176,7 @@ def test_can_successfully_instantiate_train_huxley2(
 
 @patch("inky_pi.util.sys.exit")
 def test_instantiate_open_live_without_url_and_token_raises_error(
-    sys_exit_mock: Mock, _setup_train_vars: Mapping[str, Any]
+    _setup_train_vars: Mapping[str, Any]
 ) -> None:
     """Test for invalid OpenLDBWS object creation
     Due to the fact OpenLDBWS requires URL and token, test will trigger error
@@ -192,7 +192,6 @@ def test_instantiate_open_live_without_url_and_token_raises_error(
     )
     with pytest.raises(ValueError):
         train_model_factory(train_object)
-        sys_exit_mock.assert_called_once()
 
 
 @pytest.mark.parametrize(

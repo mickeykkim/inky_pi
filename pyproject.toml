@@ -19,13 +19,14 @@ readme = "README.rst"
 version = "0.2.0"
 
 [[tool.poetry.source]]
-default = true
 name = "pypi-public"
 url = "https://pypi.org/simple/"
+priority = "default"
 
 [[tool.poetry.source]]
 name = "piwheels"
 url = "https://www.piwheels.org/simple/"
+priority = "supplemental"
 
 [tool.poetry.dependencies]
 Pillow = "^9.3.0"
@@ -47,7 +48,9 @@ bandit = "^1.7.4"
 black = "^22.3.0"
 bumpversion = "^0.6.0"
 coverage = "^6.3.2"
-flake8 = "^5.0.0"
+flake8 = "^6.1.0"
+flake8-bugbear = "^23.7.10"
+flake8-pyproject = "^1.2.3"
 importlib-metadata = "^4.0.0"
 invoke = "^2.0.0"
 mypy = "^1.0"
@@ -66,6 +69,17 @@ ruff = "^0.0.257"
 
 [tool.poetry.scripts]
 inky_pi = "inky_pi.cli:main"
+
+[tool.flake8]
+ignore = ['E203', 'W503']
+select = ['B', 'C', 'E', 'F', 'W', 'T4', 'B9']
+per-file-ignores = [
+    '*/__init__.py:F401',
+    'tests/*:E501,B950',
+    'tasks.py:E501,B950',
+]
+max-line-length = 88
+max-complexity = 10
 
 [tool.pytest.ini_options]
 filterwarnings = "ignore::DeprecationWarning"

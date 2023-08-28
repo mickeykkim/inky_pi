@@ -3,7 +3,7 @@ import click
 from click import BaseCommand
 from loguru import logger
 
-from inky_pi.__init__ import __version__  # type: ignore
+from inky_pi import __version__
 from inky_pi.__main__ import OUTPUT_HANDLER, DisplayOption, display_data
 from inky_pi.util import configure_logging
 

@@ -43,7 +43,7 @@ def test_running_main_with_display_data_exception_raises_exception() -> None:
     args.output = "inky"
     with (
         patch("inky_pi.__main__._parse_args", return_value=args),
-        patch("inky_pi.__main__.display_data", side_effect=Exception),
+        patch("inky_pi.__main__.display_data", side_effect=ValueError),
     ):
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             main()
