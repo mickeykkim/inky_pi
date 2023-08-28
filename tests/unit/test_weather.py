@@ -136,10 +136,9 @@ def test_retrieving_invalid_weather_data_raises_value_error(
         weather_data = json.load(file)
         _invalid_requests.add_response(weather_data, 200)
 
-    with pytest.raises(ValueError) as exc_info:
-        weather_base = OpenWeatherMap()
+    weather_base = OpenWeatherMap()
+    with pytest.raises(ValueError):
         weather_base.retrieve_data(_invalid_requests, _setup_weather_object)
-        assert "Invalid API Key" in str(exc_info.value)
 
 
 @pytest.mark.parametrize(
