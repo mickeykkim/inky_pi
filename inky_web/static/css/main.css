@@ -1,0 +1,106 @@
+/* Reset default margin and font */
+body, html {
+    margin: 0;
+    font-family: 'Roboto', sans-serif; /* Material Design font */
+    background-color: #f5f5f5; /* Light gray background */
+}
+
+/* Styles for the content */
+.content {
+    margin: 0 auto;
+    width: 400px;
+    background-color: #ffffff; /* White content background */
+    padding: 20px;
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+/* Styles for tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd; /* Gray borders */
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f5f5f5; /* Light gray background for table header */
+}
+
+/* Styles for forms */
+.form {
+    margin-top: 20px;
+}
+
+#content {
+    width: 70%;
+}
+
+/* Styles for the header */
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #333; /* Background color for the title bar */
+    color: #fff; /* Text color for the title bar */
+    padding: 10px;
+}
+
+.title {
+    font-size: 24px; /* Adjust the font size as needed */
+    margin-right: 20px; /* Add spacing between the title and menu button */
+}
+
+/* Styles for the dropdown menu */
+.menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Styles for the menu button and icon */
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 10px;
+    position: relative;
+    color: #fff; /* Set the icon color to white */
+}
+
+.bar {
+    background-color: #fff; /* Set the bar color to white */
+    display: block;
+    height: 2px;
+    margin: 4px 0;
+    width: 25px;
+}
+
+/* Styles for the dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.menu-container:hover .dropdown-content {
+    display: block;
+}
+
+/* Styles for dropdown links */
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}

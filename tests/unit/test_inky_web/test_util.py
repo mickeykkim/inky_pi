@@ -1,7 +1,7 @@
 """
 Test the util.py file in the flask_app directory
 """
-from flask_app.util import get_dot_env, set_dot_env
+from inky_web.util import get_dot_env, set_dot_env
 
 from .conftest import (
     TEMP_ENV_LATITUDE,

@@ -9,7 +9,7 @@ import pytest
 from flask import Flask
 from flask.testing import FlaskClient
 
-from flask_app.app import AppConfig, create_app
+from inky_web.__main__ import AppConfig, create_app
 
 TEST_CONFIG = AppConfig()
 TEST_CONFIG.DEBUG = True

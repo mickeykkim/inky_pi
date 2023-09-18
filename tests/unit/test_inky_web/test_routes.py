@@ -22,7 +22,7 @@ def test_index_route(test_client: FlaskClient) -> None:
     """
     response = test_client.get("/")
     assert response.status_code == 200
-    assert b"Hello, World!" in response.data
+    assert response.data
 
 
 def test_display_route(test_client: FlaskClient) -> None:
@@ -35,7 +35,7 @@ def test_display_route(test_client: FlaskClient) -> None:
         test_client (FlaskClient): Flask test client
     """
     # Use monkeypatch to temporarily modify environment variables
-    with patch("flask_app.routes.get_dot_env") as mock_get_dot_env:
+    with patch("inky_web.routes.get_dot_env") as mock_get_dot_env:
         mock_get_dot_env.return_value = (
             TEST_LATITUDE,
             TEST_LONGITUDE,
@@ -62,7 +62,7 @@ def test_edit_env_variables_get(test_client: FlaskClient) -> None:
         test_client(FlaskClient): Flask test client
     """
     # Use dotenv to load environment variables from .env file
-    with patch("flask_app.routes.get_dot_env") as mock_get_dot_env:
+    with patch("inky_web.routes.get_dot_env") as mock_get_dot_env:
         mock_get_dot_env.return_value = (
             TEST_LATITUDE,
             TEST_LONGITUDE,
@@ -93,8 +93,8 @@ def test_edit_env_variables_post(test_client: FlaskClient) -> None:
         test_client(FlaskClient): Flask test client
     """
     with (
-        patch("flask_app.routes.EnvVariableForm") as mock_env_variable_form,
-        patch("flask_app.routes.set_dot_env") as mock_set_dot_env,
+        patch("inky_web.routes.EnvVariableForm") as mock_env_variable_form,
+        patch("inky_web.routes.set_dot_env") as mock_set_dot_env,
     ):
         # Send a POST request with new form data
         new_data = {

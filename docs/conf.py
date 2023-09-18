@@ -17,7 +17,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../inky_pi"))
-sys.path.insert(0, os.path.abspath("../flask_app"))
+sys.path.insert(0, os.path.abspath("../inky_web"))
 
 # pylint: disable=wrong-import-position
 import inky_pi  # noqa: E402

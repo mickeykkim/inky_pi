@@ -8,7 +8,7 @@ import pytest
 from dotenv import load_dotenv
 from flask import Flask
 
-from flask_app.app import main, parse_args
+from inky_web.__main__ import main, parse_args
 
 from .conftest import TEST_CONFIG
 
@@ -77,8 +77,8 @@ def test_main() -> None:
     """
     cl_arguments = ["--host", "example.com", "--port", "8080"]
     with (
-        patch("flask_app.app.parse_args") as mock_parse_args,
-        patch("flask_app.app.create_app") as mock_create_app,
+        patch("inky_web.__main__.parse_args") as mock_parse_args,
+        patch("inky_web.__main__.create_app") as mock_create_app,
     ):
         main(cl_arguments=cl_arguments)
         mock_parse_args.assert_called_once_with(cl_arguments)

@@ -12,7 +12,7 @@ Welcome to inky-pi's documentation!
    authors
    history
    source/inky_pi/modules
-   source/flask_app/modules
+   source/inky_web/modules
 
 Indices and tables
 ==================
