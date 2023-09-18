@@ -1,16 +1,20 @@
 """
-This is the main module of the Flask app. It creates the Flask app object and
-imports the routes module.
+This is the Flask frontend for the application. It is responsible for changing
+configuration, environment variables, and running the application.
+
+Usage:
+    python -m inky_web
 """
 from __future__ import annotations
 
 import argparse
 import os
+import sys
 
 from dotenv import load_dotenv
 from flask import Flask
 
-from flask_app.routes import display_env_bp, edit_env_bp, main_bp
+from inky_web.routes import display_configs_bp, edit_configs_bp, main_bp
 
 
 # pylint: disable=C0103
@@ -47,8 +51,8 @@ def create_app(config: AppConfig | None = None) -> Flask:
         app.config.from_object(app_config)
 
     app.register_blueprint(main_bp)
-    app.register_blueprint(display_env_bp)
-    app.register_blueprint(edit_env_bp)
+    app.register_blueprint(display_configs_bp)
+    app.register_blueprint(edit_configs_bp)
 
     return app
 
@@ -86,3 +90,7 @@ def main(cl_arguments: list[str]) -> None:
     args = parse_args(cl_arguments)
     flask_app = create_app()
     flask_app.run(host=args.host, port=args.port)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

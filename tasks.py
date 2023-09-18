@@ -18,7 +18,7 @@ BIN_DIR = ROOT_DIR.joinpath("bin")
 SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
 SOURCE_DIR = ROOT_DIR.joinpath("inky_pi")
-FLASK_DIR = ROOT_DIR.joinpath("flask_app")
+FLASK_DIR = ROOT_DIR.joinpath("inky_web")
 TOX_DIR = ROOT_DIR.joinpath(".tox")
 JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
 COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
@@ -34,7 +34,7 @@ DOCS_BUILD_DIR = DOCS_DIR.joinpath("_build")
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 SAFETY_REQUIREMENTS_FILE = BIN_DIR.joinpath("safety_requirements.txt")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, FLASK_DIR, TEST_DIR]]
-PYTHON_ROOT_FILES = ["tasks.py", "run.py"]
+PYTHON_ROOT_FILES = ("tasks.py",)
 PYTHON_DIRS_STRING = " ".join(PYTHON_DIRS)
 PYTHON_ROOT_FILES_STRING = " ".join(PYTHON_ROOT_FILES)
 
