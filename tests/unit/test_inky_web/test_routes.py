@@ -70,7 +70,7 @@ def test_edit_env_variables_get(test_client: FlaskClient) -> None:
             TEST_TRAIN_API_TOKEN,
         )
         # Send a GET request to the edit_env_variables route
-        response_get = test_client.get("/edit_env", follow_redirects=True)
+        response_get = test_client.get("/edit", follow_redirects=True)
 
         # Check if the response status code is 200 (OK)
         assert response_get.status_code == 200
@@ -103,9 +103,7 @@ def test_edit_env_variables_post(test_client: FlaskClient) -> None:
             "weather_api_token": TEST_WEATHER_API_TOKEN,
             "train_api_token": TEST_TRAIN_API_TOKEN,
         }
-        response_post = test_client.post(
-            "/edit_env", data=new_data, follow_redirects=True
-        )
+        response_post = test_client.post("/edit", data=new_data, follow_redirects=True)
 
     assert response_post.status_code == 200
     mock_env_variable_form.assert_called_once_with()
