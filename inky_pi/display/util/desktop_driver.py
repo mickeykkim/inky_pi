@@ -89,6 +89,7 @@ class DesktopDisplayDriver:
         Uses Pillow to display image on desktop.
         """
         if self._img:
-            self._img.show()
+            rgb_img = self._img.convert("RGB")
+            rgb_img.show()
         else:
             raise RuntimeError("No image to show")

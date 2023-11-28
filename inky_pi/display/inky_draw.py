@@ -79,12 +79,7 @@ class InkyDraw(DisplayBase):
         gen_closed_eye_icon(self._img_draw, self._color, (x_mid, y_mid))
         # Message text
         message_str = "Good Night ^^"
-        (
-            width,
-            height,
-        ) = FONT_GL.getsize(  # pylint: disable=E1101 # This is dynamically generated?
-            message_str
-        )
+        width, height = 150, 15
         message_x, message_y = x_mid - (width / 2), y_mid - (height / 2)
         self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
         # Weather text

@@ -11,20 +11,7 @@ from typing import Dict
 from loguru import logger
 
 from inky_pi import __version__
-from inky_pi.configs import (
-    EXCLUDE_FLAGS,
-    INKY_COLOR,
-    LATITUDE,
-    LONGITUDE,
-    STATION_FROM,
-    STATION_TO,
-    TRAIN_API_TOKEN,
-    TRAIN_MODEL,
-    TRAIN_MODEL_URL,
-    TRAIN_NUMBER,
-    WEATHER_API_TOKEN,
-    WEATHER_MODEL,
-)
+from inky_pi.configs import Settings
 from inky_pi.display.display_base import DisplayModel, DisplayObject
 from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
 from inky_pi.util import (
@@ -40,22 +27,24 @@ from inky_pi.weather.weather_base import (
     WeatherObject,
 )
 
+config = Settings()
+
 # Define objects to be used in fetching data
 TRAIN_OBJECT = TrainObject(
-    model=TrainModel[TRAIN_MODEL],
-    station_from=STATION_FROM,
-    station_to=STATION_TO,
-    number=TRAIN_NUMBER,
-    url=TRAIN_MODEL_URL,
-    token=TRAIN_API_TOKEN,
+    model=TrainModel[config.TRAIN_MODEL],
+    station_from=config.STATION_FROM,
+    station_to=config.STATION_TO,
+    number=config.TRAIN_NUMBER,
+    url=config.TRAIN_MODEL_URL,
+    token=config.TRAIN_API_TOKEN,
 )
 
 WEATHER_OBJECT = WeatherObject(
-    model=WeatherModel[WEATHER_MODEL],
-    latitude=LATITUDE,
-    longitude=LONGITUDE,
-    exclude_flags=EXCLUDE_FLAGS,
-    weather_api_token=WEATHER_API_TOKEN,
+    model=WeatherModel[config.WEATHER_MODEL],
+    latitude=config.LATITUDE,
+    longitude=config.LONGITUDE,
+    exclude_flags=config.EXCLUDE_FLAGS,
+    weather_api_token=config.WEATHER_API_TOKEN,
 )
 
 
@@ -117,7 +106,7 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
         option (DisplayOption): Display option (train, weather, night)
         output (DisplayObject): Display object (inkyWHAT, terminal, desktop)
     """
-    output.base_color = INKY_COLOR if option == DisplayOption.NIGHT else "black"
+    output.base_color = config.INKY_COLOR if option == DisplayOption.NIGHT else "black"
 
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(output) as display:
@@ -135,7 +124,7 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
         )
         if option == DisplayOption.TRAIN:
             train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
-            display.draw_train_times(train_data, TRAIN_NUMBER)
+            display.draw_train_times(train_data, config.TRAIN_NUMBER)
         elif option == DisplayOption.WEATHER:
             display.draw_forecast_icons(weather_data)
 

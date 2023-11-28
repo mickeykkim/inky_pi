@@ -5,7 +5,9 @@ from __future__ import annotations
 
 from dotenv import dotenv_values, set_key
 
-from inky_pi.configs import LATITUDE, LONGITUDE, TRAIN_API_TOKEN, WEATHER_API_TOKEN
+from inky_pi.configs import Settings
+
+config = Settings()
 
 
 def get_dot_env(dotenv_path: str = ".env") -> tuple[str | None, ...]:
@@ -19,10 +21,10 @@ def get_dot_env(dotenv_path: str = ".env") -> tuple[str | None, ...]:
         tuple[str, ...]: Tuple of environment variables
     """
     dot_env = dotenv_values(dotenv_path)
-    latitude = dot_env.get("LATITUDE", str(LATITUDE))
-    longitude = dot_env.get("LONGITUDE", str(LONGITUDE))
-    weather_api_token = dot_env.get("WEATHER_API_TOKEN", str(WEATHER_API_TOKEN))
-    train_api_token = dot_env.get("TRAIN_API_TOKEN", str(TRAIN_API_TOKEN))
+    latitude = dot_env.get("LATITUDE", str(config.LATITUDE))
+    longitude = dot_env.get("LONGITUDE", str(config.LONGITUDE))
+    weather_api_token = dot_env.get("WEATHER_API_TOKEN", str(config.WEATHER_API_TOKEN))
+    train_api_token = dot_env.get("TRAIN_API_TOKEN", str(config.TRAIN_API_TOKEN))
 
     return latitude, longitude, weather_api_token, train_api_token
 

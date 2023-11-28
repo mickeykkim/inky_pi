@@ -29,7 +29,7 @@ url = "https://www.piwheels.org/simple/"
 priority = "supplemental"
 
 [tool.poetry.dependencies]
-Pillow = "^10.0.0"
+Pillow = "^10.0.1"
 "RPi.GPIO" = {version = "^0.7.0", markers = "platform_machine == 'armv7l'"}
 click = "^8.1.7"
 environs = "^9.3.2"
@@ -46,6 +46,8 @@ urllib3 = "^2.1.0"
 zeep = "^4.2.1"
 flask-wtf = "^1.2.1"
 pydantic = "^2.5.2"
+pydantic-settings = "^2.1.0"
+setuptools = "^69.0.2"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.4"
