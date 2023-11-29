@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>inky_pi.display.util.drawing &mdash; inky-pi 0.1.2 documentation</title>
+  <title>inky_pi.display.util.drawing &mdash; inky-pi 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
             inky-pi
           </a>
               <div class="version">
-                0.1.2
+                0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">inky_pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/inky_pi/modules.html">inky_pi</a></li>
 </ul>
 
         </div>
@@ -96,7 +96,7 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="draw_sun_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_sun_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large sun icon</span>
@@ -110,7 +110,7 @@
     <span class="n">gen_large_sun</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">7</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span></div>
 
 
-<div class="viewcode-block" id="draw_sun_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_sun_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw small sun + large cloud icons</span>
@@ -125,7 +125,7 @@
     <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">5</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="draw_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_cloud_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large cloud</span>
@@ -139,7 +139,7 @@
     <span class="n">gen_large_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="n">x_y</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="draw_two_clouds_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_two_clouds_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_two_clouds_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_two_clouds_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_two_clouds_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_two_clouds_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large cloud + small cloud icons</span>
@@ -154,7 +154,7 @@
     <span class="n">gen_small_cloud</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">25</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="draw_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_rain_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_rain_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large cloud + two rain drop icons</span>
@@ -170,7 +170,7 @@
     <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">42</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">45</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="draw_sun_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_rain_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_sun_cloud_rain_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_sun_cloud_rain_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_sun_cloud_rain_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw small sun, large cloud + two rain drop icons</span>
@@ -187,7 +187,7 @@
     <span class="n">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">42</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">50</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="draw_cloud_lightning_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_lightning_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_lightning_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_cloud_lightning_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_lightning_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_lightning_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large cloud + lightning bolt icons</span>
@@ -202,7 +202,7 @@
     <span class="n">gen_lightning</span><span class="p">(</span><span class="n">draw</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="p">(</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">45</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="draw_cloud_snow_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_snow_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_snow_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_cloud_snow_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_cloud_snow_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_cloud_snow_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw large cloud + snowflake icons</span>
@@ -220,7 +220,7 @@
 
 
 <span class="c1"># pylint: disable=unused-argument</span>
-<div class="viewcode-block" id="draw_mist_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_mist_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_mist_icon</span><span class="p">(</span>
+<div class="viewcode-block" id="draw_mist_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.drawing.html#inky_pi.display.util.drawing.draw_mist_icon">[docs]</a><span class="k">def</span> <span class="nf">draw_mist_icon</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Draw mist icon</span>

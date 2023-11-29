@@ -1,0 +1,8 @@
+inky\_web.\_\_main\_\_ module
+=============================
+
+.. automodule:: inky_web.__main__
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

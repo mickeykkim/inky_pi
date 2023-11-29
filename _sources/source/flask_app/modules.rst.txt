@@ -1,0 +1,7 @@
+inky_web
+========
+
+.. toctree::
+   :maxdepth: 4
+
+   inky_web

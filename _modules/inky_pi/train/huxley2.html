@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>inky_pi.train.huxley2 &mdash; inky-pi 0.1.2 documentation</title>
+  <title>inky_pi.train.huxley2 &mdash; inky-pi 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
             inky-pi
           </a>
               <div class="version">
-                0.1.2
+                0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../history.html">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">inky_pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/inky_pi/modules.html">inky_pi</a></li>
 </ul>
 
         </div>
@@ -90,10 +90,10 @@
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainObject</span><span class="p">,</span> <span class="n">abbreviate_stn_name</span>
 
 
-<div class="viewcode-block" id="Huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2">[docs]</a><span class="k">class</span> <span class="nc">Huxley2</span><span class="p">(</span><span class="n">TrainBase</span><span class="p">):</span>
+<div class="viewcode-block" id="Huxley2"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2">[docs]</a><span class="k">class</span> <span class="nc">Huxley2</span><span class="p">(</span><span class="n">TrainBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch and manage train data&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Huxley2.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Huxley2.retrieve_data"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.retrieve_data">[docs]</a>    <span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Requests train data from OpenLDBWS train arrivals API endpoint</span>
 
 <span class="sd">        More info here: https://huxley2.azurewebsites.net/</span>
@@ -117,7 +117,7 @@
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error retrieving train data (check stations?).&quot;</span><span class="p">)</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid train data request: </span><span class="si">{</span><span class="n">train_object</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span></div>
 
-<div class="viewcode-block" id="Huxley2._handle_error"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2._handle_error">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Huxley2._handle_error"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2._handle_error">[docs]</a>    <span class="k">def</span> <span class="nf">_handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Log error and raise exception</span>
 
 <span class="sd">        Args:</span>
@@ -136,7 +136,7 @@
             <span class="n">error_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No trains to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">destination</span><span class="si">}</span><span class="s2"> from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2">.&quot;</span>
             <span class="k">return</span> <span class="n">TrainBase</span><span class="o">.</span><span class="n">format_error_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Huxley2.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.fetch_train">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="Huxley2.fetch_train"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.train.huxley2.html#inky_pi.train.huxley2.Huxley2.fetch_train">[docs]</a>    <span class="k">def</span> <span class="nf">fetch_train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate next train string</span>
 
 <span class="sd">        String is returned in format:</span>
@@ -163,7 +163,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handle_error</span><span class="p">(</span><span class="n">num</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../../source/inky_pi.train.huxley2.html#inky_pi.train.huxley2.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
+<div class="viewcode-block" id="instantiate_huxley2"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.train.huxley2.html#inky_pi.train.huxley2.instantiate_huxley2">[docs]</a><span class="k">def</span> <span class="nf">instantiate_huxley2</span><span class="p">(</span><span class="n">train_object</span><span class="p">:</span> <span class="n">TrainObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Huxley2</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Huxley2 object creator</span>
 
 <span class="sd">    Args:</span>

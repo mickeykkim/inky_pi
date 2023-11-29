@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>inky_pi.display.util.desktop_driver &mdash; inky-pi 0.1.2 documentation</title>
+  <title>inky_pi.display.util.desktop_driver &mdash; inky-pi 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
             inky-pi
           </a>
               <div class="version">
-                0.1.2
+                0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">inky_pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/inky_pi/modules.html">inky_pi</a></li>
 </ul>
 
         </div>
@@ -90,7 +90,7 @@
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
 
 
-<div class="viewcode-block" id="DesktopDisplayDriver"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver">[docs]</a><span class="k">class</span> <span class="nc">DesktopDisplayDriver</span><span class="p">:</span>
+<div class="viewcode-block" id="DesktopDisplayDriver"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver">[docs]</a><span class="k">class</span> <span class="nc">DesktopDisplayDriver</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Desktop Display Driver.&quot;&quot;&quot;</span>
 
     <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">400</span>
@@ -123,7 +123,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ImageDraw</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="DesktopDisplayDriver.set_image"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="DesktopDisplayDriver.set_image"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set image</span>
 
 <span class="sd">        Args:</span>
@@ -131,7 +131,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_img</span> <span class="o">=</span> <span class="n">image</span></div>
 
-<div class="viewcode-block" id="DesktopDisplayDriver.set_border"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_border">[docs]</a>    <span class="k">def</span> <span class="nf">set_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="DesktopDisplayDriver.set_border"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_border">[docs]</a>    <span class="k">def</span> <span class="nf">set_border</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">border_color</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Draw border around the edge (1/2 self.BORDER_SIZE + 1)</span>
 
 <span class="sd">        Args:</span>
@@ -164,13 +164,14 @@
                 <span class="n">side_width</span><span class="p">,</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DesktopDisplayDriver.show"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="DesktopDisplayDriver.show"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Show image</span>
 
 <span class="sd">        Uses Pillow to display image on desktop.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">rgb_img</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+            <span class="n">rgb_img</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No image to show&quot;</span><span class="p">)</span></div></div>
 </pre></div>

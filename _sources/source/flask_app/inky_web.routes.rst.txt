@@ -1,0 +1,8 @@
+inky\_web.routes module
+=======================
+
+.. automodule:: inky_web.routes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

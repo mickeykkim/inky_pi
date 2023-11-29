@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>inky_pi.display.util.shapes &mdash; inky-pi 0.1.2 documentation</title>
+  <title>inky_pi.display.util.shapes &mdash; inky-pi 0.2.0 documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
             inky-pi
           </a>
               <div class="version">
-                0.1.2
+                0.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -51,7 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../authors.html">Credits</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../history.html">History</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">inky_pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/inky_pi/modules.html">inky_pi</a></li>
 </ul>
 
         </div>
@@ -85,7 +85,7 @@
 <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
 
 
-<div class="viewcode-block" id="gen_large_sun"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_large_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_large_sun</span><span class="p">(</span>
+<div class="viewcode-block" id="gen_large_sun"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_large_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_large_sun</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate large sun icon</span>
@@ -153,7 +153,7 @@
     <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">17</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span> <span class="n">color</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_small_sun"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_small_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_small_sun</span><span class="p">(</span>
+<div class="viewcode-block" id="gen_small_sun"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_small_sun">[docs]</a><span class="k">def</span> <span class="nf">gen_small_sun</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate small sun icon</span>
@@ -209,7 +209,7 @@
     <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">20</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_large_cloud"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_large_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_large_cloud</span><span class="p">(</span>
+<div class="viewcode-block" id="gen_large_cloud"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_large_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_large_cloud</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate large cloud icon</span>
@@ -232,7 +232,7 @@
     <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">40</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">15</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">60</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">35</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_small_cloud"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_small_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_small_cloud</span><span class="p">(</span>
+<div class="viewcode-block" id="gen_small_cloud"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_small_cloud">[docs]</a><span class="k">def</span> <span class="nf">gen_small_cloud</span><span class="p">(</span>
     <span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">color_neg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate small cloud icon</span>
@@ -255,7 +255,7 @@
     <span class="n">draw</span><span class="o">.</span><span class="n">ellipse</span><span class="p">((</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">23</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">33</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">18</span><span class="p">),</span> <span class="n">color_neg</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_raindrop"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_raindrop">[docs]</a><span class="k">def</span> <span class="nf">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="gen_raindrop"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_raindrop">[docs]</a><span class="k">def</span> <span class="nf">gen_raindrop</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate raindrop icon</span>
 
 <span class="sd">    Args:</span>
@@ -277,7 +277,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_lightning"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_lightning">[docs]</a><span class="k">def</span> <span class="nf">gen_lightning</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="gen_lightning"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_lightning">[docs]</a><span class="k">def</span> <span class="nf">gen_lightning</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate lightning bolt icon</span>
 
 <span class="sd">    Args:</span>
@@ -300,7 +300,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_snowflake"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_snowflake">[docs]</a><span class="k">def</span> <span class="nf">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="gen_snowflake"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_snowflake">[docs]</a><span class="k">def</span> <span class="nf">gen_snowflake</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate snowflake icon</span>
 
 <span class="sd">    Args:</span>
@@ -314,7 +314,7 @@
     <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">((</span><span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">6</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x_y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">line_width</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_mist"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_mist">[docs]</a><span class="k">def</span> <span class="nf">gen_mist</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="gen_mist"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_mist">[docs]</a><span class="k">def</span> <span class="nf">gen_mist</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate mist icon</span>
 
 <span class="sd">    Args:</span>
@@ -339,7 +339,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="gen_closed_eye_icon"><a class="viewcode-back" href="../../../../source/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_closed_eye_icon">[docs]</a><span class="k">def</span> <span class="nf">gen_closed_eye_icon</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="gen_closed_eye_icon"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.shapes.html#inky_pi.display.util.shapes.gen_closed_eye_icon">[docs]</a><span class="k">def</span> <span class="nf">gen_closed_eye_icon</span><span class="p">(</span><span class="n">draw</span><span class="p">:</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate closed eye icon at center of x_y</span>
 
 <span class="sd">    Args:</span>

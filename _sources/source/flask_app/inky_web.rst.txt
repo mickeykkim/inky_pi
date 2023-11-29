@@ -1,0 +1,22 @@
+inky\_web package
+=================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   inky_web.__main__
+   inky_web.forms
+   inky_web.routes
+   inky_web.util
+
+Module contents
+---------------
+
+.. automodule:: inky_web
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:

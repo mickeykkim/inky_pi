@@ -1,0 +1,8 @@
+inky\_web.forms module
+======================
+
+.. automodule:: inky_web.forms
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :private-members:
