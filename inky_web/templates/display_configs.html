@@ -2,14 +2,28 @@
 
 {% block head %}
 <title>Configuration Settings</title>
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous"
+>
+<style>
+</style>
 {% endblock %}
 
 {% block body %}
-<h1>Configuration Settings</h1>
-<ul>
-    <li>LATITUDE: {{ latitude }}</li>
-    <li>LONGITUDE: {{ longitude }}</li>
-    <li>WEATHER_API_TOKEN: {{ weather_api_token }}</li>
-    <li>TRAIN_API_TOKEN: {{ train_api_token }}</li>
-</ul>
+<div class="container mt-5">
+    <h1>Configuration Settings</h1>
+    <table class="table table-striped display-table">
+        <tbody>
+            {% for setting, value in settings.items() %}
+                <tr>
+                    <td>{{ setting }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
