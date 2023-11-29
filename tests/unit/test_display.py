@@ -4,6 +4,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
+from inky_pi.__main__ import InkyColor
 from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw
@@ -22,7 +23,9 @@ def test_can_successfully_instantiate_inky_draw_object(
         mock_inky_what: Mock for _import_inky_what
     """
 
-    inky_object = DisplayObject(model=DisplayModel.INKY_WHAT, base_color="black")
+    inky_object = DisplayObject(
+        model=DisplayModel.INKY_WHAT, base_color=InkyColor.BLACK.value
+    )
     import_display(inky_object)
     mock_inky_draw.assert_called_once()
     mock_inky_what.assert_called_once()
@@ -33,7 +36,9 @@ def test_instantiating_inky_draw_object_not_on_rpi_raises_import_error() -> None
     but if not, should get an ImportError
     """
 
-    inky_object = DisplayObject(model=DisplayModel.INKY_WHAT, base_color="black")
+    inky_object = DisplayObject(
+        model=DisplayModel.INKY_WHAT, base_color=InkyColor.BLACK.value
+    )
     if platform.machine() == "armv7l":
         ret: DisplayBase = import_display(inky_object)
         assert isinstance(ret, InkyDraw)
@@ -58,6 +63,8 @@ def test_can_successfully_instantiate_terminal_draw_object() -> None:
 def test_can_successfully_instantiate_desktop_draw_object() -> None:
     """Test for creating desktop instanced object"""
 
-    desktop_object = DisplayObject(model=DisplayModel.DESKTOP, base_color="yellow")
+    desktop_object = DisplayObject(
+        model=DisplayModel.DESKTOP, base_color=InkyColor.YELLOW.value
+    )
     ret: DisplayBase = import_display(desktop_object)
     assert isinstance(ret, InkyDraw)

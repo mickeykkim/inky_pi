@@ -48,6 +48,14 @@ WEATHER_OBJECT = WeatherObject(
 )
 
 
+class InkyColor(Enum):
+    """Enum of inky display color options"""
+
+    BLACK = "black"
+    YELLOW = "yellow"
+    RED = "red"
+
+
 class DisplayOption(Enum):
     """Enum of display options"""
 
@@ -57,7 +65,9 @@ class DisplayOption(Enum):
 
 
 OUTPUT_HANDLER: Dict[str, DisplayObject] = {
-    "inky": DisplayObject(model=DisplayModel.INKY_WHAT, base_color="black"),
+    "inky": DisplayObject(
+        model=DisplayModel.INKY_WHAT, base_color=InkyColor.BLACK.value
+    ),
     "terminal": DisplayObject(model=DisplayModel.TERMINAL),
     "desktop": DisplayObject(model=DisplayModel.DESKTOP),
 }
@@ -106,7 +116,9 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
         option (DisplayOption): Display option (train, weather, night)
         output (DisplayObject): Display object (inkyWHAT, terminal, desktop)
     """
-    output.base_color = config.INKY_COLOR if option == DisplayOption.NIGHT else "black"
+    output.base_color = (
+        config.INKY_COLOR if option == DisplayOption.NIGHT else InkyColor.BLACK.value
+    )
 
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(output) as display:

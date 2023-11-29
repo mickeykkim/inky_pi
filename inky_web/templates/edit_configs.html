@@ -2,30 +2,41 @@
 
 {% block head %}
 <title>Configuration Settings</title>
+<link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+    crossorigin="anonymous"
+>
+<style>
+    /* Hide specific form fields by class */
+    .hidden-field {
+        display: none;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
-<h1>Update Configuration Settings</h1>
-<form method="POST">
-    {{ form.hidden_tag() }}
-    <div class="form-group">
-        {{ form.latitude.label }}
-        {{ form.latitude }}
-    </div>
-    <div class="form-group">
-        {{ form.longitude.label }}
-        {{ form.longitude }}
-    </div>
-    <div class="form-group">
-        {{ form.weather_api_token.label }}
-        {{ form.weather_api_token }}
-    </div>
-    <div class="form-group">
-        {{ form.train_api_token.label }}
-        {{ form.train_api_token }}
-    </div>
-    <div class="form-group">
-        {{ form.submit }}
-    </div>
-</form>
+<div class="container mt-5">
+    <h1>Update Configuration Settings</h1>
+    <form method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-striped">
+                    <tbody>
+                        {% for field in form %}
+                            <tr {% if field.name == 'csrf_token' or field.name == 'submit' %}class="hidden-field"{% endif %}>
+                                <td>{{ field.label }}</td>
+                                <td>{{ field }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Update">
+        </div>
+    </form>
+</div>
 {% endblock %}
