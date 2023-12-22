@@ -81,9 +81,39 @@
   <h1>Source code for inky_pi.configs</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Configuration settings for the inky_pi app.</span>
+
+<span class="sd">For TRAIN_API_TOKEN and WEATHER_API_TOKEN, you can get these by signing up for</span>
+<span class="sd">free accounts at the following links:</span>
+
+<span class="sd">    * https://lite.realtime.nationalrail.co.uk/OpenLDBWSRegistration/</span>
+<span class="sd">    * https://openweathermap.org/api</span>
+
+<span class="sd">For FLASK_SECRET_KEY, you can generate a secret key by running the following</span>
+<span class="sd">command in a Python shell:</span>
+
+<span class="sd">    &gt;&gt;&gt; import secrets</span>
+<span class="sd">    &gt;&gt;&gt; secrets.token_hex(16)</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">field_validator</span>
 <span class="kn">from</span> <span class="nn">pydantic_settings</span> <span class="kn">import</span> <span class="n">BaseSettings</span><span class="p">,</span> <span class="n">SettingsConfigDict</span>
+
+<span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainModel</span>
+<span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="n">load_json</span>
+<span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">WeatherModel</span>
+
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">STATIC_DIR</span> <span class="o">=</span> <span class="n">ROOT_DIR</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;inky_web/static&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="InkyColor"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.InkyColor">[docs]</a><span class="k">class</span> <span class="nc">InkyColor</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of inky display color options&quot;&quot;&quot;</span>
+
+    <span class="n">BLACK</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span>
+    <span class="n">YELLOW</span> <span class="o">=</span> <span class="s2">&quot;yellow&quot;</span>
+    <span class="n">RED</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span></div>
 
 
 <div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
@@ -92,25 +122,131 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">model_config</span> <span class="o">=</span> <span class="n">SettingsConfigDict</span><span class="p">(</span><span class="n">env_file</span><span class="o">=</span><span class="s2">&quot;.env&quot;</span><span class="p">,</span> <span class="n">env_file_encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="n">INKY_COLOR</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
-    <span class="n">TRAIN_MODEL</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;OPEN_LIVE&quot;</span><span class="p">)</span>
-    <span class="n">STATION_FROM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;BHO&quot;</span><span class="p">)</span>
-    <span class="n">STATION_TO</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;WMW&quot;</span><span class="p">)</span>
-    <span class="n">TRAIN_NUMBER</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-    <span class="n">TRAIN_API_TOKEN</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">)</span>
+    <span class="n">INKY_COLOR</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">InkyColor</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Inky Display Color&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The color of the Inky display. Options: red, black, yellow.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">TRAIN_MODEL</span><span class="p">:</span> <span class="n">TrainModel</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train Model&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;The model option to use for train predictions.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; Options: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">TrainModel</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">STATION_FROM</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;BHO&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Station From&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The departure station in CRS abbreviation format&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">STATION_TO</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;WMW&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Station To&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The arrival station in CRS abbreviation format&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">TRAIN_NUMBER</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train Number&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How many upcoming trains to fetch&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">TRAIN_API_TOKEN</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train API Token&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API token for train service&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">TRAIN_MODEL_URL</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="p">(</span>
             <span class="s2">&quot;http://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2017-10-01&quot;</span>
         <span class="p">),</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train Model URL&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Train API URL to fetch data from&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">WEATHER_MODEL</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;OPEN_WEATHER_MAP&quot;</span><span class="p">)</span>
-    <span class="n">LATITUDE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">51.5085</span><span class="p">)</span>
-    <span class="n">LONGITUDE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mf">0.1257</span><span class="p">)</span>
-    <span class="n">EXCLUDE_FLAGS</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;minutely,hourly&quot;</span><span class="p">)</span>
-    <span class="n">WEATHER_API_TOKEN</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">)</span>
-    <span class="n">FLASK_DEBUG</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">FLASK_TESTING</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">FLASK_SECRET_KEY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">)</span></div>
+    <span class="n">WEATHER_MODEL</span><span class="p">:</span> <span class="n">WeatherModel</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Weather Model&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Which weather model to use. Options: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">WeatherModel</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">LATITUDE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="mf">51.5085</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Latitude&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your latitude for weather data&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">LONGITUDE</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=-</span><span class="mf">0.1257</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Longitude&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your longitude for weather data&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">EXCLUDE_FLAGS</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;minutely,hourly&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Exclude Flags&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Exclude some parts of the weather data from the API response as a&quot;</span>
+            <span class="s2">&quot; comma-delimited list (without spaces). Options: current, minutely,&quot;</span>
+            <span class="s2">&quot; hourly, daily, alerts.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">WEATHER_API_TOKEN</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Weather API Token&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API Token for weather service&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FLASK_DEBUG</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Flask Debug&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask debugging flag&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FLASK_TESTING</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Flask Testing&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask testing flag&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FLASK_SECRET_KEY</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;keep-in-.env-file&quot;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Flask Secret Key&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask secret key&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="Settings._check_latitude_range"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.Settings._check_latitude_range">[docs]</a>    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;LATITUDE&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_check_latitude_range</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="mi">90</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Latitude must be between -90 and 90&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Settings._check_longitude_range"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.Settings._check_longitude_range">[docs]</a>    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;LONGITUDE&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_check_longitude_range</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="mi">90</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Longitude must be between -90 and 90&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Settings._check_exclude_flags"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.Settings._check_exclude_flags">[docs]</a>    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;EXCLUDE_FLAGS&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_check_exclude_flags</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">valid_flags</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;current&quot;</span><span class="p">,</span> <span class="s2">&quot;minutely&quot;</span><span class="p">,</span> <span class="s2">&quot;hourly&quot;</span><span class="p">,</span> <span class="s2">&quot;daily&quot;</span><span class="p">,</span> <span class="s2">&quot;alerts&quot;</span><span class="p">}</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">invalid_flags</span> <span class="o">=</span> <span class="p">[</span><span class="n">flag</span> <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="n">flags</span> <span class="k">if</span> <span class="n">flag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_flags</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">invalid_flags</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid flags found: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">invalid_flags</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; Valid options are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valid_flags</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="Settings._check_station_code"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.configs.html#inky_pi.configs.Settings._check_station_code">[docs]</a>    <span class="nd">@field_validator</span><span class="p">(</span><span class="s2">&quot;STATION_FROM&quot;</span><span class="p">,</span> <span class="s2">&quot;STATION_TO&quot;</span><span class="p">)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_check_station_code</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">station_crs_data</span> <span class="o">=</span> <span class="n">load_json</span><span class="p">(</span><span class="n">STATIC_DIR</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;crs_codes.json&quot;</span><span class="p">))</span>
+        <span class="n">valid_crs_codes</span> <span class="o">=</span> <span class="p">[</span><span class="n">station</span><span class="p">[</span><span class="s2">&quot;crsCode&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">station_crs_data</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_crs_codes</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Invalid CRS code: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; Valid options are: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">valid_crs_codes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div></div>
 </pre></div>
 
            </div>

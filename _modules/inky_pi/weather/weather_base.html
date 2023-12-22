@@ -101,10 +101,10 @@
     <span class="k">return</span> <span class="nb">round</span><span class="p">((</span><span class="n">celsius_temp</span> <span class="o">*</span> <span class="mi">9</span> <span class="o">/</span> <span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="WeatherModel"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherModel">[docs]</a><span class="k">class</span> <span class="nc">WeatherModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="WeatherModel"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherModel">[docs]</a><span class="k">class</span> <span class="nc">WeatherModel</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of weather models&quot;&quot;&quot;</span>
 
-    <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
+    <span class="n">OPEN_WEATHER_MAP</span> <span class="o">=</span> <span class="s2">&quot;OPEN_WEATHER_MAP&quot;</span></div>
 
 
 <div class="viewcode-block" id="WeatherObject"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.weather.weather_base.html#inky_pi.weather.weather_base.WeatherObject">[docs]</a><span class="nd">@dataclass</span>

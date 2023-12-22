@@ -95,16 +95,15 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">InputRequired</span>
 
-<span class="kn">from</span> <span class="nn">inky_pi.__main__</span> <span class="kn">import</span> <span class="n">InkyColor</span>
+<span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="n">InkyColor</span><span class="p">,</span> <span class="n">Settings</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainModel</span>
+<span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="n">load_json</span>
 <span class="kn">from</span> <span class="nn">inky_pi.weather.weather_base</span> <span class="kn">import</span> <span class="n">WeatherModel</span>
-<span class="kn">from</span> <span class="nn">inky_web.util</span> <span class="kn">import</span> <span class="n">get_crs_codes</span>
 
 <span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span>
 <span class="n">STATIC_DIR</span> <span class="o">=</span> <span class="n">ROOT_DIR</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
-
-
-<span class="n">station_crs_codes</span> <span class="o">=</span> <span class="n">get_crs_codes</span><span class="p">(</span><span class="n">STATIC_DIR</span> <span class="o">/</span> <span class="s2">&quot;crs_codes.json&quot;</span><span class="p">)</span>
+<span class="n">station_crs_data</span> <span class="o">=</span> <span class="n">load_json</span><span class="p">(</span><span class="n">STATIC_DIR</span> <span class="o">/</span> <span class="s2">&quot;crs_codes.json&quot;</span><span class="p">)</span>
+<span class="n">default_config</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
 
 
 <span class="c1"># Ignoring type b/c flask_wtf does not have stubs</span>
@@ -114,46 +113,93 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">inky_color</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
-        <span class="s2">&quot;Inky Display Color&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Inky Display Color&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The color of the Inky display. Options: red, black, yellow.&quot;</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="n">color</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">color</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">InkyColor</span><span class="p">],</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
     <span class="p">)</span>
     <span class="n">train_model</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
-        <span class="s2">&quot;Train Model&quot;</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">TrainModel</span><span class="p">],</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train Model&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The model option to use for train predictions&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="n">model</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">TrainModel</span><span class="p">],</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
     <span class="p">)</span>
     <span class="n">station_from</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
-        <span class="s2">&quot;Station From&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Station From&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The departure station&quot;</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">(</span><span class="n">station</span><span class="p">[</span><span class="s2">&quot;crsCode&quot;</span><span class="p">],</span> <span class="n">station</span><span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">station_crs_codes</span>
+            <span class="p">(</span><span class="n">station</span><span class="p">[</span><span class="s2">&quot;crsCode&quot;</span><span class="p">],</span> <span class="n">station</span><span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">station_crs_data</span>
         <span class="p">],</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
     <span class="p">)</span>
     <span class="n">station_to</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
-        <span class="s2">&quot;Station To&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Station To&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The arrival station&quot;</span><span class="p">,</span>
         <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">(</span><span class="n">station</span><span class="p">[</span><span class="s2">&quot;crsCode&quot;</span><span class="p">],</span> <span class="n">station</span><span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">station_crs_codes</span>
+            <span class="p">(</span><span class="n">station</span><span class="p">[</span><span class="s2">&quot;crsCode&quot;</span><span class="p">],</span> <span class="n">station</span><span class="p">[</span><span class="s2">&quot;stationName&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">station</span> <span class="ow">in</span> <span class="n">station_crs_data</span>
         <span class="p">],</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
     <span class="p">)</span>
-    <span class="n">train_number</span> <span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s2">&quot;Train Number&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">train_api_token</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;Train API Token&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">train_model_url</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;Train Model URL&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">weather_model</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
-        <span class="s2">&quot;Weather Model&quot;</span><span class="p">,</span>
-        <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">WeatherModel</span><span class="p">],</span>
+    <span class="n">train_number</span> <span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train Number&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;How many upcoming trains to fetch&quot;</span><span class="p">,</span>
         <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
     <span class="p">)</span>
-    <span class="n">latitude</span> <span class="o">=</span> <span class="n">FloatField</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">longitude</span> <span class="o">=</span> <span class="n">FloatField</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">exclude_flags</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;Exclude Flags&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">weather_api_token</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;Weather API Token&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">flask_debug</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">(</span><span class="s2">&quot;Flask Debug&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">flask_testing</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">(</span><span class="s2">&quot;Flask Testing&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
-    <span class="n">flask_secret_key</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s2">&quot;Flask Secret Key&quot;</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()])</span>
+    <span class="n">train_api_token</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train API Token&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API token for train service&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">train_model_url</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train Model URL&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Train API URL to fetch data from&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">weather_model</span> <span class="o">=</span> <span class="n">SelectField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weather Model&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Which weather model to use&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[(</span><span class="n">model</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">WeatherModel</span><span class="p">],</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">latitude</span> <span class="o">=</span> <span class="n">FloatField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Latitude&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your latitude for weather data&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">longitude</span> <span class="o">=</span> <span class="n">FloatField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Longitude&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Your longitude for weather data&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">exclude_flags</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Exclude Flags&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Exclude some parts of the weather data from the API response as a&quot;</span>
+            <span class="s2">&quot; comma-delimited list (without spaces). Options: current, minutely,&quot;</span>
+            <span class="s2">&quot; hourly, daily, alerts.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">weather_api_token</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weather API Token&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;API Token for weather service&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">flask_debug</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Flask Debug&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask debugging flag&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">flask_testing</span> <span class="o">=</span> <span class="n">BooleanField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Flask Testing&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask testing flag&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
+    <span class="n">flask_secret_key</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Flask Secret Key&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Flask secret key&quot;</span><span class="p">,</span>
+        <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">InputRequired</span><span class="p">()],</span>
+    <span class="p">)</span>
     <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s2">&quot;Update&quot;</span><span class="p">)</span></div>
 </pre></div>
 

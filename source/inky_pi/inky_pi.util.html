@@ -156,6 +156,23 @@ On error, logs and exits program (typically if not running on RPi).</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="inky_pi.util.load_json">
+<span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">load_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pathlib.Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/inky_pi/util.html#load_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.load_json" title="Permalink to this definition"></a></dt>
+<dd><p>Read a Json file and return it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_file</strong> (<em>Path</em><em> | </em><em>str</em>) – Path to the json file</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary of station names and their CRS codes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="inky_pi.util.train_model_factory">
 <span class="sig-prename descclassname"><span class="pre">inky_pi.util.</span></span><span class="sig-name descname"><span class="pre">train_model_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainObject" title="inky_pi.train.train_base.TrainObject"><span class="pre">TrainObject</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="inky_pi.train.train_base.html#inky_pi.train.train_base.TrainBase" title="inky_pi.train.train_base.TrainBase"><span class="pre">TrainBase</span></a></span></span><a class="reference internal" href="../../_modules/inky_pi/util.html#train_model_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.util.train_model_factory" title="Permalink to this definition"></a></dt>
 <dd><p>Selects and instantiates the defined train model to use</p>

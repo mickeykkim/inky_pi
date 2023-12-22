@@ -84,9 +84,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">dotenv_values</span><span class="p">,</span> <span class="n">set_key</span>
 
@@ -94,22 +92,13 @@
 
 <span class="n">config</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
 
-
-<div class="viewcode-block" id="get_crs_codes"><a class="viewcode-back" href="../../source/flask_app/inky_web.util.html#inky_web.util.get_crs_codes">[docs]</a><span class="k">def</span> <span class="nf">get_crs_codes</span><span class="p">(</span><span class="n">crs_codes_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get all station names and their CRS codes</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        crs_codes_file (Path | str): Path to the CRS codes file</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        dict[str, str]: Dictionary of station names and their CRS codes</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">crs_codes_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></div>
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">BASE_DOT_ENV</span> <span class="o">=</span> <span class="n">ROOT_DIR</span> <span class="o">/</span> <span class="s2">&quot;.env&quot;</span>
 
 
-<div class="viewcode-block" id="get_dot_env"><a class="viewcode-back" href="../../source/flask_app/inky_web.util.html#inky_web.util.get_dot_env">[docs]</a><span class="k">def</span> <span class="nf">get_dot_env</span><span class="p">(</span><span class="n">dotenv_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.env&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]:</span>
+<div class="viewcode-block" id="get_dot_env"><a class="viewcode-back" href="../../source/flask_app/inky_web.util.html#inky_web.util.get_dot_env">[docs]</a><span class="k">def</span> <span class="nf">get_dot_env</span><span class="p">(</span>
+    <span class="n">dotenv_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">BASE_DOT_ENV</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get all settings and their values from the .env file, with defaults Settings</span>
 
@@ -131,7 +120,9 @@
     <span class="k">return</span> <span class="n">settings_dict</span></div>
 
 
-<div class="viewcode-block" id="set_dot_env"><a class="viewcode-back" href="../../source/flask_app/inky_web.util.html#inky_web.util.set_dot_env">[docs]</a><span class="k">def</span> <span class="nf">set_dot_env</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">dotenv_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.env&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="set_dot_env"><a class="viewcode-back" href="../../source/flask_app/inky_web.util.html#inky_web.util.set_dot_env">[docs]</a><span class="k">def</span> <span class="nf">set_dot_env</span><span class="p">(</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">dotenv_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">BASE_DOT_ENV</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Set the environment variables to the .env file</span>
 
