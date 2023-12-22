@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import webbrowser
 
 from dotenv import load_dotenv
 from flask import Flask
@@ -74,6 +75,11 @@ def parse_args(cl_arguments: list[str]) -> argparse.Namespace:
     parser.add_argument(
         "--port", type=int, default=5000, help="Port to run the server on"
     )
+    parser.add_argument(
+        "--no-launch",
+        action="store_true",
+        help="Don't launch web page in external browser",
+    )
     return parser.parse_args(cl_arguments)
 
 
@@ -89,6 +95,8 @@ def main(cl_arguments: list[str]) -> None:
     """
     args = parse_args(cl_arguments)
     flask_app = create_app()
+    if not args.no_launch:
+        webbrowser.open(f"http://{args.host}:{args.port}")
     flask_app.run(host=args.host, port=args.port)
 
 

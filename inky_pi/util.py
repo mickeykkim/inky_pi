@@ -1,7 +1,10 @@
 """Utility functions for inky_pi."""
+from __future__ import annotations
+
+import json
 import sys
 from pathlib import Path
-from typing import Callable, Dict
+from typing import Any, Callable
 
 from loguru import logger
 
@@ -37,7 +40,7 @@ def display_model_factory(display_object: DisplayObject) -> DisplayBase:
     Returns:
         DisplayBase: DisplayBase object
     """
-    display_handler: Dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
+    display_handler: dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
         DisplayModel.INKY_WHAT: instantiate_inky_display,
         DisplayModel.TERMINAL: instantiate_terminal_display,
         DisplayModel.DESKTOP: instantiate_inky_display,
@@ -88,7 +91,7 @@ def train_model_factory(train_object: TrainObject) -> TrainBase:
         TrainBase: TrainBase object
     """
     _check_open_live_params(train_object)
-    train_handler: Dict[TrainModel, Callable[[TrainObject], TrainBase]] = {
+    train_handler: dict[TrainModel, Callable[[TrainObject], TrainBase]] = {
         TrainModel.OPEN_LIVE: instantiate_open_live,
         TrainModel.HUXLEY2: instantiate_huxley2,
     }
@@ -108,7 +111,7 @@ def weather_model_factory(weather_object: WeatherObject) -> WeatherBase:
     Returns:
         WeatherBase: WeatherBase object
     """
-    weather_handler: Dict[WeatherModel, Callable[[WeatherObject], WeatherBase]] = {
+    weather_handler: dict[WeatherModel, Callable[[WeatherObject], WeatherBase]] = {
         WeatherModel.OPEN_WEATHER_MAP: instantiate_open_weather_map,
     }
     try:
@@ -116,3 +119,17 @@ def weather_model_factory(weather_object: WeatherObject) -> WeatherBase:
     except ValueError as exc:
         logger.error(exc)
         sys.exit(1)
+
+
+def load_json(json_file: Path | str) -> Any:
+    """
+    Read a Json file and return it
+
+    Args:
+        json_file (Path | str): Path to the json file
+
+    Returns:
+        Any: Dictionary of station names and their CRS codes
+    """
+    with open(json_file, "r", encoding="utf-8") as file:
+        return json.load(file)

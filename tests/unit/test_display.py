@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from inky_pi.__main__ import InkyColor
+from inky_pi.configs import InkyColor
 from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
 from inky_pi.display.inky_draw import InkyDraw
 from inky_pi.display.terminal_draw import TerminalDraw

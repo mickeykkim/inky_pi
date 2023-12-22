@@ -1,7 +1,7 @@
 """Base class and helper functions for train model"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from enum import Enum, auto
+from enum import Enum
 from typing import Any, Dict, Optional
 
 from loguru import logger
@@ -34,11 +34,11 @@ def abbreviate_stn_name(station_name: str) -> str:
     return station_name
 
 
-class TrainModel(Enum):
+class TrainModel(str, Enum):
     """Enum of train models"""
 
-    HUXLEY2 = auto()
-    OPEN_LIVE = auto()
+    HUXLEY2 = "HUXLEY2"
+    OPEN_LIVE = "OPEN_LIVE"
 
 
 @dataclass
