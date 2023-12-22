@@ -6,12 +6,9 @@ from typing import Any, Dict, List, Tuple
 
 from rich.console import Console
 
-from inky_pi.configs import Settings
 from inky_pi.display.display_base import DisplayBase, DisplayObject
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
-
-config = Settings()
 
 
 class TerminalDraw(DisplayBase):
@@ -63,7 +60,7 @@ class TerminalDraw(DisplayBase):
             x_y: (x, y) coordinates
         """
         self._output.append(
-            f"train schedule from {config.STATION_FROM} to {config.STATION_TO}:"
+            f"train schedule from {data_t.origin} to {data_t.destination}:"
         )
         for i in range(0, num_trains):
             train = data_t.fetch_train(i)

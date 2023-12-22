@@ -21,16 +21,18 @@ Example outputs (generated with `desktop` output option):
 Example terminal output (generated with `terminal` output option):
 
 ```bash
-Fri 20 May 2022
-14:08
-⛅
-now: 14.4°C
+Fri 22 Dec 2023
+17:25
+☁
+now: 11.2°C
 now: Clouds
-today: 11.6°C – 16.1°C
-today: moderate rain
+today: 9.4°C – 11.5°C
+today: light rain
 tomorrow: overcast clouds
-train schedule from BHO to WMW:
-14:12 | P2 to Barking - On time
+train schedule from Kingston to London Waterloo:
+17:28 | P2 to London Waterloo - On time
+17:34 | P3 to London Waterloo - On time
+17:48 | P3 to London Waterloo - On time
 ```
 
 Weather icon drawing code was adapted from [raspi-weather](https://github.com/DerekCaelin/raspi-weather).

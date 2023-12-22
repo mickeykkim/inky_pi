@@ -11,7 +11,7 @@ from typing import Dict
 from loguru import logger
 
 from inky_pi import __version__
-from inky_pi.configs import Settings
+from inky_pi.configs import InkyColor, Settings
 from inky_pi.display.display_base import DisplayModel, DisplayObject
 from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
 from inky_pi.util import (
@@ -46,14 +46,6 @@ WEATHER_OBJECT = WeatherObject(
     exclude_flags=config.EXCLUDE_FLAGS,
     weather_api_token=config.WEATHER_API_TOKEN,
 )
-
-
-class InkyColor(Enum):
-    """Enum of inky display color options"""
-
-    BLACK = "black"
-    YELLOW = "yellow"
-    RED = "red"
 
 
 class DisplayOption(Enum):

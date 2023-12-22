@@ -19,7 +19,7 @@ def test_running_train_option_in_terminal_ui_generates_expected_output() -> None
     """Runs the full program and checks each test string is present in output"""
     time = r"(\d+(?:\:\d+))"
     temp = r"(\d+(?:\.\d+)?°(C|F))"
-    station_abbr = r"\b[A-Z]{3}(?![A-Z])"
+    station_name = r"((?:\w+\s?)+)"
     error_type1 = r"There\sare\sno\strain\sservices\sat\sthis\s\w+"
     error_type2 = r"No\strains\sto\s\w+"
     any_error_msg = rf"({error_type1})|({error_type2})"
@@ -34,7 +34,7 @@ def test_running_train_option_in_terminal_ui_generates_expected_output() -> None
         # today: <low>°C/F – <high>°C/F
         rf"today:\s{temp}\s–\s{temp}",
         # train schedule from <station> to <station>
-        rf"train\sschedule\sfrom\s{station_abbr}\sto\s{station_abbr}:",
+        rf"train\sschedule\sfrom\s{station_name}\sto\s{station_name}:",
         # <HH:MM> | P<#> to <station> - <status> [OR] <error message>
         rf"({time}\s\|\sP\d+\sto\s(\w+\s)+-\s(\w+\s|{time}))|({any_error_msg})",
     ]
@@ -44,7 +44,7 @@ def test_running_train_option_in_terminal_ui_generates_expected_output() -> None
     )
     assert result.exit_code == 0
     for test_regex in test_regex_list:
-        assert re.compile(test_regex).search(result.output) is not None
+        assert re.compile(test_regex).search(result.output) is not None, result.output
 
 
 @pytest.mark.e2e
@@ -69,7 +69,7 @@ def test_running_weather_option_in_terminal_ui_generates_expected_output() -> No
     )
     assert result.exit_code == 0
     for test_regex in test_regex_list:
-        assert re.compile(test_regex).search(result.output) is not None
+        assert re.compile(test_regex).search(result.output) is not None, result.output
 
 
 @pytest.mark.e2e
@@ -87,7 +87,7 @@ def test_running_night_option_in_terminal_ui_generates_expected_output() -> None
     )
     assert result.exit_code == 0
     for test_regex in test_regex_list:
-        assert re.compile(test_regex).search(result.output) is not None
+        assert re.compile(test_regex).search(result.output) is not None, result.output
 
 
 @pytest.mark.e2e
