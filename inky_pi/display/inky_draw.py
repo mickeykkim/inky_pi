@@ -11,7 +11,7 @@ from font_fredoka_one import FredokaOne  # type: ignore
 from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 
 # pylint: enable=no-name-in-module
-from PIL import Image, ImageDraw, ImageFont  # type: ignore
+from PIL import Image, ImageDraw, ImageFont
 
 from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayOutput
 from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
@@ -52,10 +52,10 @@ class InkyDraw(DisplayBase):
             display_driver (Any): Display driver (InkyWHAT or DesktopDisplayDriver)
         """
         self._display: Any = display_driver
-        self._img: Image = Image.new(
+        self._img: Image.Image = Image.new(
             "P", (self._display.WIDTH, self._display.HEIGHT), color="white"
         )
-        self._img_draw: ImageDraw = ImageDraw.Draw(self._img)
+        self._img_draw: ImageDraw.ImageDraw = ImageDraw.Draw(self._img)
         self._black: Any = self._display.BLACK
         self._white: Any = self._display.WHITE
         self._color: Any = self._display.YELLOW
@@ -75,12 +75,12 @@ class InkyDraw(DisplayBase):
             data_w (WeatherBase): Weather data object
             scale (ScaleType): Scale type
         """
-        x_mid, y_mid = self._display.WIDTH / 2, self._display.HEIGHT / 2
+        x_mid, y_mid = self._display.WIDTH // 2, self._display.HEIGHT // 2
         gen_closed_eye_icon(self._img_draw, self._color, (x_mid, y_mid))
         # Message text
         message_str = "Good Night ^^"
         width, height = 250, 25
-        message_x, message_y = x_mid - (width / 2), y_mid - (height / 2)
+        message_x, message_y = x_mid - (width // 2), y_mid - (height // 2)
         self._img_draw.text((message_x, message_y), message_str, self._black, FONT_GL)
         # Weather text
         x_weather, y_weather = 20, 210

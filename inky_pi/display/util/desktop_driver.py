@@ -6,7 +6,7 @@ Images are drawn using Pillow to a desktop window for testing purposes.
 
 from typing import Any, Dict, Optional
 
-from PIL import Image, ImageDraw  # type: ignore
+from PIL import Image, ImageDraw
 
 
 class DesktopDisplayDriver:
@@ -39,8 +39,8 @@ class DesktopDisplayDriver:
         self._color: tuple[int, int, int, int] = (
             self.BLACK if base_color == "" else color_matcher[base_color]
         )
-        self._img: Optional[Image] = None
-        self._img_draw: Optional[ImageDraw] = None
+        self._img: Optional[Image.Image] = None
+        self._img_draw: Optional[ImageDraw.ImageDraw] = None
 
     def set_image(self, image: Any) -> None:
         """Set image
