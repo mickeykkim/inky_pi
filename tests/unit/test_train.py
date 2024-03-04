@@ -122,6 +122,11 @@ def test_format_train_string() -> None:
             1,
             "London Bridge",
         ),
+        (
+            "There are no train services at station London Bridge",
+            2,
+            "",
+        ),
     ],
 )
 def test_format_train_error_string(error_msg: str, num: int, expected: str) -> None:

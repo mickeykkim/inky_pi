@@ -102,7 +102,6 @@ class TrainBase(ABC):
             f"{arrival_t} | P{platform} to {abbreviate_stn_name(dest_stn)} - {status}"
         )
 
-    # TODO: Change this to a generator implementation, update types, update tests
     @staticmethod
     def format_error_msg(error_msg: str, num: int) -> str:
         """Format error message by line wrapping over each line
@@ -112,12 +111,15 @@ class TrainBase(ABC):
             num (int): Train number
 
         Returns:
-            str: Formatted error message if num is 1 else empty string
+            str: Formatted error message
         """
-        line_length: int = 38
         if num == 0:
             logger.error(error_msg)
-        return (error_msg[num * line_length : (num + 1) * line_length]).lstrip(" ")
+
+        line_length: int = 38
+        return error_msg[
+            num * line_length : min((num + 1) * line_length, len(error_msg))
+        ].lstrip(" ")
 
     def _validate_number(self, num: int) -> None:
         """Check if train number is valid

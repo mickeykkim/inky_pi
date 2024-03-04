@@ -29,10 +29,10 @@ def display(option: str, output: str, dry_run: bool) -> None:
     """Console script for inky_pi train and weather."""
     if dry_run:
         logger.debug(
-            "Dry run: {prefix} option = '{option}' / output = '{output}'",
+            "Dry run: {prefix} option = {option} / output = {output}",
             prefix=OUTPUT_PREFIX,
-            option=option,
-            output=output,
+            option=option.lower(),
+            output=output.lower(),
         )
         click.echo(
             f"Dry run: {OUTPUT_PREFIX} option ="
