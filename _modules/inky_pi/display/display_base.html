@@ -96,14 +96,17 @@
 <div class="viewcode-block" id="DisplayModel"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayModel">[docs]</a><span class="k">class</span> <span class="nc">DisplayModel</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum of display models&quot;&quot;&quot;</span>
 
-    <span class="n">INKY_WHAT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">INKY</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">TERMINAL</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
     <span class="n">DESKTOP</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="DisplayObject"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayObject">[docs]</a><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">DisplayObject</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display object&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DisplayOutput"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.display_base.html#inky_pi.display.display_base.DisplayOutput">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DisplayOutput</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Display output object</span>
+
+<span class="sd">    Uses strategy pattern to define display model and base color</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">model</span><span class="p">:</span> <span class="n">DisplayModel</span>
     <span class="n">base_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>

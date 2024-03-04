@@ -85,7 +85,7 @@
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">inky_pi.__main__</span> <span class="kn">import</span> <span class="n">OUTPUT_HANDLER</span><span class="p">,</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">display_data</span>
+<span class="kn">from</span> <span class="nn">inky_pi.__main__</span> <span class="kn">import</span> <span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">,</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">display_data</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="n">configure_logging</span>
 
 <span class="n">OUTPUT_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;inky_pi cli&quot;</span>
@@ -108,12 +108,21 @@
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">display</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Console script for inky_pi train and weather.&quot;&quot;&quot;</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">OUTPUT_PREFIX</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span><span class="o">.</span><span class="n">model</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">dry_run</span><span class="p">:</span>
-        <span class="n">display_data</span><span class="p">(</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()])</span>
+    <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Dry run: </span><span class="si">{prefix}</span><span class="s2"> option = &#39;</span><span class="si">{option}</span><span class="s2">&#39; / output = &#39;</span><span class="si">{output}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="n">OUTPUT_PREFIX</span><span class="p">,</span>
+            <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Dry run: </span><span class="si">{</span><span class="n">OUTPUT_PREFIX</span><span class="si">}</span><span class="s2"> option =&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2"> / output =&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">display_data</span><span class="p">(</span><span class="n">DisplayOption</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">[</span><span class="n">output</span><span class="o">.</span><span class="n">upper</span><span class="p">()])</span>
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.cli.html#inky_pi.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

@@ -93,7 +93,7 @@
 
 <span class="kn">from</span> <span class="nn">inky_pi</span> <span class="kn">import</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="n">InkyColor</span><span class="p">,</span> <span class="n">Settings</span>
-<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayObject</span>
+<span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayOutput</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainModel</span><span class="p">,</span> <span class="n">TrainObject</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">configure_logging</span><span class="p">,</span>
@@ -137,12 +137,10 @@
     <span class="n">NIGHT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<span class="n">OUTPUT_HANDLER</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DisplayObject</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;inky&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY_WHAT</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">InkyColor</span><span class="o">.</span><span class="n">BLACK</span><span class="o">.</span><span class="n">value</span>
-    <span class="p">),</span>
-    <span class="s2">&quot;terminal&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">),</span>
-    <span class="s2">&quot;desktop&quot;</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">),</span>
+<span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DisplayOutput</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;INKY&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">InkyColor</span><span class="o">.</span><span class="n">BLACK</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+    <span class="s2">&quot;TERMINAL&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">),</span>
+    <span class="s2">&quot;DESKTOP&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">),</span>
 <span class="p">}</span>
 
 
@@ -153,7 +151,9 @@
 <span class="sd">        Namespace: Parsed command line arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span>
-        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Displays train and weather data to various outputs&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;Displays train, weather, and/or goodnight screen data to chosen output&quot;</span>
+        <span class="p">),</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;-o&quot;</span><span class="p">,</span>
@@ -161,13 +161,15 @@
         <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Display option (train, weather, night)&quot;</span><span class="p">,</span>
         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="n">option</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">DisplayOption</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
         <span class="s2">&quot;--output&quot;</span><span class="p">,</span>
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output source (inky, terminal, desktop)&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output destination (inky, terminal, desktop)&quot;</span><span class="p">,</span>
         <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;inky&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">DisplayModel</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s2">&quot;-V&quot;</span><span class="p">,</span>
@@ -176,10 +178,16 @@
         <span class="n">action</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span>
         <span class="n">version</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(prog)s</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="n">__version__</span><span class="p">,</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--dry-run&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Dry run&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="n">args</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="display_data"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.__main__.html#inky_pi.__main__.display_data">[docs]</a><span class="k">def</span> <span class="nf">display_data</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">DisplayObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="display_data"><a class="viewcode-back" href="../../source/inky_pi/inky_pi.__main__.html#inky_pi.__main__.display_data">[docs]</a><span class="k">def</span> <span class="nf">display_data</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="n">DisplayOption</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;inky_pi weather with train function</span>
 
 <span class="sd">    Retrieves train and weather data from API endpoints, generates text and</span>
@@ -195,6 +203,7 @@
 
     <span class="n">weather_data</span><span class="p">:</span> <span class="n">WeatherBase</span> <span class="o">=</span> <span class="n">weather_model_factory</span><span class="p">(</span><span class="n">WEATHER_OBJECT</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">import_display</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="k">as</span> <span class="n">display</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi displaying option: </span><span class="si">%s</span><span class="s2"> on output: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">option</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">NIGHT</span><span class="p">:</span>
             <span class="n">display</span><span class="o">.</span><span class="n">draw_goodnight</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
             <span class="k">return</span>
@@ -221,13 +230,23 @@
     <span class="n">configure_logging</span><span class="p">()</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;InkyPi main initialized&quot;</span><span class="p">)</span>
     <span class="n">args</span><span class="p">:</span> <span class="n">Namespace</span> <span class="o">=</span> <span class="n">_parse_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">dry_run</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;Dry run: option = &#39;</span><span class="si">{option}</span><span class="s2">&#39; / output = &#39;</span><span class="si">{output}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="n">option</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">display_data</span><span class="p">(</span>
-            <span class="n">DisplayOption</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span> <span class="n">OUTPUT_HANDLER</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="n">DisplayOption</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span>
+            <span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">upper</span><span class="p">()],</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Invalid display/output specified: </span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">display</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">output</span>
+            <span class="s2">&quot;Invalid args: option = &#39;</span><span class="si">{option}</span><span class="s2">&#39; / output = &#39;</span><span class="si">{output}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="n">option</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">option</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">raise</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
