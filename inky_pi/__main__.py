@@ -56,10 +56,11 @@ class DisplayOption(Enum):
     NIGHT = auto()
 
 
+DEFAULT_COLOR = InkyColor.BLACK.value
 OUTPUT_DISPATCH_TABLE: Dict[str, DisplayOutput] = {
-    "INKY": DisplayOutput(model=DisplayModel.INKY, base_color=InkyColor.BLACK.value),
-    "TERMINAL": DisplayOutput(model=DisplayModel.TERMINAL),
-    "DESKTOP": DisplayOutput(model=DisplayModel.DESKTOP),
+    "INKY": DisplayOutput(model=DisplayModel.INKY, base_color=DEFAULT_COLOR),
+    "TERMINAL": DisplayOutput(model=DisplayModel.TERMINAL, base_color=DEFAULT_COLOR),
+    "DESKTOP": DisplayOutput(model=DisplayModel.DESKTOP, base_color=DEFAULT_COLOR),
 }
 
 
@@ -113,17 +114,20 @@ def display_data(option: DisplayOption, output: DisplayOutput) -> None:
     weather icon, and draws to inkyWHAT screen.
 
     Args:
-        option (DisplayOption): Display option (train, weather, night)
-        output (DisplayObject): Display object (inkyWHAT, terminal, desktop)
+        option (DisplayOption): Display Option enum (TRAIN, WEATHER, NIGHT)
+        output (DisplayOutput): Display Output dataclass (INKY | TERMINAL | DESKTOP)
     """
-    output.base_color = (
-        config.INKY_COLOR if option == DisplayOption.NIGHT else InkyColor.BLACK.value
-    )
-
+    # Weather data is always used
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
+
     with import_display(output) as display:
-        logger.debug("InkyPi displaying option: %s on output: %s", option, output)
+        logger.debug(
+            "InkyPi displaying option: {option} on output: {output}",
+            option=option.name.lower(),
+            output=output.model.name.lower(),
+        )
         if option == DisplayOption.NIGHT:
+            output.base_color = config.INKY_COLOR
             display.draw_goodnight(weather_data)
             return
 
@@ -136,6 +140,7 @@ def display_data(option: DisplayOption, output: DisplayOutput) -> None:
             disp_tomorrow=bool(option == DisplayOption.TRAIN),
         )
         if option == DisplayOption.TRAIN:
+            # Train data is only queried if the option is TRAIN
             train_data: TrainBase = train_model_factory(TRAIN_OBJECT)
             display.draw_train_times(train_data, config.TRAIN_NUMBER)
         elif option == DisplayOption.WEATHER:
@@ -151,9 +156,9 @@ def main() -> None:
     args: Namespace = _parse_args(sys.argv[1:])
     if args.dry_run:
         logger.debug(
-            "Dry run: option = '{option}' / output = '{output}'",
-            option=args.option,
-            output=args.output,
+            "Dry run: option = {option} / output = {output}",
+            option=args.option.lower(),
+            output=args.output.lower(),
         )
         return
     try:
@@ -161,13 +166,6 @@ def main() -> None:
             DisplayOption[args.option.upper()],
             OUTPUT_DISPATCH_TABLE[args.output.upper()],
         )
-    except KeyError:
-        logger.error(
-            "Invalid args: option = '{option}' / output = '{output}'",
-            option=args.option,
-            output=args.output,
-        )
-        raise
     except Exception as exc:  # pylint: disable=broad-except
         logger.exception(exc)
         raise

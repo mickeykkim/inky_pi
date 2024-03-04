@@ -55,7 +55,9 @@ def test_instantiating_inky_draw_object_not_on_rpi_raises_import_error() -> None
 def test_can_successfully_instantiate_terminal_draw_object() -> None:
     """Test for creating terminal instanced object"""
 
-    terminal_object = DisplayOutput(model=DisplayModel.TERMINAL)
+    terminal_object = DisplayOutput(
+        model=DisplayModel.TERMINAL, base_color=InkyColor.BLACK.value
+    )
     ret: DisplayBase = import_display(terminal_object)
     assert isinstance(ret, TerminalDraw)
 

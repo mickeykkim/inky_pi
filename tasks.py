@@ -128,7 +128,7 @@ def test(
     _: Context,
     args: str | None = None,
     mark: str | None = None,
-    coverage: bool = False,
+    coverage: bool = True,
     junit: bool = False,
     fail_under: int = COV_ALL_THRESHOLD,
     open_browser: bool = False,

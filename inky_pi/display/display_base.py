@@ -28,7 +28,7 @@ class DisplayOutput:
     """
 
     model: DisplayModel
-    base_color: str = ""
+    base_color: str
 
 
 class DisplayBase(ABC):
