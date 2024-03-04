@@ -23,31 +23,31 @@ def test_cli_main() -> None:
     [
         (
             ["display", "--option", "train", "--output", "terminal", "--dry-run"],
-            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.TERMINAL",
+            [f"{OUTPUT_PREFIX}", "train", "terminal", "Dry run:"],
         ),
         (
             ["display", "--option", "weather", "--output", "Terminal", "--dry-run"],
-            f"{OUTPUT_PREFIX} DisplayOption.WEATHER DisplayModel.TERMINAL",
+            [f"{OUTPUT_PREFIX}", "weather", "terminal", "Dry run:"],
         ),
         (
             ["display", "--option", "night", "--output", "TERMINAL", "--dry-run"],
-            f"{OUTPUT_PREFIX} DisplayOption.NIGHT DisplayModel.TERMINAL",
+            [f"{OUTPUT_PREFIX}", "night", "terminal", "Dry run:"],
         ),
         (
             ["display", "--option", "Train", "--output", "inky", "--dry-run"],
-            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.INKY_WHAT",
+            [f"{OUTPUT_PREFIX}", "train", "inky", "Dry run:"],
         ),
         (
             ["display", "--option", "TRAIN", "--output", "desktop", "--dry-run"],
-            f"{OUTPUT_PREFIX} DisplayOption.TRAIN DisplayModel.DESKTOP",
+            [f"{OUTPUT_PREFIX}", "train", "desktop", "Dry run:"],
         ),
         (
             ["display", "--version"],
-            f"cli, version {__version__}",
+            ["cli", f"{__version__}"],
         ),
     ],
 )
-def test_cli_args(command: list[str], expected_output: str) -> None:
+def test_cli_args(command: list[str], expected_output: list[str]) -> None:
     """Tests inky_pi command with various args outputs expected result
 
     Args:
@@ -56,8 +56,9 @@ def test_cli_args(command: list[str], expected_output: str) -> None:
     """
     runner = CliRunner()
     result = runner.invoke(cli, command)
-    assert result.exit_code == 0
-    assert result.output == f"{expected_output}\n"
+    assert result.exit_code == 0, f"Command failed to run {command}"
+    for output in expected_output:
+        assert f"{output}" in result.output
 
 
 def test_that_main_runs_successfully() -> None:

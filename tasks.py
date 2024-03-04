@@ -143,7 +143,7 @@ def test(
     :param open_browser: If True, the coverage report will be opened in
     the web browser, defaults to False (optional)
     """
-    pytest_args = [""]
+    pytest_args = ["-vv"]
 
     if args:
         for arg in args.split():

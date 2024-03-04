@@ -20,6 +20,7 @@ def test_running_main_with_invalid_args_raises_error() -> None:
     args = Mock()
     args.option = "invalid"
     args.output = "invalid"
+    args.dry_run = False
     with patch("inky_pi.__main__._parse_args", return_value=args):
         with pytest.raises(KeyError):
             main()
@@ -30,6 +31,7 @@ def test_running_main_with_display_data_exception_raises_exception() -> None:
     args = Mock()
     args.option = "train"
     args.output = "inky"
+    args.dry_run = False
     with (
         patch("inky_pi.__main__._parse_args", return_value=args),
         patch("inky_pi.__main__.display_data", side_effect=ValueError),

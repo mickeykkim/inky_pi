@@ -15,14 +15,17 @@ from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 class DisplayModel(Enum):
     """Enum of display models"""
 
-    INKY_WHAT = auto()
+    INKY = auto()
     TERMINAL = auto()
     DESKTOP = auto()
 
 
 @dataclass
-class DisplayObject:
-    """Display object"""
+class DisplayOutput:
+    """Display output object
+
+    Uses strategy pattern to define display model and base color
+    """
 
     model: DisplayModel
     base_color: str = ""

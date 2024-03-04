@@ -13,7 +13,7 @@ from font_hanken_grotesk import HankenGroteskBold  # type: ignore
 # pylint: enable=no-name-in-module
 from PIL import Image, ImageDraw, ImageFont  # type: ignore
 
-from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
+from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayOutput
 from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
 from inky_pi.display.util.drawing import (
     draw_cloud_icon,
@@ -277,7 +277,7 @@ def _import_inky_what() -> Any:
     raise ImportError("InkyWHAT library unavailable (are you on a Raspberry Pi?)")
 
 
-def instantiate_inky_display(display_object: DisplayObject) -> InkyDraw:
+def instantiate_inky_display(display_object: DisplayOutput) -> InkyDraw:
     """Inky display object creator
 
     Args:
@@ -288,7 +288,7 @@ def instantiate_inky_display(display_object: DisplayObject) -> InkyDraw:
     """
     display_driver = (
         _import_inky_what()
-        if display_object.model == DisplayModel.INKY_WHAT
+        if display_object.model == DisplayModel.INKY
         else DesktopDisplayDriver
     )
     return InkyDraw(display_driver(f"{display_object.base_color}"))

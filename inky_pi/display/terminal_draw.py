@@ -6,7 +6,7 @@ from typing import Any, Dict, List, Tuple
 
 from rich.console import Console
 
-from inky_pi.display.display_base import DisplayBase, DisplayObject
+from inky_pi.display.display_base import DisplayBase, DisplayOutput
 from inky_pi.train.train_base import TrainBase
 from inky_pi.weather.weather_base import IconType, ScaleType, WeatherBase
 
@@ -173,7 +173,7 @@ class TerminalDraw(DisplayBase):
         self.render_text()
 
 
-def instantiate_terminal_display(display_object: DisplayObject) -> TerminalDraw:
+def instantiate_terminal_display(display_object: DisplayOutput) -> TerminalDraw:
     """Terminal display object creator
 
     Args:
