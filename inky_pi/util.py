@@ -8,7 +8,7 @@ from typing import Any, Callable
 
 from loguru import logger
 
-from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayObject
+from inky_pi.display.display_base import DisplayBase, DisplayModel, DisplayOutput
 from inky_pi.display.inky_draw import instantiate_inky_display
 from inky_pi.display.terminal_draw import instantiate_terminal_display
 from inky_pi.train.huxley2 import instantiate_huxley2
@@ -31,30 +31,30 @@ def configure_logging() -> None:
     logger.add(LOG_FILE, rotation=LOG_ROTATION, serialize=LOG_SERIALIZE)
 
 
-def display_model_factory(display_object: DisplayObject) -> DisplayBase:
+def display_model_factory(display_object: DisplayOutput) -> DisplayBase:
     """Selects and instantiates the defined display model to use
 
     Args:
-        display_object (DisplayObject): display object containing model
+        display_object (DisplayOutput): display object containing model
 
     Returns:
         DisplayBase: DisplayBase object
     """
-    display_handler: dict[DisplayModel, Callable[[DisplayObject], DisplayBase]] = {
-        DisplayModel.INKY_WHAT: instantiate_inky_display,
+    display_handler: dict[DisplayModel, Callable[[DisplayOutput], DisplayBase]] = {
+        DisplayModel.INKY: instantiate_inky_display,
         DisplayModel.TERMINAL: instantiate_terminal_display,
         DisplayModel.DESKTOP: instantiate_inky_display,
     }
     return display_handler[display_object.model](display_object)
 
 
-def import_display(display_object: DisplayObject) -> DisplayBase:
+def import_display(display_object: DisplayOutput) -> DisplayBase:
     """
     Imports the display model from the given display object and returns it.
     On error, logs and exits program (typically if not running on RPi).
 
     Args:
-        display_object (DisplayObject): The display object to be imported.
+        display_object (DisplayOutput): The display object to be imported.
 
     Returns:
         DisplayBase: The display model.

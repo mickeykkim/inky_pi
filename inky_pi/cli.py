@@ -4,7 +4,7 @@ from click import BaseCommand
 from loguru import logger
 
 from inky_pi import __version__
-from inky_pi.__main__ import OUTPUT_HANDLER, DisplayOption, display_data
+from inky_pi.__main__ import OUTPUT_DISPATCH_TABLE, DisplayOption, display_data
 from inky_pi.util import configure_logging
 
 OUTPUT_PREFIX = "inky_pi cli"
@@ -27,12 +27,21 @@ def cli() -> BaseCommand:
 @click.option("--dry-run", is_flag=True, default=False, help="Dry run")
 def display(option: str, output: str, dry_run: bool) -> None:
     """Console script for inky_pi train and weather."""
-    click.echo(
-        f"{OUTPUT_PREFIX} {DisplayOption[option.upper()]}"
-        f" {OUTPUT_HANDLER[output.lower()].model}"
-    )
-    if not dry_run:
-        display_data(DisplayOption[option.upper()], OUTPUT_HANDLER[output.lower()])
+    if dry_run:
+        logger.debug(
+            "Dry run: {prefix} option = '{option}' / output = '{output}'",
+            prefix=OUTPUT_PREFIX,
+            option=option,
+            output=output,
+        )
+        click.echo(
+            f"Dry run: {OUTPUT_PREFIX} option ="
+            f" {DisplayOption[option.upper()].name.lower()} / output ="
+            f" {OUTPUT_DISPATCH_TABLE[output.upper()].model.name.lower()}"
+        )
+        return
+
+    display_data(DisplayOption[option.upper()], OUTPUT_DISPATCH_TABLE[output.upper()])
 
 
 def main() -> None:

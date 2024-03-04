@@ -12,6 +12,7 @@ def test_can_successfully_run_main(display_mock: Mock) -> None:
     args = Mock()
     args.option = "weather"
     args.output = "inky"
+    args.dry_run = False
     with patch("inky_pi.__main__._parse_args", return_value=args):
         main()
         display_mock.assert_called_once()

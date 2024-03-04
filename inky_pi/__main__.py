@@ -12,7 +12,7 @@ from loguru import logger
 
 from inky_pi import __version__
 from inky_pi.configs import InkyColor, Settings
-from inky_pi.display.display_base import DisplayModel, DisplayObject
+from inky_pi.display.display_base import DisplayModel, DisplayOutput
 from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
 from inky_pi.util import (
     configure_logging,
@@ -56,12 +56,10 @@ class DisplayOption(Enum):
     NIGHT = auto()
 
 
-OUTPUT_HANDLER: Dict[str, DisplayObject] = {
-    "inky": DisplayObject(
-        model=DisplayModel.INKY_WHAT, base_color=InkyColor.BLACK.value
-    ),
-    "terminal": DisplayObject(model=DisplayModel.TERMINAL),
-    "desktop": DisplayObject(model=DisplayModel.DESKTOP),
+OUTPUT_DISPATCH_TABLE: Dict[str, DisplayOutput] = {
+    "INKY": DisplayOutput(model=DisplayModel.INKY, base_color=InkyColor.BLACK.value),
+    "TERMINAL": DisplayOutput(model=DisplayModel.TERMINAL),
+    "DESKTOP": DisplayOutput(model=DisplayModel.DESKTOP),
 }
 
 
@@ -72,7 +70,9 @@ def _parse_args(args: list[str]) -> Namespace:
         Namespace: Parsed command line arguments.
     """
     parser = ArgumentParser(
-        description="Displays train and weather data to various outputs",
+        description=(
+            "Displays train, weather, and/or goodnight screen data to chosen output"
+        ),
     )
     parser.add_argument(
         "-o",
@@ -80,13 +80,15 @@ def _parse_args(args: list[str]) -> Namespace:
         help="Display option (train, weather, night)",
         type=str,
         default="train",
+        choices=[option.name.lower() for option in DisplayOption],
     )
     parser.add_argument(
         "-m",
         "--output",
-        help="Output source (inky, terminal, desktop)",
+        help="Output destination (inky, terminal, desktop)",
         type=str,
         default="inky",
+        choices=[model.name.lower() for model in DisplayModel],
     )
     parser.add_argument(
         "-V",
@@ -95,10 +97,16 @@ def _parse_args(args: list[str]) -> Namespace:
         action="version",
         version="%(prog)s " + __version__,
     )
+    parser.add_argument(
+        "--dry-run",
+        help="Dry run",
+        action="store_true",
+        default=False,
+    )
     return parser.parse_args(args)
 
 
-def display_data(option: DisplayOption, output: DisplayObject) -> None:
+def display_data(option: DisplayOption, output: DisplayOutput) -> None:
     """inky_pi weather with train function
 
     Retrieves train and weather data from API endpoints, generates text and
@@ -114,6 +122,7 @@ def display_data(option: DisplayOption, output: DisplayObject) -> None:
 
     weather_data: WeatherBase = weather_model_factory(WEATHER_OBJECT)
     with import_display(output) as display:
+        logger.debug("InkyPi displaying option: %s on output: %s", option, output)
         if option == DisplayOption.NIGHT:
             display.draw_goodnight(weather_data)
             return
@@ -140,13 +149,23 @@ def main() -> None:
     configure_logging()
     logger.debug("InkyPi main initialized")
     args: Namespace = _parse_args(sys.argv[1:])
+    if args.dry_run:
+        logger.debug(
+            "Dry run: option = '{option}' / output = '{output}'",
+            option=args.option,
+            output=args.output,
+        )
+        return
     try:
         display_data(
-            DisplayOption[args.option.upper()], OUTPUT_HANDLER[args.output.lower()]
+            DisplayOption[args.option.upper()],
+            OUTPUT_DISPATCH_TABLE[args.output.upper()],
         )
     except KeyError:
         logger.error(
-            "Invalid display/output specified: %s/%s", args.display, args.output
+            "Invalid args: option = '{option}' / output = '{output}'",
+            option=args.option,
+            output=args.output,
         )
         raise
     except Exception as exc:  # pylint: disable=broad-except
