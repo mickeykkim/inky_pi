@@ -87,7 +87,7 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>  <span class="c1"># type: ignore</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span>
 
 
 <div class="viewcode-block" id="DesktopDisplayDriver"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver">[docs]</a><span class="k">class</span> <span class="nc">DesktopDisplayDriver</span><span class="p">:</span>
@@ -120,8 +120,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_color</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">BLACK</span> <span class="k">if</span> <span class="n">base_color</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="k">else</span> <span class="n">color_matcher</span><span class="p">[</span><span class="n">base_color</span><span class="p">]</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ImageDraw</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Image</span><span class="o">.</span><span class="n">Image</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_draw</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ImageDraw</span><span class="o">.</span><span class="n">ImageDraw</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="DesktopDisplayDriver.set_image"><a class="viewcode-back" href="../../../../source/inky_pi/inky_pi.display.util.desktop_driver.html#inky_pi.display.util.desktop_driver.DesktopDisplayDriver.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set image</span>
