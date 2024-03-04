@@ -110,10 +110,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Console script for inky_pi train and weather.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">dry_run</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-            <span class="s2">&quot;Dry run: </span><span class="si">{prefix}</span><span class="s2"> option = &#39;</span><span class="si">{option}</span><span class="s2">&#39; / output = &#39;</span><span class="si">{output}</span><span class="s2">&#39;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Dry run: </span><span class="si">{prefix}</span><span class="s2"> option = </span><span class="si">{option}</span><span class="s2"> / output = </span><span class="si">{output}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">prefix</span><span class="o">=</span><span class="n">OUTPUT_PREFIX</span><span class="p">,</span>
-            <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="p">,</span>
-            <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
+            <span class="n">option</span><span class="o">=</span><span class="n">option</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
         <span class="p">)</span>
         <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Dry run: </span><span class="si">{</span><span class="n">OUTPUT_PREFIX</span><span class="si">}</span><span class="s2"> option =&quot;</span>
