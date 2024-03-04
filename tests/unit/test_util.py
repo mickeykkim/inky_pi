@@ -26,14 +26,14 @@ def test_can_successfully_configure_logging(logger_add_mock: Mock) -> None:
 
 def test_that_train_model_factory_with_invalid_model_raises_exception() -> None:
     """Test for invalid train model"""
-    with pytest.raises(SystemExit):
+    with pytest.raises(ValueError):
         train_model_factory(
             TrainObject(
                 TrainModel.OPEN_LIVE,
                 "INVALID",
                 "INVALID",
                 -1,
-                "http://www.com",
+                "",
                 "INVALID",
             )
         )

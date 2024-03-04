@@ -1,7 +1,7 @@
 """Weather icon drawing functions"""
-from typing import Any, Tuple
+from __future__ import annotations
 
-from PIL import ImageDraw  # type: ignore
+from PIL import ImageDraw
 
 from inky_pi.display.util.shapes import (
     gen_large_cloud,
@@ -16,7 +16,10 @@ from inky_pi.display.util.shapes import (
 
 
 def draw_sun_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large sun icon
 
@@ -26,11 +29,14 @@ def draw_sun_icon(
         color_neg: Color of the negative space
         x_y: (x, y) coordinates
     """
-    gen_large_sun(draw, color, color_neg, (x_y[0] + 7, x_y[1]))
+    gen_large_sun(draw, color, color_neg, (x_y[0] + 4, x_y[1]))
 
 
 def draw_sun_cloud_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw small sun + large cloud icons
 
@@ -45,7 +51,10 @@ def draw_sun_cloud_icon(
 
 
 def draw_cloud_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large cloud
 
@@ -59,7 +68,10 @@ def draw_cloud_icon(
 
 
 def draw_two_clouds_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large cloud + small cloud icons
 
@@ -74,7 +86,10 @@ def draw_two_clouds_icon(
 
 
 def draw_cloud_rain_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large cloud + two rain drop icons
 
@@ -90,7 +105,10 @@ def draw_cloud_rain_icon(
 
 
 def draw_sun_cloud_rain_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw small sun, large cloud + two rain drop icons
 
@@ -107,7 +125,10 @@ def draw_sun_cloud_rain_icon(
 
 
 def draw_cloud_lightning_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large cloud + lightning bolt icons
 
@@ -122,7 +143,10 @@ def draw_cloud_lightning_icon(
 
 
 def draw_cloud_snow_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw large cloud + snowflake icons
 
@@ -140,7 +164,10 @@ def draw_cloud_snow_icon(
 
 # pylint: disable=unused-argument
 def draw_mist_icon(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Draw mist icon
 
@@ -150,4 +177,4 @@ def draw_mist_icon(
         color_neg: Color of the negative space
         x_y: (x, y) coordinates
     """
-    gen_mist(draw, color, (x_y[0] + 5, x_y[1]))
+    gen_mist(draw, color, (x_y[0] + 3, x_y[1] + 9))

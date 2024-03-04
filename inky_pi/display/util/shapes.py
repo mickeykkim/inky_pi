@@ -1,11 +1,14 @@
 """Image drawing primitives"""
-from typing import Any, Tuple
+from __future__ import annotations
 
-from PIL import ImageDraw  # type: ignore
+from PIL import ImageDraw
 
 
 def gen_large_sun(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Generate large sun icon
 
@@ -73,7 +76,10 @@ def gen_large_sun(
 
 
 def gen_small_sun(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Generate small sun icon
 
@@ -129,7 +135,10 @@ def gen_small_sun(
 
 
 def gen_large_cloud(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Generate large cloud icon
 
@@ -152,7 +161,10 @@ def gen_large_cloud(
 
 
 def gen_small_cloud(
-    draw: ImageDraw, color: Any, color_neg: Any, x_y: Tuple[int, int]
+    draw: ImageDraw.ImageDraw,
+    color: tuple[int, int, int, int],
+    color_neg: tuple[int, int, int, int],
+    x_y: tuple[int, int],
 ) -> None:
     """Generate small cloud icon
 
@@ -174,7 +186,9 @@ def gen_small_cloud(
     draw.ellipse((x_y[0] + 23, x_y[1] + 8, x_y[0] + 33, x_y[1] + 18), color_neg)
 
 
-def gen_raindrop(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
+def gen_raindrop(
+    draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], x_y: tuple[int, int]
+) -> None:
     """Generate raindrop icon
 
     Args:
@@ -196,7 +210,9 @@ def gen_raindrop(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     )
 
 
-def gen_lightning(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
+def gen_lightning(
+    draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], x_y: tuple[int, int]
+) -> None:
     """Generate lightning bolt icon
 
     Args:
@@ -219,7 +235,9 @@ def gen_lightning(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     )
 
 
-def gen_snowflake(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
+def gen_snowflake(
+    draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], x_y: tuple[int, int]
+) -> None:
     """Generate snowflake icon
 
     Args:
@@ -233,7 +251,9 @@ def gen_snowflake(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     draw.line((x_y[0] + 1, x_y[1] + 6, x_y[0] + 10, x_y[1] + 1), color, line_width)
 
 
-def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
+def gen_mist(
+    draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], x_y: tuple[int, int]
+) -> None:
     """Generate mist icon
 
     Args:
@@ -258,7 +278,9 @@ def gen_mist(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
     )
 
 
-def gen_closed_eye_icon(draw: ImageDraw, color: Any, x_y: Tuple[int, int]) -> None:
+def gen_closed_eye_icon(
+    draw: ImageDraw.ImageDraw, color: tuple[int, int, int, int], x_y: tuple[int, int]
+) -> None:
     """Generate closed eye icon at center of x_y
 
     Args:
