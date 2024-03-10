@@ -86,6 +86,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">rich.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayBase</span><span class="p">,</span> <span class="n">DisplayOutput</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span>
@@ -110,7 +111,12 @@
 
 <div class="viewcode-block" id="TerminalDraw.render_text"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.render_text">[docs]</a>    <span class="k">def</span> <span class="nf">render_text</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Render collected text onto the terminal&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">))</span></div>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="p">),</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;InkyPi Terminal Output&quot;</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="s2">&quot;white on black&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_console</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">panel</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TerminalDraw.draw_date"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.draw_date">[docs]</a>    <span class="k">def</span> <span class="nf">draw_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Append date to terminal text</span>
@@ -141,9 +147,9 @@
 <span class="sd">            x_y: (x, y) coordinates</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;train schedule from </span><span class="si">{</span><span class="n">data_t</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">data_t</span><span class="o">.</span><span class="n">destination</span><span class="si">}</span><span class="s2">:&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Train schedule from </span><span class="si">{</span><span class="n">data_t</span><span class="o">.</span><span class="n">origin</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">data_t</span><span class="o">.</span><span class="n">destination</span><span class="si">}</span><span class="s2">:&quot;</span>
         <span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_trains</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_trains</span><span class="p">):</span>
             <span class="n">train</span> <span class="o">=</span> <span class="n">data_t</span><span class="o">.</span><span class="n">fetch_train</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">train</span><span class="p">)</span></div>
 
@@ -166,13 +172,16 @@
         <span class="n">current_condition</span> <span class="o">=</span> <span class="n">data_w</span><span class="o">.</span><span class="n">get_current_condition</span><span class="p">()</span>
         <span class="n">temp_range</span> <span class="o">=</span> <span class="n">data_w</span><span class="o">.</span><span class="n">get_temp_range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         <span class="n">condition</span> <span class="o">=</span> <span class="n">data_w</span><span class="o">.</span><span class="n">get_condition</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;now: </span><span class="si">{</span><span class="n">current_temp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;now: </span><span class="si">{</span><span class="n">current_condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;today: </span><span class="si">{</span><span class="n">temp_range</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;today: </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[bold]Current Weather:[/bold]&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Temperature: </span><span class="si">{</span><span class="n">current_temp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Condition: </span><span class="si">{</span><span class="n">current_condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Today&#39;s Temperature Range: </span><span class="si">{</span><span class="n">temp_range</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Today&#39;s Condition: </span><span class="si">{</span><span class="n">condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">disp_tomorrow</span><span class="p">:</span>
             <span class="n">tomorrow_condition</span> <span class="o">=</span> <span class="n">data_w</span><span class="o">.</span><span class="n">get_condition</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tomorrow: </span><span class="si">{</span><span class="n">tomorrow_condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tomorrow&#39;s Condition: </span><span class="si">{</span><span class="n">tomorrow_condition</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TerminalDraw.draw_mini_forecast"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.draw_mini_forecast">[docs]</a>    <span class="k">def</span> <span class="nf">draw_mini_forecast</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -189,7 +198,8 @@
 <span class="sd">            x_y: (x, y) coordinates</span>
 <span class="sd">            day: day to display</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">todo</span><span class="si">}</span><span class="s2">: draw_mini_forecast&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[bold]Mini Weather Forecast:[/bold]&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[red]TODO[/red]: draw_mini_forecast&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TerminalDraw.draw_weather_icon"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.draw_weather_icon">[docs]</a>    <span class="k">def</span> <span class="nf">draw_weather_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon</span><span class="p">:</span> <span class="n">IconType</span><span class="p">,</span> <span class="n">x_y</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Append weather icon to terminal text</span>
@@ -209,8 +219,9 @@
             <span class="n">IconType</span><span class="o">.</span><span class="n">SNOW</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F328</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">MIST</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F32B</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">emoji</span> <span class="o">=</span> <span class="n">draw_icon_dispatcher</span><span class="p">[</span><span class="n">icon</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">emoji</span><span class="p">)</span></div>
+        <span class="n">emoji</span> <span class="o">=</span> <span class="n">draw_icon_dispatcher</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">emoji</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">emoji</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TerminalDraw.draw_forecast_icons"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.draw_forecast_icons">[docs]</a>    <span class="k">def</span> <span class="nf">draw_forecast_icons</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -225,7 +236,8 @@
 <span class="sd">            scale: scale type</span>
 <span class="sd">            x_y: (x, y) coordinates</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">todo</span><span class="si">}</span><span class="s2">: draw_forecast_icons&quot;</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[bold]Extended Weather Forecast Icons:[/bold]&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;[red]TODO[/red]: draw_forecast_icons&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TerminalDraw.draw_goodnight"><a class="viewcode-back" href="../../../source/inky_pi/inky_pi.display.terminal_draw.html#inky_pi.display.terminal_draw.TerminalDraw.draw_goodnight">[docs]</a>    <span class="k">def</span> <span class="nf">draw_goodnight</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">data_w</span><span class="p">:</span> <span class="n">WeatherBase</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">ScaleType</span> <span class="o">=</span> <span class="n">ScaleType</span><span class="o">.</span><span class="n">CELSIUS</span>
@@ -239,7 +251,7 @@
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Good Night ^^&quot;</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">data_w</span><span class="o">.</span><span class="n">get_temp_range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tomorrow&#39;s Temperature: </span><span class="si">{</span><span class="n">temp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TerminalDraw&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Enter context manager</span>
