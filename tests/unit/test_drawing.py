@@ -3,6 +3,7 @@ This module contains tests for the drawing functions in inky_pi.display.util.dra
 """
 from __future__ import annotations
 
+from io import BytesIO
 from pathlib import Path
 from typing import Callable
 
@@ -25,17 +26,6 @@ from inky_pi.display.util.shapes import gen_closed_eye_icon
 from tests.unit.resources.generate_test_shapes import BLACK, HEIGHT, WHITE, WIDTH
 
 TEST_SHAPE_DIR = Path(__file__).parent / "resources" / "test_shapes"
-
-
-def _diff_images(
-    test_image_name: str, expected_image_name: str
-) -> tuple[int, int, int, int] | None:
-    test_image = Image.open(TEST_SHAPE_DIR / test_image_name)
-    expected_image = Image.open(TEST_SHAPE_DIR / expected_image_name)
-    diff = ImageChops.difference(test_image, expected_image).getbbox()
-    # delete the temporary image
-    (TEST_SHAPE_DIR / test_image_name).unlink()
-    return diff
 
 
 @pytest.mark.parametrize(
@@ -71,20 +61,23 @@ def test_drawing_function_generates_expected_image(
         draw_function:
         expected_image_name:
     """
-    test_image_name = f"test_{expected_image_name}"
+    test_image = BytesIO()
     image = Image.new("P", (WIDTH, HEIGHT), color="white")
     draw = ImageDraw.Draw(image)
     draw_function(draw, BLACK, WHITE, (0, 0))
-    image.save(TEST_SHAPE_DIR / test_image_name)
+    image.save(test_image, format="PNG")
+    test_image.seek(0)
 
-    assert not _diff_images(test_image_name, expected_image_name)
+    generated_image = Image.open(test_image)
+    expected_image = Image.open(TEST_SHAPE_DIR / expected_image_name)
+    assert not ImageChops.difference(generated_image, expected_image).getbbox()
 
 
 def test_drawing_closed_eye_generates_expected_image() -> None:
     """
     Test that the closed eye drawing function generates the expected image.
     """
-    test_image_name = "test_closed_eye.png"
+    test_image = BytesIO()
     image = Image.new(
         "P", (DesktopDisplayDriver.WIDTH, DesktopDisplayDriver.HEIGHT), color="white"
     )
@@ -92,6 +85,10 @@ def test_drawing_closed_eye_generates_expected_image() -> None:
     gen_closed_eye_icon(
         draw, BLACK, (DesktopDisplayDriver.WIDTH // 2, DesktopDisplayDriver.HEIGHT // 2)
     )
-    image.save(TEST_SHAPE_DIR / test_image_name)
+    image.save(test_image, format="PNG")
+    test_image.seek(0)
 
-    assert not _diff_images(test_image_name, "closed_eye.png")
+    generated_image = Image.open(test_image)
+    expected_image = Image.open(TEST_SHAPE_DIR / "closed_eye.png")
+
+    assert not ImageChops.difference(generated_image, expected_image).getbbox()

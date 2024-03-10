@@ -5,6 +5,7 @@ from time import strftime
 from typing import Any, Dict, List, Tuple
 
 from rich.console import Console
+from rich.panel import Panel
 
 from inky_pi.display.display_base import DisplayBase, DisplayOutput
 from inky_pi.train.train_base import TrainBase
@@ -29,7 +30,12 @@ class TerminalDraw(DisplayBase):
 
     def render_text(self) -> None:
         """Render collected text onto the terminal"""
-        self._console.print("\n".join(self._output))
+        panel = Panel(
+            "\n".join(self._output),
+            title="InkyPi Terminal Output",
+            style="white on black",
+        )
+        self._console.print(panel)
 
     def draw_date(self, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Append date to terminal text
@@ -60,9 +66,9 @@ class TerminalDraw(DisplayBase):
             x_y: (x, y) coordinates
         """
         self._output.append(
-            f"train schedule from {data_t.origin} to {data_t.destination}:"
+            f"Train schedule from {data_t.origin} to {data_t.destination}:"
         )
-        for i in range(0, num_trains):
+        for i in range(num_trains):
             train = data_t.fetch_train(i)
             self._output.append(train)
 
@@ -85,13 +91,16 @@ class TerminalDraw(DisplayBase):
         current_condition = data_w.get_current_condition()
         temp_range = data_w.get_temp_range(0, scale)
         condition = data_w.get_condition(0)
-        self._output.append(f"now: {current_temp}")
-        self._output.append(f"now: {current_condition}")
-        self._output.append(f"today: {temp_range}")
-        self._output.append(f"today: {condition}")
+
+        self._output.append("[bold]Current Weather:[/bold]")
+        self._output.append(f"Temperature: {current_temp}")
+        self._output.append(f"Condition: {current_condition}")
+        self._output.append(f"Today's Temperature Range: {temp_range}")
+        self._output.append(f"Today's Condition: {condition}")
+
         if disp_tomorrow:
             tomorrow_condition = data_w.get_condition(1)
-            self._output.append(f"tomorrow: {tomorrow_condition}")
+            self._output.append(f"Tomorrow's Condition: {tomorrow_condition}")
 
     def draw_mini_forecast(
         self,
@@ -108,7 +117,8 @@ class TerminalDraw(DisplayBase):
             x_y: (x, y) coordinates
             day: day to display
         """
-        self._output.append(f"{self.todo}: draw_mini_forecast")
+        self._output.append("[bold]Mini Weather Forecast:[/bold]")
+        self._output.append("[red]TODO[/red]: draw_mini_forecast")
 
     def draw_weather_icon(self, icon: IconType, x_y: Tuple[int, int] = (0, 0)) -> None:
         """Append weather icon to terminal text
@@ -128,8 +138,9 @@ class TerminalDraw(DisplayBase):
             IconType.SNOW: "\U0001F328",
             IconType.MIST: "\U0001F32B",
         }
-        emoji = draw_icon_dispatcher[icon]
-        self._output.append(emoji)
+        emoji = draw_icon_dispatcher.get(icon, "")
+        if emoji:
+            self._output.append(emoji)
 
     def draw_forecast_icons(
         self,
@@ -144,7 +155,8 @@ class TerminalDraw(DisplayBase):
             scale: scale type
             x_y: (x, y) coordinates
         """
-        self._output.append(f"{self.todo}: draw_forecast_icons")
+        self._output.append("[bold]Extended Weather Forecast Icons:[/bold]")
+        self._output.append("[red]TODO[/red]: draw_forecast_icons")
 
     def draw_goodnight(
         self, data_w: WeatherBase, scale: ScaleType = ScaleType.CELSIUS
@@ -158,7 +170,7 @@ class TerminalDraw(DisplayBase):
         message = "Good Night ^^"
         temp = data_w.get_temp_range(1, scale)
         self._output.append(message)
-        self._output.append(temp)
+        self._output.append(f"Tomorrow's Temperature: {temp}")
 
     def __enter__(self) -> "TerminalDraw":
         """Enter context manager
