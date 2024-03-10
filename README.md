@@ -11,7 +11,7 @@ Inky_pi is a project to display train and weather data on an [Inky](https://gith
 using a Raspberry Pi. It is modular and fetches data from a variety of
 sources ([OpenLDBWS](http://lite.realtime.nationalrail.co.uk/openldbws/), [Huxley2](https://huxley2.azurewebsites.net/), [OpenWeatherMap](https://openweathermap.org/)).
 
-![image 1](https://i.imgur.com/0CRIW9X.jpg)
+![image 1](https://i.imgur.com/gkSz0xp.jpeg)
 
 Example outputs (generated with `desktop` output option):
 
@@ -21,18 +21,21 @@ Example outputs (generated with `desktop` output option):
 Example terminal output (generated with `terminal` output option):
 
 ```bash
-Fri 22 Dec 2023
-17:25
-☁
-now: 11.2°C
-now: Clouds
-today: 9.4°C – 11.5°C
-today: light rain
-tomorrow: overcast clouds
-train schedule from Kingston to London Waterloo:
-17:28 | P2 to London Waterloo - On time
-17:34 | P3 to London Waterloo - On time
-17:48 | P3 to London Waterloo - On time
+╭────────────── InkyPi Terminal Output ──────────────╮
+│ Sun 10 Mar 2024                                    │
+│ 16:03                                              │
+│ 🌦                                                 │
+│ Current Weather:                                   │
+│ Temperature: 9.0°C                                 │
+│ Condition: Rain                                    │
+│ Today's Temperature Range: 7.5°C – 9.0°C           │
+│ Today's Condition: moderate rain                   │
+│ Tomorrow's Condition: overcast clouds              │
+│ Train schedule from Kingston to London Waterloo:   │
+│ 16:04 | P3 to London Waterloo - On time            │
+│ 16:12 | P3 to London Waterloo - On time            │
+│ 16:34 | P3 to London Waterloo - On time            │
+╰────────────────────────────────────────────────────╯
 ```
 
 Weather icon drawing code was adapted from [raspi-weather](https://github.com/DerekCaelin/raspi-weather).
@@ -64,6 +67,8 @@ python -m inky_pi --help
 The program can be configured by
 running `python -m inky_web` to launch the configuration editor web interface. The web interface creates/edits the
 local `.env` file which holds application configuration.
+
+![image 2](https://i.imgur.com/MOLEZBl.png)
 
 API keys for configuration are needed for train data using OpenLDBWS and for weather data using OpenWeatherMap.
 Alternatively, train data can be fetched using Huxley2 without an API key (though the maintainer contends that the

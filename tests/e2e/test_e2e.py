@@ -29,12 +29,12 @@ def test_running_train_option_in_terminal_ui_generates_expected_output() -> None
         rf"{time}",
         # Date (Day dd MMM yyyy)
         r"[A-Z][a-z]{2}\s\d*\s[A-Z][a-z]*\s\d{4}",
-        # now: <current>°C/F
-        rf"now:\s{temp}",
-        # today: <low>°C/F – <high>°C/F
-        rf"today:\s{temp}\s–\s{temp}",
-        # train schedule from <station> to <station>
-        rf"train\sschedule\sfrom\s{station_name}\sto\s{station_name}:",
+        # Temperature: <current>°C/F
+        rf"Temperature:\s{temp}",
+        # Today's Temperature Range: <low>°C/F – <high>°C/F
+        rf"Today's Temperature Range:\s{temp}\s–\s{temp}",
+        # Train schedule from <station> to <station>:
+        rf"Train\sschedule\sfrom\s{station_name}\sto\s{station_name}:",
         # <HH:MM> | P<#> to <station> - <status> [OR] <error message>
         rf"({time}\s\|\sP\d+\sto\s(\w+\s)+-\s(\w+\s|{time}))|({any_error_msg})",
     ]
@@ -44,7 +44,10 @@ def test_running_train_option_in_terminal_ui_generates_expected_output() -> None
     )
     assert result.exit_code == 0
     for test_regex in test_regex_list:
-        assert re.compile(test_regex).search(result.output) is not None, result.output
+        assert re.compile(test_regex).search(result.output) is not None, (
+            test_regex,
+            result.output,
+        )
 
 
 @pytest.mark.e2e
@@ -58,10 +61,10 @@ def test_running_weather_option_in_terminal_ui_generates_expected_output() -> No
         rf"{time}",
         # Date (Day dd MMM yyyy)
         r"[A-Z][a-z]{2}\s\d*\s[A-Z][a-z]*\s\d{4}",
-        # now: <current>°C/F
-        rf"now:\s{temp}",
-        # today: <low>°C/F – <high>°C/F
-        rf"today:\s{temp}\s–\s{temp}",
+        # Temperature: <current>°C/F
+        rf"Temperature:\s{temp}",
+        # Today's Temperature Range: <low>°C/F – <high>°C/F
+        rf"Today's Temperature Range:\s{temp}\s–\s{temp}",
     ]
 
     result: Result = CliRunner().invoke(
