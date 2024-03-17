@@ -20,43 +20,50 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python: [ "3.9", "3.10", "3.11"]
+        python: [ "3.9", "3.10", "3.11.1", "3.12"]
 
     steps:
       # Checkout out repo and setup python
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.1.2
+
       - name: Setup Python
-        id: setup-python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5.0.0
         with:
           python-version: ${{ matrix.python }}
+          architecture: x64
+
       # Install and configure poetry
       - name: Install Poetry
-        uses: snok/install-poetry@v1
+        uses: snok/install-poetry@v1.3.4
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
+
       # Load cached venv if cache exists
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          path: ~/.cache/pypoetry/virtualenvs
+          key: venv-${{ runner.os }}-${{ matrix.python }}-${{ hashFiles('**/poetry.lock') }}
+
       # Install dependencies if cache does not exist
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
+
       # Install project package
       - name: Install library
         run: poetry install --no-interaction
+
       # Save api keys to .env file
       - name: Create .env file
         run: |
           echo TRAIN_API_TOKEN=${{ secrets.TRAIN_API_TOKEN }} > .env
           echo WEATHER_API_TOKEN=${{ secrets.WEATHER_API_TOKEN }} >> .env
+
       # Run tox
       - name: Run Tox
         run: poetry run tox -e py
