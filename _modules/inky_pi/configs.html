@@ -127,8 +127,8 @@
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Inky Display Color&quot;</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The color of the Inky display. Options: red, black, yellow.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">TRAIN_MODEL</span><span class="p">:</span> <span class="n">TrainModel</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="p">,</span>
+    <span class="n">TRAIN_MODEL</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">TrainModel</span><span class="o">.</span><span class="n">OPEN_LIVE</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train Model&quot;</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="p">(</span>
             <span class="s2">&quot;The model option to use for train predictions.&quot;</span>
@@ -162,8 +162,8 @@
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Train Model URL&quot;</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Train API URL to fetch data from&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">WEATHER_MODEL</span><span class="p">:</span> <span class="n">WeatherModel</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="p">,</span>
+    <span class="n">WEATHER_MODEL</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">WeatherModel</span><span class="o">.</span><span class="n">OPEN_WEATHER_MAP</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Weather Model&quot;</span><span class="p">,</span>
         <span class="n">description</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Which weather model to use. Options: </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">WeatherModel</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span>
     <span class="p">)</span>

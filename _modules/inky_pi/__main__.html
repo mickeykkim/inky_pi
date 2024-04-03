@@ -92,7 +92,7 @@
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">inky_pi</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="n">InkyColor</span><span class="p">,</span> <span class="n">Settings</span>
+<span class="kn">from</span> <span class="nn">inky_pi.configs</span> <span class="kn">import</span> <span class="n">Settings</span>
 <span class="kn">from</span> <span class="nn">inky_pi.display.display_base</span> <span class="kn">import</span> <span class="n">DisplayModel</span><span class="p">,</span> <span class="n">DisplayOutput</span>
 <span class="kn">from</span> <span class="nn">inky_pi.train.train_base</span> <span class="kn">import</span> <span class="n">TrainBase</span><span class="p">,</span> <span class="n">TrainModel</span><span class="p">,</span> <span class="n">TrainObject</span>
 <span class="kn">from</span> <span class="nn">inky_pi.util</span> <span class="kn">import</span> <span class="p">(</span>
@@ -137,11 +137,11 @@
     <span class="n">NIGHT</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<span class="n">DEFAULT_COLOR</span> <span class="o">=</span> <span class="n">InkyColor</span><span class="o">.</span><span class="n">BLACK</span><span class="o">.</span><span class="n">value</span>
+<span class="n">BASE_COLOR</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">INKY_COLOR</span>
 <span class="n">OUTPUT_DISPATCH_TABLE</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DisplayOutput</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;INKY&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">),</span>
-    <span class="s2">&quot;TERMINAL&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">),</span>
-    <span class="s2">&quot;DESKTOP&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">DEFAULT_COLOR</span><span class="p">),</span>
+    <span class="s2">&quot;INKY&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">INKY</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">BASE_COLOR</span><span class="p">),</span>
+    <span class="s2">&quot;TERMINAL&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">BASE_COLOR</span><span class="p">),</span>
+    <span class="s2">&quot;DESKTOP&quot;</span><span class="p">:</span> <span class="n">DisplayOutput</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">DisplayModel</span><span class="o">.</span><span class="n">DESKTOP</span><span class="p">,</span> <span class="n">base_color</span><span class="o">=</span><span class="n">BASE_COLOR</span><span class="p">),</span>
 <span class="p">}</span>
 
 
@@ -208,7 +208,6 @@
             <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="n">DisplayOption</span><span class="o">.</span><span class="n">NIGHT</span><span class="p">:</span>
-            <span class="n">output</span><span class="o">.</span><span class="n">base_color</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">INKY_COLOR</span>
             <span class="n">display</span><span class="o">.</span><span class="n">draw_goodnight</span><span class="p">(</span><span class="n">weather_data</span><span class="p">)</span>
             <span class="k">return</span>
 

@@ -203,7 +203,7 @@ and returns a string with the train’s information in a display format.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">inky_pi.train.train_base.</span></span><span class="sig-name descname"><span class="pre">TrainModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/inky_pi/train/train_base.html#TrainModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#inky_pi.train.train_base.TrainModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
 <p>Enum of train models</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel.HUXLEY2">
@@ -214,59 +214,6 @@ and returns a string with the train’s information in a display format.</p>
 <dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel.OPEN_LIVE">
 <span class="sig-name descname"><span class="pre">OPEN_LIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPEN_LIVE'</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel.OPEN_LIVE" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._generate_next_value_">
-<span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._generate_next_value_" title="Permalink to this definition"></a></dt>
-<dd><p>Generate the next value when not given.</p>
-<p>name: the name of the member
-start: the initial start value or None
-count: the number of existing members
-last_values: the list of values assigned</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._member_map_">
-<span class="sig-name descname"><span class="pre">_member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'HUXLEY2':</span> <span class="pre">TrainModel.HUXLEY2,</span> <span class="pre">'OPEN_LIVE':</span> <span class="pre">TrainModel.OPEN_LIVE}</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._member_map_" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._member_names_">
-<span class="sig-name descname"><span class="pre">_member_names_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['HUXLEY2',</span> <span class="pre">'OPEN_LIVE']</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._member_names_" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._member_type_">
-<span class="sig-name descname"><span class="pre">_member_type_</span></span><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._member_type_" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._new_member_">
-<span class="sig-name descname"><span class="pre">_new_member_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._new_member_" title="Permalink to this definition"></a></dt>
-<dd><p>Create and return a new object.  See help(type) for accurate signature.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._unhashable_values_">
-<span class="sig-name descname"><span class="pre">_unhashable_values_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._unhashable_values_" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._use_args_">
-<span class="sig-name descname"><span class="pre">_use_args_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._use_args_" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._value2member_map_">
-<span class="sig-name descname"><span class="pre">_value2member_map_</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'HUXLEY2':</span> <span class="pre">TrainModel.HUXLEY2,</span> <span class="pre">'OPEN_LIVE':</span> <span class="pre">TrainModel.OPEN_LIVE}</span></em><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._value2member_map_" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="inky_pi.train.train_base.TrainModel._value_repr_">
-<span class="sig-name descname"><span class="pre">_value_repr_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#inky_pi.train.train_base.TrainModel._value_repr_" title="Permalink to this definition"></a></dt>
-<dd><p>Return repr(self).</p>
-</dd></dl>
 
 </dd></dl>
 
