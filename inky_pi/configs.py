@@ -46,8 +46,8 @@ class Settings(BaseSettings):
         title="Inky Display Color",
         description="The color of the Inky display. Options: red, black, yellow.",
     )
-    TRAIN_MODEL: TrainModel = Field(
-        default=TrainModel.OPEN_LIVE,
+    TRAIN_MODEL: str = Field(
+        default=TrainModel.OPEN_LIVE.value,
         title="Train Model",
         description=(
             "The model option to use for train predictions."
@@ -81,8 +81,8 @@ class Settings(BaseSettings):
         title="Train Model URL",
         description="Train API URL to fetch data from",
     )
-    WEATHER_MODEL: WeatherModel = Field(
-        default=WeatherModel.OPEN_WEATHER_MAP,
+    WEATHER_MODEL: str = Field(
+        default=WeatherModel.OPEN_WEATHER_MAP.value,
         title="Weather Model",
         description=f"Which weather model to use. Options: {list(WeatherModel)}.",
     )

@@ -20,7 +20,7 @@ def celsius_to_fahrenheit(celsius_temp: float) -> float:
     return round((celsius_temp * 9 / 5) + 32.0, 1)
 
 
-class WeatherModel(str, Enum):
+class WeatherModel(Enum):
     """Enum of weather models"""
 
     OPEN_WEATHER_MAP = "OPEN_WEATHER_MAP"

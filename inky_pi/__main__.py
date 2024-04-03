@@ -11,7 +11,7 @@ from typing import Dict
 from loguru import logger
 
 from inky_pi import __version__
-from inky_pi.configs import InkyColor, Settings
+from inky_pi.configs import Settings
 from inky_pi.display.display_base import DisplayModel, DisplayOutput
 from inky_pi.train.train_base import TrainBase, TrainModel, TrainObject
 from inky_pi.util import (
@@ -56,11 +56,11 @@ class DisplayOption(Enum):
     NIGHT = auto()
 
 
-DEFAULT_COLOR = InkyColor.BLACK.value
+BASE_COLOR = config.INKY_COLOR
 OUTPUT_DISPATCH_TABLE: Dict[str, DisplayOutput] = {
-    "INKY": DisplayOutput(model=DisplayModel.INKY, base_color=DEFAULT_COLOR),
-    "TERMINAL": DisplayOutput(model=DisplayModel.TERMINAL, base_color=DEFAULT_COLOR),
-    "DESKTOP": DisplayOutput(model=DisplayModel.DESKTOP, base_color=DEFAULT_COLOR),
+    "INKY": DisplayOutput(model=DisplayModel.INKY, base_color=BASE_COLOR),
+    "TERMINAL": DisplayOutput(model=DisplayModel.TERMINAL, base_color=BASE_COLOR),
+    "DESKTOP": DisplayOutput(model=DisplayModel.DESKTOP, base_color=BASE_COLOR),
 }
 
 
@@ -127,7 +127,6 @@ def display_data(option: DisplayOption, output: DisplayOutput) -> None:
             output=output.model.name.lower(),
         )
         if option == DisplayOption.NIGHT:
-            output.base_color = config.INKY_COLOR
             display.draw_goodnight(weather_data)
             return
 

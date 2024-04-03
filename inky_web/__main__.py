@@ -48,7 +48,7 @@ def create_app(config: AppConfig | None = None) -> Flask:
         app_config = AppConfig()
         app_config.DEBUG = bool(os.getenv("FLASK_DEBUG"))
         app_config.TESTING = bool(os.getenv("FLASK_TESTING"))
-        app_config.SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "")
+        app_config.SECRET_KEY = os.getenv("FLASK_SECRET_KEY", "change-me")
         app.config.from_object(app_config)
 
     app.register_blueprint(main_bp)

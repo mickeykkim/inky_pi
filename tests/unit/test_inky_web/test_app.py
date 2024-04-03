@@ -25,7 +25,7 @@ def test_create_app_without_config(app: Flask) -> None:
     load_dotenv()
     assert app.config["DEBUG"] == bool(os.getenv("FLASK_DEBUG"))
     assert app.config["TESTING"] == bool(os.getenv("FLASK_TESTING"))
-    assert app.config["SECRET_KEY"] == os.getenv("FLASK_SECRET_KEY", "")
+    assert app.config["SECRET_KEY"] == os.getenv("FLASK_SECRET_KEY", "change-me")
 
 
 def test_create_app_with_config(test_app: Flask) -> None:

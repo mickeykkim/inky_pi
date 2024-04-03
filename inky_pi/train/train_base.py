@@ -34,7 +34,7 @@ def abbreviate_stn_name(station_name: str) -> str:
     return station_name
 
 
-class TrainModel(str, Enum):
+class TrainModel(Enum):
     """Enum of train models"""
 
     HUXLEY2 = "HUXLEY2"
