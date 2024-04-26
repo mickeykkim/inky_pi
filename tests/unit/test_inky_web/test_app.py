@@ -1,6 +1,7 @@
 """
 Test the Flask app.
 """
+
 import os
 from unittest.mock import patch
 

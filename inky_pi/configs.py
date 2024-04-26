@@ -13,6 +13,7 @@ command in a Python shell:
     >>> import secrets
     >>> secrets.token_hex(16)
 """
+
 from enum import Enum
 from pathlib import Path
 

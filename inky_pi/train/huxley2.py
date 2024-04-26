@@ -1,6 +1,7 @@
 """Inky_Pi train model module.
 
 Fetches train data from Huxley2 (OpenLDBWS) and generates formatted data"""
+
 from typing import Any
 
 import requests

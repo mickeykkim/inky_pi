@@ -1,6 +1,7 @@
 """
 Forms for the flask app
 """
+
 from pathlib import Path
 
 from flask_wtf import FlaskForm

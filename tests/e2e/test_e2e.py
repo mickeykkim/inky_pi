@@ -3,6 +3,7 @@ Performs end-to-end test with terminal output to check full program functionalit
 Actively retrieves data from both weather and train APIs for testing. Tests may fail
 if API endpoints are down.
 """
+
 import re
 from typing import List
 from unittest.mock import Mock, patch

@@ -1,4 +1,5 @@
 """Base class and helper functions for weather model"""
+
 # pylint: disable=duplicate-code
 from abc import ABC, abstractmethod
 from dataclasses import dataclass

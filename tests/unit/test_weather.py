@@ -1,4 +1,5 @@
 """Tests for weather module"""
+
 import json
 from math import isclose
 from pathlib import Path

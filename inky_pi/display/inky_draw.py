@@ -1,6 +1,7 @@
 """Inky_Pi drawing module.
 
 Draw strings and icons"""
+
 import platform
 from datetime import datetime, timedelta
 from time import strftime

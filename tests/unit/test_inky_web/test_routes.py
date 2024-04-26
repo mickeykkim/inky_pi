@@ -1,6 +1,7 @@
 """
 Test the routes of the Flask application
 """
+
 from unittest.mock import patch
 
 from flask.testing import FlaskClient

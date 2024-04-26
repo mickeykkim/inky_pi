@@ -1,4 +1,5 @@
 """Tests for utility methods and classes"""
+
 from unittest.mock import Mock, patch
 
 import pytest

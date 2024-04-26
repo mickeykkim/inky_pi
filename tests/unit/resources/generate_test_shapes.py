@@ -1,6 +1,7 @@
 """
 This script generates test shapes for the weather icons.
 """
+
 from PIL import Image, ImageDraw
 
 from inky_pi.display.util.desktop_driver import DesktopDisplayDriver
