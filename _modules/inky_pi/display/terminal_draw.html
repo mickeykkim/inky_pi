@@ -82,6 +82,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;Terminal drawing module.</span>
 
 <span class="sd">Draws data to terminal&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">strftime</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
@@ -210,14 +211,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">draw_icon_dispatcher</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">IconType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">CLEAR_SKY</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U00002600</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">FEW_CLOUDS</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026C5</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">SCATTERED_CLOUDS</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026C5</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">FEW_CLOUDS</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026c5</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">SCATTERED_CLOUDS</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026c5</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">IconType</span><span class="o">.</span><span class="n">BROKEN_CLOUDS</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U00002601</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">SHOWER_RAIN</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F327</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">RAIN</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F326</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">THUNDERSTORM</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026C8</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">SNOW</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F328</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="n">IconType</span><span class="o">.</span><span class="n">MIST</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001F32B</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">SHOWER_RAIN</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001f327</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">RAIN</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001f326</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">THUNDERSTORM</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U000026c8</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">SNOW</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001f328</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">IconType</span><span class="o">.</span><span class="n">MIST</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\U0001f32b</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">emoji</span> <span class="o">=</span> <span class="n">draw_icon_dispatcher</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">emoji</span><span class="p">:</span>
