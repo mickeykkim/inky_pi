@@ -1,6 +1,7 @@
 """
 Routes for flask app
 """
+
 from __future__ import annotations
 
 from flask import Blueprint, redirect, render_template, url_for

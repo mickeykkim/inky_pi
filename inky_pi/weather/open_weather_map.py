@@ -1,6 +1,7 @@
 """Inky_Pi weather model module.
 
 Fetches data from OpenWeatherMap API and generates formatted data"""
+
 from __future__ import annotations
 
 from typing import Any
@@ -52,7 +53,7 @@ class OpenWeatherMap(WeatherBase):
             "appid": weather_object.weather_api_token,
         }
         response: Any = protocol.get(
-            "https://api.openweathermap.org/data/2.5/onecall?", params=payload
+            "https://api.openweathermap.org/data/3.0/onecall?", params=payload
         )
 
         self._data = response.json()

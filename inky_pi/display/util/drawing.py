@@ -1,4 +1,5 @@
 """Weather icon drawing functions"""
+
 from __future__ import annotations
 
 from PIL import ImageDraw

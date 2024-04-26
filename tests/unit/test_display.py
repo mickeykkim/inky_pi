@@ -1,4 +1,5 @@
 """Tests for display module"""
+
 import platform
 from unittest.mock import Mock, patch
 

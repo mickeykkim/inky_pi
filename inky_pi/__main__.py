@@ -1,6 +1,7 @@
 """Inky_Pi main module.
 
 Fetches Train and Weather data and displays on a Raspberry Pi w/InkyWHAT."""
+
 from __future__ import annotations
 
 import sys

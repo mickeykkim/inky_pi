@@ -1,6 +1,7 @@
 """
 This module contains tests for the drawing functions in inky_pi.display.util.drawing.
 """
+
 from __future__ import annotations
 
 from io import BytesIO

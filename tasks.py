@@ -3,6 +3,7 @@ Tasks for maintaining the project.
 
 Execute 'invoke --list' for guidance on using Invoke
 """
+
 from __future__ import annotations
 
 import platform
@@ -24,8 +25,8 @@ JUNIT_XML_FILE = BIN_DIR.joinpath("report.xml")
 COVERAGE_XML_FILE = BIN_DIR.joinpath("coverage.xml")
 COVERAGE_HTML_DIR = BIN_DIR.joinpath("coverage_html")
 COVERAGE_HTML_FILE = COVERAGE_HTML_DIR.joinpath("index.html")
-COV_ALL_THRESHOLD = 80
-COV_UNIT_THRESHOLD = 60
+COV_ALL_THRESHOLD = 90
+COV_UNIT_THRESHOLD = 75
 DOCS_DIR = ROOT_DIR.joinpath("docs")
 DOCS_SOURCE_DIR = DOCS_DIR.joinpath("source")
 DOCS_INKY_PI_DIR = DOCS_SOURCE_DIR.joinpath("inky_pi")

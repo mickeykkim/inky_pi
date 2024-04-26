@@ -1,4 +1,5 @@
 """Utility functions for inky_pi."""
+
 from __future__ import annotations
 
 import json

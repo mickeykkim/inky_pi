@@ -1,6 +1,7 @@
 """
 Configuration and fixtures for tests
 """
+
 import os
 from tempfile import NamedTemporaryFile
 from typing import Generator

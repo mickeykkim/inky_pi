@@ -5,6 +5,7 @@ configuration, environment variables, and running the application.
 Usage:
     python -m inky_web
 """
+
 from __future__ import annotations
 
 import argparse

@@ -1,4 +1,5 @@
 """Base class and helper functions for train model"""
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum

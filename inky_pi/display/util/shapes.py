@@ -1,4 +1,5 @@
 """Image drawing primitives"""
+
 from __future__ import annotations
 
 from PIL import ImageDraw

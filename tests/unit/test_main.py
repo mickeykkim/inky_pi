@@ -1,4 +1,5 @@
 """Tests for utility methods and classes"""
+
 from __future__ import annotations
 
 from unittest.mock import Mock, patch

@@ -1,6 +1,7 @@
 """Terminal drawing module.
 
 Draws data to terminal"""
+
 from time import strftime
 from typing import Any, Dict, List, Tuple
 
@@ -129,14 +130,14 @@ class TerminalDraw(DisplayBase):
         """
         draw_icon_dispatcher: Dict[IconType, str] = {
             IconType.CLEAR_SKY: "\U00002600",
-            IconType.FEW_CLOUDS: "\U000026C5",
-            IconType.SCATTERED_CLOUDS: "\U000026C5",
+            IconType.FEW_CLOUDS: "\U000026c5",
+            IconType.SCATTERED_CLOUDS: "\U000026c5",
             IconType.BROKEN_CLOUDS: "\U00002601",
-            IconType.SHOWER_RAIN: "\U0001F327",
-            IconType.RAIN: "\U0001F326",
-            IconType.THUNDERSTORM: "\U000026C8",
-            IconType.SNOW: "\U0001F328",
-            IconType.MIST: "\U0001F32B",
+            IconType.SHOWER_RAIN: "\U0001f327",
+            IconType.RAIN: "\U0001f326",
+            IconType.THUNDERSTORM: "\U000026c8",
+            IconType.SNOW: "\U0001f328",
+            IconType.MIST: "\U0001f32b",
         }
         emoji = draw_icon_dispatcher.get(icon, "")
         if emoji:

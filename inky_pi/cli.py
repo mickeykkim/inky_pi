@@ -1,4 +1,5 @@
 """Console script for inky_pi."""
+
 import click
 from click import BaseCommand
 from loguru import logger

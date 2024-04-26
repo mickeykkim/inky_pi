@@ -1,5 +1,5 @@
-"""Open Live Departure Boards Web Service (OpenLDBWS) API
-"""
+"""Open Live Departure Boards Web Service (OpenLDBWS) API"""
+
 from typing import Any
 
 import zeep
