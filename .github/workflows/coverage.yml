@@ -1,5 +1,4 @@
-# GitHub Actions workflow for installing Poetry and running Coverage
-# Based on: https://github.com/marketplace/actions/codecov
+# GitHub Actions workflow for installing uv and running Coverage
 
 name: Coverage
 
@@ -20,42 +19,36 @@ jobs:
     steps:
       # Checkout out repo and setup python
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Python
         id: setup-python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      # Install and configure poetry
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
+      # Install uv
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
+          enable-cache: true
       # Load cached venv if cache exists
       - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
+        id: cached-uv-dependencies
+        uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-      # Install dependencies if cache does not exist
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/uv.lock') }}
+      # Install dependencies
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      # Install project package
-      - name: Install library
-        run: poetry install --no-interaction
+        run: uv sync --all-extras
       # Save api keys to .env file
       - name: Create .env file and run coverage
         run: |
           echo TRAIN_API_TOKEN=${{ secrets.TRAIN_API_TOKEN }} > .env
           echo WEATHER_API_TOKEN=${{ secrets.WEATHER_API_TOKEN }} >> .env
-          poetry run invoke test-ci
+          uv run invoke test-ci
       # Upload coverage report to Codecov
       - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           files: ./bin/coverage.xml
@@ -63,7 +56,7 @@ jobs:
           verbose: true # optional (default = false)
       # Upload coverage report to Codeclimate
       - name: Upload coverage report to Codeclimate
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
         with:
